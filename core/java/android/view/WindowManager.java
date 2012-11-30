@@ -2448,6 +2448,12 @@ public interface WindowManager extends ViewManager {
          */
         @RequiresPermission(permission.MANAGE_ACTIVITY_TASKS)
         public static final int PRIVATE_FLAG_INTERCEPT_GLOBAL_DRAG_AND_DROP = 0x80000000;
+        
+        /*
+         * Window flag: Overrides default power key behavior
+         * @hide
+         */
+        public static final int PRIVATE_FLAG_PREVENT_POWER_KEY = 0x20000000;
 
         /**
          * An internal annotation for flags that can be specified to {@link #softInputMode}.
