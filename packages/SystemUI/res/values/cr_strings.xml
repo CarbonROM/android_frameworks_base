@@ -22,4 +22,8 @@
     <string name="global_action_settings">Settings</string>
     <string name="global_action_screenshot">Screenshot</string>
     <string name="global_action_flashlight">Flashlight</string>
+
+    <!-- Typing virtual buttons -->
+    <string name="accessibility_dpad_left">Cursor left</string>
+    <string name="accessibility_dpad_right">Cursor right</string>
 </resources>
