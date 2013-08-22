@@ -123,4 +123,10 @@
 
     <!-- The duration (in milliseconds) of recent app screen exit animation. -->
     <integer name="config_recentExitDur">450</integer>
+
+    <!-- Hardware button brightness -->
+    <integer name="config_buttonBrightnessSettingDefault">255</integer>
+    <integer name="config_keyboardBrightnessSettingDefault">0</integer>
+    <bool name="config_deviceHasVariableButtonBrightness">false</bool>
+
 </resources>
