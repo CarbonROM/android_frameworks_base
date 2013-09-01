@@ -44,4 +44,12 @@
 
   <!-- Whether to persist the notification for when a usb drive device is plugged in -->
   <bool name="config_persistUsbDriveNotification">false</bool>
+
+  <!-- The list of components which should be automatically disabled. -->
+  <string-array name="config_disabledComponents" translatable="false">
+  </string-array>
+
+   <!-- The list of components which should be forced to be enabled. -->
+  <string-array name="config_forceEnabledComponents" translatable="false">
+  </string-array>
 </resources>
