@@ -2678,6 +2678,9 @@
   <java-symbol type="layout" name="unsupported_display_size_dialog_content" />
   <java-symbol type="string" name="unsupported_display_size_message" />
 
+  <!-- Config.xml entries -->
+  <java-symbol type="bool" name="config_samsung_stk" />
+
   <java-symbol type="layout" name="notification_material_action_emphasized" />
 
   <!-- Package name for the device provisioning package -->
