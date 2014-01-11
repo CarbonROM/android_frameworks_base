@@ -51,4 +51,8 @@
   <!-- Whether device has dash charging support -->
   <java-symbol type="bool" name="config_hasDashCharger" />
 
+  <!-- Carbon Easter Egg -->
+  <java-symbol type="drawable" name="carbon_bg_logo" />
+  <java-symbol type="drawable" name="carbon_logo" />
+
 </resources>
