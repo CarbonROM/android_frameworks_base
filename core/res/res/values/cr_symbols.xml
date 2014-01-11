@@ -144,4 +144,8 @@
   <java-symbol type="string" name="def_ime_layout" />
   <java-symbol type="string" name="def_navbar_layout" />
 
+  <!-- Carbon Easter Egg -->
+  <java-symbol type="drawable" name="carbon_bg_logo" />
+  <java-symbol type="drawable" name="carbon_logo" />
+
 </resources>
