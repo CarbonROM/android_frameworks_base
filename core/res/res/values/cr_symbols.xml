@@ -18,6 +18,10 @@
 -->
 <resources>
 
+  <!-- Carbon Easter Egg -->
+  <java-symbol type="drawable" name="carbon_bg_logo" />
+  <java-symbol type="drawable" name="carbon_logo" />
+
   <!-- Extended Boosts for QPerformance -->
 
   <!-- cpu boost on boot -->
