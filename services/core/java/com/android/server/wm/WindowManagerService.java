@@ -5737,6 +5737,12 @@ public class WindowManagerService extends IWindowManager.Stub
 
     // Called by window manager policy.  Not exposed externally.
     @Override
+    public void rebootTile() {
+        ShutdownThread.reboot(mContext, null, true);
+    }
+
+    // Called by window manager policy.  Not exposed externally.
+    @Override
     public void rebootSafeMode(boolean confirm) {
         ShutdownThread.rebootSafeMode(mContext, confirm);
     }
@@ -11178,7 +11184,7 @@ public class WindowManagerService extends IWindowManager.Stub
         return mPolicy.hasPermanentMenuKey();
     }
 
-    @Override 
+    @Override
     public boolean needsNavigationBar() {
         return mPolicy.needsNavigationBar();
     }

@@ -135,6 +135,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     private boolean mHasTelephony;
     private boolean mHasVibrator;
     private final boolean mShowSilentToggle;
+    private boolean showReboot;
 
     // Power menu customizations
     String mActions;
@@ -184,7 +185,13 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
      * Show the global actions dialog (creating if necessary)
      * @param keyguardShowing True if keyguard is showing
      */
+
     public void showDialog(boolean keyguardShowing, boolean isDeviceProvisioned) {
+        showDialog(keyguardShowing, isDeviceProvisioned, false);
+    }
+
+    public void showDialog(boolean keyguardShowing, boolean isDeviceProvisioned, boolean mShowReboot) {
+        showReboot = mShowReboot;
         mKeyguardShowing = keyguardShowing;
         mDeviceProvisioned = isDeviceProvisioned;
         if (mDialog != null && mUiContext == null) {
