@@ -498,4 +498,11 @@ public class IWindowManagerImpl implements IWindowManager {
     @Override
     public void toggleGlobalMenu() {
     }
+
+    /**
+     * Get current system ui visibility mode.
+     *
+     * @hide
+     */
+    int getSystemUIVisibility();
 }
