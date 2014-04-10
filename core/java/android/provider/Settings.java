@@ -4649,11 +4649,6 @@ public final class Settings {
         public static final String DISABLE_TORCH_ON_SCREEN_OFF_DELAY = "disable_torch_on_screen_off_delay";
 
         /**
-         * Whether pie controls are enabled
-         * @hide
-         */
-
-        /**
          * Whether to use the custom status bar header or not
          * @hide
          */
@@ -4664,6 +4659,12 @@ public final class Settings {
          * @hide
          */
         public static final String STATUS_BAR_CUSTOM_HEADER_PROVIDER = "status_bar_custom_header_provider";
+
+        /**
+         * Option to launch slim actions in floating mode
+         * @hide
+         */
+        public static final String SLIM_ACTION_FLOATS = "slim_action_floats";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
