@@ -124,8 +124,11 @@ import android.view.WindowManagerGlobal;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Interpolator;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.MetricsProto.MetricsEvent;
@@ -390,6 +393,15 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     // show lte/4g switch
     private boolean mShowLteFourGee;
 
+    // task manager
+    private TaskManager mTaskManager;
+    private LinearLayout mTaskManagerPanel;
+    private TaskManagerButton mTaskManagerButton;
+    // task manager enabled
+    private boolean mShowTaskManager;
+    // task manager click state
+    private boolean mShowTaskList = false;
+
     // top bar
     BaseStatusBarHeader mHeader;
     protected KeyguardStatusBarView mKeyguardStatusBar;
@@ -565,6 +577,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.SCREEN_BRIGHTNESS_MODE),
                     false, this);
+	    resolver.registerContentObserver(Settings.System.getUriFor(
+                 Settings.System.ENABLE_TASK_MANAGER),
+                 false, this, UserHandle.USER_ALL);
             updateSettings();
         }
 
@@ -613,6 +628,22 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
             if (mHeader != null) {
                 mHeader.updateSettings();
+            }
+
+            boolean showTaskManager = Settings.System.getIntForUser(resolver,
+                    Settings.System.ENABLE_TASK_MANAGER, 0, UserHandle.USER_CURRENT) == 1;
+            if (mShowTaskManager != showTaskManager) {
+                if (!mShowTaskManager) {
+                    // explicitly reset click state when disabled
+                    mShowTaskList = false;
+                }
+                mShowTaskManager = showTaskManager;
+                if (mHeader != null) {
+                    mHeader.setTaskManagerEnabled(showTaskManager);
+                }
+                if (mNotificationPanel != null) {
+                    mNotificationPanel.setTaskManagerEnabled(showTaskManager);
+                }
             }
 
             mBlurScale = Settings.System.getInt(mContext.getContentResolver(),
@@ -1247,6 +1278,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             });
         }
 
+        showtaskmanager();
+        mHeader.setTaskManagerEnabled(mShowTaskList);
+        mNotificationPanel.setTaskManagerEnabled(mShowTaskManager);
+        mShowTaskList = false;
+
         // User info. Trigger first load.
         mKeyguardStatusBar.setUserInfoController(mUserInfoController);
         mKeyguardStatusBar.setUserSwitcherController(mUserSwitcherController);
@@ -1361,6 +1397,13 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         return mStatusBarView;
     }
 
+    public void showtaskmanager() {
+        mTaskManagerPanel =
+                (LinearLayout) mStatusBarWindow.findViewById(R.id.task_manager_panel);
+        mTaskManager = new TaskManager(mContext, mTaskManagerPanel);
+        mTaskManagerButton = (TaskManagerButton) mHeader.findViewById(R.id.task_manager_button);
+    }
+
     private void initEmergencyCryptkeeperText() {
         View emergencyViewStub = mStatusBarWindow.findViewById(R.id.emergency_cryptkeeper_text);
         if (mNetworkController.hasEmergencyCryptKeeperText()) {
@@ -1426,6 +1469,13 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         SignalClusterView signalClusterView = reinflateSignalCluster(mStatusBarView);
         mIconController.setSignalCluster(signalClusterView);
         reinflateSignalCluster(mKeyguardStatusBar);
+    }
+
+    public void setenabled() {
+        if (mNotificationPanel != null) {
+           mShowTaskList = !mShowTaskList;
+           mNotificationPanel.setTaskManagerVisibility(mShowTaskList);
+           }
     }
 
     private SignalClusterView reinflateSignalCluster(View view) {
@@ -3215,6 +3265,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mWaitingForKeyguardExit = false;
         recomputeDisableFlags(!force /* animate */);
         setInteracting(StatusBarManager.WINDOW_STATUS_BAR, true);
+	if (mShowTaskManager) {
+            mTaskManager.refreshTaskManagerView();
+        }
     }
 
     public void animateCollapsePanels() {
@@ -4259,6 +4312,15 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mContext.getContentResolver().registerContentObserver(
                 Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_ENABLED), true,
                 mNavBarObserver, mCurrentUserId);
+    }
+
+    public void resetQsPanelVisibility() {
+        mShowTaskList = mShowTaskList;
+        if (mShowTaskList) {
+            mQSPanel.setVisibility(View.VISIBLE);
+            mTaskManagerPanel.setVisibility(View.GONE);
+            mShowTaskList = false;
+        }
     }
 
     /**
