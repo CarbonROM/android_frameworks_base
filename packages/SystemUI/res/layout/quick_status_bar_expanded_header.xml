@@ -79,6 +79,19 @@
             android:contentDescription="@string/accessibility_quick_settings_edit"
             android:padding="14dp" />
 
+        <com.android.systemui.statusbar.phone.TaskManagerButton
+            android:id="@+id/task_manager_button"
+            style="@android:style/Widget.Material.Button.Borderless"
+            android:layout_toStartOf="@android:id/edit"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:clipToPadding="false"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_tasklist_switch_normal"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:visibility="gone"/>
+
     <com.android.keyguard.AlphaOptimizedImageButton android:id="@+id/settings_button"
         style="@android:style/Widget.Material.Button.Borderless"
         android:layout_width="48dp"
