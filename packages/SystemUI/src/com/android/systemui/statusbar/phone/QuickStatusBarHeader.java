@@ -77,6 +77,8 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
     private ActivityStarter mActivityStarter;
     private NextAlarmController mNextAlarmController;
     private View mSettingsButton;
+    protected View mSettingsContainer;
+    private View mTaskManagerButton;
 
     private TextView mAlarmStatus;
     private View mAlarmStatusCollapsed;
@@ -167,7 +169,9 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
         mAlarmStatusCollapsed = findViewById(R.id.alarm_status_collapsed);
         mAlarmStatus = (TextView) findViewById(R.id.alarm_status);
         mAlarmStatus.setOnClickListener(this);
-
+        if (getResources().getBoolean(R.bool.config_showTaskManagerSwitcher)) {
+            mTaskManagerButton = findViewById(R.id.task_manager_button);
+        }
         mMultiUserSwitch = (MultiUserSwitch) findViewById(R.id.multi_user_switch);
         mMultiUserAvatar = (ImageView) mMultiUserSwitch.findViewById(R.id.multi_user_avatar);
 
@@ -339,6 +343,10 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
         updateDateTimePosition();
         mEmergencyOnly.setVisibility(mExpanded && (mShowEmergencyCallsOnly || mIsRoaming)
                 ? View.VISIBLE : View.INVISIBLE);
+        mSettingsContainer.findViewById(R.id.tuner_icon).setVisibility(View.INVISIBLE);
+        if (mTaskManagerButton != null) {
+            mTaskManagerButton.setVisibility(mExpanded ? View.VISIBLE : View.GONE);
+        }
         final boolean isDemo = UserManager.isDeviceInDemoMode(mContext);
         hasMultiUserSwitch = !isMultiUserSwitchDisabled();
         mMultiUserSwitch.setVisibility(mExpanded && hasMultiUserSwitch && !isDemo
