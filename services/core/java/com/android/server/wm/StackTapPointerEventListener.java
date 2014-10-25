@@ -72,6 +72,7 @@ public class StackTapPointerEventListener implements PointerEventListener {
             case MotionEvent.ACTION_POINTER_UP: {
                 int index = (action & MotionEvent.ACTION_POINTER_INDEX_MASK)
                         >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
+
                 // Extract the index of the pointer that left the touch sensor
                 if (mPointerId == motionEvent.getPointerId(index)) {
                     final int x = (int)motionEvent.getX(index);
