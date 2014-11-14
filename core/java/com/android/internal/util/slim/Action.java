@@ -187,7 +187,7 @@ public class Action {
                 }
                 Settings.System.putIntForUser(
                         context.getContentResolver(),
-                        Settings.System.NAVIGATION_BAR_SHOW,
+                        Settings.System.NAVBAR_FORCE_ENABLE,
                         navBarState ? 0 : 1, UserHandle.USER_CURRENT);
                 return;
            } else if (action.equals(ActionConstants.ACTION_SCREENSHOT)) {
@@ -343,8 +343,8 @@ public class Action {
     }
 
     public static boolean isNavBarEnabled(Context context) {
-        return Settings.Secure.getIntForUser(context.getContentResolver(),
-                Settings.Secure.NAVIGATION_BAR_SHOW,
+        return Settings.System.getIntForUser(context.getContentResolver(),
+                Settings.System.NAVBAR_FORCE_ENABLE,
                 isNavBarDefault(context) ? 1 : 0, UserHandle.USER_CURRENT) == 1;
     }
 
