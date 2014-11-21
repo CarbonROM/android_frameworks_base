@@ -86,7 +86,7 @@ public class DeviceUtils {
 
     public static boolean deviceSupportsImeSwitcher(Context ctx) {
         Resources res = ctx.getResources();
-        return res.getBoolean(com.android.internal.R.bool.config_show_cmIMESwitcher);
+        return res.getBoolean(com.android.internal.R.bool.config_show_IMESwitcher);
     }
 
     public static boolean adbEnabled(ContentResolver resolver) {
@@ -127,12 +127,14 @@ public class DeviceUtils {
     }
 
     private static boolean isSupportedFeature(Context context, String action) {
-        if (action.equals(ActionConstants.ACTION_TORCH)
+        if (action.equals(SlimActionConstants.ACTION_TORCH)
                         && !deviceSupportsTorch(context)
-                || action.equals(ActionConstants.ACTION_VIB)
+                || action.equals(SlimActionConstants.ACTION_VIB)
                         && !deviceSupportsVibrator(context)
-                || action.equals(ActionConstants.ACTION_VIB_SILENT)
-                        && !deviceSupportsVibrator(context)) {
+                || action.equals(SlimActionConstants.ACTION_VIB_SILENT)
+                        && !deviceSupportsVibrator(context)
+                || action.equals(SlimActionConstants.ACTION_SMART_PULLDOWN)
+                        && isTablet(context)) {
             return false;
         }
         return true;
