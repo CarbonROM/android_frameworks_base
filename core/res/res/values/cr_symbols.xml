@@ -142,4 +142,6 @@
   <!-- Hardware key rebinding -->
   <java-symbol type="integer" name="config_deviceHardwareKeys" />
 
+  <java-symbol type="bool" name="config_doze_enabled_by_default" />
+
 </resources>
