@@ -38,6 +38,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Messenger;
+import android.os.UserHandle;
 import android.os.SystemProperties;
 import android.provider.Settings;
 import android.telephony.PhoneStateListener;
@@ -209,6 +210,7 @@ public class NetworkControllerImpl extends BroadcastReceiver
         filter.addAction(TelephonyIntents.ACTION_DEFAULT_VOICE_SUBSCRIPTION_CHANGED);
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION_IMMEDIATE);
         filter.addAction(ConnectivityManager.INET_CONDITION_ACTION);
+        filter.addAction(Intent.ACTION_CUSTOM_CARRIER_LABEL_CHANGED);
         filter.addAction(Intent.ACTION_CONFIGURATION_CHANGED);
         filter.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED);
         mContext.registerReceiver(this, filter);
@@ -382,6 +384,8 @@ public class NetworkControllerImpl extends BroadcastReceiver
                 action.equals(ConnectivityManager.INET_CONDITION_ACTION)) {
             updateConnectivity();
             refreshCarrierLabel();
+        } else if (action.equals(Intent.ACTION_CUSTOM_CARRIER_LABEL_CHANGED)) {
+            refreshViews();
         } else if (action.equals(Intent.ACTION_CONFIGURATION_CHANGED)) {
             mConfig = Config.readConfig(mContext);
             handleConfigurationChanged();
@@ -632,6 +636,9 @@ public class NetworkControllerImpl extends BroadcastReceiver
             label = controller.getLabel(label, mConnected, mHasMobileDataFeature);
         }
 
+        final String customCarrierLabel = Settings.System.getStringForUser(context.getContentResolver(),
+                Settings.System.CUSTOM_CARRIER_LABEL, UserHandle.USER_CURRENT);
+
         // TODO Simplify this ugliness, some of the flows below shouldn't be possible anymore
         // but stay for the sake of history.
         if (mBluetoothTethered && !mHasMobileDataFeature) {
@@ -657,6 +664,11 @@ public class NetworkControllerImpl extends BroadcastReceiver
                  !mEthernetConnected && !mHasMobileDataFeature) {
             // Pretty much no connection.
             label = context.getString(R.string.status_bar_settings_signal_meter_disconnected);
+        }
+
+        if (!TextUtils.isEmpty(customCarrierLabel)) {
+            combinedLabel = customCarrierLabel;
+            mobileLabel = customCarrierLabel;
         }
 
         // for mobile devices, we always show mobile connection info here (SPN/PLMN)
