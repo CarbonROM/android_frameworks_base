@@ -2365,6 +2365,13 @@ public final class Settings {
         public static final String QS_COLOR_SWITCH = "qs_color_switch";
 
         /**
+         * Quick Settings Smart Pulldown
+         *
+         * @hide
+         */
+        public static final String QS_SMART_PULLDOWN = "qs_smart_pulldown";
+
+        /**
          * Wether to show the ticker on the status bar
          * @hide
          */
