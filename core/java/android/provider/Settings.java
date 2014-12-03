@@ -2350,6 +2350,13 @@ public final class Settings {
         public static final String QS_COLOR_SWITCH = "qs_color_switch";
 
         /**
+         * Quick Settings Smart Pulldown
+         *
+         * @hide
+         */
+        public static final String QS_SMART_PULLDOWN = "qs_smart_pulldown";
+
+        /**
          * Control whether the process CPU usage meter should be shown.
          *
          * @deprecated Use {@link Global#SHOW_PROCESSES} instead
