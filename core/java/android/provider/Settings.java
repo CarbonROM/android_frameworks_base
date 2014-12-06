@@ -6234,6 +6234,12 @@ public final class Settings {
         public static final String PRIVACY_GUARD_DEFAULT = "privacy_guard_default";
 
         /**
+         * Whether to use the custom quick unlock screen control
+         * @hide
+         */
+        public static final String LOCKSCREEN_QUICK_UNLOCK_CONTROL = "lockscreen_quick_unlock_control";
+
+        /**
          * Default theme to use.  If empty, use holo.
          * @hide
          */
@@ -6454,7 +6460,8 @@ public final class Settings {
             SLEEP_TIMEOUT,
             PRIVACY_GUARD_DEFAULT,
             ADVANCED_REBOOT,
-            DEVELOPMENT_SHORTCUT
+            DEVELOPMENT_SHORTCUT,
+            LOCKSCREEN_QUICK_UNLOCK_CONTROL
         };
 
         /**
