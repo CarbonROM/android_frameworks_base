@@ -3193,6 +3193,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     }
 
     @Override // CommandQueue
+    public void showCustomIntentAfterKeyguard(Intent intent) {
+        startActivityDismissingKeyguard(intent, false, false);
+    }
+
+    @Override // CommandQueue
     public void setWindowState(int window, int state) {
         boolean showing = state == WINDOW_STATE_SHOWING;
         if (mStatusBarWindow != null
