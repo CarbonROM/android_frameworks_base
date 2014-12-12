@@ -49,6 +49,8 @@ oneway interface IStatusBar
     void setPieTriggerMask(int newMask, boolean lock);
     void toggleLastApp();
     void toggleKillApp();
+    void hideHeadsUpCandidate(String packageName);
+    void scheduleHeadsUpClose();
     void toggleScreenshot();
 }
 
