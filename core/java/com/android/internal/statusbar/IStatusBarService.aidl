@@ -68,6 +68,8 @@ interface IStatusBarService
     void showCustomIntentAfterKeyguard(inout Intent intent);
     void toggleLastApp();
     void toggleKillApp();
+    void hideHeadsUpCandidate(String packageName);
+    void scheduleHeadsUpClose();
     void toggleScreenshot();
     void toggleSmartPulldown();
 }
