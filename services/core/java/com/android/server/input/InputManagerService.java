@@ -224,6 +224,7 @@ public class InputManagerService extends IInputManager.Stub
             InputChannel fromChannel, InputChannel toChannel);
     private static native void nativeSetPointerSpeed(long ptr, int speed);
     private static native void nativeSetShowTouches(long ptr, boolean enabled);
+    private static native void nativeSetVolumeKeysRotation(long ptr, int mode);
     private static native void nativeSetInteractive(long ptr, boolean interactive);
     private static native void nativeReloadCalibration(long ptr);
     private static native void nativeVibrate(long ptr, int deviceId, long[] pattern,
@@ -346,6 +347,7 @@ public class InputManagerService extends IInputManager.Stub
         registerPointerSpeedSettingObserver();
         registerShowTouchesSettingObserver();
         registerAccessibilityLargePointerSettingObserver();
+        registerVolumeKeysRotationSettingObserver();
 
         mContext.registerReceiver(new BroadcastReceiver() {
             @Override
@@ -353,12 +355,14 @@ public class InputManagerService extends IInputManager.Stub
                 updatePointerSpeedFromSettings();
                 updateShowTouchesFromSettings();
                 updateAccessibilityLargePointerFromSettings();
+                updateVolumeKeysRotationFromSettings();
             }
         }, new IntentFilter(Intent.ACTION_USER_SWITCHED), null, mHandler);
 
         updatePointerSpeedFromSettings();
         updateShowTouchesFromSettings();
         updateAccessibilityLargePointerFromSettings();
+        updateVolumeKeysRotationFromSettings();
     }
 
     // TODO(BT) Pass in parameter for bluetooth system
@@ -1647,6 +1651,25 @@ public class InputManagerService extends IInputManager.Stub
         } catch (SettingNotFoundException snfe) {
         }
         return result;
+    }
+
+    public void updateVolumeKeysRotationFromSettings() {
+        int mode = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.SWAP_VOLUME_KEYS_ON_ROTATION,
+                0, UserHandle.USER_CURRENT);
+        nativeSetVolumeKeysRotation(mPtr, mode);
+    }
+
+    public void registerVolumeKeysRotationSettingObserver() {
+        mContext.getContentResolver().registerContentObserver(
+                Settings.System.getUriFor(
+                        Settings.System.SWAP_VOLUME_KEYS_ON_ROTATION), false,
+                new ContentObserver(mHandler) {
+                    @Override
+                    public void onChange(boolean selfChange) {
+                        updateVolumeKeysRotationFromSettings();
+                    }
+                });
     }
 
     // Binder call
