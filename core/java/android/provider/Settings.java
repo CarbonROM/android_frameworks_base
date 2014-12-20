@@ -5009,6 +5009,12 @@ public final class Settings {
         public static final String ASPECT_RATIO_APPS_ENABLED = "aspect_ratio_apps_enabled";
 
         /**
+        * Swap volume buttons on rotation
+        * @hide
+        */
+        public static final String SWAP_VOLUME_KEYS_ON_ROTATION = "swap_volume_keys_on_rotation";
+
+        /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
          *
