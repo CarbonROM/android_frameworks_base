@@ -4851,6 +4851,12 @@ public final class Settings {
                 BOOLEAN_VALIDATOR;
 
         /**
+        * Swap volume buttons on rotation
+        * @hide
+        */
+        public static final String SWAP_VOLUME_KEYS_ON_ROTATION = "swap_volume_keys_on_rotation";
+        
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
