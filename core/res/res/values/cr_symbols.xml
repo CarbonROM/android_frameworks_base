@@ -44,4 +44,7 @@
   <java-symbol type="array" name="values_globalActionsList" />
 
   <java-symbol type="integer" name="config_flashlightProximityTimeout" />
+
+  <!-- Screenrecord -->
+  <java-symbol type="bool" name="config_enableScreenrecordChord" />
 </resources>

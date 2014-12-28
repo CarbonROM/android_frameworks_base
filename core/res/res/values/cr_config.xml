@@ -44,4 +44,7 @@
   <bool name="config_sms_authorization_enabled">false</bool>
 
   <integer name="config_flashlightProximityTimeout">300</integer>
+
+  <!-- If this is true, key chords can be used to take a screen record on the device. -->
+  <bool name="config_enableScreenrecordChord">true</bool>
 </resources>
