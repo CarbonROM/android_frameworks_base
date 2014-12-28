@@ -35,4 +35,7 @@
   <!-- Whether the device supports Smart Pixels -->
   <java-symbol type="bool" name="config_enableSmartPixels" />
 
+  <!-- Screenrecord -->
+  <java-symbol type="bool" name="config_enableScreenrecordChord" />
+
 </resources>
