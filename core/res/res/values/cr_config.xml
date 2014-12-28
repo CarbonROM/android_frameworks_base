@@ -19,27 +19,30 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-  <!-- Package Manager -->
-  <java-symbol type="array" name="config_disabledComponents" />
+    <!-- Package Manager -->
+    <java-symbol type="array" name="config_disabledComponents" />
 
-  <!-- Any package that has one of the package names defined below will be prevented
+    <!-- Any package that has one of the package names defined below will be prevented
          from using specific sensors in order to stop battery drain -->
-  <string-array name="config_blockPackagesSensorDrain">
-      <item>com.whatsapp</item>
-      <item>com.gbwhatsapp</item>
-      <item>com.yowhatsapp</item>
-      <item>com.whatsapp.plus</item>
-      <item>org.telegram.messenger</item>
-      <item>org.telegram.messenger.plus</item>
-      <item>com.snapchat.android</item>
-  </string-array>
+    <string-array name="config_blockPackagesSensorDrain">
+        <item>com.whatsapp</item>
+        <item>com.gbwhatsapp</item>
+        <item>com.yowhatsapp</item>
+        <item>com.whatsapp.plus</item>
+        <item>org.telegram.messenger</item>
+        <item>org.telegram.messenger.plus</item>
+        <item>com.snapchat.android</item>
+    </string-array>
 
-  <!-- The list of vendor package signatures that should also be considered
-       platform signatures, specifically for use on devices with a vendor partition. -->
-  <string-array name="config_vendorPlatformSignatures">
-  </string-array>
+    <!-- The list of vendor package signatures that should also be considered
+         platform signatures, specifically for use on devices with a vendor partition. -->
+    <string-array name="config_vendorPlatformSignatures">
+    </string-array>
 
-  <!-- Whether the device supports Smart Pixels -->
-  <bool name="config_enableSmartPixels">false</bool>
+    <!-- Whether the device supports Smart Pixels -->
+    <bool name="config_enableSmartPixels">false</bool>
+
+    <!-- If this is true, key chords can be used to take a screen record on the device. -->
+    <bool name="config_enableScreenrecordChord">true</bool>
 
 </resources>
