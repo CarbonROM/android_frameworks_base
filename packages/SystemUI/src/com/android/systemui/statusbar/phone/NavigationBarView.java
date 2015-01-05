@@ -166,7 +166,7 @@ public class NavigationBarView extends LinearLayout {
         Settings.System.NAVIGATION_BAR_BUTTONS_FOUR,
         Settings.System.NAVIGATION_BAR_BUTTONS_FIVE
     };
-
+    private static final int mbuttonSettingsCount = 5;
     private GestureDetector mDoubleTapGesture;
 
     private ContentObserver mSettingsObserver;
@@ -282,8 +282,11 @@ public class NavigationBarView extends LinearLayout {
         mLegacyMenu = Settings.System.getInt(cr, Settings.System.NAVIGATION_BAR_SIDEKEYS, 1) == 1;
         mImeLayout = Settings.System.getInt(cr, Settings.System.NAVIGATION_BAR_ARROWS, 0) == 1;
         mButtonLayouts = Settings.System.getInt(cr, Settings.System.NAVIGATION_BAR_ALTERNATE_LAYOUTS, 1);
-        for(int i=0;i<mButtonLayouts;i++)
-            mButtonContainerStrings[i] = Settings.System.getString(cr, buttonSettings[i]);
+        for(int i=0;i < mButtonLayouts; i++) {
+            if (i < mbuttonSettingsCount) {
+                mButtonContainerStrings[i] = Settings.System.getString(cr, buttonSettings[i]);
+            }
+        }
         if (mButtonLayouts == 1) {
             mCurrentLayout = 0;
         } else {
@@ -739,7 +742,9 @@ public class NavigationBarView extends LinearLayout {
                             shouldShow, getResources().getConfiguration().orientation, mTablet);
                 }
             } else {
-                if (!mImeLayout && (getButtonView(ACTION_MENU) != null)) setVisibleOrInvisible(getButtonView(ACTION_MENU), mShowMenu);
+                if (!mImeLayout && (getButtonView(ACTION_MENU) != null)) {
+                    setVisibleOrInvisible(getButtonView(ACTION_MENU), mShowMenu);
+                }
             }
         }
     }
@@ -775,22 +780,31 @@ public class NavigationBarView extends LinearLayout {
             mSettingsObserver = new ContentObserver(new Handler()) {
                 @Override
                 public void onChange(boolean selfChange, Uri uri) {
-                    if (uri.equals(Settings.System.getUriFor(Settings.System.SOFTKEY_LONG_PRESS_CONFIGURATION))) {
-                        mLongPressTimeout = Settings.System.getInt(r,
-                                Settings.System.SOFTKEY_LONG_PRESS_CONFIGURATION, ViewConfiguration.getLongPressTimeout());
+                    final ContentResolver r2 = mContext.getContentResolver();
+                    if (uri.equals(Settings.System.getUriFor(
+                            Settings.System.SOFTKEY_LONG_PRESS_CONFIGURATION))) {
+                        mLongPressTimeout = Settings.System.getInt(r2,
+                                Settings.System.SOFTKEY_LONG_PRESS_CONFIGURATION,
+                                ViewConfiguration.getLongPressTimeout());
                     } else {
-                        mImeLayout = Settings.System.getInt(r, Settings.System.NAVIGATION_BAR_ARROWS, 0) == 1;
-                        mLegacyMenu = Settings.System.getInt(r, Settings.System.NAVIGATION_BAR_SIDEKEYS, 1) == 1;
-                        mButtonLayouts = Settings.System.getInt(r, Settings.System.NAVIGATION_BAR_ALTERNATE_LAYOUTS, 1);
+                        mImeLayout = Settings.System.getInt(r2, Settings.System.NAVIGATION_BAR_ARROWS, 0) == 1;
+                        mLegacyMenu = Settings.System.getInt(r2, Settings.System.NAVIGATION_BAR_SIDEKEYS, 1) == 1;
+                        mButtonLayouts = Settings.System.getInt(r2, Settings.System.NAVIGATION_BAR_ALTERNATE_LAYOUTS, 1);
 
-                        for(int i=0;i<mButtonLayouts;i++)
-                            mButtonContainerStrings[i] = Settings.System.getString(r, buttonSettings[i]);
+                        for(int i=0;i < mButtonLayouts; i++) {
+                            if (i < mbuttonSettingsCount) {
+                                mButtonContainerStrings[i] =
+                                   Settings.System.getString(r, buttonSettings[i]);
+                            }
+                        }
                         loadButtonArrays();
                     }
             }};
 
-            for(int i=0;i<5;i++)
-                r.registerContentObserver(Settings.System.getUriFor(buttonSettings[i]), false, mSettingsObserver);
+            for(int i=0; i < mbuttonSettingsCount; i++) {
+                r.registerContentObserver(Settings.System.getUriFor(buttonSettings[i]),
+                    false, mSettingsObserver);
+            }
             r.registerContentObserver(Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_SIDEKEYS),
                     false, mSettingsObserver);
             r.registerContentObserver(Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_ARROWS),
