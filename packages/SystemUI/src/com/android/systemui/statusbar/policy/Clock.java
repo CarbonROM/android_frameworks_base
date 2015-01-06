@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.ContentObserver;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.UserHandle;
@@ -74,6 +75,14 @@ public class Clock implements DemoMode {
     private boolean mDemoMode;
     private boolean mAttached;
 
+    public static final int FONT_BOLD = 0;
+    public static final int FONT_CONDENSED = 1;
+    public static final int FONT_LIGHT = 2;
+    public static final int FONT_LIGHT_ITALIC = 3;
+    public static final int FONT_NORMAL = 4;
+
+    protected int mClockFontStyle = FONT_NORMAL;
+
     class SettingsObserver extends UserContentObserver {
         SettingsObserver(Handler handler) {
             super(handler);
@@ -86,6 +95,9 @@ public class Clock implements DemoMode {
             ContentResolver resolver = mContext.getContentResolver();
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_AM_PM), false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System
+                    .getUriFor(Settings.System.STATUSBAR_CLOCK_FONT_STYLE), false,
+                    mSettingsObserver);
             updateSettings();
         }
 
@@ -281,9 +293,32 @@ public class Clock implements DemoMode {
         mAmPmStyle = (Settings.System.getIntForUser(resolver,
                 Settings.System.STATUS_BAR_AM_PM, 2, UserHandle.USER_CURRENT));
         mClockFormatString = "";
-
+        mClockFontStyle = Settings.System.getInt(resolver,
+                Settings.System.STATUSBAR_CLOCK_FONT_STYLE, FONT_NORMAL);
+        getFontStyle(mClockFontStyle);
         updateClock();
     }
+
+    public void getFontStyle(int font) {
+        switch (font) {
+            case FONT_BOLD:
+                setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
+                break;
+            case FONT_CONDENSED:
+                setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
+                break;
+            case FONT_LIGHT:
+                setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+                break;
+            case FONT_LIGHT_ITALIC:
+                setTypeface(Typeface.create("sans-serif-light", Typeface.ITALIC));
+                break;
+            case FONT_NORMAL:
+            default:
+                setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
+                break;
+        }
+     }
 
     @Override
     public void dispatchDemoCommand(String command, Bundle args) {
