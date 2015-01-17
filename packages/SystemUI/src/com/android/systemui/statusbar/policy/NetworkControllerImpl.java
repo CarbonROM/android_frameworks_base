@@ -241,14 +241,14 @@ public class NetworkControllerImpl extends BroadcastReceiver
                     false, this, UserHandle.USER_ALL);
             mDirectionArrowsEnabled = Settings.System.getIntForUser(resolver,
                     Settings.System.STATUS_BAR_SHOW_NETWORK_ACTIVITY,
-                    1, UserHandle.USER_CURRENT) == 1 ? true : false;
+                    0, UserHandle.USER_CURRENT) == 0 ? false : true;
         }
 
         @Override
         public void onChange(boolean selfChange) {
             mDirectionArrowsEnabled = Settings.System.getIntForUser(mContext.getContentResolver(),
                     Settings.System.STATUS_BAR_SHOW_NETWORK_ACTIVITY,
-                    1, UserHandle.USER_CURRENT) == 1 ? true : false;
+                    0, UserHandle.USER_CURRENT) == 0 ? false : true;
             refreshViews();
         }
     }
