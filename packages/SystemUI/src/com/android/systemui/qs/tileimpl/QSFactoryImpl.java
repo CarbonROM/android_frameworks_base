@@ -45,6 +45,7 @@ import com.android.systemui.qs.tiles.PowerShareTile;
 import com.android.systemui.qs.tiles.RebootTile;
 import com.android.systemui.qs.tiles.RotationLockTile;
 import com.android.systemui.qs.tiles.ScreenRecordTile;
+import com.android.systemui.qs.tiles.SyncTile;
 import com.android.systemui.qs.tiles.UiModeNightTile;
 import com.android.systemui.qs.tiles.SmartPixelsTile;
 import com.android.systemui.qs.tiles.UserTile;
@@ -91,6 +92,7 @@ public class QSFactoryImpl implements QSFactory {
     private final Provider<PowerShareTile> mPowerShareTileProvider;
     private final Provider<VolumeTile> mVolumeTileProvider;
     private final Provider<RebootTile> mRebootTileProvider;
+    private final Provider<SyncTile> mSyncTileProvider;
 
     private final Lazy<QSHost> mQsHostLazy;
 
@@ -122,7 +124,8 @@ public class QSFactoryImpl implements QSFactory {
             Provider<SmartPixelsTile> smartPixelsTileProvider,
             Provider<PowerShareTile> powerShareTileProvider,
             Provider<VolumeTile> volumeTileProvider,
-            Provider<RebootTile> rebootTileProvider) {
+            Provider<RebootTile> rebootTileProvider,
+            Provider<SyncTile> syncTileProvider) {
         mQsHostLazy = qsHostLazy;
         mWifiTileProvider = wifiTileProvider;
         mBluetoothTileProvider = bluetoothTileProvider;
@@ -151,6 +154,7 @@ public class QSFactoryImpl implements QSFactory {
         mPowerShareTileProvider = powerShareTileProvider;
         mVolumeTileProvider = volumeTileProvider;
         mRebootTileProvider = rebootTileProvider;
+        mSyncTileProvider = syncTileProvider;
     }
 
     public QSTile createTile(String tileSpec) {
@@ -216,6 +220,8 @@ public class QSFactoryImpl implements QSFactory {
                 return mVolumeTileProvider.get();
             case "reboot":
                 return mRebootTileProvider.get();
+            case "sync":
+                return mSyncTileProvider.get();
         }
 
         // Custom tiles
