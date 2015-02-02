@@ -2794,6 +2794,12 @@ public final class Settings {
         public static final String ENABLE_HW_KEYS = Secure.ENABLE_HW_KEYS;
 
         /**
+         * Navigation bar button color
+         * @hide
+         */
+        public static final String NAVIGATION_BAR_TINT = "navigation_bar_tint";
+
+        /**
          * Date format string
          *   mm/dd/yyyy
          *   dd/mm/yyyy
