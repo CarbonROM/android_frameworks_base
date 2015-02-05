@@ -3318,8 +3318,8 @@ public final class PowerManagerService extends SystemService
 
             TelephonyManager tm = (TelephonyManager)mContext.getSystemService(
                     Context.TELEPHONY_SERVICE);
-            boolean hasIncomingCall = (getTelephonyManager().getCallState()
-                    == TelephonyManager.CALL_STATE_RINGING);
+
+            boolean hasIncomingCall = tm.getCallState() == TelephonyManager.CALL_STATE_RINGING;
 
             if (mProximityWakeSupported && mProximityWakeEnabled && mProximitySensor != null
                     && !hasIncomingCall) {
