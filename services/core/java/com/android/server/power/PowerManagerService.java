@@ -198,6 +198,7 @@ public final class PowerManagerService extends SystemService
     private int mButtonBrightnessSettingDefault;
     private int mKeyboardBrightness;
     private int mKeyboardBrightnessSettingDefault;
+    private TelephonyManager mTelephonyManager;
 
     private final Object mLock = new Object();
 
@@ -3331,7 +3332,8 @@ public final class PowerManagerService extends SystemService
 
             TelephonyManager tm = (TelephonyManager)mContext.getSystemService(
                     Context.TELEPHONY_SERVICE);
-            boolean hasIncomingCall = tm.getCallState() == TelephonyManager.CALL_STATE_RINGING;
+            boolean hasIncomingCall = (getTelephonyManager().getCallState()
+                    == TelephonyManager.CALL_STATE_RINGING);
 
             if (mProximityWakeSupported && mProximityWakeEnabled && mProximitySensor != null
                     && !hasIncomingCall) {
@@ -3342,6 +3344,14 @@ public final class PowerManagerService extends SystemService
             } else {
                 r.run();
             }
+        }
+
+        TelephonyManager getTelephonyManager() {
+            if (mTelephonyManager == null) {
+                mTelephonyManager = (TelephonyManager)mContext.getSystemService(
+                        Context.TELEPHONY_SERVICE);
+            }
+            return mTelephonyManager;
         }
 
         private void runPostProximityCheck(final Runnable r) {
