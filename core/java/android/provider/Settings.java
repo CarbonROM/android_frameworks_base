@@ -3890,7 +3890,7 @@ public final class Settings {
          *
          * @hide
          */
-        public static final String HEADS_UP_DISMISS_ON_REMOVE = "heads_up_swipe_action";
+        public static final String HEADS_UP_DISMISS_ON_REMOVE = "heads_up_dismiss_on_remove";
 
         /**
          * Heads Up Notifications
