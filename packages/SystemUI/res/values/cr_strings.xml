@@ -29,6 +29,8 @@
     <!-- Quick Settings -->
     <string name="quick_settings_powermenu_label">Power Menu</string>
     <string name="quick_settings_sleepscreen_label">Sleep Screen</string>
+    <string name="quick_settings_heads_up_on">Heads up enabled</string>
+    <string name="quick_settings_heads_up_off">No interruptions</string>
 
     <!-- Dialog title for navigation bar button selection -->
     <string name="navbar_power_button">Power button</string>
