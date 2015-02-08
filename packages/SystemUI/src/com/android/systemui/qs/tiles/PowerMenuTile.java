@@ -29,7 +29,7 @@ import android.view.WindowManagerGlobal;
 import com.android.systemui.R;
 import com.android.systemui.qs.QSTile;
 
-/** Quick settings tile: Screenshot **/
+/** Quick settings tile: PowerMenu **/
 public class PowerMenuTile extends QSTile<QSTile.BooleanState> {
 
     private boolean mListening;
