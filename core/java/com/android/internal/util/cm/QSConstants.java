@@ -51,6 +51,7 @@ public class QSConstants {
     public static final String TILE_SCREENRECORD = "screenrecord";
     public static final String TILE_SLEEPSCREEN = "sleepscreen";
     public static final String TILE_BRIGHTNESS = "brightness";
+    public static final String TILE_BATTERY_SAVER = "battery_saver";
     public static final String TILE_LIVE_DISPLAY = "live_display";
     public static final String TILE_USB_TETHER = "usb_tether";
     public static final String TILE_HEADS_UP = "heads_up";
@@ -96,6 +97,7 @@ public class QSConstants {
         STATIC_TILES_AVAILABLE.add(TILE_SCREENSHOT);
         STATIC_TILES_AVAILABLE.add(TILE_SLEEPSCREEN);
         STATIC_TILES_AVAILABLE.add(TILE_BRIGHTNESS);
+        STATIC_TILES_AVAILABLE.add(TILE_BATTERY_SAVER);
         STATIC_TILES_AVAILABLE.add(TILE_LIVE_DISPLAY);
         STATIC_TILES_AVAILABLE.add(TILE_USB_TETHER);
         STATIC_TILES_AVAILABLE.add(TILE_HEADS_UP);
