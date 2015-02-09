@@ -48,6 +48,7 @@ import com.android.systemui.qs.tiles.CompassTile;
 import com.android.systemui.qs.tiles.CustomQSTile;
 import com.android.systemui.qs.tiles.DataTile;
 import com.android.systemui.qs.tiles.DdsTile;
+import com.android.systemui.qs.tiles.ExpandedDesktopTile;
 import com.android.systemui.qs.tiles.FlashlightTile;
 import com.android.systemui.qs.tiles.HeadsUpTile;
 import com.android.systemui.qs.tiles.HotspotTile;
@@ -389,6 +390,8 @@ public class QSTileHost implements QSTile.Host {
                 return new BrightnessTile(this);
             case QSConstants.TILE_BATTERY_SAVER:
                 return new BatterySaverTile(this);
+            case QSConstants.TILE_EXPANDED_DESKTOP:
+                return new ExpandedDesktopTile(this);
             case QSConstants.TILE_LIVE_DISPLAY:
                 return new LiveDisplayTile(this);
             case QSConstants.TILE_USB_TETHER:
