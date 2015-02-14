@@ -88,6 +88,14 @@ public class WifiTile extends QSTile<QSTile.SignalState> {
         if (!isRadioProhibited()) {
             mState.copyTo(mStateBeforeClick);
             mController.setWifiEnabled(!mState.enabled);
+            if (Settings.Secure.getIntForUser(mContext.getContentResolver(),
+                    Settings.Secure.QS_WIFI_DETAIL, 0, ActivityManager.getCurrentUser()) == 1) {
+                showDetail(true);
+            } else {
+                mState.copyTo(mStateBeforeClick);
+                mController.setWifiEnabled(!mState.enabled);
+                qsCollapsePanel();
+            }
         }
     }
 

@@ -88,6 +88,7 @@ public class ColorInversionTile extends QSTile<QSTile.BooleanState> {
     @Override
     protected void handleClick() {
         mSetting.setValue(mState.value ? 0 : 1);
+        qsCollapsePanel();
         mEnable.setAllowAnimation(true);
         mDisable.setAllowAnimation(true);
     }
