@@ -56,6 +56,7 @@ public class QSConstants {
     public static final String TILE_EXPANDED_DESKTOP = "expanded_desktop";
     public static final String TILE_LIVE_DISPLAY = "live_display";
     public static final String TILE_USB_TETHER = "usb_tether";
+    public static final String TILE_NAVBAR = "toggleNavBar";
     public static final String TILE_HEADS_UP = "heads_up";
     public static final String TILE_AMBIENT_DISPLAY = "ambient_display";
     public static final String TILE_SYNC = "sync";
@@ -105,6 +106,7 @@ public class QSConstants {
         STATIC_TILES_AVAILABLE.add(TILE_EXPANDED_DESKTOP);
         STATIC_TILES_AVAILABLE.add(TILE_LIVE_DISPLAY);
         STATIC_TILES_AVAILABLE.add(TILE_USB_TETHER);
+        STATIC_TILES_AVAILABLE.add(TILE_NAVBAR);
         STATIC_TILES_AVAILABLE.add(TILE_HEADS_UP);
         STATIC_TILES_AVAILABLE.add(TILE_AMBIENT_DISPLAY);
         STATIC_TILES_AVAILABLE.add(TILE_SYNC);
