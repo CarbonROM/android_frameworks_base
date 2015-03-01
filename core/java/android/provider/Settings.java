@@ -2322,6 +2322,12 @@ public final class Settings {
         public static final String QS_TEXT_COLOR = "qs_text_color";
 
         /**
+         * Transparent shade
+         * @hide
+         */
+        public static final String QS_TRANSPARENT_SHADE = "qs_transparent_shade";
+
+        /**
          * Control whether the process CPU usage meter should be shown.
          *
          * @deprecated Use {@link Global#SHOW_PROCESSES} instead
