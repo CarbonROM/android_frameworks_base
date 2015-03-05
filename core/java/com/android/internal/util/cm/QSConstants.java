@@ -39,6 +39,7 @@ public class QSConstants {
     public static final String TILE_PROFILES = "profiles";
     public static final String TILE_PERFORMANCE = "performance";
     public static final String TILE_POWERMENU = "togglePowerMenu";
+    public static final String TILE_REBOOT = "reboot";
     public static final String TILE_ADB_NETWORK = "adb_network";
     public static final String TILE_NFC = "nfc";
     public static final String TILE_COMPASS = "compass";
@@ -86,6 +87,8 @@ public class QSConstants {
         STATIC_TILES_AVAILABLE.add(TILE_APN);
         STATIC_TILES_AVAILABLE.add(TILE_PROFILES);
         STATIC_TILES_AVAILABLE.add(TILE_PERFORMANCE);
+        STATIC_TILES_AVAILABLE.add(TILE_POWERMENU);
+        STATIC_TILES_AVAILABLE.add(TILE_REBOOT);
         STATIC_TILES_AVAILABLE.add(TILE_ADB_NETWORK);
         STATIC_TILES_AVAILABLE.add(TILE_NFC);
         STATIC_TILES_AVAILABLE.add(TILE_COMPASS);
@@ -105,7 +108,6 @@ public class QSConstants {
         STATIC_TILES_AVAILABLE.add(TILE_HEADS_UP);
         STATIC_TILES_AVAILABLE.add(TILE_AMBIENT_DISPLAY);
         STATIC_TILES_AVAILABLE.add(TILE_SYNC);
-        STATIC_TILES_AVAILABLE.add(TILE_POWERMENU);
 
         DYNAMIC_TILES_AVAILABLE.add(DYNAMIC_TILE_NEXT_ALARM);
         DYNAMIC_TILES_AVAILABLE.add(DYNAMIC_TILE_IME_SELECTOR);
