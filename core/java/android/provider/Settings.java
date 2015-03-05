@@ -4048,7 +4048,7 @@ public final class Settings {
         */
        public static final String NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD = "network_traffic_autohide_threshold";
 
-	   /**
+       /**
          * Config for advanced power menu
          *
          * @hide
