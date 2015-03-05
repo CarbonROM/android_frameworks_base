@@ -59,6 +59,8 @@ public class CommandQueue extends IStatusBar.Stub {
     private static final int MSG_NOTIFICATION_LIGHT_PULSE           = 17 << MSG_SHIFT;
     private static final int MSG_SHOW_SCREEN_PIN_REQUEST            = 18 << MSG_SHIFT;
     private static final int MSG_START_CUSTOM_INTENT_AFTER_KEYGUARD = 19 << MSG_SHIFT;
+    private static final int MSG_TOGGLE_LAST_APP                    = 20 << MSG_SHIFT;
+    private static final int MSG_TOGGLE_KILL_APP                    = 21 << MSG_SHIFT;
 
     public static final int FLAG_EXCLUDE_NONE = 0;
     public static final int FLAG_EXCLUDE_SEARCH_PANEL = 1 << 0;
@@ -103,6 +105,8 @@ public class CommandQueue extends IStatusBar.Stub {
         public void notificationLightPulse(int argb, int onMillis, int offMillis);
         public void showScreenPinningRequest();
         public void showCustomIntentAfterKeyguard(Intent intent);
+        public void toggleLastApp();
+        public void toggleKillApp();
     }
 
     public CommandQueue(Callbacks callbacks, StatusBarIconList list) {
@@ -264,6 +268,20 @@ public class CommandQueue extends IStatusBar.Stub {
         m.sendToTarget();
     }
 
+	public void toggleLastApp() {
+        synchronized (mList) {
+            mHandler.removeMessages(MSG_TOGGLE_LAST_APP);
+            mHandler.obtainMessage(MSG_TOGGLE_LAST_APP, 0, 0, null).sendToTarget();
+        }
+    }
+
+    public void toggleKillApp() {
+        synchronized (mList) {
+            mHandler.removeMessages(MSG_TOGGLE_KILL_APP);
+            mHandler.obtainMessage(MSG_TOGGLE_KILL_APP, 0, 0, null).sendToTarget();
+        }
+    }
+
     private final class H extends Handler {
         public void handleMessage(Message msg) {
             if (mPaused) {
@@ -352,6 +370,12 @@ public class CommandQueue extends IStatusBar.Stub {
                     break;
                 case MSG_START_CUSTOM_INTENT_AFTER_KEYGUARD:
                     mCallbacks.showCustomIntentAfterKeyguard((Intent) msg.obj);
+                    break;
+               case MSG_TOGGLE_LAST_APP:
+                    mCallbacks.toggleLastApp();
+                    break;
+                case MSG_TOGGLE_KILL_APP:
+                    mCallbacks.toggleKillApp();
                     break;
             }
         }
