@@ -65,6 +65,7 @@ import com.android.systemui.qs.tiles.PowerMenuTile;
 import com.android.systemui.qs.tiles.RebootTile;
 import com.android.systemui.qs.tiles.RoamingTile;
 import com.android.systemui.qs.tiles.RotationLockTile;
+import com.android.systemui.qs.tiles.SlimActionTile;
 import com.android.systemui.qs.tiles.ScreenshotTile;
 import com.android.systemui.qs.tiles.ScreenrecordTile;
 import com.android.systemui.qs.tiles.ScreenTimeoutTile;
@@ -400,6 +401,8 @@ public class QSTileHost implements QSTile.Host {
                 return new ExpandedDesktopTile(this);
             case QSConstants.TILE_LIVE_DISPLAY:
                 return new LiveDisplayTile(this);
+            case QSConstants.TILE_SLIMACTION:
+                return new SlimActionTile(this);
             case QSConstants.TILE_USB_TETHER:
                 return new UsbTetherTile(this);
             case QSConstants.TILE_NAVBAR:
