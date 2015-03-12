@@ -528,6 +528,7 @@ public class KeyguardBottomAreaView extends FrameLayout implements View.OnClickL
         boolean trustManaged = mUnlockMethodCache.isTrustManaged();
         mTrustDrawable.setTrustManaged(trustManaged);
         updateLockIconClickability();
+        mLockIcon.updateColorSettings();
     }
 
     private String getIndexHint(LockscreenShortcutsHelper.Shortcuts shortcut) {
@@ -649,6 +650,17 @@ public class KeyguardBottomAreaView extends FrameLayout implements View.OnClickL
                 .setInterpolator(mLinearOutSlowInInterpolator)
                 .setStartDelay(delay)
                 .setDuration(DOZE_ANIMATION_ELEMENT_DURATION);
+    }
+
+    public void updateTextColor(int color) {
+        mIndicationText.setTextColor(color);
+
+    }
+
+    public void updateIconColor(int color) {
+        mCameraImageView.updateColorSettings(color);
+        mPhoneImageView.updateColorSettings(color);
+        mLockIcon.updateColorSettings(color);
     }
 
     private final BroadcastReceiver mDevicePolicyReceiver = new BroadcastReceiver() {
