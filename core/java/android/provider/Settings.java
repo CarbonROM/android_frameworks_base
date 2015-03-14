@@ -3886,9 +3886,10 @@ public final class Settings {
         public static final String APP_CIRCLE_BAR_SHOW_TRIGGER = "app_circle_bar_show_trigger";
 
         /**
-        * Hide notification instead of remove when swiping headsup
-        * @hide
-        */
+         * Hide notification instead of remove when swiping headsup
+         *
+         * @hide
+         */
         public static final String HEADS_UP_DISMISS_ON_REMOVE = "heads_up_swipe_action";
 
         /**
@@ -3918,6 +3919,12 @@ public final class Settings {
          * @hide
          */
         public static final String HEADS_UP_NOTIFCATION_DECAY = "heads_up_notification_decay";
+
+        /**
+         * Hide notification 1 second after touching outside
+         * @hide
+         */
+        public static final String HEADS_UP_TOUCH_OUTSIDE = "heads_up_touch_outside";
 
         /**
          * Whether to dismiss all recents tasks
