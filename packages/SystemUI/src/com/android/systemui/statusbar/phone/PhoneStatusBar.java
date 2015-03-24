@@ -472,6 +472,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     Settings.System.NAVBAR_LEFT_IN_LANDSCAPE), false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.RECENTS_LONG_PRESS_ACTIVITY), false, this);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.HEADS_UP_DISMISS_ON_REMOVE), false, this);
             update();
         }
 
@@ -520,6 +522,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     oldClockView.setVisibility(View.GONE);
                 }
             }
+
+            mHeadsUpSwype = Settings.System.getInt(
+                    resolver, Settings.System.HEADS_UP_DISMISS_ON_REMOVE, 1) == 1;
 
             if (mNavigationBarView != null) {
                 boolean navLeftInLandscape = Settings.System.getIntForUser(resolver,
@@ -645,10 +650,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         @Override
         public void onChange(boolean selfChange) {
             boolean wasUsing = mUseHeadsUp;
-            mUseHeadsUp = ENABLE_HEADS_UP && !mDisableNotificationAlerts
-                    && Settings.Global.HEADS_UP_OFF != Settings.Global.getInt(
-                    mContext.getContentResolver(), Settings.Global.HEADS_UP_NOTIFICATIONS_ENABLED,
-                    Settings.Global.HEADS_UP_OFF);
+            mUseHeadsUp = ENABLE_HEADS_UP && !mDisableNotificationAlerts && Settings.System.getIntForUser(
+                    mContext.getContentResolver(),
+                    Settings.System.HEADS_UP_NOTIFICATION, 0, UserHandle.USER_CURRENT) == 1;
             mHeadsUpTicker = mUseHeadsUp && 0 != Settings.Global.getInt(
                     mContext.getContentResolver(), SETTING_HEADS_UP_TICKER, 0);
             Log.d(TAG, "heads up is " + (mUseHeadsUp ? "enabled" : "disabled"));
@@ -705,6 +709,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     private ImageView mBackdropFront, mBackdropBack;
     private PorterDuffXfermode mSrcXferMode = new PorterDuffXfermode(PorterDuff.Mode.SRC);
     private PorterDuffXfermode mSrcOverXferMode = new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER);
+
+    private boolean mHeadsUpSwype;
 
     private MediaSessionManager mMediaSessionManager;
     private MediaController mMediaController;
@@ -879,8 +885,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mHeadsUpObserver.onChange(true); // set up
         if (ENABLE_HEADS_UP) {
             mContext.getContentResolver().registerContentObserver(
-                    Settings.Global.getUriFor(Settings.Global.HEADS_UP_NOTIFICATIONS_ENABLED), true,
-                    mHeadsUpObserver);
+                    Settings.System.getUriFor(Settings.System.HEADS_UP_NOTIFICATION), true,
+                    mHeadsUpObserver, mCurrentUserId);
             mContext.getContentResolver().registerContentObserver(
                     Settings.Global.getUriFor(SETTING_HEADS_UP_TICKER), true,
                     mHeadsUpObserver);
@@ -1800,6 +1806,12 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     }
 
     @Override
+    public void hideHeadsUp() {
+        mHandler.removeMessages(MSG_HIDE_HEADS_UP);
+        mHandler.sendEmptyMessage(MSG_HIDE_HEADS_UP);
+    }
+
+    @Override
     public void scheduleHeadsUpOpen() {
         mHandler.removeMessages(MSG_SHOW_HEADS_UP);
         mHandler.sendEmptyMessage(MSG_SHOW_HEADS_UP);
@@ -2491,6 +2503,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         if ((diff & StatusBarManager.DISABLE_EXPAND) != 0) {
             if ((state & StatusBarManager.DISABLE_EXPAND) != 0) {
                 animateCollapsePanels();
+                hideHeadsUp();
             }
         }
 
@@ -3888,9 +3901,17 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mHeadsUpNotificationView.setVisibility(vis ? View.VISIBLE : View.GONE);
     }
 
-    public void onHeadsUpDismissed() {
-        mHeadsUpNotificationView.dismiss();
-    }
+    public void onHeadsUpDismissed(boolean direction) {
+        // If mHeadsUpSwype == true we know that the notification
+        // has to be hidden so it will stay in our notification
+        // drawer. Else as usual dismisses the notification
+        // completely if the notification is clearable.
+        if (mHeadsUpSwype) {
+            scheduleHeadsUpClose();
+        } else {
+            mHeadsUpNotificationView.dismiss();
+        }
+     }
 
     private static void copyNotifications(ArrayList<Pair<String, StatusBarNotification>> dest,
             NotificationData source) {
