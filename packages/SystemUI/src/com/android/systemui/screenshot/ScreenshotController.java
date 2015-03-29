@@ -1052,7 +1052,10 @@ public class ScreenshotController {
         mCameraSound.addListener(() -> {
             try {
                 MediaPlayer player = mCameraSound.get();
-                if (player != null) {
+                boolean isScreenShotSoundEnabled =
+                        Settings.System.getIntForUser(mContext.getContentResolver(),
+                        Settings.System.SCREENSHOT_SHUTTER_SOUND, 1, UserHandle.USER_CURRENT) == 1;
+                if (isScreenShotSoundEnabled && player != null) {
                     player.start();
                 }
             } catch (InterruptedException | ExecutionException e) {
