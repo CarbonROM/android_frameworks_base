@@ -3516,12 +3516,6 @@ public final class Settings {
         public static final String VOICE_LAUNCH_INTENT = "voice_launch_intent";
 
         /**
-         * Height of navigation bar buttons
-         * @hide
-         */
-        public static final String NAVIGATION_BAR_HEIGHT = "navigation_bar_height";
-
-        /**
          * Whether navigation bar is placed on the left side in landscape mode
          * @hide
          */
