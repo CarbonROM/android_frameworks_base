@@ -3790,12 +3790,6 @@ public final class Settings {
         public static final String APP_CIRCLE_BAR_SHOW_TRIGGER = "app_circle_bar_show_trigger";
 
         /**
-         * Settings for clock font style
-         * @hide
-         */
-        public static final String STATUSBAR_CLOCK_FONT_STYLE = "statusbar_clock_font_style";
-
-        /**
          * show clear all recents button
          *  @hide
          */
