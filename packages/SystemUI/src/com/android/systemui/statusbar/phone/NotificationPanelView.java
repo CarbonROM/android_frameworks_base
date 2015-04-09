@@ -746,7 +746,7 @@ public class NotificationPanelView extends PanelView implements
                 && shouldQuickSettingsIntercept(event.getX(), event.getY(), -1, false);
 
         if ((twoFingerQsEvent || oneFingerQsOverride)
-                && event.getY(event.getActionIndex()) < mStatusBarMinHeight)
+                && event.getY(event.getActionIndex()) < mStatusBarMinHeight
                 && !isQSEventBlocked) {
             mQsExpandImmediate = true;
             requestPanelHeightUpdate();
