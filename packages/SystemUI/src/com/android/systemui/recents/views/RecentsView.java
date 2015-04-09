@@ -285,8 +285,8 @@ public class RecentsView extends FrameLayout implements TaskStackView.TaskStackV
     }
 
     public void startHideClearRecentsButtonAnimation() {
-        if (mClearRecents != null) {
-            mClearRecents.animate()
+        if (mFloatingButton != null) {
+            mFloatingButton.animate()
                 .alpha(0f)
                 .setStartDelay(0)
                 .setUpdateListener(null)
@@ -295,8 +295,8 @@ public class RecentsView extends FrameLayout implements TaskStackView.TaskStackV
                 .withEndAction(new Runnable() {
                     @Override
                     public void run() {
-                        mClearRecents.setVisibility(View.GONE);
-                        mClearRecents.setAlpha(1f);
+                        mFloatingButton.setVisibility(View.GONE);
+                        mFloatingButton.setAlpha(1f);
                     }
                 })
                 .start();
@@ -522,23 +522,8 @@ public class RecentsView extends FrameLayout implements TaskStackView.TaskStackV
                 }
 
                 if (dismissAll()) {
-                    // Hide clear recents before dismiss all tasks
-                    mFloatingButton.animate()
-                        .alpha(0f)
-                        .setStartDelay(0)
-                        .setUpdateListener(null)
-                        .setInterpolator(mConfig.fastOutSlowInInterpolator)
-                        .setDuration(mConfig.taskViewRemoveAnimDuration)
-                        .withEndAction(new Runnable() {
-                            @Override
-                            public void run() {
-                                mFloatingButton.setVisibility(View.GONE);
-                                mFloatingButton.setAlpha(1f);
-                            }
-                        })
-                        .start();
+                    startHideClearRecentsButtonAnimation();
                 }
-
                 dismissAllTasksAnimated();
                 updateMemoryStatus();
 
