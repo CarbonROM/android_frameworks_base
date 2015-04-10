@@ -3770,8 +3770,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 awakenDreams();
                 sendCloseSystemWindows(SYSTEM_DIALOG_REASON_HOME_KEY);
                 hideRecentApps(false, true);
-            } else {
-                // Otherwise, just launch Home
+            } else if (mScreenOnFully) {
+                // check if screen is fully on before going home
+                // to avoid hardware home button wake going home
                 sendCloseSystemWindows(SYSTEM_DIALOG_REASON_HOME_KEY);
                 startDockOrHome();
             }
@@ -4947,8 +4948,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     /** {@inheritDoc} */
     @Override
     public int finishPostLayoutPolicyLw() {
-        if (mWinShowWhenLocked != null &&
-                mWinShowWhenLocked != mTopFullscreenOpaqueWindowState) {
+        if (mWinShowWhenLocked != null && mTopFullscreenOpaqueWindowState != null &&
+                mWinShowWhenLocked.getAppToken() != mTopFullscreenOpaqueWindowState.getAppToken()
+                && isKeyguardLocked()) {
             // A dialog is dismissing the keyguard. Put the wallpaper behind it and hide the
             // fullscreen window.
             // TODO: Make sure FLAG_SHOW_WALLPAPER is restored when dialog is dismissed. Or not.
