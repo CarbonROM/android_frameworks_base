@@ -159,7 +159,7 @@ public class Action {
                     barService.toggleScreenshot();
                 } catch (RemoteException e) {
                 }
-                return;		
+                return;
             } else if (action.equals(ActionConstants.ACTION_ASSIST)
                     || action.equals(ActionConstants.ACTION_KEYGUARD_SEARCH)) {
                 Intent intent = ((SearchManager) context.getSystemService(Context.SEARCH_SERVICE))
@@ -293,7 +293,7 @@ public class Action {
 
     public static boolean isNavBarEnabled(Context context) {
         return Settings.Secure.getIntForUser(context.getContentResolver(),
-                Settings.Secure.DEV_FORCE_SHOW_NAVBAR,
+                Settings.Secure.NAVIGATION_BAR_SHOW,
                 isNavBarDefault(context) ? 1 : 0, UserHandle.USER_CURRENT) == 1;
     }
 
