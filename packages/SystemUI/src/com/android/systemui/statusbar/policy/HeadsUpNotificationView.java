@@ -65,6 +65,7 @@ public class HeadsUpNotificationView extends FrameLayout implements SwipeHelper.
     private EdgeSwipeHelper mEdgeSwipeHelper;
 
     private PhoneStatusBar mBar;
+    private ExpandHelper mExpandHelper;
 
     private long mStartTouchTime;
     private ViewGroup mContentHolder;

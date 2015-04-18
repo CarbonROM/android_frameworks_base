@@ -2242,17 +2242,14 @@ public abstract class BaseStatusBar extends SystemUI implements
         boolean accessibilityForcesLaunch = isFullscreen
                 && mAccessibilityManager.isTouchExplorationEnabled();
 
-        final KeyguardTouchDelegate keyguard = KeyguardTouchDelegate.getInstance(mContext);
-        boolean keyguardIsShowing = keyguard.isShowingAndNotOccluded()
-                && keyguard.isInputRestricted();
-
         boolean interrupt = (isFullscreen || (isHighPriority && (isNoisy || hasTicker))
                 || asHeadsUp == Notification.HEADS_UP_REQUESTED)
                 && isAllowed
                 && !accessibilityForcesLaunch
                 && mPowerManager.isScreenOn()
-                && !keyguardIsShowing
-                && !isImeShowing();;
+                && (!mStatusBarKeyguardViewManager.isShowing()
+                        || mStatusBarKeyguardViewManager.isOccluded())
+                && !mStatusBarKeyguardViewManager.isInputRestricted();
 
         try {
             interrupt = interrupt && !mDreamManager.isDreaming();
@@ -2262,7 +2259,10 @@ public abstract class BaseStatusBar extends SystemUI implements
 
         // its below our threshold priority, we might want to always display
         // notifications from certain apps
-        if (!isHighPriority && !isOngoing && !keyguardIsShowing) {
+        if (!isHighPriority && !isOngoing
+           && (!mStatusBarKeyguardViewManager.isShowing()
+           || mStatusBarKeyguardViewManager.isOccluded())
+           && !mStatusBarKeyguardViewManager.isInputRestricted()) {
             // However, we don't want to interrupt if we're in an application that is
             // in Do Not Disturb
             if (!isPackageInDnd(getTopLevelPackage())) {
@@ -2312,10 +2312,6 @@ public abstract class BaseStatusBar extends SystemUI implements
                 mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
 
         return inputMethodManager != null ? inputMethodManager.isImeShowing() : false;
-    }
-
-    public boolean inKeyguardRestrictedInputMode() {
-        return KeyguardTouchDelegate.getInstance(mContext).isInputRestricted();
     }
 
     public void setInteracting(int barWindow, boolean interacting) {
