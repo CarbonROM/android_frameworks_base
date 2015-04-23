@@ -118,6 +118,7 @@ public class SignalClusterView
     private int mAirplaneModeColor;
     private Animator mColorTransitionAnimator;
     private boolean forceAnimation;
+    private int mVpnColor;
 
     private int mWideTypeIconStartPadding;
 
@@ -142,6 +143,9 @@ public class SignalClusterView
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_AIRPLANE_MODE_ICON_COLOR),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_VPN_ICON_COLOR),
                     false, this, UserHandle.USER_ALL);
         }
 
@@ -478,6 +482,11 @@ public class SignalClusterView
             mAirplane.setVisibility(View.GONE);
         }
 
+        if (mVpnVisible) {
+                mVpn.setColorFilter(mVpnColor, Mode.MULTIPLY);
+        } else {
+            mVpn.setVisibility(View.GONE);
+        }
 
         if (mWifiVisible && ((mIsAirplaneMode) || (mNoSimIconId != 0))) {
             mWifiAirplaneSpacer.setVisibility(View.VISIBLE);
@@ -908,6 +917,9 @@ public class SignalClusterView
                 networkActivityNormalColor, UserHandle.USER_CURRENT);
         mAirplaneModeColor = Settings.System.getIntForUser(resolver,
                 Settings.System.STATUS_BAR_AIRPLANE_MODE_ICON_COLOR,
+                networkNormalColor, UserHandle.USER_CURRENT);
+        int mVpnColor = Settings.System.getIntForUser(resolver,
+                Settings.System.STATUS_BAR_VPN_ICON_COLOR,
                 networkNormalColor, UserHandle.USER_CURRENT);
 
         mNetworkColor =
