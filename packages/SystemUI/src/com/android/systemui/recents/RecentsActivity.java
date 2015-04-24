@@ -525,7 +525,6 @@ public class RecentsActivity extends Activity implements RecentsView.RecentsView
 
         // Animate the SystemUI scrim views
         mScrimViews.startEnterRecentsAnimation();
-        mRecentsView.startFABanimation();
     }
 
     @Override
