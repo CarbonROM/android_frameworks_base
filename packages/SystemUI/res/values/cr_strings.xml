@@ -37,9 +37,10 @@
     <!-- Screen record notification error title -->
     <string name="screenrecord_notif_error">Unable to record screen</string>
 
-    <!-- Heads up toast -->
+    <!-- Heads up -->
     <string name="heads_up_enabled">Heads up notifications are enabled</string>
     <string name="heads_up_disabled">Heads up notifications are disabled</string>
+    <string name="heads_up_snooze_message">Heads up is disabled for <xliff:g id="number">%d</xliff:g> minutes.</string>
 
     <!-- App circle sidebar -->
     <string name="app_float_maximize_item_title">Maximize</string>
