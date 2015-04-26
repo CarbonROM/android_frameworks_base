@@ -57,7 +57,6 @@ public class QSConstants {
     public static final String TILE_REBOOT = "reboot";
     public static final String TILE_SLIMACTION = "slimaction";
     public static final String TILE_USB_TETHER = "usb_tether";
-    public static final String TILE_HEADS_UP = "heads_up";
 
     // Order matters
     protected static final ArrayList<String> TILES_DEFAULT = new ArrayList<String>();
@@ -105,6 +104,5 @@ public class QSConstants {
         TILES_AVAILABLE.add(TILE_REBOOT);
         TILES_AVAILABLE.add(TILE_SLIMACTION);
         TILES_AVAILABLE.add(TILE_USB_TETHER);
-        TILES_AVAILABLE.add(TILE_HEADS_UP);
     }
 }
