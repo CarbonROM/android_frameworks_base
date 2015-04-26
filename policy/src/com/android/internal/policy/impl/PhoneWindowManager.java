@@ -5224,6 +5224,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mStatusBar.getAttrs().flags &= ~FLAG_SHOW_WALLPAPER;
             return true;
         } else {
+            if (wasOccluded && !isOccluded && !showing) {
+                mKeyguardOccluded = false;
+                mKeyguardDelegate.setOccluded(false);
+            }
             return false;
         }
     }

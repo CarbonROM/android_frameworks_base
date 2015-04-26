@@ -1732,7 +1732,7 @@ public class LockPatternUtils {
                 isPattern && isLockPatternEnabled(userId) && savedPatternExists(userId)
                 || isPassword && savedPasswordExists(userId)
                 || isGesture && isLockGestureEnabled() && savedGestureExists();
-        return secure && getActiveProfileLockMode() == Profile.LockMode.DEFAULT;
+        return secure && getActiveProfileLockMode() == Profile.LockMode.DISABLE;
     }
 
     public int getActiveProfileLockMode() {
