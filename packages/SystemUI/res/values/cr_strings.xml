@@ -60,6 +60,9 @@
     <!-- Dialog title for navigation bar button selection -->
     <string name="navbar_power_button">Power button</string>
 
+    <!-- Power menu on navring targets -->
+    <string name="navring_action_power_menu">Power Menu</string>
+
     <!-- Content description of the power button for accessibility (not shown on the screen). [CHAR LIMIT=NONE] -->
     <string name="accessibility_power">Power</string>
 
