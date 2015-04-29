@@ -33,4 +33,10 @@
     <string name="action_null">Blank</string>
     <string name="default_string">Default</string>
 
+    <!-- Error message if user want to try to disable all navigation options -->
+    <string name="disable_navigation_pie_error">You cannot disable the navigation bar. No other navigation is enabled. Enable first pie controls to turn off the navigation bar.</string>
+
+    <!-- Error message if user want to try to disable all navigation options -->
+    <string name="disable_pie_navigation_error">You cannot disable pie controls. No other navigation is enabled. Enable first the navigation bar to turn off pie controls.</string>
+
 </resources>
