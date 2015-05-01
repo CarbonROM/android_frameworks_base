@@ -153,11 +153,10 @@ public abstract class BaseStatusBar extends SystemUI implements
     protected static final int MSG_HIDE_HEADS_UP = 1029;
     protected static final int MSG_ESCALATE_HEADS_UP = 1030;
     protected static final int MSG_DECAY_HEADS_UP = 1031;
-    protected static final int MSG_TOGGLE_LAST_APP = 1032;
-    protected static final int MSG_TOGGLE_KILL_APP = 1033;
-    protected static final int MSG_TOGGLE_SCREENSHOT = 1034;
-
-    protected static final int MSG_SET_PIE_TRIGGER_MASK = 1033;
+    protected static final int MSG_SET_PIE_TRIGGER_MASK = 1032;
+    protected static final int MSG_TOGGLE_LAST_APP = 1033;
+    protected static final int MSG_TOGGLE_KILL_APP = 1034;
+    protected static final int MSG_TOGGLE_SCREENSHOT = 1035;
 
     protected static final boolean ENABLE_HEADS_UP = true;
     // scores above this threshold should be displayed in heads up mode.
@@ -1424,6 +1423,9 @@ public abstract class BaseStatusBar extends SystemUI implements
                      mSearchPanelView.show(false, true);
                  }
                  break;
+             case MSG_SET_PIE_TRIGGER_MASK:
+                 updatePieTriggerMask(m.arg1, m.arg2 != 0);
+                 break;
              case MSG_TOGGLE_LAST_APP:
                  if (DEBUG) Slog.d(TAG, "toggle last app");
                      getLastApp();
@@ -1435,9 +1437,6 @@ public abstract class BaseStatusBar extends SystemUI implements
              case MSG_TOGGLE_SCREENSHOT:
                  if (DEBUG) Slog.d(TAG, "toggle screenshot");
                  takeScreenshot();
-                 break;
-             case MSG_SET_PIE_TRIGGER_MASK:
-                 updatePieTriggerMask(m.arg1, m.arg2 != 0);
                  break;
             }
         }
