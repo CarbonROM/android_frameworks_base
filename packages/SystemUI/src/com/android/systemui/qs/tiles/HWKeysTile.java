@@ -119,7 +119,7 @@ public class HWKeysTile extends QSTile<QSTile.BooleanState> {
 
         public void startObserving() {
             mContext.getContentResolver().registerContentObserver(
-                    Settings.Secure.getUriFor(Settings.System.ENABLE_HW_KEYS),
+                    Settings.Secure.getUriFor(Settings.Secure.ENABLE_HW_KEYS),
                     false, this);
         }
 
