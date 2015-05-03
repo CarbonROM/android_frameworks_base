@@ -3677,6 +3677,12 @@ public final class Settings {
         public static final String STATUS_BAR_EXPANDED_HEADER_ICON_COLOR = "status_bar_expanded_header_icon_color";
 
         /**
+         * Color of the expanded status bar header background
+         * @hide
+         */
+        public static final String STATUS_BAR_EXPANDED_HEADER_BG_COLOR = "status_bar_expanded_header_bg_color";
+
+        /**
          * Enable statusbar double tap gesture on to put device to sleep
          * @hide
          */
