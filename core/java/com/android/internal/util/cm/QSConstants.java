@@ -61,7 +61,6 @@ public class QSConstants {
     public static final String TILE_APPCIRCLEBAR = "toggleAppCircleBar";
     public static final String TILE_HEADS_UP = "toggleHeadsUp";
     public static final String TILE_MUSIC = "music";
-    public static final String TILE_HWKEYS = "hwkeys";
     public static final String TILE_AMBIENT_DISPLAY = "ambient_display";
 
     // Order matters
@@ -114,7 +113,6 @@ public class QSConstants {
         TILES_AVAILABLE.add(TILE_APPCIRCLEBAR);
         TILES_AVAILABLE.add(TILE_HEADS_UP);
         TILES_AVAILABLE.add(TILE_MUSIC);
-        TILES_AVAILABLE.add(TILE_HWKEYS);
         TILES_AVAILABLE.add(TILE_AMBIENT_DISPLAY);
     }
 }

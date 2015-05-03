@@ -75,7 +75,6 @@ import com.android.systemui.qs.tiles.ScreenTimeoutTile;
 import com.android.systemui.qs.tiles.SleepScreenTile;
 import com.android.systemui.qs.tiles.SyncTile;
 import com.android.systemui.qs.tiles.NavBarTile;
-import com.android.systemui.qs.tiles.HWKeysTile;
 import com.android.systemui.qs.tiles.AppCircleBarTile;
 import com.android.systemui.qs.tiles.WifiTile;
 import com.android.systemui.settings.CurrentUserTracker;
@@ -372,8 +371,6 @@ public class QSTileHost implements QSTile.Host {
                 return new HeadsupTile(this);
             case QSConstants.TILE_MUSIC:
                 return new MusicTile(this);
-            case QSConstants.TILE_HWKEYS:
-                return new HWKeysTile(this);
             case QSConstants.TILE_AMBIENT_DISPLAY:
                 return new AmbientDisplayTile(this);
             default:
