@@ -86,4 +86,6 @@
     <string name="content_setup_dismiss">Continue</string>
     <string name="toast_not_installed">App is not installed</string>
 
+    <string name="gestures_message">Draw your gesture here</string>
+
 </resources>
