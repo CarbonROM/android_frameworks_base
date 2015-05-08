@@ -4304,6 +4304,12 @@ public final class Settings {
         public static final String LOCK_SCREEN_ICON_COLOR = "lock_screen_icon_color";
 
         /**
+         * Color of the clear all icon in the notification drawer
+         * @hide
+         */
+        public static final String NOTIFICATION_DRAWER_CLEAR_ALL_ICON_COLOR = "nd_clear_all_icon_color";
+
+        /**
          * Whether the notification light will be allowed when in zen mode during downtime
          * @hide
          */
