@@ -380,6 +380,7 @@ public class AudioService extends IAudioService.Stub {
     };
 
     private boolean mLinkNotificationWithVolume;
+    private final boolean mVoiceCapable;
 
     private final AudioSystem.ErrorCallback mAudioSystemCallback = new AudioSystem.ErrorCallback() {
         public void onError(int error) {
@@ -573,8 +574,10 @@ public class AudioService extends IAudioService.Stub {
         mContentResolver = context.getContentResolver();
         mAppOps = (AppOpsManager)context.getSystemService(Context.APP_OPS_SERVICE);
 
-        if (mContext.getResources().getBoolean(
-                com.android.internal.R.bool.config_voice_capable)) {
+        mVoiceCapable = context.getResources().getBoolean(
+                            com.android.internal.R.bool.config_voice_capable);
+
+        if (mVoiceCapable) {
             mPlatformType = PLATFORM_VOICE;
         } else if (context.getPackageManager().hasSystemFeature(
                                                             PackageManager.FEATURE_LEANBACK)) {
@@ -650,6 +653,7 @@ public class AudioService extends IAudioService.Stub {
         //Update volumes steps before creatingStreamStates!
         initVolumeSteps();
         createStreamStates();
+        updateNotificationStreamVolumeAlias();
 
         readAndSetLowRamDevice();
 
@@ -1007,11 +1011,7 @@ public class AudioService extends IAudioService.Stub {
 
         mStreamVolumeAlias[AudioSystem.STREAM_DTMF] = dtmfStreamAlias;
 
-        if (mLinkNotificationWithVolume) {
-            mStreamVolumeAlias[AudioSystem.STREAM_NOTIFICATION] = AudioSystem.STREAM_RING;
-        } else {
-            mStreamVolumeAlias[AudioSystem.STREAM_NOTIFICATION] = AudioSystem.STREAM_NOTIFICATION;
-        }
+        updateNotificationStreamVolumeAlias();
 
         if (updateVolumes) {
             mStreamStates[AudioSystem.STREAM_DTMF].setAllIndexes(mStreamStates[dtmfStreamAlias]);
@@ -1023,6 +1023,14 @@ public class AudioService extends IAudioService.Stub {
                     0,
                     0,
                     mStreamStates[AudioSystem.STREAM_DTMF], 0);
+        }
+    }
+
+    private void updateNotificationStreamVolumeAlias() {
+        if (mLinkNotificationWithVolume && mVoiceCapable) {
+            mStreamVolumeAlias[AudioSystem.STREAM_NOTIFICATION] = AudioSystem.STREAM_RING;
+        } else {
+            mStreamVolumeAlias[AudioSystem.STREAM_NOTIFICATION] = AudioSystem.STREAM_NOTIFICATION;
         }
     }
 
@@ -4732,8 +4740,8 @@ public class AudioService extends IAudioService.Stub {
                         Settings.Secure.VOLUME_LINK_NOTIFICATION, 1) == 1;
                 if (linkNotificationWithVolume != mLinkNotificationWithVolume) {
                     mLinkNotificationWithVolume = linkNotificationWithVolume;
-                    updateStreamVolumeAlias(true);
                     createStreamStates();
+                    updateStreamVolumeAlias(true);
                 }
                 mVolumeKeysControlRingStream = Settings.System.getIntForUser(mContentResolver,
                         Settings.System.VOLUME_KEYS_CONTROL_RING_STREAM, 1,
