@@ -4469,6 +4469,13 @@ public final class Settings {
         public static final String PIE_TRIGGER_SENSITIVITY = "pie_trigger_sensitivity";
 
         /**
+         * The statusbar configuration to be used for its creation in SystemUI
+         * Fallback is the config_statusBarComponent value
+         * @hide
+         */
+        public static final String STATUSBAR_COMPONENT = "statusbar_component";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
