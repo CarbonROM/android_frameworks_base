@@ -454,7 +454,7 @@ public class NavigationBarView extends LinearLayout {
 
     @Override
     public void setLayoutDirection(int layoutDirection) {
-		getIcons(mThemedResources != null ? mThemedResources : getContext().getResources());
+        getIcons(mThemedResources != null ? mThemedResources : getContext().getResources());
         super.setLayoutDirection(layoutDirection);
     }
 
@@ -552,7 +552,7 @@ public class NavigationBarView extends LinearLayout {
     }
 
     public void notifyLayoutChange(int direction) {
-		mNextLayoutIndex = direction;
+        mNextLayoutIndex = direction;
         if (direction == NavbarConstants.LAYOUT_IME) {
             if (mDisplayingLayoutIndex == NavbarConstants.LAYOUT_IME) {
                 setNextLayout(mCurrentLayout);
