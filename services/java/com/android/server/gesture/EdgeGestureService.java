@@ -77,7 +77,8 @@ public class EdgeGestureService extends IEdgeGestureService.Stub {
     private EdgeGestureInputFilter mInputFilter;
 
     private int mGlobalPositions = 0;
-    private int mGlobalSensitivity = 3;
+
+    private int mGlobalSensitivity = 5;
 
     private final class EdgeGestureActivationListenerRecord
             extends IEdgeGestureHostCallback.Stub implements DeathRecipient {

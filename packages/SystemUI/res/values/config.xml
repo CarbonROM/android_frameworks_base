@@ -206,7 +206,7 @@
      from home. -->
     <integer name="recents_task_enter_from_home_duration">225</integer>
 
-    <!-- The stagger for each task when animating the task from the bottom of the screen when 
+    <!-- The stagger for each task when animating the task from the bottom of the screen when
      transitioning from home. -->
     <integer name="recents_task_enter_from_home_stagger_delay">12</integer>
 
@@ -345,4 +345,10 @@
     <bool name="config_enableDataSwitch">false</bool>
     <!-- Enable the default volume dialog -->
     <bool name="enable_volume_ui">true</bool>
+
+    <!-- Sensivity of pie gestures controlls.
+        Must be minimum 1 and maximum 10 (See @EdgeServiceConstants.java).
+        Default for pie is high sensivity -->
+    <integer name="pie_gesture_sensivity">8</integer>
+
 </resources>
