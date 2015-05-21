@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Floating action button -->
+    <color name="fab_color">#ff009688</color>
+    <color name="floating_action_button_icon_color">#ffffff</color>
+
     <!-- Pie controls -->
     <color name="pie_overlay_color">#ff000000</color>
     <color name="pie_snap_color">#ff009688</color>
