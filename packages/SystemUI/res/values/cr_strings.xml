@@ -128,4 +128,7 @@
     <string name="toggle">Toggle</string>
     <string name="shortcut_toggle_title">Action to perform</string>
 
+    <!-- Smart PullDown Warning -->
+    <string name="smart_pulldown_disabled">Smart pulldown is disabled</string>
+
 </resources>

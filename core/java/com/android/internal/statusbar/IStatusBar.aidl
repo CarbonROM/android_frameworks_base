@@ -44,4 +44,5 @@ oneway interface IStatusBar
     void cancelPreloadRecentApps();
     void showScreenPinningRequest();
     void showCustomIntentAfterKeyguard(inout Intent intent);
+    void toggleSmartPulldown();
 }
