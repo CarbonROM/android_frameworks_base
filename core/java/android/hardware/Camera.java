@@ -560,14 +560,16 @@ public class Camera {
     private void notifyTorch(boolean inUse) {
         IBinder b = ServiceManager.getService(Context.TORCH_SERVICE);
         ITorchService torchService = ITorchService.Stub.asInterface(b);
-        try {
-            if (inUse) {
-                torchService.onCameraOpened(mTorchToken, mCameraId);
-            } else {
-                torchService.onCameraClosed(mTorchToken, mCameraId);
+        if (torchService != null) {
+            try {
+                if (inUse) {
+                    torchService.onCameraOpened(mTorchToken, mCameraId);
+                } else {
+                    torchService.onCameraClosed(mTorchToken, mCameraId);
+                }
+            } catch (RemoteException e) {
+                // Ignore
             }
-        } catch (RemoteException e) {
-            // Ignore
         }
     }
 
@@ -1642,6 +1644,20 @@ public class Camera {
     }
 
     private native final boolean _enableShutterSound(boolean enabled);
+
+    /**
+     * Send a vendor-specific camera command
+     *
+     * @hide
+     */
+    public final void sendVendorCommand(int cmd, int arg1, int arg2) {
+        if (cmd < 1000) {
+            throw new IllegalArgumentException("Command numbers must be at least 1000");
+        }
+        _sendVendorCommand(cmd, arg1, arg2);
+    }
+
+    private native final void _sendVendorCommand(int cmd, int arg1, int arg2);
 
     /**
      * Callback interface for zoom changes during a smooth zoom operation.

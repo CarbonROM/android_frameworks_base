@@ -974,10 +974,6 @@
     <integer-array name="config_autoBrightnessLevels">
     </integer-array>
 
-    <!-- The debounce time value for automatic display brightness adjustment -->
-    <integer name="config_brighteningLightDebounce">4000</integer>
-    <integer name="config_darkeningLightDebounce">8000</integer>
-
     <!-- Array of output values for LCD backlight corresponding to the LUX values
          in the config_autoBrightnessLevels array.  This array should have size one greater
          than the size of the config_autoBrightnessLevels array.
@@ -2027,8 +2023,12 @@
         string that's stored in 8-bit unpacked format) characters.-->
     <bool translatable="false" name="config_sms_decode_gsm_8bit_data">false</bool>
 
-    <!-- Package name providing WebView implementation. -->
+    <!-- Package name providing default WebView implementation. -->
     <string name="config_webViewPackageName" translatable="false">com.android.webview</string>
+
+    <!-- Package name providing alternate WebView implementation.
+         Fall back to config_webViewPackageName if not available. -->
+    <string name="config_alternateWebViewPackageName" translatable="false">com.google.android.webview</string>
 
     <!-- If EMS is not supported, framework breaks down EMS into single segment SMS
          and adds page info " x/y". This config is used to set which carrier doesn't
