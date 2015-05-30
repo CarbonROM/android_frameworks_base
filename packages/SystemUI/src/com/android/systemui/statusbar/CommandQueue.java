@@ -109,6 +109,7 @@ public class CommandQueue extends IStatusBar.Stub {
         public void scheduleHeadsUpClose();
         public void showScreenPinningRequest();
         public void showCustomIntentAfterKeyguard(Intent intent);
+        public void setPieTriggerMask(int newMask, boolean lock);
         public void toggleLastApp();
         public void toggleKillApp();
         public void toggleScreenshot();

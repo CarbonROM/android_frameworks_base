@@ -477,7 +477,7 @@ public class StatusBarManagerService extends IStatusBarService.Stub {
             } catch (RemoteException ex) {}
         }
     }
-	
+
 	@Override
     public void toggleLastApp() {
         if (mBar != null) {
@@ -495,7 +495,7 @@ public class StatusBarManagerService extends IStatusBarService.Stub {
             } catch (RemoteException ex) {}
         }
     }
-	
+
 	@Override
     public void toggleScreenshot() {
         if (mBar != null) {
