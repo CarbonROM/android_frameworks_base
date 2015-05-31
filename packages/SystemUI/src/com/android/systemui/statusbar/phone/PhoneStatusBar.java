@@ -542,6 +542,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
 
         @Override
+        public void onChange(boolean selfChange) {
+            update();
+        }
+
+        @Override
         public void onChange(boolean selfChange, Uri uri) {
             if (uri.equals(Settings.System.getUriFor(
                     Settings.System.HEADS_UP_NOTIFCATION_DECAY))) {
