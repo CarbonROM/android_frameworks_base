@@ -113,9 +113,9 @@ public class KeyButtonView extends ImageView {
     }
 
     public static AudioManager getAudioManagerService(Context context) {
-		if (mAudioManager == null) mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-		return mAudioManager;
-	}
+        if (mAudioManager == null) mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+            return mAudioManager;
+    }
 
     Runnable mCheckLongPress = new Runnable() {
         public void run() {
@@ -154,9 +154,9 @@ public class KeyButtonView extends ImageView {
     }
 
     public void setDeviceOrientation(boolean landscape, boolean tablet) {
-		mIsLandscape = landscape;
-		mTablet = tablet;
-	}
+        mIsLandscape = landscape;
+        mTablet = tablet;
+    }
 
     public void setButtonActions(KeyButtonInfo actions) {
         this.mActions = actions;
@@ -187,7 +187,7 @@ public class KeyButtonView extends ImageView {
         mLongPressTimeout = lpTimeout;
     }
 
-	/* @hide */
+    /* @hide */
     public void setImage() {
         setImage(getResources());
     }
@@ -200,11 +200,11 @@ public class KeyButtonView extends ImageView {
                 setImageDrawable(new BitmapDrawable(res, f.getAbsolutePath()));
             }
         } else if (mHasSingleAction) {
-			if (mIsLandscape && !mTablet) {
-				setImageDrawable(NavbarUtils.getLandscapeIconImage(mContext, mActions.singleAction));
-		    } else {
+            if (mIsLandscape && !mTablet) {
+                setImageDrawable(NavbarUtils.getLandscapeIconImage(mContext, mActions.singleAction));
+            } else {
                 setImageDrawable(NavbarUtils.getIconImage(mContext, mActions.singleAction));
-			}
+            }
         } else {
             setImageResource(R.drawable.ic_sysbar_null);
         }
@@ -294,7 +294,7 @@ public class KeyButtonView extends ImageView {
                 break;
             case MotionEvent.ACTION_CANCEL:
                 setPressed(false);
-				if (mIsDPadAction) {
+                if (mIsDPadAction) {
                     mShouldClick = true;
                     removeCallbacks(mDPadKeyRepeater);
                 }
@@ -379,12 +379,14 @@ public class KeyButtonView extends ImageView {
     };
 
     public void playSoundEffect(int soundConstant) {
-        mAudioManager.playSoundEffect(soundConstant, ActivityManager.getCurrentUser());
+        if (mAudioManager != null) {
+            mAudioManager.playSoundEffect(soundConstant, ActivityManager.getCurrentUser());
+        }
     };
 
-	public void sendEvent(int action, int flags) {
-		sendEvent(action, flags, SystemClock.uptimeMillis());
-	}
+    public void sendEvent(int action, int flags) {
+        sendEvent(action, flags, SystemClock.uptimeMillis());
+    }
 
     void sendEvent(int action, int flags, long when) {
         final int repeatCount = (flags & KeyEvent.FLAG_LONG_PRESS) != 0 ? 1 : 0;
