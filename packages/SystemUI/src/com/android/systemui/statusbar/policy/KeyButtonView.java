@@ -94,14 +94,19 @@ public class KeyButtonView extends ImageView {
             if (isPressed()) {
                 // Log.d("KeyButtonView", "longpressed: " + this);
                 if (isLongClickable()) {
-                    // Just an old-fashioned ImageView
                     mPerformedLongClick = true;
                     performLongClick();
                 } else {
                     sendEvent(KeyEvent.ACTION_DOWN, KeyEvent.FLAG_LONG_PRESS);
                     sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_LONG_CLICKED);
                 }
-                performLongClick();
+                if (mLongpressAction != null
+                        && (mLongpressAction.equals(ActionConstants.ACTION_IME_NAVIGATION_UP)
+                        || mLongpressAction.equals(ActionConstants.ACTION_IME_NAVIGATION_DOWN))) {
+                    removeCallbacks(mCheckLongPress);
+                    postDelayed(mCheckLongPress, ViewConfiguration.getDoubleTapTimeout());
+                    return;
+                }
                 setHapticFeedbackEnabled(true);
             }
         }
@@ -328,7 +333,6 @@ public class KeyButtonView extends ImageView {
 
     public void setLongClickCallback(LongClickCallback c) {
         mCallback = c;
-        setLongClickable(true);
         setOnLongClickListener(mLongPressListener);
     }
 
