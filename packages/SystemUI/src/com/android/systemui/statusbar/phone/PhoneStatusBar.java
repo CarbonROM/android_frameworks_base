@@ -282,8 +282,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     /** Allow some time inbetween the long press for back and recents. */
     private static final int LOCK_TO_APP_GESTURE_TOLERENCE = 200;
 
-    private final int HEADSUP_DEFAULT_BACKGROUNDCOLOR = 0x00ffffff;
-
     PhoneStatusBarPolicy mIconPolicy;
 
     // These are no longer handled by the policy, because we need custom strategies for them
@@ -401,10 +399,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
     // Status bar carrier
     private boolean mShowStatusBarCarrier;
-
-    // Heads Up Custom Colors
-    private int mHeadsUpCustomBg;
-    private int mHeadsUpCustomText;
 
     // battery
     private BatteryMeterView mBatteryView;
@@ -615,7 +609,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     Settings.System.HEADS_UP_TEXT_COLOR))) {
                     mHeadsUpCustomText = Settings.System.getIntForUser(
                         mContext.getContentResolver(),
-                        Settings.System.HEADS_UP_TEXT_COLOR, 0x00000000,
+                        Settings.System.HEADS_UP_TEXT_COLOR, HEADSUP_DEFAULT_TEXTCOLOR,
                         UserHandle.USER_CURRENT);
             }
             update();
@@ -739,9 +733,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         public void onChange(boolean selfChange) {
             boolean wasUsing = mUseHeadsUp;
             mUseHeadsUp = ENABLE_HEADS_UP && !mDisableNotificationAlerts
-                    && Settings.Global.HEADS_UP_OFF != Settings.Global.getInt(
-                    mContext.getContentResolver(), Settings.Global.HEADS_UP_NOTIFICATIONS_ENABLED,
-                    Settings.Global.HEADS_UP_OFF);
+                && (Settings.Global.HEADS_UP_OFF != Settings.Global.getInt(
+                        mContext.getContentResolver(),
+                        Settings.Global.HEADS_UP_NOTIFICATIONS_ENABLED,
+                        Settings.Global.HEADS_UP_OFF));
             mHeadsUpTicker = mUseHeadsUp && 0 != Settings.Global.getInt(
                     mContext.getContentResolver(), SETTING_HEADS_UP_TICKER, 0);
             Log.d(TAG, "initial heads up is " + (mUseHeadsUp ? "enabled" : "disabled"));
@@ -1977,20 +1972,22 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             ViewGroup holder = mHeadsUpNotificationView.getHolder();
 
             // get text color value
-            int mHeadsUpCustomTextColor = Settings.System.getIntForUser(
-                mContext.getContentResolver(), Settings.System.HEADS_UP_TEXT_COLOR,
-                0x00000000, UserHandle.USER_CURRENT);
+            mHeadsUpCustomText = Settings.System.getIntForUser(
+                mContext.getContentResolver(),
+                Settings.System.HEADS_UP_TEXT_COLOR,
+                HEADSUP_DEFAULT_TEXTCOLOR, UserHandle.USER_CURRENT);
 
-            if (inflateViews(interruptionCandidate, holder, true, mHeadsUpCustomTextColor)) {
+            if (inflateViewsForHeadsUp(interruptionCandidate, holder, mHeadsUpCustomText)) {
 
                 // get background value
-                int mHeadsUpCustomBg = Settings.System.getIntForUser(
+                mHeadsUpCustomBg = Settings.System.getIntForUser(
                     mContext.getContentResolver(), Settings.System.HEADS_UP_BG_COLOR,
                     HEADSUP_DEFAULT_BACKGROUNDCOLOR, UserHandle.USER_CURRENT);
 
                 // 1. Populate mHeadsUpNotificationView
-                mHeadsUpNotificationView.showNotification(interruptionCandidate,
-                    mHeadsUpCustomBg);
+                mHeadsUpNotificationView.setTextColor(mHeadsUpCustomText);
+                mHeadsUpNotificationView.showNotification(
+                    interruptionCandidate, mHeadsUpCustomBg);
 
                 // do not show the notification in the shade, yet.
                 return;
