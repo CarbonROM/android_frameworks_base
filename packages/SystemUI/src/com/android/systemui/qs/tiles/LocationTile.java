@@ -50,10 +50,10 @@ public class LocationTile extends QSTile<QSTile.BooleanState> {
             Settings.Secure.LOCATION_MODE_HIGH_ACCURACY
     };
 
-//    private final AnimationIcon mEnable =
-//            new AnimationIcon(R.drawable.ic_signal_location_enable_animation);
-//    private final AnimationIcon mDisable =
-//            new AnimationIcon(R.drawable.ic_signal_location_disable_animation);
+    private final AnimationIcon mEnable =
+            new AnimationIcon(R.drawable.ic_signal_location_enable_animation);
+    private final AnimationIcon mDisable =
+            new AnimationIcon(R.drawable.ic_signal_location_disable_animation);
 
     private final List<Integer> mLocationList = new ArrayList<>();
     private final LocationController mController;
@@ -104,11 +104,11 @@ public class LocationTile extends QSTile<QSTile.BooleanState> {
     protected void handleClick() {
         if (!mController.isAdvancedSettingsEnabled() || mForceToggleState) {
             mController.setLocationEnabled(!mController.isLocationEnabled());
-//            mEnable.setAllowAnimation(true);
-//            mDisable.setAllowAnimation(true);
+            mEnable.setAllowAnimation(true);
+            mDisable.setAllowAnimation(true);
         } else {
-//            mEnable.setAllowAnimation(false);
-//            mDisable.setAllowAnimation(false);
+            mEnable.setAllowAnimation(false);
+            mDisable.setAllowAnimation(false);
             showDetail(true);
             qsCollapsePanel();
         }
@@ -116,10 +116,10 @@ public class LocationTile extends QSTile<QSTile.BooleanState> {
 
     @Override
     protected void handleLongClick() {
-//        mEnable.setAllowAnimation(false);
-//        mDisable.setAllowAnimation(false);
+        mEnable.setAllowAnimation(false);
+        mDisable.setAllowAnimation(false);
         mHost.startSettingsActivity(LOCATION_SETTINGS_INTENT);
-	showDetail(true);
+    showDetail(true);
     }
 
     @Override
