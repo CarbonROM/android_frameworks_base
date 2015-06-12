@@ -144,7 +144,6 @@ public class DataUsageDetailView extends LinearLayout {
         infoTop.setText(top);
         if (mQSCSwitch) {
             infoTop.setTextColor(textColor);
-            final TextView period = (TextView) findViewById(R.id.usage_period_text);
             period.setText(info.period);
             period.setTextColor(secondaryTextColor);
         }
