@@ -4153,6 +4153,12 @@ public final class Settings {
         public static final String OVERSCROLL_WEIGHT = "overscroll_weight";
 
         /**
+         *
+         * @hide
+         */
+        public static final String ANIMATION_CONTROLS_NO_SCROLL = "animation_controls_no_scroll";
+
+        /**
          * AOKP Custom System Animations
          * @hide
          */

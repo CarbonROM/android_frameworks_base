@@ -182,7 +182,7 @@ public class ViewConfiguration {
     /**
      * Maximum velocity to initiate a fling, as measured in dips per second
      */
-    private static final int MAXIMUM_FLING_VELOCITY = 16000;
+    private static int MAXIMUM_FLING_VELOCITY = 16000;
 
     /**
      * Maximum velocity to initiate a fling, as measured in dips per second
