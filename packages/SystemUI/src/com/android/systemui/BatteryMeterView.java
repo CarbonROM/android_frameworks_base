@@ -278,10 +278,9 @@ public class BatteryMeterView extends View implements DemoMode,
                 0xffffffff, currentUserId);
         mTextColor = Settings.System.getIntForUser(mResolver,
                 Settings.System.STATUS_BAR_BATTERY_STATUS_TEXT_COLOR,
-                0xff000000, currentUserId);
+                0xffffffff, currentUserId);
         mOldStatusColor = mStatusColor;
         mOldTextColor = mTextColor;
-
     }
 
     @Override
@@ -486,7 +485,7 @@ public class BatteryMeterView extends View implements DemoMode,
                 0xffffffff, currentUserId);
         mTextColor = Settings.System.getIntForUser(mResolver,
                 Settings.System.STATUS_BAR_BATTERY_STATUS_TEXT_COLOR,
-                0xff000000, currentUserId);
+                0xffffffff, currentUserId);
 
         if (mAnimateColorTransition) {
             int blendedStatusColor = ColorHelper.getBlendColor(
