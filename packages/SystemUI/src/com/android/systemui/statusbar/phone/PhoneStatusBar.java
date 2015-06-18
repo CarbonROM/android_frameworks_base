@@ -1894,6 +1894,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             if (DEBUG) Log.d(TAG, "launching notification in heads up mode");
             Entry interruptionCandidate = new Entry(notification, null);
             ViewGroup holder = mHeadsUpNotificationView.getHolder();
+
             if (inflateViewsForHeadsUp(interruptionCandidate, holder)) {
                 // 1. Populate mHeadsUpNotificationView
                 mHeadsUpNotificationView.showNotification(interruptionCandidate);
@@ -1925,7 +1926,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             // usual case: status bar visible & not immersive
 
             // show the ticker if there isn't already a heads up
-            if (mHeadsUpNotificationView.getEntry() == null) {
+            if (mHeadsUpNotificationView != null &&
+                mHeadsUpNotificationView.getEntry() == null) {
                 tick(notification, true);
             }
         }
