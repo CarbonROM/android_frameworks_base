@@ -36,18 +36,16 @@ import android.widget.TextView;
 import com.android.internal.util.slim.ColorHelper;
 
 import com.android.systemui.statusbar.policy.BatteryController;
+import com.android.systemui.statusbar.policy.BatteryStateRegistar;
 
 import java.text.NumberFormat;
 
 public class BatteryLevelTextView extends TextView implements
         BatteryController.BatteryStateChangeCallback{
 
-    private static final String STATUS_BAR_BATTERY_STATUS_STYLE =
-            "status_bar_battery_status_style";
-    private static final String STATUS_BAR_BATTERY_STATUS_PERCENT_STYLE =
-            "status_bar_battery_status_percent_style";
 
-    private BatteryController mBatteryController;
+    private BatteryStateRegistar mBatteryStateRegistar;
+    private boolean mBatteryPluggedIn;
     private boolean mBatteryCharging;
     private int mBatteryLevel = 0;
     private boolean mShow;
@@ -85,10 +83,10 @@ public class BatteryLevelTextView extends TextView implements
         updateVisibility();
     }
 
-    public void setBatteryController(BatteryController batteryController) {
-        mBatteryController = batteryController;
+    public void setBatteryStateRegistar(BatteryStateRegistar batteryStateRegistar) {
+        mBatteryStateRegistar = batteryStateRegistar;
         if (mAttached) {
-            mBatteryController.addStateChangedCallback(this);
+            mBatteryStateRegistar.addStateChangedCallback(this);
         }
     }
 
@@ -107,17 +105,17 @@ public class BatteryLevelTextView extends TextView implements
                 getResources().getDimensionPixelSize(R.dimen.battery_level_text_size));
      }
 
-    @Override
-    public void onBatteryLevelChanged(int level, boolean pluggedIn, boolean charging) {
-        mBatteryLevel = level;
-        String percentage = NumberFormat.getPercentInstance().format((double) mBatteryLevel / 100.0);
-        setText(percentage);
-        boolean changed = mBatteryCharging != charging;
-        mBatteryCharging = charging;
-        if (changed) {
-            loadShowBatteryTextSetting();
-        }
-    }
+     @Override
+         public void onBatteryLevelChanged(int level, boolean pluggedIn, boolean charging) {
+             mBatteryLevel = level;
+             String percentage = NumberFormat.getPercentInstance().format((double) mBatteryLevel / 100.0);
+             setText(percentage);
+             if (mBatteryPluggedIn != pluggedIn || mBatteryCharging != charging) {
+               mBatteryPluggedIn = pluggedIn;
+               mBatteryCharging = charging;
+               loadShowBatteryTextSetting();
+             }
+         }
 
     @Override
     public void onPowerSaveChanged() {
@@ -128,8 +126,8 @@ public class BatteryLevelTextView extends TextView implements
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
 
-        if (mBatteryController != null) {
-            mBatteryController.addStateChangedCallback(this);
+        if (mBatteryStateRegistar != null) {
+            mBatteryStateRegistar.addStateChangedCallback(this);
         }
         mResolver.registerContentObserver(Settings.System.getUriFor(
                 STATUS_BAR_BATTERY_STATUS_STYLE), false, mObserver);
@@ -144,13 +142,13 @@ public class BatteryLevelTextView extends TextView implements
         mAttached = false;
         mResolver.unregisterContentObserver(mObserver);
 
-        if (mBatteryController != null) {
-            mBatteryController.removeStateChangedCallback(this);
+        if (mBatteryStateRegistar != null) {
+            mBatteryStateRegistar.removeStateChangedCallback(this);
         }
     }
 
     private void updateVisibility() {
-        if (mShow || mForceShow) {
+        if (mBatteryStateRegistar != null && (mShow || mForceShow)) {
             super.setVisibility(mRequestedVisibility);
         } else {
             super.setVisibility(GONE);
@@ -200,7 +198,9 @@ public class BatteryLevelTextView extends TextView implements
         int mode = Settings.System.getIntForUser(mResolver,
                 Settings.System.STATUS_BAR_BATTERY_STATUS_PERCENT_STYLE, 2, currentUserId);
 
-        boolean showNextPercent = mode == 1;
+                boolean showNextPercent = mBatteryPluggedIn && (
+                        mPercentMode == BatteryController.PERCENTAGE_MODE_OUTSIDE
+                        || (mBatteryCharging && mPercentMode == BatteryController.PERCENTAGE_MODE_INSIDE));
         int batteryStyle = Settings.System.getIntForUser(mResolver,
                 Settings.System.STATUS_BAR_BATTERY_STATUS_STYLE, 0, currentUserId);
 
