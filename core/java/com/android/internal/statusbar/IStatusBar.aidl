@@ -29,8 +29,7 @@ oneway interface IStatusBar
     void disable(int state);
     void animateExpandNotificationsPanel();
     void animateExpandSettingsPanel();
-    void animateCollapsePanels(); 
-    void animateNotificationsOrSettingsPanel();
+    void animateCollapsePanels();
     void setSystemUiVisibility(int vis, int mask);
     void topAppWindowChanged(boolean menuVisible);
     void setImeWindowStatus(in IBinder token, int vis, int backDisposition,
@@ -51,5 +50,5 @@ oneway interface IStatusBar
     void toggleKillApp();
     void toggleScreenshot();
     void setPieTriggerMask(int newMask, boolean lock);
-    void notifyLayoutChange(int direction);
 }
+
