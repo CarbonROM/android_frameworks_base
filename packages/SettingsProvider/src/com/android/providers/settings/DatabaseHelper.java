@@ -1966,11 +1966,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
 
             String[] systemToSecure = new String[] {
-                    Secure.NAVIGATION_BAR_SHOW,
-                    Secure.NAVIGATION_BAR_HEIGHT,
-                    Secure.NAVIGATION_BAR_WIDTH,
-                    Secure.NAVIGATION_BAR_TINT,
-                    Secure.ENABLE_HW_KEYS,
+                    Secure.DEV_FORCE_SHOW_NAVBAR,
                     Secure.KEYBOARD_BRIGHTNESS,
                     Secure.BUTTON_BRIGHTNESS,
                     Secure.BUTTON_BACKLIGHT_TIMEOUT

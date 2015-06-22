@@ -110,9 +110,6 @@
   <java-symbol type="string" name="disable_navigation_pie_error" />
   <java-symbol type="string" name="disable_pie_navigation_error" />
 
-  <!-- Hardware keys on/off option -->
-  <java-symbol type="bool" name="config_hwKeysPref" />
-
   <!-- Carbon Easter Egg -->
   <java-symbol type="drawable" name="carbon_bg_logo" />
   <java-symbol type="drawable" name="carbon_logo" />

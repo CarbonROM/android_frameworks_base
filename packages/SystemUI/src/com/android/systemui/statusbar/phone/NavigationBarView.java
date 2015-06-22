@@ -53,6 +53,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.android.systemui.R;
+import com.android.systemui.cm.UserContentObserver;
 import com.android.systemui.statusbar.BaseStatusBar;
 import com.android.systemui.statusbar.DelegateViewHelper;
 import com.android.systemui.statusbar.policy.DeadZone;
@@ -100,7 +101,7 @@ public class NavigationBarView extends LinearLayout implements BaseStatusBar.Nav
     int mDisabledFlags = 0;
     int mNavigationIconHints = 0;
 
-    private Drawable mBackIcon, mBackLandIcon, mBackAltIcon, mBackAltLandIcon;
+    private BackButtonDrawable mBackIcon, mBackLandIcon;
     private Drawable mRecentIcon;
     private Drawable mRecentLandIcon;
     private Drawable mHomeIcon, mHomeLandIcon;
@@ -354,10 +355,8 @@ public class NavigationBarView extends LinearLayout implements BaseStatusBar.Nav
     }
 
     private void getIcons(Resources res) {
-        mBackIcon = res.getDrawable(R.drawable.ic_sysbar_back);
-        mBackLandIcon = res.getDrawable(R.drawable.ic_sysbar_back_land);
-        mBackAltIcon = res.getDrawable(R.drawable.ic_sysbar_back_ime);
-        mBackAltLandIcon = res.getDrawable(R.drawable.ic_sysbar_back_ime_land);
+        mBackIcon = new BackButtonDrawable(res.getDrawable(R.drawable.ic_sysbar_back));
+        mBackLandIcon = new BackButtonDrawable(res.getDrawable(R.drawable.ic_sysbar_back_land));
         mRecentIcon = res.getDrawable(R.drawable.ic_sysbar_recent);
         mRecentLandIcon = res.getDrawable(R.drawable.ic_sysbar_recent_land);
         mHomeIcon = res.getDrawable(R.drawable.ic_sysbar_home);
@@ -425,9 +424,10 @@ public class NavigationBarView extends LinearLayout implements BaseStatusBar.Nav
 
         mNavigationIconHints = hints;
 
-        ((ImageView)getBackButton()).setImageDrawable(backAlt
-                ? (mVertical ? mBackAltLandIcon : mBackAltIcon)
-                : (mVertical ? mBackLandIcon : mBackIcon));
+        ((ImageView)getBackButton()).setImageDrawable(null);
+        ((ImageView)getBackButton()).setImageDrawable(mVertical ? mBackLandIcon : mBackIcon);
+        mBackLandIcon.setImeVisible(backAlt);
+        mBackIcon.setImeVisible(backAlt);
 
         ((ImageView)getRecentsButton()).setImageDrawable(mVertical ? mRecentLandIcon : mRecentIcon);
         ((ImageView)getHomeButton()).setImageDrawable(mVertical ? mHomeLandIcon : mHomeIcon);
@@ -724,6 +724,7 @@ public class NavigationBarView extends LinearLayout implements BaseStatusBar.Nav
                     changed?"changed":"notchanged", left, top, right, bottom));
         super.onLayout(changed, left, top, right, bottom);
     }
+
     // uncomment this for extra defensiveness in WORKAROUND_INVALID_LAYOUT situations: if all else
     // fails, any touch on the display will fix the layout.
     @Override
@@ -932,30 +933,34 @@ public class NavigationBarView extends LinearLayout implements BaseStatusBar.Nav
         setMenuVisibility(mShowMenu, true);
     }
 
-    private class SettingsObserver extends ContentObserver {
+    private class SettingsObserver extends UserContentObserver {
 
         SettingsObserver(Handler handler) {
             super(handler);
         }
 
-        void observe() {
+        @Override
+        protected void observe() {
+            super.observe();
             ContentResolver resolver = mContext.getContentResolver();
             resolver.registerContentObserver(
                     Settings.System.getUriFor(Settings.System.NAVIGATION_BAR_MENU_ARROW_KEYS),
-                    false, this);
+                    false, this, UserHandle.USER_ALL);
 
             // intialize mModlockDisabled
             onChange(false);
         }
 
-        void unobserve() {
+        @Override
+        protected void unobserve() {
+            super.unobserve();
             mContext.getContentResolver().unregisterContentObserver(this);
         }
 
         @Override
-        public void onChange(boolean selfChange) {
-            mShowDpadArrowKeys = Settings.System.getInt(mContext.getContentResolver(),
-                    Settings.System.NAVIGATION_BAR_MENU_ARROW_KEYS, 0) != 0;
+        protected void update() {
+            mShowDpadArrowKeys = Settings.System.getIntForUser(mContext.getContentResolver(),
+                    Settings.System.NAVIGATION_BAR_MENU_ARROW_KEYS, 0, UserHandle.USER_CURRENT) != 0;
             // reset saved side button visibilities
             for (int i = 0; i < mSideButtonVisibilities.length; i++) {
                 for (int j = 0; j < mSideButtonVisibilities[i].length; j++) {

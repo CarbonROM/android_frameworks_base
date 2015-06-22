@@ -159,7 +159,7 @@ public class Action {
                 }
                 Settings.System.putIntForUser(
                         context.getContentResolver(),
-                        Settings.Secure.NAVIGATION_BAR_SHOW,
+                        Settings.Secure.DEV_FORCE_SHOW_NAVBAR,
                         navBarState ? 0 : 1, UserHandle.USER_CURRENT);
                 return;
             } else if (action.equals(ActionConstants.ACTION_RECENTS)) {
@@ -357,7 +357,7 @@ public class Action {
 
     public static boolean isNavBarEnabled(Context context) {
         return Settings.Secure.getIntForUser(context.getContentResolver(),
-                Settings.Secure.NAVIGATION_BAR_SHOW,
+                Settings.Secure.DEV_FORCE_SHOW_NAVBAR,
                 isNavBarDefault(context) ? 1 : 0, UserHandle.USER_CURRENT) == 1;
     }
 
