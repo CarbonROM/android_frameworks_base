@@ -79,7 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // database gets upgraded properly. At a minimum, please confirm that 'upgradeVersion'
     // is properly propagated through your change.  Not doing so will result in a loss of user
     // settings.
-    private static final int DATABASE_VERSION = 125;
+    private static final int DATABASE_VERSION = 124;
 
     private static final String HEADSET = "_headset";
     private static final String SPEAKER = "_speaker";
@@ -1837,17 +1837,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             upgradeHeadsUpSettingFromNone(db);
             upgradeDeviceNameFromNone(db);
 
-            // Removal of back/recents is no longer supported
-            // due to pinned apps
-            db.beginTransaction();
-            try {
-                db.execSQL("DELETE FROM system WHERE name='"
-                        + Settings.System.NAV_BUTTONS + "'");
-                db.setTransactionSuccessful();
-            } finally {
-                db.endTransaction();
-            }
-
             upgradeVersion = 114;
         }
 
@@ -1919,7 +1908,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             upgradeVersion = 119;
         }
 
-       if (upgradeVersion == 119) {
+       if (upgradeVersion == 120) {
             db.beginTransaction();
             SQLiteStatement stmt = null;
             try {
@@ -1934,14 +1923,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         if (upgradeVersion < 121) {
-            String[] settingsToMove = Settings.Secure.NAVIGATION_RING_TARGETS;
-
-            moveSettingsToNewTable(db, TABLE_SYSTEM, TABLE_SECURE,
-                    settingsToMove, true);
-            upgradeVersion = 121;
-        }
-
-        if (upgradeVersion < 122) {
             db.beginTransaction();
             SQLiteStatement stmt = null;
             try {
@@ -1954,10 +1935,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 db.endTransaction();
                 if (stmt != null) stmt.close();
             }
-            upgradeVersion = 122;
+            upgradeVersion = 121;
         }
 
-        if (upgradeVersion < 123) {
+        if (upgradeVersion < 122) {
             // only the owner has access to global table, so we need to check that here
             if (mUserHandle == UserHandle.USER_OWNER) {
                 String[] globalToSecure = new String[] { Settings.Secure.POWER_MENU_ACTIONS };
@@ -1966,17 +1947,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
 
             String[] systemToSecure = new String[] {
-                    Secure.DEV_FORCE_SHOW_NAVBAR,
                     Secure.KEYBOARD_BRIGHTNESS,
                     Secure.BUTTON_BRIGHTNESS,
                     Secure.BUTTON_BACKLIGHT_TIMEOUT
             };
             moveSettingsToNewTable(db, TABLE_SYSTEM, TABLE_SECURE, systemToSecure, true);
 
-            upgradeVersion = 123;
+            upgradeVersion = 122;
         }
 
-        if (upgradeVersion < 124) {
+        if (upgradeVersion < 123) {
             // Migrate from cm-12.0 if there is no entry from cm-11.0
             db.beginTransaction();
             SQLiteStatement stmt = null;
@@ -1992,10 +1972,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 db.endTransaction();
                 if (stmt != null) stmt.close();
             }
-            upgradeVersion = 124;
+            upgradeVersion = 123;
         }
 
-        if (upgradeVersion < 125) {
+        if (upgradeVersion < 124) {
             // Force enable advanced settings if the overlay defaults to true
             if (mContext.getResources().getBoolean(
                     com.android.internal.R.bool.config_advancedSettingsMode)) {
@@ -2012,7 +1992,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     if (stmt != null) stmt.close();
                 }
             }
-            upgradeVersion = 125;
+            upgradeVersion = 124;
         }
 
         // *** Remember to update DATABASE_VERSION above!
@@ -2723,9 +2703,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             loadIntegerSetting(stmt, Settings.Secure.LONG_PRESS_TIMEOUT,
                     R.integer.def_long_press_timeout_millis);
-
-            loadIntegerSetting(stmt, Settings.Secure.DEV_FORCE_SHOW_NAVBAR,
-                    R.integer.def_force_disable_navkeys);
 
             loadBooleanSetting(stmt, Settings.Secure.TOUCH_EXPLORATION_ENABLED,
                     R.bool.def_touch_exploration_enabled);

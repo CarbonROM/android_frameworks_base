@@ -885,9 +885,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     Settings.System.USE_EDGE_SERVICE_FOR_GESTURES), false, this,
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.Secure.DEV_FORCE_SHOW_NAVBAR), false, this,
-                    UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.HOME_WAKE_SCREEN), false, this,
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
@@ -2109,12 +2106,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     mWindowManagerFuncs.registerPointerEventListener(mSystemGestures);
                 }
                 updateEdgeGestureListenerState();
-            }
-
-            boolean devForceNavbar = Settings.Secure.getIntForUser(resolver,
-                    Settings.Secure.DEV_FORCE_SHOW_NAVBAR, 0, UserHandle.USER_CURRENT) == 1;
-            if (devForceNavbar != mDevForceNavbar) {
-                mDevForceNavbar = devForceNavbar;
             }
 
             mNavigationBarLeftInLandscape = Settings.System.getIntForUser(resolver,
@@ -4247,23 +4238,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
     private void setPieTriggerMask(boolean isPortrait) {
         int newMask = EdgeGesturePosition.LEFT.FLAG;
-        if (mHasNavigationBar) {
-            if (mNavigationBarOnBottom) {
-                newMask |= EdgeGesturePosition.RIGHT.FLAG;
-                if (isPortrait && mNavigationBarHeight == 0
-                        || !isPortrait && mNavigationBarWidth == 0) {
-                    newMask |= EdgeGesturePosition.BOTTOM.FLAG;
-                }
-            } else {
-                newMask |= EdgeGesturePosition.BOTTOM.FLAG;
-                if (mNavigationBarWidth == 0) {
-                    newMask |= EdgeGesturePosition.RIGHT.FLAG;
-                }
-            }
-        } else {
-            newMask |= EdgeGesturePosition.RIGHT.FLAG
-                    | EdgeGesturePosition.BOTTOM.FLAG;
-        }
         try {
             IStatusBarService statusbar = getStatusBarService();
             if (statusbar != null) {
@@ -4824,18 +4798,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 && !win.getGivenInsetsPendingLw()) {
             offsetVoiceInputWindowLw(win);
         }
-    }
-
-    /** {@inheritDoc} */
-    public int getCurrentNavigationBarSize() {
-        boolean landscape = mContext.getResources().getConfiguration()
-            .orientation == Configuration.ORIENTATION_LANDSCAPE;
-        if (landscape && !mNavigationBarCanMove) {
-            return mNavigationBarWidth;
-        } else if (landscape && mNavigationBarCanMove) {
-            return mNavigationBarWidth;
-        }
-        return mNavigationBarHeight;
     }
 
     private void offsetInputMethodWindowLw(WindowState win) {
@@ -7472,7 +7434,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     // overridden by qemu.hw.mainkeys in the emulator.
     @Override
     public boolean hasNavigationBar() {
-        return mHasNavigationBar || mDevForceNavbar;
+        return mHasNavigationBar;
     }
 
     @Override

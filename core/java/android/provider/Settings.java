@@ -1270,10 +1270,7 @@ public final class Settings {
             MOVED_TO_SECURE.add(Secure.QS_TILES);
             MOVED_TO_SECURE.add(Secure.QS_USE_MAIN_TILES);
             MOVED_TO_SECURE.add(Secure.QS_SHOW_BRIGHTNESS_SLIDER);
-            for (String s : Secure.NAVIGATION_RING_TARGETS) {
-                MOVED_TO_SECURE.add(s);
-            }
-            MOVED_TO_SECURE.add(Secure.DEV_FORCE_SHOW_NAVBAR);
+            MOVED_TO_SECURE.add(Secure.ENABLE_HW_KEYS);
             MOVED_TO_SECURE.add(Secure.KEYBOARD_BRIGHTNESS);
             MOVED_TO_SECURE.add(Secure.BUTTON_BRIGHTNESS);
             MOVED_TO_SECURE.add(Secure.BUTTON_BACKLIGHT_TIMEOUT);
@@ -1896,12 +1893,6 @@ public final class Settings {
          * @hide
          */
         public static final int ADVANCED_SETTINGS_DEFAULT = 0;
-
-        /**
-         * Navigation controls to Use
-         * @hide
-         */
-        public static final String NAV_BUTTONS = "nav_buttons";
 
         /**
          * @deprecated Use {@link android.provider.Settings.Global#AIRPLANE_MODE_ON} instead
@@ -2815,20 +2806,20 @@ public final class Settings {
         public static final String TIME_12_24 = "time_12_24";
 
         /**
-         * Developer options - Navigation Bar show switch
-         * @deprecated Use {@link android.provider.Settings.Secure#DEV_FORCE_SHOW_NAVBAR} instead
-         * @hide
-         */
-        @Deprecated
-        public static final String DEV_FORCE_SHOW_NAVBAR = Secure.DEV_FORCE_SHOW_NAVBAR;
-
-        /**
          * Date format string
          *   mm/dd/yyyy
          *   dd/mm/yyyy
          *   yyyy/mm/dd
          */
         public static final String DATE_FORMAT = "date_format";
+
+        /**
+         * Enable HW keys
+         * @deprecated Use {@link android.provider.Settings.Secure#ENABLE_HW_KEYS} instead
+         * @hide
+         */
+        @Deprecated
+        public static final String ENABLE_HW_KEYS = Secure.ENABLE_HW_KEYS;
 
         /**
          * Whether the setup wizard has been run before (on first boot), or if
@@ -4958,13 +4949,6 @@ public final class Settings {
         @Deprecated
         public static final String WIFI_WATCHDOG_PING_TIMEOUT_MS =
             Secure.WIFI_WATCHDOG_PING_TIMEOUT_MS;
-
-        /**
-         * boolean value. toggles using arrow key locations on nav bar
-         * as left and right dpad keys
-         * @hide
-         */
-        public static final String NAVIGATION_BAR_MENU_ARROW_KEYS = "navigation_bar_menu_arrow_keys";
 
         /**
          * Whether or not to launch default music player when headset is connected
@@ -7137,16 +7121,6 @@ public final class Settings {
         public static final String QS_USE_FOUR_COLUMNS = "qs_use_four_columns";
 
         /**
-         * Custom navring actions
-         * @hide
-         */
-        public static final String[] NAVIGATION_RING_TARGETS = new String[] {
-                "navigation_ring_targets_0",
-                "navigation_ring_targets_1",
-                "navigation_ring_targets_2",
-        };
-
-        /**
          * The global recents long press activity chosen by the user.
          * This setting is stored as a flattened component name as
          * per {@link ComponentName#flattenToString()}.
@@ -7169,10 +7143,10 @@ public final class Settings {
         public static final String POWER_MENU_ACTIONS = "power_menu_actions";
 
         /**
-         * Developer options - Navigation Bar show switch
+         * Enable HW keys
          * @hide
          */
-        public static final String DEV_FORCE_SHOW_NAVBAR = "dev_force_show_navbar";
+        public static final String ENABLE_HW_KEYS = "enable_hw_keys";
 
         /**
          * The keyboard brightness to be used while the screen is on.

@@ -50,8 +50,6 @@ public class LockTaskNotify {
         mAccessibilityManager = (AccessibilityManager)
                 mContext.getSystemService(Context.ACCESSIBILITY_SERVICE);
         mHandler = new H();
-        SettingsObserver observer = new SettingsObserver(mHandler);
-        observer.observe();
     }
 
     public void showToast(boolean isLocked) {
@@ -100,27 +98,6 @@ public class LockTaskNotify {
                     handleShowToast(msg.arg1 != 0);
                     break;
             }
-        }
-    }
-
-    class SettingsObserver extends ContentObserver {
-        SettingsObserver(Handler handler) {
-            super(handler);
-        }
-
-        void observe() {
-            // Observe all users' changes
-            final ContentResolver resolver = mContext.getContentResolver();
-            resolver.registerContentObserver(Settings.Secure.getUriFor(
-                            Settings.Secure.NAVIGATION_BAR_SHOW), false, this,
-                    UserHandle.USER_ALL);
-            onChange(true);
-        }
-
-        @Override public void onChange(boolean selfChange) {
-            final ContentResolver resolver = mContext.getContentResolver();
-            mDevForceNavbar = Settings.Secure.getIntForUser(resolver,
-                    Settings.Secure.NAVIGATION_BAR_SHOW, 0, UserHandle.USER_CURRENT) == 1;
         }
     }
 }

@@ -72,7 +72,6 @@ import com.android.systemui.qs.tiles.ScreenrecordTile;
 import com.android.systemui.qs.tiles.ScreenTimeoutTile;
 import com.android.systemui.qs.tiles.SleepScreenTile;
 import com.android.systemui.qs.tiles.SyncTile;
-import com.android.systemui.qs.tiles.NavBarTile;
 import com.android.systemui.qs.tiles.AppCircleBarTile;
 import com.android.systemui.qs.tiles.WifiTile;
 import com.android.systemui.settings.CurrentUserTracker;
@@ -397,8 +396,6 @@ public class QSTileHost implements QSTile.Host {
                 return new SlimActionTile(this);
             case QSConstants.TILE_USB_TETHER:
                 return new UsbTetherTile(this);
-            case QSConstants.TILE_NAVBAR:
-                return new NavBarTile(this);
             case QSConstants.TILE_APPCIRCLEBAR:
                 return new AppCircleBarTile(this);
             case QSConstants.TILE_HEADS_UP:

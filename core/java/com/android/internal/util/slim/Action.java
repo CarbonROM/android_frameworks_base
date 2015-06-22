@@ -138,7 +138,7 @@ public class Action {
                 return;
             } else if (action.equals(ActionConstants.ACTION_PIE)) {
                 boolean pieState = isPieEnabled(context);
-                if (pieState && !isNavBarEnabled(context) && isNavBarDefault(context)) {
+                if (pieState && isNavBarDefault(context)) {
                     Toast.makeText(context,
                             com.android.internal.R.string.disable_pie_navigation_error,
                             Toast.LENGTH_LONG).show();
@@ -148,19 +148,6 @@ public class Action {
                         context.getContentResolver(),
                         Settings.System.PIE_CONTROLS,
                         pieState ? 0 : 1, UserHandle.USER_CURRENT);
-                return;
-            } else if (action.equals(ActionConstants.ACTION_NAVBAR)) {
-                boolean navBarState = isNavBarEnabled(context);
-                if (navBarState && !isPieEnabled(context) && isNavBarDefault(context)) {
-                    Toast.makeText(context,
-                            com.android.internal.R.string.disable_navigation_pie_error,
-                            Toast.LENGTH_LONG).show();
-                    return;
-                }
-                Settings.System.putIntForUser(
-                        context.getContentResolver(),
-                        Settings.Secure.DEV_FORCE_SHOW_NAVBAR,
-                        navBarState ? 0 : 1, UserHandle.USER_CURRENT);
                 return;
             } else if (action.equals(ActionConstants.ACTION_RECENTS)) {
                 if (isKeyguardShowing) {
@@ -353,12 +340,6 @@ public class Action {
                 return;
             }
 
-    }
-
-    public static boolean isNavBarEnabled(Context context) {
-        return Settings.Secure.getIntForUser(context.getContentResolver(),
-                Settings.Secure.DEV_FORCE_SHOW_NAVBAR,
-                isNavBarDefault(context) ? 1 : 0, UserHandle.USER_CURRENT) == 1;
     }
 
     public static boolean isNavBarDefault(Context context) {
