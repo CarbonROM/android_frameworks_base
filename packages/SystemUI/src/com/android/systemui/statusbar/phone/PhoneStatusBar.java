@@ -2499,6 +2499,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 backdropBitmap = mMediaMetadata.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART);
                 // might still be null
             }
+            mBackdrop.updateVisualizerColor(backdropBitmap);
         }
 
         // apply user lockscreen image
