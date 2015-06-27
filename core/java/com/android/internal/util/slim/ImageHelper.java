@@ -33,10 +33,44 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader.TileMode;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.VectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 
 public class ImageHelper {
+
+    public static Drawable getColoredDrawable(Drawable d, int color) {
+        if (d == null) {
+            return null;
+        }
+        if (d instanceof VectorDrawable) {
+            d.setTint(color);
+            return d;
+        }
+        Bitmap colorBitmap = ((BitmapDrawable) d).getBitmap();
+        Bitmap grayscaleBitmap = toGrayscale(colorBitmap);
+        Paint pp = new Paint();
+        pp.setAntiAlias(true);
+        PorterDuffColorFilter frontFilter =
+            new PorterDuffColorFilter(color, Mode.MULTIPLY);
+        pp.setColorFilter(frontFilter);
+        Canvas cc = new Canvas(grayscaleBitmap);
+        final Rect rect = new Rect(0, 0, grayscaleBitmap.getWidth(), grayscaleBitmap.getHeight());
+        cc.drawBitmap(grayscaleBitmap, rect, rect, pp);
+        return new BitmapDrawable(grayscaleBitmap);
+    }
+
+    public static Bitmap drawableToBitmap (Drawable drawable) {
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable) drawable).getBitmap();
+        }
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
+    }
 
     public static Bitmap getColoredBitmap(Drawable d, int color) {
         if (d == null) {

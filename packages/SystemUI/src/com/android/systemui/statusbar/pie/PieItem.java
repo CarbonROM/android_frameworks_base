@@ -20,10 +20,7 @@ package com.android.systemui.statusbar.pie;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-<<<<<<< HEAD
 import android.graphics.drawable.VectorDrawable;
-=======
->>>>>>> 8c8b880... Frameworks: SlimPie (1/2) - From BlissRom
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -241,17 +238,9 @@ public class PieItem extends PieView.PieDrawable {
             }
 
             if (colorize && drawableColorMode != 3) {
-<<<<<<< HEAD
                 drawable = ImageHelper.getColoredDrawable(drawable, drawableColor);
             }
             imageView.setImageDrawable(drawable);
-=======
-                imageView.setImageBitmap(
-                        ImageHelper.getColoredBitmap(drawable, drawableColor));
-            } else {
-                imageView.setImageDrawable(drawable);
-            }
->>>>>>> 8c8b880... Frameworks: SlimPie (1/2) - From BlissRom
         }
     }
 

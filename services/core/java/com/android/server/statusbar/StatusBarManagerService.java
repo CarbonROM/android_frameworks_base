@@ -478,7 +478,7 @@ public class StatusBarManagerService extends IStatusBarService.Stub {
         }
     }
 
-	@Override
+    @Override
     public void toggleLastApp() {
         if (mBar != null) {
             try {
@@ -496,25 +496,11 @@ public class StatusBarManagerService extends IStatusBarService.Stub {
         }
     }
 
-	@Override
+    @Override
     public void toggleScreenshot() {
         if (mBar != null) {
             try {
                 mBar.toggleScreenshot();
-            } catch (RemoteException ex) {}
-        }
-    }
-
-    /**
-     * Ask keyguard to invoke a custom intent after dismissing keyguard
-     * @hide
-     */
-    @Override
-    public void showCustomIntentAfterKeyguard(Intent intent) {
-        enforceStatusBarService();
-        if (mBar != null) {
-            try {
-                mBar.showCustomIntentAfterKeyguard(intent);
             } catch (RemoteException ex) {}
         }
     }
@@ -780,3 +766,4 @@ public class StatusBarManagerService extends IStatusBarService.Stub {
         }
     }
 }
+

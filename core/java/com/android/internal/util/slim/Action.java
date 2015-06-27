@@ -159,7 +159,7 @@ public class Action {
                 }
                 Settings.System.putIntForUser(
                         context.getContentResolver(),
-                        Settings.System.DEV_FORCE_SHOW_NAVBAR,
+                        Settings.Secure.NAVIGATION_BAR_SHOW,
                         navBarState ? 0 : 1, UserHandle.USER_CURRENT);
                 return;
             } else if (action.equals(ActionConstants.ACTION_RECENTS)) {

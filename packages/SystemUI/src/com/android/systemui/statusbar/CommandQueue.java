@@ -113,7 +113,6 @@ public class CommandQueue extends IStatusBar.Stub {
         public void toggleLastApp();
         public void toggleKillApp();
         public void toggleScreenshot();
-        public void setPieTriggerMask(int newMask, boolean lock);
     }
 
     public CommandQueue(Callbacks callbacks, StatusBarIconList list) {

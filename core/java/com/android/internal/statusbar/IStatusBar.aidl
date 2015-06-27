@@ -50,6 +50,5 @@ oneway interface IStatusBar
     void toggleLastApp();
     void toggleKillApp();
     void toggleScreenshot();
-    void setPieTriggerMask(int newMask, boolean lock);
 }
 

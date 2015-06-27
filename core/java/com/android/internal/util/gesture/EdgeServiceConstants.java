@@ -80,11 +80,6 @@ public final class EdgeServiceConstants {
     public static final int LONG_LIVING = 0x20;
 
     /**
-     * Allow IME to reduce left and right trigger height.
-     */
-    public static final int IME_CONTROL = 0x10;
-
-    /**
      * Do not cut 10% area on the edges
      */
     public static final int UNRESTRICTED = 0x30;

@@ -29,7 +29,9 @@ import android.graphics.Rect;
 import android.graphics.Region;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.os.ResultReceiver;
+import android.os.ServiceManager;
 import android.os.SystemClock;
 import android.provider.Settings;
 import android.service.gesture.IEdgeGestureService;
@@ -306,6 +308,7 @@ public class InputMethodService extends AbstractInputMethodService {
     int mStatusIcon;
     int mBackDisposition;
 
+    private Object mServiceAquireLock = new Object();
     private IEdgeGestureService mEdgeGestureService;
 
     final Insets mTmpInsets = new Insets();
