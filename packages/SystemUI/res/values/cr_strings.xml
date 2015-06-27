@@ -101,4 +101,8 @@
     <!-- Screenshot -->
     <string name="shortcut_screenshot">Screenshot</string>
 
+    <!-- Slim Action floats tile -->
+    <string name="quick_settings_slim_floats_on">Slim Floats Enabled</string>
+    <string name="quick_settings_slim_floats_off">Slim Floats Disabled</string>
+
 </resources>
