@@ -510,10 +510,7 @@ public class KeyguardBottomAreaView extends FrameLayout implements View.OnClickL
             return;
         }
         // TODO: Real icon for facelock.
-        int iconRes = mUnlockMethodCache.isFaceUnlockRunning()
-                ? com.android.internal.R.drawable.ic_account_circle
-                : mUnlockMethodCache.isCurrentlyInsecure() ? R.drawable.ic_lock_open_24dp
-                : R.drawable.ic_lock_24dp;
+        int iconRes = getIconLockResId();
         if (mLastUnlockIconRes != iconRes) {
             Drawable icon = mContext.getDrawable(iconRes);
             int iconHeight = getResources().getDimensionPixelSize(
@@ -529,6 +526,20 @@ public class KeyguardBottomAreaView extends FrameLayout implements View.OnClickL
         mTrustDrawable.setTrustManaged(trustManaged);
         updateLockIconClickability();
         mLockIcon.updateColorSettings();
+    }
+
+    private int getIconLockResId() {
+        int iconRes;
+        if (mUnlockMethodCache.isFaceUnlockRunning()) {
+            iconRes = com.android.internal.R.drawable.ic_account_circle;
+        } else if (mUnlockMethodCache.isFingerUnlockRunning()) {
+            iconRes = R.drawable.ic_fingerprint;
+        } else if (mUnlockMethodCache.isCurrentlyInsecure()) {
+            iconRes = R.drawable.ic_lock_open_24dp;
+        } else {
+            iconRes =  R.drawable.ic_lock_24dp;
+        }
+        return iconRes;
     }
 
     private String getIndexHint(LockscreenShortcutsHelper.Shortcuts shortcut) {
