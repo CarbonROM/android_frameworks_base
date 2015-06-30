@@ -2815,22 +2815,12 @@ public final class Settings {
         public static final String TIME_12_24 = "time_12_24";
 
         /**
-         * Whether navigation bar is enabled or not
+         * Developer options - Navigation Bar show switch
+         * @deprecated Use {@link android.provider.Settings.Secure#DEV_FORCE_SHOW_NAVBAR} instead
          * @hide
          */
-        public static final String NAVIGATION_BAR_SHOW = "navigation_bar_show";
-
-        /**
-         * Navigation bar height when it is on protrait
-         * @hide
-         */
-        public static final String NAVIGATION_BAR_HEIGHT = "navigation_bar_height";
-
-        /**
-         * Navigation bar height when it is on landscape at the right
-         * @hide
-         */
-        public static final String NAVIGATION_BAR_WIDTH = "navigation_bar_width";
+        @Deprecated
+        public static final String DEV_FORCE_SHOW_NAVBAR = Secure.DEV_FORCE_SHOW_NAVBAR;
 
         /**
          * Date format string
@@ -7177,6 +7167,12 @@ public final class Settings {
          * @hide
          */
         public static final String POWER_MENU_ACTIONS = "power_menu_actions";
+
+        /**
+         * Developer options - Navigation Bar show switch
+         * @hide
+         */
+        public static final String DEV_FORCE_SHOW_NAVBAR = "dev_force_show_navbar";
 
         /**
          * The keyboard brightness to be used while the screen is on.
