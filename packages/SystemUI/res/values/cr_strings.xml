@@ -114,16 +114,6 @@
     <string name="ext_media_unmounting_notification_title">unmounting\u2026</string>
     <string name="ext_media_mounting_notification_title">mounting\u2026</string>
 
-    <!-- Battery status in pie controls -->
-    <string name="pie_battery_status_charging">Charging (<xliff:g id="percent">%d</xliff:g>%%)</string>
-    <string name="pie_battery_status_full">Charged</string>
-    <string name="pie_battery_status_discharging"><xliff:g id="percent">%d</xliff:g>%% remaining</string>
-
-    <!-- Phone status in pie controls -->
-    <string name="pie_phone_status_no_service">No service</string>
-    <string name="pie_phone_status_airplane_mode">Airplane mode on</string>
-    <string name="pie_phone_status_emergency_only">Emergency calls only</string>
-
     <!-- App sidebar -->
     <string name="default_folder_text">Folder</string>
     <string name="title_activity_sidebar_configuration">Appbar content setup</string>
