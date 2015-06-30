@@ -19,27 +19,19 @@ package com.android.systemui.statusbar.policy;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.ActivityManager;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.content.res.ThemeConfig;
 import android.content.res.TypedArray;
-import android.database.ContentObserver;
-import android.graphics.Canvas;
-import android.graphics.CanvasProperty;
-import android.graphics.Paint;
 import android.graphics.PorterDuff;
-import android.graphics.RectF;
 import android.hardware.input.InputManager;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.os.SystemClock;
 import android.os.UserHandle;
 import android.os.UserManager;
-import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
@@ -84,8 +76,6 @@ public class KeyButtonView extends ImageView {
     private PowerManager mPm;
     private boolean mPerformedLongClick;
 
-    private boolean mShouldTintIcons = true;
-
     private final Runnable mCheckLongPress = new Runnable() {
         public void run() {
             if (isPressed()) {
@@ -127,9 +117,6 @@ public class KeyButtonView extends ImageView {
         mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         setBackground(new KeyButtonRipple(context, this));
         mPm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-
-        SettingsObserver settingsObserver = new SettingsObserver(new Handler());
-        settingsObserver.observe();
     }
 
     @Override
@@ -366,45 +353,5 @@ public class KeyButtonView extends ImageView {
                 InputDevice.SOURCE_KEYBOARD);
         InputManager.getInstance().injectInputEvent(ev,
                 InputManager.INJECT_INPUT_EVENT_MODE_ASYNC);
-    }
-
-    public void setTint(boolean tint) {
-        setColorFilter(null);
-        int color = Settings.Secure.getInt(mContext.getContentResolver(),
-                Settings.Secure.NAVIGATION_BAR_TINT, -1);
-        boolean hasTint = (color != 0xff000000 && color != -1);
-        if (/* tint && */ hasTint) {
-            tint = true;
-            setColorFilter(color, PorterDuff.Mode.MULTIPLY);
-        } else {
-            tint = false;
-            Settings.Secure.putInt(mContext.getContentResolver(),
-                Settings.Secure.NAVIGATION_BAR_TINT, -1);
-        }
-        mShouldTintIcons = tint;
-    }
-
-    class SettingsObserver extends ContentObserver {
-        SettingsObserver(Handler handler) {
-            super(handler);
-        }
-
-        void observe() {
-            ContentResolver resolver = mContext.getContentResolver();
-            resolver.registerContentObserver(Settings.Secure.getUriFor(
-                    Settings.Secure.NAVIGATION_BAR_TINT),
-                    false, this, UserHandle.USER_ALL);
-            updateSettings();
-        }
-
-        @Override
-        public void onChange(boolean selfChange) {
-            updateSettings();
-        }
-    }
-
-    protected void updateSettings() {
-        setTint(mShouldTintIcons);
-        invalidate();
     }
 }
