@@ -23,7 +23,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.input.InputManager;
-import android.hardware.TorchManager;
 import android.hardware.ITorchService;
 import android.media.AudioManager;
 import android.media.session.MediaSessionLegacyHelper;
@@ -74,22 +73,10 @@ public class Action {
                 Log.w("Action", "Error getting window manager service", e);
             }
 
-            final IStatusBarService barService = IStatusBarService.Stub.asInterface(
+            IStatusBarService barService = IStatusBarService.Stub.asInterface(
                     ServiceManager.getService(Context.STATUS_BAR_SERVICE));
             if (barService == null) {
                 return; // ouch
-            }
-
-            final IWindowManager windowManagerService = IWindowManager.Stub.asInterface(
-                    ServiceManager.getService(Context.WINDOW_SERVICE));
-            if (windowManagerService == null) {
-                return; // ouch
-            }
-
-            boolean isKeyguardSecure = false;
-            try {
-                isKeyguardSecure = windowManagerService.isKeyguardSecure();
-            } catch (RemoteException e) {
             }
 
             // process the actions
@@ -117,12 +104,6 @@ public class Action {
                 return;
             } else if (action.equals(ActionConstants.ACTION_IME_NAVIGATION_DOWN)) {
                 triggerVirtualKeypress(KeyEvent.KEYCODE_DPAD_DOWN, isLongpress);
-                return;
-            } else if (action.equals(ActionConstants.ACTION_POWER_MENU)) {
-                try {
-                    windowManagerService.toggleGlobalMenu();
-                } catch (RemoteException e) {
-                }
                 return;
             } else if (action.equals(ActionConstants.ACTION_POWER)) {
                 PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
@@ -179,38 +160,6 @@ public class Action {
                 try {
                     barService.expandSettingsPanel();
                 } catch (RemoteException e) {}
-            } else if (action.equals(ActionConstants.ACTION_KILL)) {
-                if (isKeyguardShowing) {
-                    return;
-                }
-                try {
-                    barService.toggleKillApp();
-                } catch (RemoteException e) {
-                }
-                return;
-            } else if (action.equals(ActionConstants.ACTION_LAST_APP)) {
-                if (isKeyguardShowing) {
-                    return;
-                }
-                try {
-                    barService.toggleLastApp();
-                } catch (RemoteException e) {
-                }
-                return;
-           } else if (action.equals(ActionConstants.ACTION_SCREENSHOT)) {
-                try {
-                    barService.toggleScreenshot();
-                } catch (RemoteException e) {
-                }
-                return;
-/*            } else if (action.equals(ActionConstants.ACTION_TORCH)) {
-                try {
-                    ITorchService torchService = ITorchService.Stub.asInterface(
-                            ServiceManager.getService(Context.TORCH_SERVICE));
-                    torchService.toggleTorch();
-                } catch (RemoteException e) {
-                }
-                return; */
             } else if (action.equals(ActionConstants.ACTION_ASSIST)
                     || action.equals(ActionConstants.ACTION_KEYGUARD_SEARCH)) {
                 Intent intent = ((SearchManager) context.getSystemService(Context.SEARCH_SERVICE))
@@ -317,16 +266,6 @@ public class Action {
                     powerManager.wakeUp(SystemClock.uptimeMillis());
                 }
                 return;
-            } else if (action.equals(ActionConstants.ACTION_TORCH)) {
-                // toggle torch the new way
-                TorchManager torchManager =
-                        (TorchManager) context.getSystemService(Context.TORCH_SERVICE);
-                if (!torchManager.isTorchOn()) {
-                    torchManager.setTorchEnabled(true);
-                } else {
-                    torchManager.setTorchEnabled(false);
-                }
-                return;
             } else {
                 // we must have a custom uri
                 Intent intent = null;
@@ -340,11 +279,6 @@ public class Action {
                 return;
             }
 
-    }
-
-    public static boolean isNavBarDefault(Context context) {
-        return context.getResources().getBoolean(
-                com.android.internal.R.bool.config_showNavigationBar);
     }
 
     public static boolean isActionKeyEvent(String action) {
