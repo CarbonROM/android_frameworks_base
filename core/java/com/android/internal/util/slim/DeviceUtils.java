@@ -127,14 +127,12 @@ public class DeviceUtils {
     }
 
     private static boolean isSupportedFeature(Context context, String action) {
-        if (action.equals(SlimActionConstants.ACTION_TORCH)
+        if (action.equals(ActionConstants.ACTION_TORCH)
                         && !deviceSupportsTorch(context)
-                || action.equals(SlimActionConstants.ACTION_VIB)
+                || action.equals(ActionConstants.ACTION_VIB)
                         && !deviceSupportsVibrator(context)
-                || action.equals(SlimActionConstants.ACTION_VIB_SILENT)
-                        && !deviceSupportsVibrator(context)
-                || action.equals(SlimActionConstants.ACTION_SMART_PULLDOWN)
-                        && isTablet(context)) {
+                || action.equals(ActionConstants.ACTION_VIB_SILENT)
+                        && !deviceSupportsVibrator(context)) {
             return false;
         }
         return true;
