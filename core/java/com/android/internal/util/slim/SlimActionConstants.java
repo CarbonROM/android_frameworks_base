@@ -16,7 +16,7 @@
 
 package com.android.internal.util.slim;
 
-public class ActionConstants {
+public class SlimActionConstants {
 
     // key must fit with the values arrays from Settings to use
     // SlimActions.java actions
@@ -28,7 +28,6 @@ public class ActionConstants {
     public static final String ACTION_MENU_BIG             = "**menu_big**";
     public static final String ACTION_POWER                = "**power**";
     public static final String ACTION_NOTIFICATIONS        = "**notifications**";
-    public static final String ACTION_SETTINGS_PANEL       = "**settings_panel**";
     public static final String ACTION_RECENTS              = "**recents**";
     public static final String ACTION_SCREENSHOT           = "**screenshot**";
     public static final String ACTION_IME                  = "**ime**";
@@ -54,8 +53,6 @@ public class ActionConstants {
     public static final String ACTION_MEDIA_NEXT           = "**media_next**";
     public static final String ACTION_MEDIA_PLAY_PAUSE     = "**media_play_pause**";
     public static final String ACTION_WAKE_DEVICE          = "**wake_device**";
-    public static final String ACTION_RESTARTUI            = "**restartui**";
-    public static final String ACTION_SMART_PULLDOWN       = "**smart_pulldown**";
 
     // no action
     public static final String ACTION_NULL            = "**null**";
@@ -100,12 +97,6 @@ public class ActionConstants {
         + ICON_EMPTY           + ACTION_DELIMITER
         + ACTION_IME           + ACTION_DELIMITER
         + ACTION_NULL          + ACTION_DELIMITER
-        + ICON_EMPTY;
-
-    public static final String QUICK_TILE_CONFIG_DEFAULT =
-          ACTION_SCREENSHOT + ACTION_DELIMITER
-        + ICON_EMPTY        + ACTION_DELIMITER
-        + ACTION_POWER_MENU + ACTION_DELIMITER
         + ICON_EMPTY;
 
 }
