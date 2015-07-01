@@ -44,9 +44,6 @@ import android.view.KeyEvent;
 import android.view.WindowManagerGlobal;
 import android.widget.Toast;
 
-import com.android.internal.util.aicp.Helpers;
-import com.android.internal.statusbar.IStatusBarService;
-
 import java.net.URISyntaxException;
 
 public class Action {
@@ -71,12 +68,6 @@ public class Action {
                         WindowManagerGlobal.getWindowManagerService().isKeyguardLocked();
             } catch (RemoteException e) {
                 Log.w("Action", "Error getting window manager service", e);
-            }
-
-            IStatusBarService barService = IStatusBarService.Stub.asInterface(
-                    ServiceManager.getService(Context.STATUS_BAR_SERVICE));
-            if (barService == null) {
-                return; // ouch
             }
 
             // process the actions
@@ -167,7 +158,7 @@ public class Action {
                 if (intent == null) {
                     intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
                 }
-                startActivity(context, intent, barService, isKeyguardShowing);
+                startActivity(context, intent);
                 return;
             } else if (action.equals(ActionConstants.ACTION_VOICE_SEARCH)) {
                 // launch the search activity
@@ -181,7 +172,7 @@ public class Action {
                     if (searchManager != null) {
                         searchManager.stopSearch();
                     }
-                    startActivity(context, intent, barService, isKeyguardShowing);
+                    startActivity(context, intent);
                 } catch (ActivityNotFoundException e) {
                     Log.e("Action:", "No activity to handle assist long press action.", e);
                 }
@@ -248,7 +239,7 @@ public class Action {
                 // ToDo: Send for secure keyguard secure camera intent.
                 // We need to add support for it first.
                 Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA, null);
-                startActivity(context, intent, barService, isKeyguardShowing);
+                startActivity(context, intent);
                 return;
             } else if (action.equals(ActionConstants.ACTION_MEDIA_PREVIOUS)) {
                 dispatchMediaKeyWithWakeLock(KeyEvent.KEYCODE_MEDIA_PREVIOUS, context);
@@ -275,7 +266,7 @@ public class Action {
                     Log.e("Action:", "URISyntaxException: [" + action + "]");
                     return;
                 }
-                startActivity(context, intent, barService, isKeyguardShowing);
+                startActivity(context, intent);
                 return;
             }
 
@@ -293,32 +284,21 @@ public class Action {
         return false;
     }
 
-    private static void startActivity(Context context, Intent intent,
-            IStatusBarService barService, boolean isKeyguardShowing) {
+    private static void startActivity(Context context, Intent intent) {
         if (intent == null) {
             return;
         }
-        if (isKeyguardShowing) {
-            // Have keyguard show the bouncer and launch the activity if the user succeeds.
-            try {
-                barService.showCustomIntentAfterKeyguard(intent);
-            } catch (RemoteException e) {
-                Log.w("Action", "Error starting custom intent on keyguard", e);
-            }
-        } else {
-            // otherwise let us do it here
-            try {
-                WindowManagerGlobal.getWindowManagerService().dismissKeyguard();
-            } catch (RemoteException e) {
-                Log.w("Action", "Error dismissing keyguard", e);
-            }
-            intent.addFlags(
-                    Intent.FLAG_ACTIVITY_NEW_TASK
-                    | Intent.FLAG_ACTIVITY_SINGLE_TOP
-                    | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            context.startActivityAsUser(intent,
-                    new UserHandle(UserHandle.USER_CURRENT));
+        try {
+            WindowManagerGlobal.getWindowManagerService().dismissKeyguard();
+        } catch (RemoteException e) {
+            Log.w("Action", "Error dismissing keyguard", e);
         }
+        intent.addFlags(
+                Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP
+                | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivityAsUser(intent,
+                new UserHandle(UserHandle.USER_CURRENT));
     }
 
     public static boolean isPieEnabled(Context context) {
