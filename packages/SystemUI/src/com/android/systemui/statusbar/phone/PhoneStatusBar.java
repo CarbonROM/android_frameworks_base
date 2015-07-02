@@ -1066,9 +1066,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             addGestureAnywhereView();
         }
 
-        // Setup pie container if enabled
-        attachPieContainer(isPieEnabled());
-
         // figure out which pixel-format to use for the status bar.
         mPixelFormat = PixelFormat.OPAQUE;
 
@@ -2737,9 +2734,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                         | StatusBarManager.DISABLE_BACK
                         | StatusBarManager.DISABLE_SEARCH)) != 0) {
 
-            // All navigation bar listeners will take care of these
-            propagateDisabledFlags(state);
-
             if ((state & StatusBarManager.DISABLE_RECENT) != 0) {
                 // close recents if it's visible
                 mHandler.removeMessages(MSG_HIDE_RECENT_APPS);
@@ -3344,13 +3338,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
         mNavigationIconHints = hints;
 
-        propagateNavigationIconHints(hints);
         checkBarModes();
-    }
-
-    @Override // CommandQueue
-    public void showCustomIntentAfterKeyguard(Intent intent) {
-        startActivityDismissingKeyguard(intent, false, false);
     }
 
     @Override // CommandQueue
@@ -3607,7 +3595,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         if (DEBUG) {
             Log.d(TAG, (showMenu?"showing":"hiding") + " the MENU button");
         }
-        propagateMenuVisibility(showMenu);
 
         // See above re: lights-out policy for legacy apps.
         if (showMenu) setLightsOn(true);
@@ -4225,8 +4212,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
 
         removeHeadsUpView();
 
-        attachPieContainer(!isPieEnabled());
-
         mStatusBarWindow.removeContent(mStatusBarWindowContent);
         mStatusBarWindow.clearDisappearingChildren();
 
@@ -4270,7 +4255,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         makeStatusBarView();
         repositionNavigationBar();
         addHeadsUpView();
-        attachPieContainer(isPieEnabled());
+
         if (mNavigationBarView != null) {
             mNavigationBarView.updateResources(getNavbarThemedResources());
         }
@@ -4295,7 +4280,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mStatusBarWindow.addContent(mStatusBarWindowContent);
 
         updateExpandedViewPos(EXPANDED_LEAVE_ALONE);
-        restorePieTriggerMask();
+
         checkBarModes();
 
         mStatusBarWindow.requestLayout();
@@ -4350,7 +4335,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         if (updateStatusBar) {
             mContext.recreateTheme();
             recreateStatusBar();
-            attachPieContainer(isPieEnabled());
+
         } else {
             loadDimens();
         }

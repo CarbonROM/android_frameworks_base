@@ -107,8 +107,6 @@ public class CommandQueue extends IStatusBar.Stub {
         public void notificationLightPulse(int argb, int onMillis, int offMillis);
         public void scheduleHeadsUpClose();
         public void showScreenPinningRequest();
-        public void showCustomIntentAfterKeyguard(Intent intent);
-        public void setPieTriggerMask(int newMask, boolean lock);
         public void toggleLastApp();
         public void toggleKillApp();
         public void toggleScreenshot();
@@ -267,12 +265,6 @@ public class CommandQueue extends IStatusBar.Stub {
         mPaused = false;
     }
 
-    public void showCustomIntentAfterKeyguard(Intent intent) {
-        mHandler.removeMessages(MSG_START_CUSTOM_INTENT_AFTER_KEYGUARD);
-        Message m = mHandler.obtainMessage(MSG_START_CUSTOM_INTENT_AFTER_KEYGUARD, 0, 0, intent);
-        m.sendToTarget();
-    }
-
     public void toggleLastApp() {
         synchronized (mList) {
             mHandler.removeMessages(MSG_TOGGLE_LAST_APP);
@@ -389,9 +381,6 @@ public class CommandQueue extends IStatusBar.Stub {
                     break;
                 case MSG_HIDE_HEADS_UP:
                     mCallbacks.scheduleHeadsUpClose();
-                    break;
-                case MSG_START_CUSTOM_INTENT_AFTER_KEYGUARD:
-                    mCallbacks.showCustomIntentAfterKeyguard((Intent) msg.obj);
                     break;
                 case MSG_TOGGLE_LAST_APP:
                     mCallbacks.toggleLastApp();
