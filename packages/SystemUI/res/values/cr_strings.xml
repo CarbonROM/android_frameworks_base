@@ -137,11 +137,14 @@
     <string name="notification_inspect_heads_up_title_enabled">Enable heads up for this application</string>
     <string name="notification_inspect_heads_up_title_disabled">Disable heads up for this application</string>
 
-     <!-- Floating Window -->
+    <!-- Floating Window -->
     <string name="floating_window_snap_top">Snap top</string>
     <string name="floating_window_snap_bottom">Snap bottom</string>
     <string name="floating_window_snap_left">Snap left</string>
     <string name="floating_window_snap_right">Snap right</string>
     <string name="floating_window_minimize">Minimize</string>
+
+    <!-- Title shown in recents popup for showing app launch in floating mode -->
+    <string name="recent_float_mode_title">Floating mode</string>
 
 </resources>
