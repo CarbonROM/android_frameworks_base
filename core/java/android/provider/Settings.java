@@ -2378,6 +2378,13 @@ public final class Settings {
         public static final String STATUS_BAR_SHOW_TICKER = "status_bar_show_show_ticker";
 
         /**
+         * Defines global heads up enable/disable switch.
+         *
+         * @hide
+         */
+        public static final String HEADS_UP_GLOBAL_SWITCH = "heads_up_global_switch";
+
+        /**
          * Defines global heads up snooze time if user want to snooze it.
          *
          * @hide
