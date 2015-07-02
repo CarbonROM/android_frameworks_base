@@ -2372,6 +2372,13 @@ public final class Settings {
         public static final String QS_SMART_PULLDOWN = "qs_smart_pulldown";
 
         /**
+         * Defines global heads up enable/disable switch.
+         *
+         * @hide
+         */
+        public static final String HEADS_UP_GLOBAL_SWITCH = "heads_up_global_switch";
+
+        /**
          * Defines global heads up snooze time if user want to snooze it.
          *
          * @hide
