@@ -1399,7 +1399,7 @@ public final class Settings {
             }
         }
 
-	/**
+    /**
          * Convenience function for updating a single settings value as a
          * boolean. This will either create a new entry in the table if the
          * given name does not exist, or modify the value of the existing row
@@ -1870,17 +1870,17 @@ public final class Settings {
          */
         public static final int END_BUTTON_BEHAVIOR_DEFAULT = END_BUTTON_BEHAVIOR_SLEEP;
 
-	/**
-	 * Enable blocking wakelock
-	 * @hide
-	 */
-	public static final String WAKELOCK_BLOCKING_ENABLED = "wakelock_blocking_enabled";
+    /**
+     * Enable blocking wakelock
+     * @hide
+     */
+    public static final String WAKELOCK_BLOCKING_ENABLED = "wakelock_blocking_enabled";
 
-	/**
-	 * List of wakelock blocks selected
-	 * @hide
-	 */
-	public static final String WAKELOCK_BLOCKING_LIST = "wakelock_blocking_list";
+    /**
+     * List of wakelock blocks selected
+     * @hide
+     */
+    public static final String WAKELOCK_BLOCKING_LIST = "wakelock_blocking_list";
 
         /**
          * Is advanced settings mode turned on. 0 == no, 1 == yes
@@ -2212,12 +2212,6 @@ public final class Settings {
          * @hide
          */
         public static final String LOCK_SCREEN_SHOW_WEATHER_LOCATION = "lock_screen_show_weather_location";
-
-        /**
-         * Whether to show the IME switcher in the status bar
-         * @hide
-         */
-        public static final String STATUS_BAR_IME_SWITCHER = "status_bar_ime_switcher";
 
         /**
          * The keyboard brightness to be used while the screen is on.
@@ -3606,7 +3600,7 @@ public final class Settings {
         /**
          * Settings for clock font style
          * @hide
-		 */
+         */
         public static final String STATUSBAR_CLOCK_FONT_STYLE = "statusbar_clock_font_style";
 
         /**
@@ -3845,15 +3839,6 @@ public final class Settings {
         public static final String DOUBLE_TAP_SLEEP_NAVBAR = "double_tap_sleep_navbar";
 
         /**
-          * Volume keys control cursor in text fields (default is 0)
-          * 0 - Disabled
-          * 1 - Volume up/down moves cursor left/right
-          * 2 - Volume up/down moves cursor right/left
-          * @hide
-          */
-         public static final String VOLUME_KEY_CURSOR_CONTROL = "volume_key_cursor_control";
-
-        /**
          * Whether to prevent loud volume levels when headset is first plugged in.
          * @hide
          */
@@ -3878,7 +3863,7 @@ public final class Settings {
          */
         public static final String VOICE_WAKEUP = "voice_wakeup";
 
-		/**
+        /**
          * Heads Up background color
          * @hide
          */
@@ -3992,7 +3977,7 @@ public final class Settings {
         */
        public static final String NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD = "network_traffic_autohide_threshold";
 
-	   /**
+       /**
          * Config for advanced power menu
          *
          * @hide
@@ -4156,13 +4141,6 @@ public final class Settings {
         public static final String ANIMATION_CONTROLS_EXIT_ONLY = "animation_controls_exit_only";
         public static final String ANIMATION_CONTROLS_REVERSE_EXIT = "animation_controls_reverse_exit";
 
-	   /**
-         * Config for advanced power menu
-         *
-         * @hide
-         */
-        public static final String QUICK_TILE_CONFIG = "quick_tile_config";
-
         /**
          * Whether to display app circle sidebar
          * @hide
@@ -4204,7 +4182,7 @@ public final class Settings {
          */
         public static final String APP_CIRCLE_BAR_SHOW_TRIGGER = "app_circle_bar_show_trigger";
 
-		/**
+        /**
          * Whether or not to use the app sidebar
          *
          * @hide

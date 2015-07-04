@@ -953,7 +953,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         // TODO: use MediaSessionManager.SessionListener to hook us up to future updates
         // in session state
 
-        addNavigationBar(false);
+        addNavigationBar();
 
         SettingsObserver observer = new SettingsObserver(mHandler);
         observer.observe();
@@ -1749,17 +1749,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
     }
 
-    private void prepareNavigationBarView(boolean forceReset) {
+    private void prepareNavigationBarView() {
         if (mNavigationBarView == null) return;
         mNavigationBarView.reorient();
-
-        if (forceReset) {
-            // Nav Bar was added dynamically - we need to reset the mSystemUiVisibility and call
-            // setSystemUiVisibility so that mNavigationBarMode is set to the correct value
-            int newVal = mSystemUiVisibility;
-            mSystemUiVisibility = 0;
-            setSystemUiVisibility(newVal, SYSTEM_UI_VISIBILITY_MASK);
-        }
 
         View home = mNavigationBarView.getHomeButton();
         View recents = mNavigationBarView.getRecentsButton();
@@ -1778,7 +1770,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     }
 
     // For small-screen devices (read: phones) that lack hardware navigation buttons
-    private void addNavigationBar(boolean forceReset) {
+    private void addNavigationBar() {
         if (DEBUG) Log.v(TAG, "addNavigationBar: about to add " + mNavigationBarView);
         if (mNavigationBarView == null) return;
 
@@ -1788,8 +1780,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             // Nevermind, this will be re-created
             return;
         }
-
-        prepareNavigationBarView(forceReset);
+        prepareNavigationBarView();
 
         mWindowManager.addView(mNavigationBarView, getNavigationBarLayoutParams());
     }
@@ -1805,7 +1796,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     private void repositionNavigationBar() {
         if (mNavigationBarView == null || !mNavigationBarView.isAttachedToWindow()) return;
 
-        prepareNavigationBarView(false);
+        prepareNavigationBarView();
 
         mWindowManager.updateViewLayout(mNavigationBarView, getNavigationBarLayoutParams());
     }
