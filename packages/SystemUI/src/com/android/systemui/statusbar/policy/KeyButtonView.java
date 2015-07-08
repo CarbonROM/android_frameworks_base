@@ -50,6 +50,7 @@ import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ViewParent;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.ImageView;
@@ -58,6 +59,7 @@ import com.android.internal.util.slim.ActionConstants;
 import com.android.internal.util.slim.Action;
 
 import com.android.systemui.R;
+import com.android.systemui.statusbar.phone.NavigationBarView;
 
 import java.util.ArrayList;
 
@@ -314,6 +316,13 @@ public class KeyButtonView extends ImageView {
                 break;
         }
 
+        ViewParent parent = getParent();
+        while (parent != null && !(parent instanceof NavigationBarView)) {
+            parent = parent.getParent();
+        }
+        if (parent != null) {
+            ((NavigationBarView) parent).onNavButtonTouched();
+        }
         return true;
     }
 
