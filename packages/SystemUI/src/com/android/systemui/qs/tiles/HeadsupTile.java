@@ -56,7 +56,7 @@ public class HeadsupTile extends QSTile<QSTile.BooleanState> {
     protected void handleClick() {
         toggleState();
         refreshState();
-    toast();
+	toast();
     }
 
      @Override
@@ -84,14 +84,14 @@ public class HeadsupTile extends QSTile<QSTile.BooleanState> {
     @Override
     protected void handleUpdateState(BooleanState state, Object arg) {
         state.visible = true;
-    if (headsupEnabled()) {
-        state.icon = ResourceIcon.get(R.drawable.ic_qs_heads_up_on);
+	if (headsupEnabled()) {
+        state.icon = ResourceIcon.get(R.drawable.ic_qs_ringer_audible);
         state.label = mContext.getString(R.string.quick_settings_heads_up_on);
-    } else {
-        state.icon = ResourceIcon.get(R.drawable.ic_qs_heads_up_off);
-        state.label = mContext.getString(R.string.quick_settings_heads_up_off);
-        }
-    }
+	} else {
+        state.icon = ResourceIcon.get(R.drawable.ic_qs_zen_on);
+	state.label = mContext.getString(R.string.quick_settings_heads_up_off);
+	    }
+	}
 
     private boolean headsupEnabled() {
         return Settings.System.getInt(mContext.getContentResolver(),
@@ -110,7 +110,7 @@ public class HeadsupTile extends QSTile<QSTile.BooleanState> {
     }
 
     protected void toast() {
-    /* show a toast */
+  	/* show a toast */
         String enabled = mContext.getString(R.string.heads_up_enabled);
         String disabled = mContext.getString(R.string.heads_up_disabled);
         int duration = Toast.LENGTH_SHORT;
@@ -120,8 +120,8 @@ public class HeadsupTile extends QSTile<QSTile.BooleanState> {
         } else {
             Toast toast = Toast.makeText(mContext, disabled, duration);
             toast.show();
-            }
-    }
+        	}
+	}
 
     private class HeadsupObserver extends ContentObserver {
         public HeadsupObserver(Handler handler) {
