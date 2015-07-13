@@ -330,10 +330,6 @@ public abstract class BaseStatusBar extends SystemUI implements
         return mDeviceProvisioned;
     }
 
-    public Handler getHandler() {
-        return mHandler != null ? mHandler : createHandler();
-    }
-
     protected final ContentObserver mSettingsObserver = new ContentObserver(mHandler) {
         @Override
         public void onChange(boolean selfChange) {
@@ -2045,7 +2041,6 @@ public abstract class BaseStatusBar extends SystemUI implements
             RankingMap ranking);
     protected abstract void updateNotificationRanking(RankingMap ranking);
     public abstract void removeNotification(String key, RankingMap ranking);
-    public abstract boolean isExpandedVisible();
 
     public void updateNotification(StatusBarNotification notification, RankingMap ranking) {
         if (DEBUG) Log.d(TAG, "updateNotification(" + notification + ")");
