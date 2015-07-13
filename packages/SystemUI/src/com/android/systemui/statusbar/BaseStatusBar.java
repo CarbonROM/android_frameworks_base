@@ -230,7 +230,6 @@ public abstract class BaseStatusBar extends SystemUI implements
     protected boolean mUseHeadsUp = false;
     protected boolean mHeadsUpTicker = false;
     protected boolean mDisableNotificationAlerts = false;
-    protected boolean mHeadsUpUserEnabled = false;
     private   int     mHeadsUpBackground = 0x00ffffff;
     private int mHeadsUpTextColor;
 
@@ -2357,7 +2356,6 @@ public abstract class BaseStatusBar extends SystemUI implements
                 Notification.HEADS_UP_ALLOWED);
         boolean isAllowed = asHeadsUp != Notification.HEADS_UP_NEVER;
         boolean isOngoing = sbn.isOngoing();
-        boolean isClearable = sbn.isClearable(); // not used yet
         boolean accessibilityForcesLaunch = isFullscreen
                 && mAccessibilityManager.isTouchExplorationEnabled();
 
@@ -2369,6 +2367,7 @@ public abstract class BaseStatusBar extends SystemUI implements
                 && (!mStatusBarKeyguardViewManager.isShowing()
                         || mStatusBarKeyguardViewManager.isOccluded())
                 && !mStatusBarKeyguardViewManager.isInputRestricted();
+
         try {
             interrupt = interrupt && !mDreamManager.isDreaming();
         } catch (RemoteException e) {
