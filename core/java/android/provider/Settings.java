@@ -4335,13 +4335,6 @@ public final class Settings {
         public static final String STATUS_BAR_POWER_MENU = "status_bar_power_menu";
 
         /**
-         * Wether to show a headsup enable/disable button in status bar header
-         *
-         * @hide
-         */
-        public static final String HEADS_UP_SHOW_STATUS_BUTTON = "heads_up_show_status_button";
-
-        /**
          * Wether to show a task manager in expanded status bar header
          *
          * @hide
