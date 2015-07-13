@@ -95,7 +95,6 @@ import android.widget.DateTimeView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RemoteViews;
-import android.widget.RemoteViews.ActionException;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -224,14 +223,16 @@ public abstract class BaseStatusBar extends SystemUI implements
     private Locale mLocale;
     private float mFontScale;
 
-    protected final int HEADSUP_DEFAULT_BACKGROUNDCOLOR = 0xff000000;
-    protected final int HEADSUP_DEFAULT_TEXTCOLOR = 0xffffffff;
+
+    protected final int HEADSUP_DEFAULT_BACKGROUNDCOLOR = 0x00000000;
+    protected final int HEADSUP_DEFAULT_TEXTCOLOR = 0x00ffffff;
+
     protected boolean mUseHeadsUp = false;
     protected boolean mHeadsUpTicker = false;
     protected boolean mDisableNotificationAlerts = false;
     protected boolean mHeadsUpUserEnabled = false;
-    protected int     mHeadsUpCustomBg = HEADSUP_DEFAULT_BACKGROUNDCOLOR;
-    protected int     mHeadsUpCustomText = HEADSUP_DEFAULT_TEXTCOLOR;
+    private   int     mHeadsUpBackground = 0x00ffffff;
+    private int mHeadsUpTextColor;
 
     protected DevicePolicyManager mDevicePolicyManager;
     protected IDreamManager mDreamManager;
@@ -494,7 +495,7 @@ public abstract class BaseStatusBar extends SystemUI implements
             if (Intent.ACTION_USER_SWITCHED.equals(action)) {
                 mCurrentUserId = intent.getIntExtra(Intent.EXTRA_USER_HANDLE, -1);
                 updateCurrentProfilesCache();
-                if (DEBUG) Log.v(TAG, "userId " + mCurrentUserId + " is in the house");
+                if (true) Log.v(TAG, "userId " + mCurrentUserId + " is in the house");
 
                 updateLockscreenNotificationSetting();
 
@@ -748,15 +749,15 @@ public abstract class BaseStatusBar extends SystemUI implements
     protected void notifyUserAboutHiddenNotifications() {
         if (0 != Settings.Secure.getInt(mContext.getContentResolver(),
                 Settings.Secure.SHOW_NOTE_ABOUT_NOTIFICATION_HIDING, 1)) {
-            if (DEBUG) Log.d(TAG, "user hasn't seen notification about hidden notifications");
+            Log.d(TAG, "user hasn't seen notification about hidden notifications");
             final LockPatternUtils lockPatternUtils = new LockPatternUtils(mContext);
             if (!lockPatternUtils.isSecure()) {
-                if (DEBUG) Log.d(TAG, "insecure lockscreen, skipping notification");
+                Log.d(TAG, "insecure lockscreen, skipping notification");
                 Settings.Secure.putInt(mContext.getContentResolver(),
                         Settings.Secure.SHOW_NOTE_ABOUT_NOTIFICATION_HIDING, 0);
                 return;
             }
-            if (DEBUG) Log.d(TAG, "disabling lockcreen notifications and alerting the user");
+            Log.d(TAG, "disabling lockecreen notifications and alerting the user");
             // disable lockscreen notifications until user acts on the banner.
             Settings.Secure.putInt(mContext.getContentResolver(),
                     Settings.Secure.LOCK_SCREEN_SHOW_NOTIFICATIONS, 0);
@@ -1496,10 +1497,6 @@ public abstract class BaseStatusBar extends SystemUI implements
             return inflateViews(entry, parent, true, -1);
     }
 
-    protected boolean inflateViewsForHeadsUp(NotificationData.Entry entry, ViewGroup parent, int customTextColor) {
-            return inflateViews(entry, parent, true, customTextColor);
-    }
-
     protected boolean inflateViews(NotificationData.Entry entry, ViewGroup parent, boolean isHeadsUp, int customTextColor) {
         PackageManager pmUser = getPackageManagerForUser(
                 entry.notification.getUser().getIdentifier());
@@ -1508,15 +1505,24 @@ public abstract class BaseStatusBar extends SystemUI implements
         final StatusBarNotification sbn = entry.notification;
         RemoteViews contentView = sbn.getNotification().contentView;
         RemoteViews bigContentView = sbn.getNotification().bigContentView;
+        mHeadsUpTextColor = customTextColor;
 
         if (isHeadsUp) {
-            maxHeight = mContext.getResources().getDimensionPixelSize(
-                R.dimen.notification_mid_height);
+            maxHeight =
+                    mContext.getResources().getDimensionPixelSize(R.dimen.notification_mid_height);
             bigContentView = sbn.getNotification().headsUpContentView;
         }
 
         if (contentView == null) {
             return false;
+        }
+
+        // apply custom text color to heads up notifications ONLY
+        if (mHeadsUpTextColor != 0) { // if it's 0, then text color is default
+            if (mHeadsUpTextColor != -1) { //if it's -1, then it's a regular notification
+                setHeadsUpTextColor(contentView, mHeadsUpTextColor);
+                setHeadsUpTextColor(bigContentView, mHeadsUpTextColor);
+            }
         }
 
         if (DEBUG) {
@@ -1573,13 +1579,6 @@ public abstract class BaseStatusBar extends SystemUI implements
             row.setOnClickListener(listener);
         } else {
             row.setOnClickListener(null);
-        }
-
-        // apply custom text color to heads up notifications ONLY
-        if (isHeadsUp && customTextColor != 0) {
-            mHeadsUpCustomText = customTextColor;
-            setRvItemTextColor(contentView, mHeadsUpCustomText);
-            setRvItemTextColor(bigContentView, mHeadsUpCustomText);
         }
 
         // set up the adaptive layout
@@ -1740,26 +1739,16 @@ public abstract class BaseStatusBar extends SystemUI implements
         return true;
     }
 
-    private void setRvItemTextColor(RemoteViews view, int color) {
-        if (view == null) return;
-        try {
-            view.setTextColor(com.android.internal.R.id.title, color);
-        } catch(ActionException e) {}
-        try {
-            view.setTextColor(com.android.internal.R.id.text, color);
-        } catch(ActionException e) {}
-        try {
-            view.setTextColor(com.android.internal.R.id.big_text, color);
-        } catch(ActionException e) {}
-        try {
-            view.setTextColor(com.android.internal.R.id.time, color);
-        } catch(ActionException e) {}
-        try {
-            view.setTextColor(com.android.internal.R.id.text2, color);
-        } catch(ActionException e) {}
-        try {
-            view.setTextColor(com.android.internal.R.id.info, color);
-        } catch(ActionException e) {}
+    private void setHeadsUpTextColor(RemoteViews view, int color) {
+        if (view != null) {
+            view.setInt(com.android.internal.R.id.title, "setTextColor", color);
+            view.setInt(com.android.internal.R.id.text, "setTextColor", color);
+            view.setInt(com.android.internal.R.id.big_text, "setTextColor", color);
+            view.setInt(com.android.internal.R.id.time, "setTextColor", color);
+//            view.setInt(com.android.internal.R.id.action0, "setTextColor", color);
+            view.setInt(com.android.internal.R.id.text2, "setTextColor", color);
+            view.setInt(com.android.internal.R.id.info, "setTextColor", color);
+        }
     }
 
     public NotificationClicker makeClicker(PendingIntent intent, String notificationKey,
@@ -2222,23 +2211,11 @@ public abstract class BaseStatusBar extends SystemUI implements
                     if (DEBUG) Log.d(TAG, "rebuilding heads up for key: " + key);
                     Entry newEntry = new Entry(notification, null);
                     ViewGroup holder = mHeadsUpNotificationView.getHolder();
-                    int custTextColor = Settings.System.getIntForUser(
-                        mContext.getContentResolver(), Settings.System.HEADS_UP_TEXT_COLOR,
-                        -1, UserHandle.USER_CURRENT);
-                    if (custTextColor == -1) {
-                        if (DEBUG) Log.d(TAG, "heads up: no custom text color!");
-                    } else {
-                        mHeadsUpCustomText = custTextColor;
-                    }
-                    if (DEBUG) Log.d(TAG, "updateNotification mHeadsUpCustomText= "
-                        + Integer.toHexString(mHeadsUpCustomText));
-
-                    if (inflateViewsForHeadsUp(newEntry, holder, mHeadsUpCustomText)) {
-                        mHeadsUpCustomBg = Settings.System.getIntForUser(
+                    if (inflateViewsForHeadsUp(newEntry, holder)) {
+                        int mHeadsUpBackground = Settings.System.getIntForUser(
                             mContext.getContentResolver(), Settings.System.HEADS_UP_BG_COLOR,
                             0x00ffffff, UserHandle.USER_CURRENT);
-                        mHeadsUpNotificationView.showNotification(newEntry,
-                            mHeadsUpUserEnabled ? mHeadsUpCustomBg : -1);
+                        mHeadsUpNotificationView.showNotification(newEntry, mHeadsUpBackground);
                         if (alertAgain) {
                             resetHeadsUpDecayTimer();
                         }
@@ -2395,7 +2372,7 @@ public abstract class BaseStatusBar extends SystemUI implements
         try {
             interrupt = interrupt && !mDreamManager.isDreaming();
         } catch (RemoteException e) {
-            Log.w(TAG, "failed to query dream manager", e);
+            Log.d(TAG, "failed to query dream manager", e);
         }
 
         // its below our threshold priority, we might want to always display
