@@ -49,7 +49,6 @@ import com.android.systemui.qs.tiles.DataTile;
 import com.android.systemui.qs.tiles.DdsTile;
 import com.android.systemui.qs.tiles.ExpandedDesktopTile;
 import com.android.systemui.qs.tiles.FlashlightTile;
-import com.android.systemui.qs.tiles.HeadsupTile;
 import com.android.systemui.qs.tiles.HotspotTile;
 import com.android.systemui.qs.tiles.LiveDisplayTile;
 import com.android.systemui.qs.tiles.LocationTile;
@@ -401,8 +400,6 @@ public class QSTileHost implements QSTile.Host {
                 return new NavBarTile(this);
             case QSConstants.TILE_APPCIRCLEBAR:
                 return new AppCircleBarTile(this);
-            case QSConstants.TILE_HEADS_UP:
-                return new HeadsupTile(this);
             case QSConstants.TILE_MUSIC:
                 return new MusicTile(this);
             case QSConstants.TILE_AMBIENT_DISPLAY:
