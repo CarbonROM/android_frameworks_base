@@ -58,7 +58,6 @@ public class CommandQueue extends IStatusBar.Stub {
     private static final int MSG_NOTIFICATION_LIGHT_OFF             = 16 << MSG_SHIFT;
     private static final int MSG_NOTIFICATION_LIGHT_PULSE           = 17 << MSG_SHIFT;
     private static final int MSG_SHOW_SCREEN_PIN_REQUEST            = 18 << MSG_SHIFT;
-    private static final int MSG_HIDE_HEADS_UP                      = 19 << MSG_SHIFT;
     private static final int MSG_START_CUSTOM_INTENT_AFTER_KEYGUARD = 20 << MSG_SHIFT;
     private static final int MSG_TOGGLE_LAST_APP                    = 21 << MSG_SHIFT;
     private static final int MSG_TOGGLE_KILL_APP                    = 22 << MSG_SHIFT;
@@ -106,7 +105,6 @@ public class CommandQueue extends IStatusBar.Stub {
         public void buzzBeepBlinked();
         public void notificationLightOff();
         public void notificationLightPulse(int argb, int onMillis, int offMillis);
-        public void scheduleHeadsUpClose();
         public void showScreenPinningRequest();
         public void showCustomIntentAfterKeyguard(Intent intent);
         public void setPieTriggerMask(int newMask, boolean lock);
@@ -300,13 +298,6 @@ public class CommandQueue extends IStatusBar.Stub {
         synchronized (mList) {
             mHandler.removeMessages(MSG_TOGGLE_SCREENSHOT);
             mHandler.obtainMessage(MSG_TOGGLE_SCREENSHOT, 0, 0, null).sendToTarget();
-        }
-    }
-
-    public void scheduleHeadsUpClose() {
-        synchronized (mList) {
-            mHandler.removeMessages(MSG_HIDE_HEADS_UP);
-            mHandler.sendEmptyMessage(MSG_HIDE_HEADS_UP);
         }
     }
 

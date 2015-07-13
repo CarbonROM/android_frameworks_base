@@ -4292,34 +4292,6 @@ public final class Settings {
         public static final String APP_SIDEBAR_SHOW_TRIGGER = "app_sidebar_show_trigger";
 
         /**
-         * Hide notification instead of remove when swiping headsup
-         *
-         * @hide
-         */
-        public static final String HEADS_UP_DISMISS_ON_REMOVE = "heads_up_swipe_action";
-
-        /**
-         * Heads Up Notifications
-         *
-         * @hide
-         */
-        public static final String HEADS_UP_NOTIFICATION = "heads_up_enabled";
-
-        /**
-         * Which applications to disable heads up notifications for
-         *
-         * @hide
-         */
-        public static final String HEADS_UP_CUSTOM_VALUES = "heads_up_custom_values";
-
-        /**
-         * Which applications to disable heads up notifications for
-         *
-         * @hide
-         */
-        public static final String HEADS_UP_BLACKLIST_VALUES = "heads_up_blacklist_values";
-
-        /**
          * Whether to dismiss all recents tasks
          * @hide
          */
