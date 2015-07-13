@@ -613,7 +613,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                     UserHandle.USER_CURRENT) != 0;
 
             mHeadsUpSwype = Settings.System.getInt(
-                    resolver, Settings.System.HEADS_UP_DISMISS_ON_REMOVE, 0) == 1;
+                    resolver, Settings.System.HEADS_UP_DISMISS_ON_REMOVE, 1) == 1;
 
             mQSCSwitch = Settings.System.getIntForUser(resolver,
                     Settings.System.QS_COLOR_SWITCH, 0, mCurrentUserId) == 1;
