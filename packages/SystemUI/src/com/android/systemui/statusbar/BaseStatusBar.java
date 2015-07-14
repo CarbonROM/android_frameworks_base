@@ -2385,9 +2385,17 @@ public abstract class BaseStatusBar extends SystemUI implements
                 || notification.vibrate != null;
         boolean isHighPriority = sbn.getScore() >= INTERRUPTION_THRESHOLD;
         boolean isFullscreen = notification.fullScreenIntent != null;
+
+        // incoming call should be allowed to process
+        // to handle non-intrusive ui correctly
+        int defHeadsUp = (isIncomingCall(pkg))
+                ? Notification.HEADS_UP_ALLOWED
+                : Notification.HEADS_UP_NEVER;
         int asHeadsUp = notification.extras.getInt(Notification.EXTRA_AS_HEADS_UP,
-                Notification.HEADS_UP_ALLOWED);
-        boolean isAllowed = asHeadsUp != Notification.HEADS_UP_NEVER;
+                defHeadsUp);
+        boolean isAllowed = (asHeadsUp != Notification.HEADS_UP_NEVER);
+        if (DEBUG) Log.d(TAG, "package: "+pkg+", asHeadsUp: "+asHeadsUp);
+
         boolean accessibilityForcesLaunch = isFullscreen
                 && mAccessibilityManager.isTouchExplorationEnabled();
 
@@ -2433,6 +2441,10 @@ public abstract class BaseStatusBar extends SystemUI implements
 
         if (DEBUG) Log.d(TAG, "interrupt: " + interrupt);
         return interrupt;
+    }
+
+    private boolean isIncomingCall(String packageName) {
+        return packageName.equals("com.android.dialer");
     }
 
     public void setInteracting(int barWindow, boolean interacting) {
