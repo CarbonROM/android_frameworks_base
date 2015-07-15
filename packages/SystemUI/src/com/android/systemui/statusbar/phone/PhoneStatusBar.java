@@ -1233,8 +1233,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 }
 
                 @Override
-                public void onBatteryLevelChanged(boolean present, int level,
-                        boolean pluggedIn, boolean charging) {
+                public void onBatteryLevelChanged(int level, boolean pluggedIn, boolean charging) {
                     // noop
                 }
             });

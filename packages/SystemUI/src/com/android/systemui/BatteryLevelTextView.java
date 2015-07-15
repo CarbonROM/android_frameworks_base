@@ -45,7 +45,7 @@ public class BatteryLevelTextView extends TextView implements
 
 
     private BatteryStateRegistar mBatteryStateRegistar;
-    private boolean mBatteryPresent;
+    private boolean mBatteryPluggedIn;
     private boolean mBatteryCharging;
     private int mBatteryLevel = 0;
     private boolean mShow;
@@ -106,12 +106,12 @@ public class BatteryLevelTextView extends TextView implements
      }
 
      @Override
-         public void onBatteryLevelChanged(boolean present, int level, boolean pluggedIn, boolean charging) {
+         public void onBatteryLevelChanged(int level, boolean pluggedIn, boolean charging) {
              mBatteryLevel = level;
              String percentage = NumberFormat.getPercentInstance().format((double) mBatteryLevel / 100.0);
              setText(percentage);
-             if (mBatteryPresent != present  || mBatteryCharging != charging) {
-               mBatteryPresent = present;
+             if (mBatteryPluggedIn != pluggedIn || mBatteryCharging != charging) {
+               mBatteryPluggedIn = pluggedIn;
                mBatteryCharging = charging;
                loadShowBatteryTextSetting();
              }
@@ -198,7 +198,7 @@ public class BatteryLevelTextView extends TextView implements
         int mode = Settings.System.getIntForUser(mResolver,
                 Settings.System.STATUS_BAR_BATTERY_STATUS_PERCENT_STYLE, 2, currentUserId);
 
-                boolean showNextPercent = mBatteryPresent && (
+                boolean showNextPercent = mBatteryPluggedIn && (
                         mPercentMode == BatteryController.PERCENTAGE_MODE_OUTSIDE
                         || (mBatteryCharging && mPercentMode == BatteryController.PERCENTAGE_MODE_INSIDE));
         int batteryStyle = Settings.System.getIntForUser(mResolver,
