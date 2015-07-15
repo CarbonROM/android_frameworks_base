@@ -886,8 +886,8 @@
     <integer name="config_longPressOnMenuBehavior">3</integer>
 
     <!-- Indicates that the device has Single-stage Camera key
-+         (without "Focus" state) instead of Dual-stage. -->
-+    <bool name="config_singleStageCameraKey">false</bool>
+         (without "Focus" state) instead of Dual-stage. -->
+    <bool name="config_singleStageCameraKey">false</bool>
 
     <!-- Minimum screen brightness setting allowed by the power manager.
          The user is forbidden from setting the brightness below this level. -->
