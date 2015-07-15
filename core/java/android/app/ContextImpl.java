@@ -436,9 +436,7 @@ class ContextImpl extends Context {
 
         registerService(BATTERY_SERVICE, new ServiceFetcher() {
                 public Object createService(ContextImpl ctx) {
-                    IBinder b = ServiceManager.getService(BATTERY_SERVICE);
-                    IBatteryService service = IBatteryService.Stub.asInterface(b);
-                    return new BatteryManager(service);
+                    return new BatteryManager();
                 }});
 
         registerService(NFC_SERVICE, new ServiceFetcher() {

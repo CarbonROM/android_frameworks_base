@@ -28,7 +28,7 @@ import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-public class BatteryController extends BroadcastReceiver implements BatteryStateRegistar {
+public class BatteryController extends BroadcastReceiver {
     private static final String TAG = "BatteryController";
     private static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
 
@@ -62,13 +62,11 @@ public class BatteryController extends BroadcastReceiver implements BatteryState
         pw.print("  mPowerSave="); pw.println(mPowerSave);
     }
 
-    @Override
     public void addStateChangedCallback(BatteryStateChangeCallback cb) {
         mChangeCallbacks.add(cb);
         cb.onBatteryLevelChanged(mLevel, mPluggedIn, mCharging);
     }
 
-    @Override
     public void removeStateChangedCallback(BatteryStateChangeCallback cb) {
         mChangeCallbacks.remove(cb);
     }
@@ -123,51 +121,8 @@ public class BatteryController extends BroadcastReceiver implements BatteryState
         }
     }
 
-    private void fireSettingsChanged() {
-        final int N = mChangeCallbacks.size();
-        for (int i = 0; i < N; i++) {
-            mChangeCallbacks.get(i).onBatteryStyleChanged(mStyle, mPercentMode);
-        }
+    public interface BatteryStateChangeCallback {
+        void onBatteryLevelChanged(int level, boolean pluggedIn, boolean charging);
+        void onPowerSaveChanged();
     }
-
-    private final class SettingsObserver extends ContentObserver {
-        private ContentResolver mResolver;
-        private boolean mRegistered;
-
-        private final Uri STYLE_URI =
-                Settings.System.getUriFor(Settings.System.STATUS_BAR_BATTERY_STYLE);
-        private final Uri PERCENT_URI =
-                Settings.System.getUriFor(Settings.System.STATUS_BAR_SHOW_BATTERY_PERCENT);
-
-        public SettingsObserver(Context context, Handler handler) {
-            super(handler);
-            mResolver = context.getContentResolver();
-        }
-
-        public void observe() {
-            if (mRegistered) {
-                mResolver.unregisterContentObserver(this);
-            }
-            mResolver.registerContentObserver(STYLE_URI, false, this, mUserId);
-            mResolver.registerContentObserver(PERCENT_URI, false, this, mUserId);
-            mRegistered = true;
-
-            update();
-        }
-
-        @Override
-        public void onChange(boolean selfChange, Uri uri) {
-            update();
-        }
-
-        private void update() {
-            mStyle = Settings.System.getIntForUser(mResolver,
-                    Settings.System.STATUS_BAR_BATTERY_STYLE, 0, mUserId);
-            mPercentMode = Settings.System.getIntForUser(mResolver,
-                    Settings.System.STATUS_BAR_SHOW_BATTERY_PERCENT, 0, mUserId);
-
-            fireSettingsChanged();
-        }
-    };
->>>>>>> 910397f... base: dock battery
 }

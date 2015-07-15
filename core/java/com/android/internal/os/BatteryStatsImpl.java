@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2006-2007 The Android Open Source Project
- * Copyright (C) 2015 The CyanogenMod Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -83,7 +82,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * battery life.  All times are represented in microseconds except where indicated
  * otherwise.
  */
-public class BatteryStatsImpl extends BatteryStats {
+public final class BatteryStatsImpl extends BatteryStats {
     private static final String TAG = "BatteryStatsImpl";
     private static final boolean DEBUG = false;
     private static final boolean DEBUG_HISTORY = false;
@@ -1767,7 +1766,7 @@ public class BatteryStatsImpl extends BatteryStats {
         synchronized(this) {
             Map<String, KernelWakelockStats> m = mProcWakelockFileStats;
 
-            setKernelWakelockUpdateVersion(getKernelWakelockUpdateVersion() + 1);
+            sKernelWakelockUpdateVersion++;
             while (endIndex < len) {
                 for (endIndex=startIndex;
                         endIndex < len && wlBuffer[endIndex] != '\n' && wlBuffer[endIndex] != '\0';
@@ -1806,17 +1805,17 @@ public class BatteryStatsImpl extends BatteryStats {
                 if (parsed && name.length() > 0) {
                     if (!m.containsKey(name)) {
                         m.put(name, new KernelWakelockStats(count, totalTime,
-                                getKernelWakelockUpdateVersion()));
+                                sKernelWakelockUpdateVersion));
                         numUpdatedWlNames++;
                     } else {
                         KernelWakelockStats kwlStats = m.get(name);
-                        if (kwlStats.mVersion == getKernelWakelockUpdateVersion()) {
+                        if (kwlStats.mVersion == sKernelWakelockUpdateVersion) {
                             kwlStats.mCount += count;
                             kwlStats.mTotalTime += totalTime;
                         } else {
                             kwlStats.mCount = count;
                             kwlStats.mTotalTime = totalTime;
-                            kwlStats.mVersion = getKernelWakelockUpdateVersion();
+                            kwlStats.mVersion = sKernelWakelockUpdateVersion;
                             numUpdatedWlNames++;
                         }
                     }
@@ -1828,7 +1827,7 @@ public class BatteryStatsImpl extends BatteryStats {
                 // Don't report old data.
                 Iterator<KernelWakelockStats> itr = m.values().iterator();
                 while (itr.hasNext()) {
-                    if (itr.next().mVersion != getKernelWakelockUpdateVersion()) {
+                    if (itr.next().mVersion != sKernelWakelockUpdateVersion) {
                         itr.remove();
                     }
                 }
@@ -6399,12 +6398,12 @@ public class BatteryStatsImpl extends BatteryStats {
 
     public BatteryStatsImpl(File systemDir, Handler handler) {
         if (systemDir != null) {
-            mFile = new JournaledFile(new File(systemDir, getStatsName() + ".bin"),
-                    new File(systemDir, getStatsName() + ".bin.tmp"));
+            mFile = new JournaledFile(new File(systemDir, "batterystats.bin"),
+                    new File(systemDir, "batterystats.bin.tmp"));
         } else {
             mFile = null;
         }
-        mCheckinFile = new AtomicFile(new File(systemDir, getStatsName() + "-checkin.bin"));
+        mCheckinFile = new AtomicFile(new File(systemDir, "batterystats-checkin.bin"));
         mHandler = new MyHandler(handler.getLooper());
         mStartCount++;
         mScreenOnTimer = new StopwatchTimer(null, -1, null, mOnBatteryTimeBase);
@@ -6473,22 +6472,12 @@ public class BatteryStatsImpl extends BatteryStats {
         readFromParcel(p);
     }
 
-    /** @hide */
-    protected String getStatsName() {
-        return "batterystats";
-    }
-
-    /** @hide */
-    protected String getLogName() {
-        return "BatteryStats";
-    }
-
     public void setCallback(BatteryCallback cb) {
         mCallback = cb;
     }
 
     public void setNumSpeedSteps(int steps) {
-        if (getCpuSpeedSteps() == 0) setCpuSpeedSteps(steps);
+        if (sNumSpeedSteps == 0) sNumSpeedSteps = steps;
     }
 
     public void setRadioScanningTimeout(long timeout) {
@@ -7004,12 +6993,7 @@ public class BatteryStatsImpl extends BatteryStats {
     public void setBatteryState(int status, int health, int plugType, int level,
             int temp, int volt) {
         synchronized(this) {
-            // We need to add a extra check over the status because of dock batteries
-            // PlugType doesn't means that the dock battery is charging (some devices
-            // doesn't charge under dock usb)
-            boolean onBattery = plugType == BATTERY_PLUGGED_NONE &&
-                    (status != BatteryManager.BATTERY_STATUS_CHARGING ||
-                    status != BatteryManager.BATTERY_STATUS_FULL);
+            final boolean onBattery = plugType == BATTERY_PLUGGED_NONE;
             final long uptime = SystemClock.uptimeMillis();
             final long elapsedRealtime = SystemClock.elapsedRealtime();
             int oldStatus = mHistoryCur.batteryStatus;
@@ -7139,14 +7123,14 @@ public class BatteryStatsImpl extends BatteryStats {
             }
             kwlt.updateCurrentReportedCount(kws.mCount);
             kwlt.updateCurrentReportedTotalTime(kws.mTotalTime);
-            kwlt.setUpdateVersion(getKernelWakelockUpdateVersion());
+            kwlt.setUpdateVersion(sKernelWakelockUpdateVersion);
         }
 
         if (m.size() != mKernelWakelockStats.size()) {
             // Set timers to stale if they didn't appear in /proc/wakelocks this time.
             for (Map.Entry<String, SamplingTimer> ent : mKernelWakelockStats.entrySet()) {
                 SamplingTimer st = ent.getValue();
-                if (st.getUpdateVersion() != getKernelWakelockUpdateVersion()) {
+                if (st.getUpdateVersion() != sKernelWakelockUpdateVersion) {
                     st.setStale();
                 }
             }
@@ -7550,18 +7534,6 @@ public class BatteryStatsImpl extends BatteryStats {
     @Override
     public int getCpuSpeedSteps() {
         return sNumSpeedSteps;
-    }
-
-    protected void setCpuSpeedSteps(int numSpeedSteps) {
-        sNumSpeedSteps = numSpeedSteps;
-    }
-
-    protected int getKernelWakelockUpdateVersion() {
-        return sKernelWakelockUpdateVersion;
-    }
-
-    protected void setKernelWakelockUpdateVersion(int kernelWakelockUpdateVersion) {
-        sKernelWakelockUpdateVersion = kernelWakelockUpdateVersion;
     }
 
     /**
@@ -8016,9 +7988,9 @@ public class BatteryStatsImpl extends BatteryStats {
             }
         }
 
-        setCpuSpeedSteps(in.readInt());
-        if (getCpuSpeedSteps() < 0 || getCpuSpeedSteps() > 100) {
-            throw new BadParcelableException("Bad speed steps in data: " + getCpuSpeedSteps());
+        sNumSpeedSteps = in.readInt();
+        if (sNumSpeedSteps < 0 || sNumSpeedSteps > 100) {
+            throw new BadParcelableException("Bad speed steps in data: " + sNumSpeedSteps);
         }
 
         final int NU = in.readInt();
@@ -8300,7 +8272,7 @@ public class BatteryStatsImpl extends BatteryStats {
             }
         }
 
-        out.writeInt(getCpuSpeedSteps());
+        out.writeInt(sNumSpeedSteps);
         final int NU = mUidStats.size();
         out.writeInt(NU);
         for (int iu = 0; iu < NU; iu++) {
@@ -8636,7 +8608,7 @@ public class BatteryStatsImpl extends BatteryStats {
         mAudioTurnedOnTimers.clear();
         mVideoTurnedOnTimers.clear();
 
-        setCpuSpeedSteps(in.readInt());
+        sNumSpeedSteps = in.readInt();
 
         int numUids = in.readInt();
         mUidStats.clear();
@@ -8773,7 +8745,7 @@ public class BatteryStatsImpl extends BatteryStats {
             out.writeInt(0);
         }
 
-        out.writeInt(getCpuSpeedSteps());
+        out.writeInt(sNumSpeedSteps);
 
         if (inclUids) {
             int size = mUidStats.size();
