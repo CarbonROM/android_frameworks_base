@@ -2398,6 +2398,7 @@ public final class Settings {
          */
         public static final String HEADS_UP_NOTIFCATION_DECAY = "heads_up_notification_decay";
 
+        /**
          * Control whether the process CPU usage meter should be shown.
          *
          * @deprecated Use {@link Global#SHOW_PROCESSES} instead
