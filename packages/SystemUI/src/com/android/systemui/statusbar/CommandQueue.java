@@ -427,9 +427,6 @@ public class CommandQueue extends IStatusBar.Stub {
                 case MSG_HIDE_HEADS_UP_CANDIDATE:
                     mCallbacks.hideHeadsUpCandidate((String) msg.obj);
                     break;
-                case MSG_HIDE_HEADS_UP:
-                    mCallbacks.scheduleHeadsUpClose();
-                    break;
             }
         }
     }
