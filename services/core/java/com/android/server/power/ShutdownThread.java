@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 
- 
 package com.android.server.power;
 
 import android.app.ActivityManagerNative;
@@ -80,15 +79,13 @@ public final class ShutdownThread extends Thread {
     private static final int MAX_SHUTDOWN_WAIT_TIME = 20*1000;
     private static final int MAX_RADIO_WAIT_TIME = 12*1000;
 
-    private static final String SOFT_REBOOT = "soft_reboot";
-
     // length of vibration before shutting down
     private static final int SHUTDOWN_VIBRATE_MS = 500;
-    
+
     // state tracking
     private static Object sIsStartedGuard = new Object();
     private static boolean sIsStarted = false;
-    
+
     private static boolean mReboot;
     private static boolean mRebootSafeMode;
     private static String mRebootReason;
@@ -129,7 +126,7 @@ public final class ShutdownThread extends Thread {
     private static AudioManager mAudioManager;
     private ShutdownThread() {
     }
- 
+
     /**
      * Request a clean shutdown, waiting for subsystems to clean up their
      * state etc.  Must be called from a Looper thread in which its UI
@@ -233,10 +230,6 @@ public final class ShutdownThread extends Thread {
                                             com.android.internal.R.array.shutdown_reboot_actions);
                                     if (selected >= 0 && selected < actions.length) {
                                         mRebootReason = actions[selected];
-                                        if (actions[selected].equals(SOFT_REBOOT)) {
-                                            doSoftReboot();
-                                            return;
-                                        }
                                     }
                                 }
 
@@ -255,18 +248,6 @@ public final class ShutdownThread extends Thread {
             sConfirmDialog.show();
         } else {
             beginShutdownSequence(context);
-        }
-    }
-
-    private static void doSoftReboot() {
-        try {
-            final IActivityManager am =
-                  ActivityManagerNative.asInterface(ServiceManager.checkService("activity"));
-            if (am != null) {
-                am.restart();
-            }
-        } catch (RemoteException e) {
-            Log.e(TAG, "failure trying to perform soft reboot", e);
         }
     }
 
@@ -448,14 +429,14 @@ public final class ShutdownThread extends Thread {
         }
 
         Log.i(TAG, "Sending shutdown broadcast...");
-        
+
         // First send the high-level shut down broadcast.
         mActionDone = false;
         Intent intent = new Intent(Intent.ACTION_SHUTDOWN);
         intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
         mContext.sendOrderedBroadcastAsUser(intent,
                 UserHandle.ALL, null, br, mHandler, 0, null, null);
-        
+
         final long endTime = SystemClock.elapsedRealtime() + MAX_BROADCAST_TIME;
         synchronized (mActionDoneSync) {
             while (!mActionDone) {
@@ -470,9 +451,9 @@ public final class ShutdownThread extends Thread {
                 }
             }
         }
-        
+
         Log.i(TAG, "Shutting down activity manager...");
-        
+
         final IActivityManager am =
             ActivityManagerNative.asInterface(ServiceManager.checkService("activity"));
         if (am != null) {
