@@ -80,8 +80,6 @@ public final class ShutdownThread extends Thread {
     private static final int MAX_SHUTDOWN_WAIT_TIME = 20*1000;
     private static final int MAX_RADIO_WAIT_TIME = 12*1000;
 
-    private static final String SOFT_REBOOT = "soft_reboot";
-
     // length of vibration before shutting down
     private static final int SHUTDOWN_VIBRATE_MS = 500;
 
@@ -264,28 +262,12 @@ public final class ShutdownThread extends Thread {
                         com.android.internal.R.array.shutdown_reboot_actions);
                 if (selected >= 0 && selected < actions.length) {
                     mRebootReason = actions[selected];
-                    if (actions[selected].equals(SOFT_REBOOT)) {
-                        doSoftReboot();
-                        return;
-                    }
                 }
             }
 
             mReboot = true;
         }
         beginShutdownSequence(context);
-    }
-
-    private static void doSoftReboot() {
-        try {
-            final IActivityManager am =
-                  ActivityManagerNative.asInterface(ServiceManager.checkService("activity"));
-            if (am != null) {
-                am.restart();
-            }
-        } catch (RemoteException e) {
-            Log.e(TAG, "failure trying to perform soft reboot", e);
-        }
     }
 
     private static class CloseDialogReceiver extends BroadcastReceiver
