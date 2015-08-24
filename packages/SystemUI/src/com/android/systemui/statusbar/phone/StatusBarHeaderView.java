@@ -1126,6 +1126,8 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
 
         private void handleShowingDetail(final QSTile.DetailAdapter detail) {
             final boolean showingDetail = detail != null;
+            mQSCSwitch = Settings.System.getInt(getContext().getContentResolver(),
+                    Settings.System.QS_COLOR_SWITCH, 0) == 1;
             transition(mClock, !showingDetail);
             transition(mDateGroup, !showingDetail);
             if (mExpanded && mShowTaskManager) {
@@ -1310,8 +1312,8 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
              mShowTaskManager = Settings.System.getIntForUser(resolver,
                      Settings.System.ENABLE_TASK_MANAGER,
                      0, UserHandle.USER_CURRENT) == 1;
-             if (updateAll ||
-                 uri.equals(Settings.System.getUriFor(
+            if (updateAll ||
+                uri.equals(Settings.System.getUriFor(
                      Settings.System.QS_COLOR_SWITCH))) {
                  mQSCSwitch = Settings.System.getInt(resolver,
                      Settings.System.QS_COLOR_SWITCH, 0) == 1;
