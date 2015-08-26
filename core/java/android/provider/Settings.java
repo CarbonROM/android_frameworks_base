@@ -2379,6 +2379,13 @@ public final class Settings {
         public static final String QS_SMART_PULLDOWN = "qs_smart_pulldown";
 
         /**
+         * Launch headsup in floating window or not
+         *
+         * @hide
+         */
+        public static final String RECENTS_FLOATING_WINDOW = "recents_floating";
+
+        /**
          * Defines global heads up enable/disable switch.
          *
          * @hide
