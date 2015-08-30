@@ -4298,6 +4298,14 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 mNavBarObserver, mCurrentUserId);
     }
 
+    public void resetQsPanelVisibility() {
+        mShowTaskList = mShowTaskList;
+        if (mShowTaskList) {
+            mQSPanel.setVisibility(View.VISIBLE);
+            mTaskManagerPanel.setVisibility(View.GONE);
+            mShowTaskList = false;
+        }
+
     /**
      * Reload some of our resources when the configuration changes.
      *
