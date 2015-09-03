@@ -4594,6 +4594,13 @@ public final class Settings {
                 "key_app_switch_double_tap_action";
 
         /**
+         * Toast icon
+         *
+         * @hide
+         */
+        public static final String TOAST_ICON = "toast_icon";
+
+        /**
          * Action to perform when the camera key is pressed. (default: LAUNCH_CAMERA)
          * (See ButtonsConstants.java for valid values)
          * @hide
