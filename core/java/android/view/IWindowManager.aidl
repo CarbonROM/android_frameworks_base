@@ -276,6 +276,13 @@ interface IWindowManager
     WindowContentFrameStats getWindowContentFrameStats(IBinder token);
 
     /**
+     * Toggle global menu
+     *
+     * @hide
+     */
+    void toggleGlobalMenu();
+
+    /**
      * Get current system ui visibility mode.
      *
      * @hide

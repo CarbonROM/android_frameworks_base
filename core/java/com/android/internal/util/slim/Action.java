@@ -38,6 +38,7 @@ import android.provider.Settings;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.InputDevice;
+import android.view.IWindowManager;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.WindowManagerGlobal;
@@ -80,6 +81,12 @@ public class Action {
                     ServiceManager.getService(Context.WINDOW_SERVICE));
             if (windowManagerService == null) {
                 return; // ouch
+            }
+
+            boolean isKeyguardSecure = false;
+            try {
+                isKeyguardSecure = windowManagerService.isKeyguardSecure();
+            } catch (RemoteException e) {
             }
 
             // process the actions

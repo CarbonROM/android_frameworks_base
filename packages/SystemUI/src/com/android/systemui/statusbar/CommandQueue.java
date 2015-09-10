@@ -61,6 +61,9 @@ public class CommandQueue extends IStatusBar.Stub {
     private static final int MSG_SMART_PULLDOWN                     = 20 << MSG_SHIFT;
     private static final int MSG_HIDE_HEADS_UP_CANDIDATE            = 21 << MSG_SHIFT;
     private static final int MSG_HIDE_HEADS_UP                      = 22 << MSG_SHIFT;
+    private static final int MSG_TOGGLE_LAST_APP                    = 23 << MSG_SHIFT;
+    private static final int MSG_TOGGLE_KILL_APP                    = 24 << MSG_SHIFT;
+    private static final int MSG_TOGGLE_SCREENSHOT                  = 25 << MSG_SHIFT;
 
     public static final int FLAG_EXCLUDE_NONE = 0;
     public static final int FLAG_EXCLUDE_SEARCH_PANEL = 1 << 0;
@@ -106,6 +109,9 @@ public class CommandQueue extends IStatusBar.Stub {
         public void showScreenPinningRequest();
         public void showCustomIntentAfterKeyguard(Intent intent);
         public void toggleSmartPulldown();
+        public void toggleLastApp();
+        public void toggleKillApp();
+        public void toggleScreenshot();
         public void hideHeadsUpCandidate(String packageName);
         public void scheduleHeadsUpClose();
     }
@@ -276,6 +282,27 @@ public class CommandQueue extends IStatusBar.Stub {
         }
     }
 
+    public void toggleLastApp() {
+        synchronized (mList) {
+            mHandler.removeMessages(MSG_TOGGLE_LAST_APP);
+            mHandler.sendEmptyMessage(MSG_TOGGLE_LAST_APP);
+        }
+    }
+
+    public void toggleKillApp() {
+        synchronized (mList) {
+            mHandler.removeMessages(MSG_TOGGLE_KILL_APP);
+            mHandler.sendEmptyMessage(MSG_TOGGLE_KILL_APP);
+        }
+    }
+
+    public void toggleScreenshot() {
+        synchronized (mList) {
+            mHandler.removeMessages(MSG_TOGGLE_SCREENSHOT);
+            mHandler.sendEmptyMessage(MSG_TOGGLE_SCREENSHOT);
+        }
+    }
+
     public void hideHeadsUpCandidate(String packageName) {
         synchronized (mList) {
             mHandler.removeMessages(MSG_HIDE_HEADS_UP_CANDIDATE);
@@ -382,6 +409,15 @@ public class CommandQueue extends IStatusBar.Stub {
                     break;
                 case MSG_SMART_PULLDOWN:
                     mCallbacks.toggleSmartPulldown();
+                    break;
+                case MSG_TOGGLE_LAST_APP:
+                    mCallbacks.toggleLastApp();
+                    break;
+                case MSG_TOGGLE_KILL_APP:
+                    mCallbacks.toggleKillApp();
+                    break;
+                case MSG_TOGGLE_SCREENSHOT:
+                    mCallbacks.toggleScreenshot();
                     break;
                 case MSG_HIDE_HEADS_UP_CANDIDATE:
                     mCallbacks.hideHeadsUpCandidate((String) msg.obj);

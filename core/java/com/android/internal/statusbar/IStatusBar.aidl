@@ -16,6 +16,7 @@
 
 package com.android.internal.statusbar;
 
+import android.content.Intent;
 import com.android.internal.statusbar.StatusBarIcon;
 import android.service.notification.StatusBarNotification;
 
@@ -47,4 +48,7 @@ oneway interface IStatusBar
     void hideHeadsUpCandidate(String packageName);
     void scheduleHeadsUpClose();
     void toggleSmartPulldown();
+    void toggleLastApp();
+    void toggleKillApp();
+    void toggleScreenshot();
 }
