@@ -148,6 +148,9 @@ public abstract class BaseStatusBar extends SystemUI implements
     protected static final int MSG_HIDE_HEADS_UP = 1029;
     protected static final int MSG_ESCALATE_HEADS_UP = 1030;
     protected static final int MSG_DECAY_HEADS_UP = 1031;
+    protected static final int MSG_TOGGLE_LAST_APP = 1032;
+    protected static final int MSG_TOGGLE_KILL_APP = 1033;
+    protected static final int MSG_TOGGLE_SCREENSHOT = 1034;
 
     // scores above this threshold should be displayed in heads up mode.
     protected static final int INTERRUPTION_THRESHOLD = 10;

@@ -81,6 +81,7 @@ import android.media.session.MediaController;
 import android.media.session.MediaSession;
 import android.media.session.MediaSessionManager;
 import android.media.session.PlaybackState;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.os.Bundle;
@@ -684,6 +685,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
     };
 
+    /*
     final private ContentObserver mHeadsUpObserver = new ContentObserver(mHandler) {
         @Override
         public void onChange(boolean selfChange) {
@@ -709,6 +711,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             initTickerView();
         }
     };
+    */
 
     private int mInteractingWindows;
     private boolean mAutohideSuspended;
