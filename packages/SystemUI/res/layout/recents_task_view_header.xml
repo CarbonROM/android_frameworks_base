@@ -51,7 +51,7 @@
         android:padding="12dp"
         android:background="@drawable/recents_button_bg"
         android:visibility="invisible"
-        android:src="@drawable/ic_qs_floating_on" />
+        android:src="@drawable/recents_floating_on_light" />
     <com.android.systemui.recents.views.FixedSizeImageView
         android:id="@+id/dismiss_task"
         android:layout_width="48dp"

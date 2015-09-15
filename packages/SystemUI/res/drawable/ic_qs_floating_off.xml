@@ -24,7 +24,7 @@ Copyright (C) 2015 CarbonROM
     <group
         android:translateY="-860.36216">
         <path
-            android:fillColor="#FFFFFFFF"
+            android:fillColor="#4DFFFFFF"
             android:pathData="M62.917,878.075
 c-9.094,0-16.414,7.322-16.414,16.416v123.742c0,9.094,7.32,16.416,16.414,16.416h66.166c9.094,0,16.414-7.322,16.414-16.416
 V894.491c0-9.094-7.32-16.416-16.414-16.416H62.917z

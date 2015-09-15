@@ -115,8 +115,8 @@ public class TaskViewHeader extends FrameLayout {
         Resources res = context.getResources();
         mLightDismissDrawable = res.getDrawable(R.drawable.recents_dismiss_light);
         mDarkDismissDrawable = res.getDrawable(R.drawable.recents_dismiss_dark);
-        mLightFloatDrawable = res.getDrawable(R.drawable.ic_qs_floating_on);
-        mDarkFloatDrawable = res.getDrawable(R.drawable.ic_qs_dark_floating_on);
+        mLightFloatDrawable = res.getDrawable(R.drawable.recents_floating_on_light);
+        mDarkFloatDrawable = res.getDrawable(R.drawable.recents_floating_on_dark);
         mFloatContentDescription = res.getString(R.string.recent_float_mode_title);
         mDismissContentDescription =
                 res.getString(R.string.accessibility_recents_item_will_be_dismissed);
