@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-
+ 
 package com.android.server.power;
 
 import android.app.ActivityManagerNative;
@@ -84,11 +84,11 @@ public final class ShutdownThread extends Thread {
 
     // length of vibration before shutting down
     private static final int SHUTDOWN_VIBRATE_MS = 500;
-
+    
     // state tracking
     private static Object sIsStartedGuard = new Object();
     private static boolean sIsStarted = false;
-
+    
     private static boolean mReboot;
     private static boolean mRebootSafeMode;
     private static String mRebootReason;
@@ -129,7 +129,7 @@ public final class ShutdownThread extends Thread {
     private static AudioManager mAudioManager;
     private ShutdownThread() {
     }
-
+ 
     /**
      * Request a clean shutdown, waiting for subsystems to clean up their
      * state etc.  Must be called from a Looper thread in which its UI
@@ -199,8 +199,6 @@ public final class ShutdownThread extends Thread {
         if (confirm) {
             final CloseDialogReceiver closer = new CloseDialogReceiver(context);
             final boolean advancedReboot = isAdvancedRebootPossible(context);
-            final boolean instant = Settings.Secure.getInt(context.getContentResolver(),
-                    Settings.Secure.ADVANCED_REBOOT_ONECLICK, 0) == 1;
             final Context uiContext = getUiContext(context);
 
             if (sConfirmDialog != null) {
@@ -217,34 +215,38 @@ public final class ShutdownThread extends Thread {
             if (!advancedReboot) {
                 confirmDialogBuilder.setMessage(resourceId);
             } else {
-                if (instant) {
-                    confirmDialogBuilder.setItems(
-                            com.android.internal.R.array.shutdown_reboot_options,
-                            new DialogInterface.OnClickListener() {
-                                @Override public void onClick(DialogInterface dialog, int which) {
-                                    handleDialog(context, which, advancedReboot);
+                confirmDialogBuilder
+                      .setSingleChoiceItems(com.android.internal.R.array.shutdown_reboot_options,
+                              0, null);
+            }
+
+            confirmDialogBuilder.setPositiveButton(com.android.internal.R.string.yes,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (advancedReboot) {
+                                boolean softReboot = false;
+                                ListView reasonsList = ((AlertDialog)dialog).getListView();
+                                int selected = reasonsList.getCheckedItemPosition();
+                                if (selected != ListView.INVALID_POSITION) {
+                                    String actions[] = context.getResources().getStringArray(
+                                            com.android.internal.R.array.shutdown_reboot_actions);
+                                    if (selected >= 0 && selected < actions.length) {
+                                        mRebootReason = actions[selected];
+                                        if (actions[selected].equals(SOFT_REBOOT)) {
+                                            doSoftReboot();
+                                            return;
+                                        }
+                                    }
                                 }
-                            });
-                } else {
-                    confirmDialogBuilder.setSingleChoiceItems(
-                            com.android.internal.R.array.shutdown_reboot_options, 0, null);
-                }
-            }
 
-            if (!instant) {
-                confirmDialogBuilder.setPositiveButton(com.android.internal.R.string.yes,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                ListView reasonsList = ((AlertDialog) dialog).getListView();
-                                final int selected = reasonsList.getCheckedItemPosition();
-                                handleDialog(context, selected, advancedReboot);
+                                mReboot = true;
                             }
-                        });
+                            beginShutdownSequence(context);
+                      }
+                  });
 
-                confirmDialogBuilder.setNegativeButton(com.android.internal.R.string.no, null);
-            }
-
+            confirmDialogBuilder.setNegativeButton(com.android.internal.R.string.no, null);
             sConfirmDialog = confirmDialogBuilder.create();
 
             closer.dialog = sConfirmDialog;
@@ -254,26 +256,6 @@ public final class ShutdownThread extends Thread {
         } else {
             beginShutdownSequence(context);
         }
-    }
-
-    private static void handleDialog(Context context, int selected, boolean advancedReboot) {
-        if (advancedReboot) {
-
-            if (selected != ListView.INVALID_POSITION) {
-                String actions[] = context.getResources().getStringArray(
-                        com.android.internal.R.array.shutdown_reboot_actions);
-                if (selected >= 0 && selected < actions.length) {
-                    mRebootReason = actions[selected];
-                    if (actions[selected].equals(SOFT_REBOOT)) {
-                        doSoftReboot();
-                        return;
-                    }
-                }
-            }
-
-            mReboot = true;
-        }
-        beginShutdownSequence(context);
     }
 
     private static void doSoftReboot() {
@@ -466,14 +448,14 @@ public final class ShutdownThread extends Thread {
         }
 
         Log.i(TAG, "Sending shutdown broadcast...");
-
+        
         // First send the high-level shut down broadcast.
         mActionDone = false;
         Intent intent = new Intent(Intent.ACTION_SHUTDOWN);
         intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
         mContext.sendOrderedBroadcastAsUser(intent,
                 UserHandle.ALL, null, br, mHandler, 0, null, null);
-
+        
         final long endTime = SystemClock.elapsedRealtime() + MAX_BROADCAST_TIME;
         synchronized (mActionDoneSync) {
             while (!mActionDone) {
@@ -488,9 +470,9 @@ public final class ShutdownThread extends Thread {
                 }
             }
         }
-
+        
         Log.i(TAG, "Shutting down activity manager...");
-
+        
         final IActivityManager am =
             ActivityManagerNative.asInterface(ServiceManager.checkService("activity"));
         if (am != null) {
