@@ -7311,6 +7311,12 @@ public final class Settings {
                 = "status_bar_locked_on_secure_keyguard";
 
         /**
+         * Whether a notification should be shown if privacy guard is enabled
+         * @hide
+         */
+        public static final String PRIVACY_GUARD_NOTIFICATION = "privacy_guard_notification";
+
+        /**
          * Default theme to use.  If empty, use holo.
          * @hide
          */
@@ -7574,6 +7580,7 @@ public final class Settings {
             PRIVACY_GUARD_DEFAULT,
             ADVANCED_REBOOT,
             DEVELOPMENT_SHORTCUT,
+            PRIVACY_GUARD_NOTIFICATION,
             STATUS_BAR_LOCKED_ON_SECURE_KEYGUARD
         };
 
