@@ -394,7 +394,7 @@ public class SearchPanelCircleView extends FrameLayout {
             if (mLeftNavbar) {
                 left = (int) (circleSize / 2);
             } else {
-                left = (int) (getWidth() - circleSize / 2 - offset);
+                left = (int) (getWidth() - circleSize / 2 - offset - 100);
             }
             top = (int) (getHeight() - circleSize) / 2;
             top = (int) ((top / 2) - (circleSize / 2) + 65);
@@ -413,7 +413,7 @@ public class SearchPanelCircleView extends FrameLayout {
             if (mLeftNavbar) {
                 left = (int) (circleSize / 2);
             } else {
-                left = (int) (getWidth() - circleSize / 2 - offset);
+                left = (int) (getWidth() - circleSize / 2 - offset - 100);
             }
             top = (int) ((getHeight() / 4) - ((3 * circleSize) / 4));
             top = (int) (getHeight() - top - circleSize - 80);
@@ -770,10 +770,8 @@ public class SearchPanelCircleView extends FrameLayout {
     public int isIntersecting(MotionEvent event) {
         if (isRectConsideredActive(mCircleRect, event)) {
             mIntersectIndex = 1;
-            return 1;
         } else if (isRectConsideredActive(mCircleRectLeft, event)) {
             mIntersectIndex = 0;
-            return 0;
         } else if (isRectConsideredActive(mCircleRectRight, event)) {
             mIntersectIndex = 2;
             return 2;
@@ -785,7 +783,6 @@ public class SearchPanelCircleView extends FrameLayout {
             return 4;
         } else {
             mIntersectIndex = -1;
-            return -1;
         }
         return mIntersectIndex;
     }
