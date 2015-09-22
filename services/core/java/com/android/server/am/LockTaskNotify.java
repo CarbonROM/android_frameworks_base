@@ -24,7 +24,6 @@ import android.os.Message;
 import android.os.UserHandle;
 import android.provider.Settings;
 import android.view.WindowManager;
-import android.view.WindowManagerPolicy;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Toast;
 
@@ -40,16 +39,17 @@ public class LockTaskNotify {
 
     private final Context mContext;
     private final H mHandler;
-    private final WindowManagerPolicy mPolicy = PolicyManager.makeNewWindowManager();
     private AccessibilityManager mAccessibilityManager;
     private Toast mLastToast;
     private boolean mDevForceNavbar;
+    private boolean mHasNavigationBar;
 
     public LockTaskNotify(Context context) {
         mContext = context;
         mAccessibilityManager = (AccessibilityManager)
                 mContext.getSystemService(Context.ACCESSIBILITY_SERVICE);
         mHandler = new H();
+        mHasNavigationBar = context.getResources().getBoolean(R.bool.config_showNavigationBar);
     }
 
     public void showToast(boolean isLocked) {
@@ -63,7 +63,7 @@ public class LockTaskNotify {
         } else if (mAccessibilityManager.isEnabled()) {
             textResId = R.string.lock_to_app_toast_accessible;
         } else {
-            textResId = (mPolicy.hasNavigationBar() || mDevForceNavbar)
+            textResId = (mHasNavigationBar || mDevForceNavbar)
                     ? R.string.lock_to_app_toast : R.string.lock_to_app_toast_no_navbar;
         }
         if (mLastToast != null) {
