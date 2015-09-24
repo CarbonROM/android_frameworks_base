@@ -127,7 +127,7 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener {
     private static final int MSG_SUBINFO_CONTENT_CHANGE = 327;
     private static final int MSG_SERVICE_STATE_CHANGED = 328;
     private static final int MSG_SIM_SUBSCRIPTION_INFO_CHANGED = 329;
-    private static final int MSG_SERVICE_STATE_CHANGED = 330;
+    private static final int MSG_FINGERPRINT_STATE_CHANGED = 330;
 
     private static final int INVALID_SUBID = SubscriptionManager.INVALID_SUBSCRIPTION_ID;
     private static final int INVALID_SLOT_ID = SubscriptionManager.INVALID_SIM_SLOT_INDEX;

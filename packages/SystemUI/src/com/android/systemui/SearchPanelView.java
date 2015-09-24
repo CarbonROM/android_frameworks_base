@@ -99,6 +99,7 @@ public class SearchPanelView extends FrameLayout implements StatusBarPanel,
     private List<ImageView> mTargetViews;
     private ImageView mLogoRight, mLogoLeft;
     private ShortcutPickHelper mPicker;
+    private SettingsObserver mSettingsObserver;
 
     private ComponentName mCurrentAssistComponent = null;
 
@@ -116,7 +117,7 @@ public class SearchPanelView extends FrameLayout implements StatusBarPanel,
         IntentFilter filter = new IntentFilter();
         filter.addAction(BROADCAST);
         mContext.registerReceiver(mReceiver, filter);
-        new SettingsObserver(new Handler());
+        mSettingsObserver = new SettingsObserver(new Handler());
     }
 
     private void startAssistActivity() {
@@ -356,7 +357,7 @@ public class SearchPanelView extends FrameLayout implements StatusBarPanel,
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 if (mDraggedFarEnough && (mTargetActivities[mCircle.mIntersectIndex] != null &&
-                        !ACTION_NONE.equals(mTargetActivities[mCircle.mIntersectIndex]))) {
+                        !ACTION_NULL.equals(mTargetActivities[mCircle.mIntersectIndex]))) {
                     if (mCircle.isAnimationRunning(true  /* enterAnimation */)) {
                         mLaunchPending = true;
                         mCircle.setAnimatingOut(true);
@@ -566,6 +567,5 @@ public class SearchPanelView extends FrameLayout implements StatusBarPanel,
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        mPicker.cleanup();
     }
 }
