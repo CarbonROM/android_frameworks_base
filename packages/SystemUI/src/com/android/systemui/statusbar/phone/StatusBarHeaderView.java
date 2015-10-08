@@ -79,8 +79,7 @@ import com.android.systemui.statusbar.policy.UserInfoController;
  * The view to manage the header area in the expanded status bar.
  */
 public class StatusBarHeaderView extends RelativeLayout implements View.OnClickListener, View.OnLongClickListener,
-        BatteryController.BatteryStateChangeCallback, NextAlarmController.NextAlarmChangeCallback,
-        WeatherController.Callback {
+        NextAlarmController.NextAlarmChangeCallback, WeatherController.Callback {
 
 
     private static final int STATUS_BAR_POWER_MENU_OFF = 0;
@@ -484,11 +483,6 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
         }
     }
 
-    private void updateWeatherVisibility() {
-        mWeatherContainer.setVisibility(mExpanded && mShowWeather ? View.VISIBLE : View.GONE);
-        mWeatherLine2.setVisibility(mExpanded && mShowWeather && mShowWeatherLocation ? View.VISIBLE : View.GONE);
-    }
-
     private void updateSignalClusterDetachment() {
         boolean detached = mExpanded;
         if (detached != mSignalClusterDetached) {
@@ -538,11 +532,9 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
     private void updateListeners() {
         if (mListening) {
             mSettingsObserver.observe();
-            mBatteryController.addStateChangedCallback(this);
             mNextAlarmController.addStateChangedCallback(this);
             mWeatherController.addCallback(this);
         } else {
-            mBatteryController.removeStateChangedCallback(this);
             mNextAlarmController.removeStateChangedCallback(this);
             mWeatherController.removeCallback(this);
             mSettingsObserver.unobserve();
@@ -585,16 +577,6 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
                 ? View.VISIBLE
                 : View.GONE);
         }
-    }
-
-    @Override
-    public void onBatteryLevelChanged(int level, boolean pluggedIn, boolean charging) {
-        // could not care less
-    }
-
-    @Override
-    public void onPowerSaveChanged() {
-        // could not care less
     }
 
     @Override
@@ -1381,52 +1363,6 @@ public class StatusBarHeaderView extends RelativeLayout implements View.OnClickL
         }
         mShowBatteryTextExpanded = showExpandedBatteryPercentage;
         updateBatteryLevelVisibility();
-    }
-
-    private void updateWeatherSettings() {
-        ContentResolver resolver = mContext.getContentResolver();
-        mShowWeather = Settings.System.getInt(resolver,
-                Settings.System.STATUS_BAR_EXPANDED_HEADER_SHOW_WEATHER, 0) == 1;
-        mShowWeatherLocation = Settings.System.getInt(resolver,
-                Settings.System.STATUS_BAR_EXPANDED_HEADER_SHOW_WEATHER_LOCATION, 1) == 1;
-        updateWeatherVisibility();
-    }
-
-    private void updateTextColorSettings() {
-        ContentResolver resolver = mContext.getContentResolver();
-        mTextColor = Settings.System.getInt(resolver,
-                Settings.System.STATUS_BAR_EXPANDED_HEADER_TEXT_COLOR, 0xffffffff);
-
-        mTime.setTextColor(mTextColor);
-        mAmPm.setTextColor(mTextColor);
-        mDateCollapsed.setTextColor(
-                getTransparentColor(mTextColor, 178));
-        mDateExpanded.setTextColor(
-                getTransparentColor(mTextColor, 178));
-        mBatteryLevel.setTextColor(true);
-        mAlarmStatus.setTextColor(
-                getTransparentColor(mTextColor, 100));
-        mWeatherLine1.setTextColor(mTextColor);
-        mWeatherLine2.setTextColor(mTextColor);
-    }
-
-    private void updateIconColorSettings() {
-        ContentResolver resolver = mContext.getContentResolver();
-        mIconColor = Settings.System.getInt(resolver,
-                Settings.System.STATUS_BAR_EXPANDED_HEADER_ICON_COLOR, 0xffffffff);
-
-        ((ImageView)mSettingsButton).setColorFilter(mIconColor, Mode.MULTIPLY);
-        Drawable alarmIcon = getResources().getDrawable(R.drawable.ic_access_alarms_small);
-        alarmIcon.setColorFilter(mIconColor, Mode.MULTIPLY);
-        mAlarmStatus.setCompoundDrawablesWithIntrinsicBounds(alarmIcon, null, null, null);
-    }
-
-    private int getTransparentColor(int color, int alpha) {
-        int r = Color.red(color);
-        int g = Color.green(color);
-        int b = Color.blue(color);
-        int transparentColor = (alpha << 24) + (r << 16) + (g << 8) + b;
-        return transparentColor;
     }
 
     private void updateWeatherSettings() {
