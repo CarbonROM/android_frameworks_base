@@ -20,6 +20,7 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.*;
 import android.provider.Settings;
 import android.util.AttributeSet;
@@ -668,6 +669,7 @@ public class TaskView extends FrameLayout implements Task.TaskCallbacks,
             // Rebind any listeners
             mHeaderView.mApplicationIcon.setOnClickListener(this);
             mHeaderView.mDismissButton.setOnClickListener(this);
+            mHeaderView.mFloatButton.setOnClickListener(this);
             mActionButtonView.setOnClickListener(this);
             if (Constants.DebugFlags.App.EnableDevAppInfoOnLongPress) {
                 if (mConfig.developerOptionsEnabled) {
@@ -688,6 +690,7 @@ public class TaskView extends FrameLayout implements Task.TaskCallbacks,
             // Unbind any listeners
             mHeaderView.mApplicationIcon.setOnClickListener(null);
             mHeaderView.mDismissButton.setOnClickListener(null);
+            mHeaderView.mFloatButton.setOnClickListener(null);
             mActionButtonView.setOnClickListener(null);
             if (Constants.DebugFlags.App.EnableDevAppInfoOnLongPress) {
                 mHeaderView.mApplicationIcon.setOnLongClickListener(null);
@@ -718,6 +721,8 @@ public class TaskView extends FrameLayout implements Task.TaskCallbacks,
                         }
                     } else if (v == mHeaderView.mDismissButton) {
                         dismissTask(0L);
+                    } else if (v == mHeaderView.mFloatButton) {
+                        mCb.onTaskFloatClicked(tv);
                     }
                 }
             }, 125);
