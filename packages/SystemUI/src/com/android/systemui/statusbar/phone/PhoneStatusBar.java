@@ -1181,7 +1181,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             mBatteryManager = (BatteryManager) mContext.getSystemService(Context.BATTERY_SERVICE);
         }
         if (mBatteryController == null) {
-            mBatteryController = new BatteryController(mContext);
+            mBatteryController = new BatteryController(mContext, mHandler);
             mBatteryController.addStateChangedCallback(new BatteryStateChangeCallback() {
                 @Override
                 public void onPowerSaveChanged() {
@@ -1199,6 +1199,11 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
                 public void onBatteryLevelChanged(boolean present, int level,
                         boolean pluggedIn, boolean charging) {
                     // noop
+                }
+
+                @Override
+                public void onBatteryStyleChanged(int style, int percentMode) {
+                            // noop
                 }
             });
         }
@@ -4200,9 +4205,6 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         }
         if (mDockBatteryController != null) {
             mDockBatteryController.setUserId(mCurrentUserId);
-        }
-        if (mMSimNetworkController != null) {
-            mMSimNetworkController.setUserId(mCurrentUserId);
         }
     }
 

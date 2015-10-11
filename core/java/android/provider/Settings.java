@@ -3812,6 +3812,18 @@ public final class Settings {
         public static final String DOUBLE_TAP_SLEEP_ANYWHERE = "double_tap_sleep_anywhere";
 
         /**
+         * Battery status style on the status bar
+         * 0 - Icon portrait
+         * 1 - Icon landscape
+         * 2 - Circle
+         * 3 - Text only
+         * 4 - Hidden
+         * default: 0
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_STYLE = "status_bar_battery_status_style";
+
+        /**
          * Status bar battery %
          * 0: Hide the battery percentage
          * 1: Display the battery percentage inside the icon
