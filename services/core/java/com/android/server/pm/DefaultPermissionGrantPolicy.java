@@ -661,6 +661,14 @@ final class DefaultPermissionGrantPolicy {
                 grantRuntimePermissionsLPw(storageManagerPckg, STORAGE_PERMISSIONS, true, userId);
             }
 
+            // Chromium Sign-in
+            PackageParser.Package chromiumPackage = getDefaultProviderAuthorityPackageLPr(
+                    "org.chromium.chrome", userId);
+            if (chromiumPackage != null) {
+                grantRuntimePermissionsLPw(chromiumPackage, CONTACTS_PERMISSIONS, userId);
+                grantRuntimePermissionsLPw(chromiumPackage, STORAGE_PERMISSIONS, userId);
+            }
+
             // Google Account
             PackageParser.Package googleaccountPackage = getDefaultProviderAuthorityPackageLPr(
                     "com.google.android.gsf.login", userId);
@@ -719,7 +727,7 @@ final class DefaultPermissionGrantPolicy {
             if (googlebackuptransportPackage != null && doesPackageSupportRuntimePermissions(googlebackuptransportPackage)) {
                 grantRuntimePermissionsLPw(googlebackuptransportPackage, CONTACTS_PERMISSIONS, true, userId);
             }
-			
+
             // Google Play Framework
             PackageParser.Package gsfcorePackage = getSystemPackageLPr(
                     "com.google.android.gsf");
