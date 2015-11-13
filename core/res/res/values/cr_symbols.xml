@@ -53,4 +53,6 @@
   <java-symbol type="style" name="GlobalActionsAnimationTop" />
   <java-symbol type="style" name="GlobalActionsAnimationEnter" />
 
+  <!-- Vendor warning -->
+  <java-symbol type="string" name="system_error_vendorprint" />
 </resources>
