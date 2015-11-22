@@ -117,6 +117,9 @@
 
   <!-- Default button brightness setting.
        Must be in the range specified by minimum and maximum. -->
-<integer name="config_buttonBrightnessSettingDefault">255</integer>
+  <integer name="config_buttonBrightnessSettingDefault">255</integer>
 
+  <!-- Older rotation sensors are not setting event.timestamp correctly. Setting to
+       true will use SystemClock.elapsedRealtimeNanos() to set timestamp. -->
+  <bool name="config_useSystemClockforRotationSensor">false</bool>
 </resources>
