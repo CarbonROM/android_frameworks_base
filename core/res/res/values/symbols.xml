@@ -2731,4 +2731,5 @@
   <!-- Gesture Sensor -->
   <java-symbol type="bool" name="config_enableGestureService" />
 
+  <java-symbol type="bool" name="config_useSystemClockforRotationSensor" />
 </resources>
