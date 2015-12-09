@@ -3670,6 +3670,13 @@ public final class Settings {
         public static final String POWERMENU_POWER = "powermenu_power";
 
         /**
+         * Whether to display screen record in the power menu
+         *
+         * @hide
+         */
+        public static final String POWERMENU_SCREENRECORD = "powermenu_screenrecord";
+
+        /**
          * Toast icon
          * @hide
          */
