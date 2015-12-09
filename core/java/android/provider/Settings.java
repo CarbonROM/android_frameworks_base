@@ -4267,6 +4267,14 @@ public final class Settings {
          * @hide
          */
         public static final String KEY_MENU_DOUBLE_TAP_ACTION = "key_menu_double_tap_action";
+        public static final String STATUS_BAR_SHOW_CARRIER = "status_bar_show_carrier";
+
+ 	/**
+         * Three Finger Gesture from Oppo
+         *
+         * @hide
+         */
+        public static final String THREE_FINGER_GESTURE = "three_finger_gesture";
 
         /**
          * Action to perform when the back key is long-pressed.
