@@ -4502,6 +4502,15 @@ public final class Settings {
                 BOOLEAN_VALIDATOR;
 
         /**
+         * Show four g instead of LTE
+         * @hide
+         */
+        public static final String SHOW_FOURG = "show_fourg";
+
+        /** @hide */
+        public static final Validator SHOW_FOURG_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -4566,6 +4575,7 @@ public final class Settings {
             BUTTON_BACKLIGHT_ENABLE,
             BUTTON_BACKLIGHT_TIMEOUT,
             BUTTON_BACKLIGHT_ON_TOUCH_ONLY,
+            SHOW_FOURG
         };
 
         /**
@@ -4689,6 +4699,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(BUTTON_BACKLIGHT_TIMEOUT);
             PRIVATE_SETTINGS.add(BUTTON_BACKLIGHT_ON_TOUCH_ONLY);
             PRIVATE_SETTINGS.add(FACE_AUTO_UNLOCK);
+            PRIVATE_SETTINGS.add(SHOW_FOURG);
         }
 
         /**
@@ -4789,6 +4800,7 @@ public final class Settings {
             VALIDATORS.put(BUTTON_BACKLIGHT_ON_TOUCH_ONLY,
                     BUTTON_BACKLIGHT_ON_TOUCH_ONLY_VALIDATOR);
             VALIDATORS.put(FACE_AUTO_UNLOCK, FACE_AUTO_UNLOCK_VALIDATOR);
+            VALIDATORS.put(SHOW_FOURG, SHOW_FOURG_VALIDATOR);
         }
 
         /**
