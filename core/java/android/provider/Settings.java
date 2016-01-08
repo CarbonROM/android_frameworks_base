@@ -2113,7 +2113,7 @@ public final class Settings {
         * List of Apps hidden from recents
         * @hide
         */
-        static final String HIDE_FROM_RECENTS_LIST = "hide_from_recents_list"
+        public static final String HIDE_FROM_RECENTS_LIST = "hide_from_recents_list";
 
         /**
          * Is advanced settings mode turned on. 0 == no, 1 == yes
