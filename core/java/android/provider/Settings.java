@@ -3566,7 +3566,7 @@ public final class Settings {
         public static final Validator POINTER_SPEED_VALIDATOR =
                 new InclusiveFloatRangeValidator(-7, 7);
 
-	/**
+    /**
          * Whether the phone volume up / down effect should be played
          * @hide
          */
@@ -3632,6 +3632,12 @@ public final class Settings {
          * @hide
          */
         public static final String DOUBLE_TAP_SLEEP_ANYWHERE = "double_tap_sleep_anywhere";
+
+        /**
+         * whether to enable torch on lockscreen
+         * @hide
+         */
+        public static final String KEYGUARD_TOGGLE_TORCH = "keyguard_toggle_torch";
 
         /**
          * Whether to display sound panel in the power menu
