@@ -291,4 +291,6 @@
          If < 0, uses the value from HardwarePropertiesManager#getDeviceTemperatures. -->
     <integer name="config_warningTemperature">-1</integer>
 
+    <!-- Allow the flashlight service to use wakelocks -->
+    <bool name="config_useWakelockForFlashlight">false</bool>
 </resources>
