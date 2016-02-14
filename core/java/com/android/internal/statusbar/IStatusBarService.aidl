@@ -82,4 +82,16 @@ interface IStatusBarService
      * ABC
      */
     void toggleCameraFlash();
+
+   /**
+     * Custom
+     */
+    void toggleRecentApps();
+    void toggleSplitScreen();
+    void preloadRecentApps();
+    void cancelPreloadRecentApps();
+    void startAssist(in Bundle args);
+    void screenPinningStateChanged(boolean enabled);
+    void toggleFlashlight();
+
 }
