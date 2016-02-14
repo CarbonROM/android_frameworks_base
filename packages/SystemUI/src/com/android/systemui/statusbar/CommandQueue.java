@@ -82,6 +82,8 @@ public class CommandQueue extends IStatusBar.Stub {
     private static final int MSG_TOGGLE_PANEL                  = 35 << MSG_SHIFT;
     private static final int MSG_SHOW_SHUTDOWN_UI              = 36 << MSG_SHIFT;
     private static final int MSG_SET_TOP_APP_HIDES_STATUS_BAR  = 37 << MSG_SHIFT;
+    private static final int MSG_SCREEN_PINNING_STATE_CHANGED  = 38 << MSG_SHIFT;
+    private static final int MSG_TOGGLE_FLASHLIGHT             = 39 << MSG_SHIFT;
 
     public static final int FLAG_EXCLUDE_NONE = 0;
     public static final int FLAG_EXCLUDE_SEARCH_PANEL = 1 << 0;
@@ -143,6 +145,9 @@ public class CommandQueue extends IStatusBar.Stub {
         default void handleShowGlobalActionsMenu() { }
         default void handleShowShutdownUi(boolean isReboot, String reason) { }
         default void handleShowShutdownUi(boolean isReboot, String reason, boolean rebootCustom) { }
+
+        default void screenPinningStateChanged(boolean enabled) {}
+        default void toggleFlashlight() {}
     }
 
     @VisibleForTesting
@@ -156,6 +161,21 @@ public class CommandQueue extends IStatusBar.Stub {
 
     public void removeCallbacks(Callbacks callbacks) {
         mCallbacks.remove(callbacks);
+    }
+
+    public void toggleFlashlight() {
+        synchronized (mLock) {
+            mHandler.removeMessages(MSG_TOGGLE_FLASHLIGHT);
+            mHandler.sendEmptyMessage(MSG_TOGGLE_FLASHLIGHT);
+        }
+    }
+
+    public void screenPinningStateChanged(boolean enabled) {
+        synchronized (mLock) {
+            mHandler.removeMessages(MSG_SCREEN_PINNING_STATE_CHANGED);
+            mHandler.obtainMessage(MSG_SCREEN_PINNING_STATE_CHANGED,
+                    enabled ? 1 : 0, 0, null).sendToTarget();
+        }
     }
 
     public void setIcon(String slot, StatusBarIcon icon) {
@@ -653,6 +673,16 @@ public class CommandQueue extends IStatusBar.Stub {
                 case MSG_SET_TOP_APP_HIDES_STATUS_BAR:
                     for (int i = 0; i < mCallbacks.size(); i++) {
                         mCallbacks.get(i).setTopAppHidesStatusBar(msg.arg1 != 0);
+                    }
+                    break;
+                case MSG_SCREEN_PINNING_STATE_CHANGED:
+                    for (int i = 0; i < mCallbacks.size(); i++) {
+                        mCallbacks.get(i).screenPinningStateChanged(msg.arg1 != 0);
+                    }
+                    break;
+                case MSG_TOGGLE_FLASHLIGHT:
+                    for (int i = 0; i < mCallbacks.size(); i++) {
+                        mCallbacks.get(i).toggleFlashlight();
                     }
                     break;
             }
