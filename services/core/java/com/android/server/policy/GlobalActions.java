@@ -37,6 +37,9 @@ import android.content.IntentFilter;
 import android.content.pm.UserInfo;
 import android.database.ContentObserver;
 import android.graphics.drawable.Drawable;
+import android.hardware.camera2.CameraManager;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraAccessException;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.os.Build;
@@ -103,6 +106,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     private static final String GLOBAL_ACTION_KEY_POWER = "power";
     private static final String GLOBAL_ACTION_KEY_SCREENSHOT = "screenshot";
     private static final String GLOBAL_ACTION_KEY_SCREENRECORD = "screenrecord";
+    private static final String GLOBAL_ACTION_KEY_TORCH = "torch";
     private static final String GLOBAL_ACTION_KEY_AIRPLANE = "airplane";
     private static final String GLOBAL_ACTION_KEY_BUGREPORT = "bugreport";
     private static final String GLOBAL_ACTION_KEY_SILENT = "silent";
@@ -134,6 +138,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     private boolean mHasVibrator;
     private final boolean mShowSilentToggle;
     private final EmergencyAffordanceManager mEmergencyAffordanceManager;
+    private static boolean mTorchEnabled = false;
 
     /**
      * @param context everything needs a context :(
@@ -292,6 +297,11 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                         Settings.System.POWERMENU_SCREENRECORD, 0) != 0) {
                     mItems.add(ScreenrecordAction());
                 }
+            } else if (GLOBAL_ACTION_KEY_TORCH.equals(actionKey)) {
+                if (Settings.System.getInt(mContext.getContentResolver(),
+                        Settings.System.POWERMENU_TORCH, 0) != 0) {
+                mItems.add(getTorchToggleAction());
+                }
             } else if (GLOBAL_ACTION_KEY_AIRPLANE.equals(actionKey)) {
                 if (Settings.System.getInt(mContext.getContentResolver(),
                         Settings.System.POWERMENU_AIRPLANE, 1) == 1) {
@@ -421,12 +431,43 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         };
     }
 
-    private Action ScreenrecordAction() {
-        return new SinglePressAction(com.android.internal.R.drawable.ic_lock_power_screenrecord,
-                R.string.powermenu_screenrecord) {
+     private Action ScreenrecordAction() {
+         return new SinglePressAction(com.android.internal.R.drawable.ic_lock_power_screenrecord,
+                 R.string.powermenu_screenrecord) {
+ 
+             public void onPress() {
+                 takeScreenrecord();
+             }
+ 
+             public boolean showDuringKeyguard() {
+                 return true;
+             }
+ 
+             public boolean showBeforeProvisioning() {
+                 return false;
+             }
+          };
+      }
+
+    private Action getTorchToggleAction() {
+        return new SinglePressAction(com.android.internal.R.drawable.ic_lock_torch,
+                R.string.global_action_torch) {
 
             public void onPress() {
-                takeScreenrecord();
+                try {
+                    CameraManager cameraManager = (CameraManager)
+                            mContext.getSystemService(Context.CAMERA_SERVICE);
+                    for (final String cameraId : cameraManager.getCameraIdList()) {
+                        CameraCharacteristics characteristics =
+                            cameraManager.getCameraCharacteristics(cameraId);
+                        int orient = characteristics.get(CameraCharacteristics.LENS_FACING);
+                        if (orient == CameraCharacteristics.LENS_FACING_BACK) {
+                            cameraManager.setTorchMode(cameraId, !mTorchEnabled);
+                            mTorchEnabled = !mTorchEnabled;
+                        }
+                    }
+                } catch (CameraAccessException e) {
+                }
             }
 
             public boolean showDuringKeyguard() {
