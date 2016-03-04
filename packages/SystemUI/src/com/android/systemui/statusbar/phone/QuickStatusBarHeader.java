@@ -70,6 +70,8 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
 
     private TextView mAlarmStatus;
     private View mAlarmStatusCollapsed;
+    private View mClock;
+    private View mDate;
 
     private QSPanel mQsPanel;
 
@@ -121,6 +123,11 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
         mDateTimeGroup.setPivotX(0);
         mDateTimeGroup.setPivotY(0);
         mDateTimeTranslation = getResources().getDimension(R.dimen.qs_date_time_translation);
+        mClock = findViewById(R.id.clock);
+        mClock.setOnClickListener(this);
+        mDate = findViewById(R.id.date);
+        mDate.setOnClickListener(this);
+
         mShowFullAlarm = getResources().getBoolean(R.bool.quick_settings_show_full_alarm);
 
         mExpandIndicator = (ExpandableIndicator) findViewById(R.id.expand_indicator);
@@ -360,6 +367,10 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
         } else if (v == mAlarmStatus && mNextAlarm != null) {
             PendingIntent showIntent = mNextAlarm.getShowIntent();
             mActivityStarter.startPendingIntentDismissingKeyguard(showIntent);
+        } else if (v == mClock) {
+            startAlarmsActivity();
+        } else if (v == mDate) {
+            startCalendarActivity();
         }
     }
 
@@ -381,6 +392,17 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
         crIntent.setClassName("com.android.settings",
             "com.android.settings.Settings$CarbonFibersActivity");
         mActivityStarter.startActivity(crIntent, true /* dismissShade */);
+    }
+
+    private void startCalendarActivity() {
+        Intent calIntent = new Intent(Intent.ACTION_MAIN);
+        calIntent.addCategory(Intent.CATEGORY_APP_CALENDAR);
+        mActivityStarter.startActivity(calIntent, true /* dismissShade */);
+    }
+
+    private void startAlarmsActivity() {
+        mActivityStarter.startActivity(new Intent(android.provider.AlarmClock.ACTION_SHOW_ALARMS),
+                true /* dismissShade */);
     }
 
     @Override
