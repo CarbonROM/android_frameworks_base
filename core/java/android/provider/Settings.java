@@ -4090,6 +4090,12 @@ public final class Settings {
          */
         public static final String QS_LAYOUT_ROWS = "qs_layout_rows";
 
+        /** Whether to skip music track with volume rocker 
+        /**
+         * @hide
+         */
+        public static final String VOLUME_BUTTON_MUSIC_CONTROL = "volume_button_music_control";
+
         /**
          * Whether to show the notification ticker on the status bar
          * @hide
