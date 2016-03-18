@@ -4937,6 +4937,11 @@ public final class Settings {
          */
         public static final String STATUSBAR_CLOCK_SECONDS = "statusbar_clock_seconds";
 
+        /** Whether to skip music track with volume rocker
+         *  @hide
+         */
+        public static final String VOLUME_BUTTON_MUSIC_CONTROL = "volume_button_music_control";
+
         /**
          * AM/PM Style for clock options
          * 0 - Normal AM/PM
