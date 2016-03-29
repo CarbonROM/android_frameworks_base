@@ -44,6 +44,7 @@ import com.android.systemui.doze.DozeLog;
 import com.android.systemui.statusbar.FlingAnimationUtils;
 import com.android.systemui.statusbar.StatusBarState;
 import com.android.systemui.statusbar.policy.HeadsUpManager;
+import android.util.BoostFramework;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -98,6 +99,12 @@ public abstract class PanelView extends FrameLayout {
     private FlingAnimationUtils mFlingAnimationUtilsClosing;
     private FlingAnimationUtils mFlingAnimationUtilsDismissing;
     private FalsingManager mFalsingManager;
+
+    /**
+     * For PanelView fling perflock call
+     */
+    private BoostFramework mPerf = null;
+    private int mBoostParamVal[];
 
     /**
      * Whether an instant expand request is currently pending and we are just waiting for layout.
@@ -199,6 +206,14 @@ public abstract class PanelView extends FrameLayout {
         mFalsingManager = FalsingManager.getInstance(context);
         mNotificationsDragEnabled =
                 getResources().getBoolean(R.bool.config_enableNotificationShadeDrag);
+
+        boolean lIsPerfBoostEnabled = context.getResources().getBoolean(
+                com.android.internal.R.bool.config_enableCpuBoostForPanelViewFling);
+        if (lIsPerfBoostEnabled) {
+            mBoostParamVal = context.getResources().getIntArray(
+                    com.android.internal.R.array.panelview_flingboost_param_value);
+            mPerf = new BoostFramework();
+        }
     }
 
     protected void loadDimens() {
@@ -754,16 +769,25 @@ public abstract class PanelView extends FrameLayout {
                 animator.setDuration((long) (animator.getDuration() / collapseSpeedUpFactor));
             }
         }
+        if (mPerf != null) {
+            mPerf.perfLockAcquire(0, mBoostParamVal);
+        }
         animator.addListener(new AnimatorListenerAdapter() {
             private boolean mCancelled;
 
             @Override
             public void onAnimationCancel(Animator animation) {
+                if (mPerf != null) {
+                    mPerf.perfLockRelease();
+                }
                 mCancelled = true;
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
+                if (mPerf != null) {
+                    mPerf.perfLockRelease();
+                }
                 if (clearAllExpandHack && !mCancelled) {
                     setExpandedHeightInternal(getMaxPanelHeight());
                 }
