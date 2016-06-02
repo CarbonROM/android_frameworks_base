@@ -41,4 +41,7 @@
   <bool name="config_sms_authorization_enabled">false</bool>
 
   <integer name="config_flashlightProximityTimeout">300</integer>
+
+  <!-- Whether to persist the notification for when a usb drive device is plugged in -->
+  <bool name="config_persistUsbDriveNotification">false</bool>
 </resources>
