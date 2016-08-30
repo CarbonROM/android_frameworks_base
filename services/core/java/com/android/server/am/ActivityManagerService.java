@@ -18895,6 +18895,10 @@ public final class ActivityManagerService extends ActivityManagerNative
                 }
             } catch (Exception e) {}
         }
+
+        Configuration config = new Configuration(mConfiguration);
+        config.assetSeq++;
+        updateConfiguration(config);
     }
 
     /**
