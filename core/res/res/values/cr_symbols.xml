@@ -63,4 +63,16 @@
 
   <!-- Doze invert -->
   <java-symbol type="bool" name="config_invert_colors_on_doze" />
+
+  <!-- Notification light -->
+  <java-symbol type="bool" name="config_intrusiveNotificationLed" />
+  <java-symbol type="bool" name="config_multiColorNotificationLed" />
+  <java-symbol type="array" name="notification_light_package_mapping" />
+  <java-symbol type="array" name="config_notificationNoAlertsVibePattern" />
+  <!-- Battery light light -->
+  <java-symbol type="bool" name="config_intrusiveBatteryLed" />
+  <java-symbol type="bool" name="config_multiColorBatteryLed" />
+  <!-- LED pulse -->
+  <java-symbol type="bool" name="config_ledCanPulse" />
+
 </resources>
