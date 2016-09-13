@@ -3891,6 +3891,12 @@ public final class Settings {
         public static final String POWER_REBOOT_DIALOG_DIM = "power_reboot_dialog_dim";
 
         /**
+         * Remove tile summaries in settings
+         * @hide
+         */
+        public static final String REMOVE_TILE_SUMMARY = "remove_tile_summary";
+
+        /**
          * Volume rocker wake
          * @hide
          */
