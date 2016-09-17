@@ -101,4 +101,9 @@
   <java-symbol type="string" name="alert_slider_uevent_match_path" />
   <java-symbol type="bool" name="config_hasAlertSlider" />
 
+  <!-- Button Brightness -->
+  <java-symbol type="integer" name="config_buttonBrightnessSettingMinimum" />
+  <java-symbol type="integer" name="config_buttonBrightnessSettingMaximum" />
+  <java-symbol type="integer" name="config_buttonBrightnessSettingDefault" />
+
 </resources>
