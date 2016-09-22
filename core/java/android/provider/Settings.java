@@ -4455,6 +4455,12 @@ public final class Settings {
         public static final String RECENT_PANEL_LEFTY_MODE = "recent_panel_lefty_mode";
 
         /**
+         * Whether to control brightness from status bar
+         * @hide
+         */
+        public static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
+
+        /**
          * Custom icon pack name to use for Slim Recents
          * @hide
          */
