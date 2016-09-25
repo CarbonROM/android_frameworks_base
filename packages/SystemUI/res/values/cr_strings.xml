@@ -42,6 +42,9 @@
     <string name="screenshot_abort_title">No screenshot taken</string>
     <string name="screenshot_abort_text">Operation aborted</string>
 
+    <!-- Quick Settings tiles -->
+    <string name="quick_settings_screenshot_label">Screenshot</string>
+
     <!-- Navbar tuner -->
     <string name="navbar_tuner_title">Navbar tuner</string>
     <!-- statusbar items tuner -->
