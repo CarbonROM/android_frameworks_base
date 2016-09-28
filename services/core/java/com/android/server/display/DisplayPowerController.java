@@ -547,7 +547,9 @@ final class DisplayPowerController implements AutomaticBrightnessController.Call
         switch (mPowerRequest.policy) {
             case DisplayPowerRequest.POLICY_OFF:
                 state = Display.STATE_OFF;
-                performScreenOffTransition = true;
+                // XXX The following line causes Mali driver to crash when
+                // screen turning off
+                // performScreenOffTransition = true;
                 break;
             case DisplayPowerRequest.POLICY_DOZE:
                 if (mPowerRequest.dozeScreenState != Display.STATE_UNKNOWN) {
