@@ -243,6 +243,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         }
 
         mDialog.getWindow().setAttributes(attrs);
+        mDialog.getWindow().setDimAmount(setPowerRebootDialogDim());
         mDialog.show();
         mDialog.getWindow().getDecorView().setSystemUiVisibility(View.STATUS_BAR_DISABLE_EXPAND);
     }
@@ -251,6 +252,14 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         mUiContext = ThemeUtils.createUiContext(mContext);
         mUiContext.setTheme(android.R.style.Theme_DeviceDefault_Light_DarkActionBar);
         return mUiContext != null ? mUiContext : mContext;
+    }
+
+    private float setPowerRebootDialogDim() {
+        int mPowerRebootDialogDim = Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.POWER_REBOOT_DIALOG_DIM, 50);
+        double dDim = mPowerRebootDialogDim / 100.0;
+        float dim = (float) dDim;
+        return dim;
     }
 
     private int getPowermenuAnimations() {
