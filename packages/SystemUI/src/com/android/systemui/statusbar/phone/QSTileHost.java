@@ -43,6 +43,7 @@ import com.android.systemui.qs.external.TileServices;
 import com.android.systemui.qs.tiles.AdbOverNetworkTile;
 import com.android.systemui.qs.tiles.AirplaneModeTile;
 import com.android.systemui.qs.tiles.AndroidAutoTile;
+import com.android.systemui.qs.tiles.AlertSliderTile;
 import com.android.systemui.qs.tiles.BatteryTile;
 import com.android.systemui.qs.tiles.BluetoothTile;
 import com.android.systemui.qs.tiles.BrightnessTile;
@@ -451,7 +452,7 @@ public class QSTileHost implements QSTile.Host, Tunable {
         else if (tileSpec.equals("sound")) return new SoundTile(this);
         else if (tileSpec.equals("nfc")) return new NfcTile(this);
         else if (tileSpec.equals("music")) return new MusicTile(this);
-
+        else if (tileSpec.equals("alertslider")) return new AlertSliderTile(this);
         // Intent tiles.
         else if (tileSpec.startsWith(IntentTile.PREFIX)) return IntentTile.create(this,tileSpec);
         else if (tileSpec.startsWith(CustomTile.PREFIX)) return CustomTile.create(this,tileSpec);
