@@ -73,4 +73,8 @@
     <string name="app_killed_message"><xliff:g id="string">%s</xliff:g> killed</string>
     <string name="no_app_killed_message">Nothing to kill</string>
 
+    <!-- Alert slider proc nodes paths. -->
+     <string name="alert_slider_state_path"></string>
+     <string name="alert_slider_uevent_match_path"></string>
+
 </resources>
