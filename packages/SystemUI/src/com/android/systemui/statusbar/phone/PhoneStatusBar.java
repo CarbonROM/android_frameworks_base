@@ -439,6 +439,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
            resolver.registerContentObserver(Settings.System.getUriFor(
                   Settings.System.SHOW_LTE_FOURGEE),
                   false, this, UserHandle.USER_ALL);
+           resolver.registerContentObserver(Settings.Secure.getUriFor(
+                  Settings.Secure.LOCK_QS_DISABLED),
+                  false, this, UserHandle.USER_ALL);
            updateSettings();
         }
 
@@ -460,6 +463,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             ContentResolver resolver = mContext.getContentResolver();
             boolean mShowLteFourGee = Settings.System.getIntForUser(resolver,
                     Settings.System.SHOW_LTE_FOURGEE, 0, UserHandle.USER_CURRENT) == 1;
+
+            if (mNotificationPanel != null) {
+                mNotificationPanel.updateSettings();
+            }
         }
     }
 
