@@ -3722,7 +3722,13 @@ public final class Settings {
          * 2 - Enabled (screen is rotated by 180 or 270 degrees: tablet)
          * @hide
          */
-         public static final String SWAP_VOLUME_BUTTONS = "swap_volume_buttons";
+        public static final String SWAP_VOLUME_BUTTONS = "swap_volume_buttons";
+
+        /**
+         * Show the four 4g network icon instead of lte
+         * @hide
+         */
+        public static final String SHOW_LTE_FOURGEE = "show_lte_fourgee";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
@@ -6569,7 +6575,7 @@ public final class Settings {
         public static final String ADB_PORT = "adb_port";
 
         /**
-         * Whether to use one tap tile action to enable or disable data 
+         * Whether to use one tap tile action to enable or disable data
          * @hide
          */
         public static final String QS_DATA_ADVANCED = "qs_data_advanced";
