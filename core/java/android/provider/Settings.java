@@ -347,7 +347,6 @@ public final class Settings {
      * Input: Nothing.
      * <p>
      * Output: Nothing.
-
      */
     @SdkConstant(SdkConstantType.ACTIVITY_INTENT_ACTION)
     public static final String ACTION_WIFI_SETTINGS =
@@ -4442,6 +4441,19 @@ public final class Settings {
          */
         public static final String VOLUME_KEYS_CONTROL_MEDIA_STREAM =
                 "volume_keys_control_media_stream";
+
+        /**
+         * never show ime switcher notification
+         * by default its shown in the navbar on devices that supports it
+         * @hide
+         */
+        public static final String STATUS_BAR_IME_NOTIFICATION = "status_bar_ime_notification";
+
+        /**
+         * never show ime switcher button in navbar
+         * @hide
+         */
+        public static final String NAVIGATION_BAR_IME_BUTTON = "navigation_bar_ime_button";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
