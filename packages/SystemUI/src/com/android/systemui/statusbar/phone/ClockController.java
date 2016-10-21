@@ -29,7 +29,8 @@ public class ClockController {
     private final IconMerger mNotificationIcons;
     private final Context mContext;
     private final SettingsObserver mSettingsObserver;
-    private Clock mRightClock, mCenterClock, mLeftClock, mActiveClock;
+    private Clock mRightClock, mLeftClock;
+    public static Clock mCenterClock, mActiveClock;
 
     private int mClockLocation;
     private int mAmPmStyle;
