@@ -123,4 +123,7 @@
 
   <!-- Whether device has a physical display cutout -->
   <bool name="config_physicalDisplayCutout">false</bool>
+
+  <!-- Whether notify fingerprint client of successful cancelled authentication -->
+  <bool name="config_notifyClientOnFingerprintCancelSuccess">false</bool>
 </resources>
