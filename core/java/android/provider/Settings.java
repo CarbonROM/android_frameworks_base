@@ -3925,6 +3925,12 @@ public final class Settings {
         public static final String SHOW_LTE_FOURGEE = "show_lte_fourgee";
 
         /**
+         * Quick Settings number of columns
+         * @hide
+         */
+        public static final String QS_LAYOUT_COLUMNS = "qs_layout_columns";
+
+        /**
          * Whether to hide the clock, show it in the right or left
          * position or show it in the center
          * 0: don't show the clock
