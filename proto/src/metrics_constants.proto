@@ -2252,5 +2252,8 @@ message MetricsEvent {
 
     // CarbonFibers
     CARBONFIBERS = 600;
+
+    // QuickSettings
+    QUICK_SETTINGS = 601;
   }
 }
