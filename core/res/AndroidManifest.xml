@@ -646,6 +646,9 @@
     <!-- Font service -->
     <protected-broadcast android:name="com.android.server.ACTION_FONT_CHANGED" />
 
+    <!-- Used to launch a common app (FlipFlap) for devices with flip cover. -->
+    <protected-broadcast android:name="cr.intent.action.LID_STATE_CHANGED" />
+
     <!-- ====================================================================== -->
     <!--                          RUNTIME PERMISSIONS                           -->
     <!-- ====================================================================== -->
