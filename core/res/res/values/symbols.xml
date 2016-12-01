@@ -2719,4 +2719,13 @@
   <!-- Screen-size-dependent modes for picker dialogs. -->
   <java-symbol type="integer" name="time_picker_mode" />
   <java-symbol type="integer" name="date_picker_mode" />
+
+  <!-- Whether to to intercept inputs on screen off. -->
+  <java-symbol type="bool" name="config_enableKeyHandler" />
+
+  <!-- Alert slider. -->
+  <java-symbol type="string" name="alert_slider_state_path" />
+  <java-symbol type="string" name="alert_slider_uevent_match_path" />
+  <java-symbol type="bool" name="config_hasAlertSlider" />
+
 </resources>

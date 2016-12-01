@@ -3748,9 +3748,21 @@ public final class Settings {
 
         /**
          * Enable double tap gesture anywhere on the lock screen put device to sleep
+         * Whether user can swap the order of the Alert Slider.
+         * * Whether user can invert the order of the Alert Slider.
+         * 0: Default
+         * 1: Inverted
          * @hide
          */
-        public static final String DOUBLE_TAP_SLEEP_ANYWHERE = "double_tap_sleep_anywhere";
+        public static final String ALERT_SLIDER_ORDER = "alert_slider_order";
+
+        /**
+         * Preferred silent mode for Alert Slider..
+         * 0: Alarms only.
+         * 1: Total silence
+         * @hide
+         */
+        public static final String ALERT_SLIDER_SILENT_MODE = "alert_slider_silent_mode";
 
         /**
          * whether to enable torch on lockscreen
@@ -3835,6 +3847,7 @@ public final class Settings {
         /**
          * Whether to display airplane in the power menu
          *
+         * The delay when killing the app on long press takes place
          * @hide
          */
         public static final String POWERMENU_AIRPLANE = "powermenu_airplane";
@@ -4026,6 +4039,10 @@ public final class Settings {
 
         /**
          * Whether to display qs tile titles in the qs panel
+         * Preferred silent mode for Alert Slider..
+         * 0: Alarms only.
+         * 1: Total silence
+         * Boolean value whether to link ringtone and notification volume
          * @hide
          */
         public static final String QS_TILE_TITLE_VISIBILITY = "qs_tile_title_visibility";
@@ -4045,6 +4062,17 @@ public final class Settings {
          * @hide
          */
         public static final String QS_SETTINGS_ICON_TOGGLE = "qs_settings_icon_toggle";
+        /** @hide */
+        public static final Validator KEY_VALIDATOR = new Validator() {
+            @Override
+            public boolean validate(String value) {
+                try {
+                    return Long.parseLong(value) >= 0;
+                } catch (NumberFormatException e) {
+                    return false;
+                }
+            }
+        };
 
         /**
          * Whether to show or hide the Settings Shortcut in expanded mode
