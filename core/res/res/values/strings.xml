@@ -4441,7 +4441,6 @@
 
     <!-- Label used by Telephony code, assigned as the display name for conference calls [CHAR LIMIT=60] -->
     <string name="conference_call">Conference Call</string>
-
     <!-- Alert slider proc nodes paths. -->
     <string name="alert_slider_state_path"></string>
     <string name="alert_slider_uevent_match_path"></string>
