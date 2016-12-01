@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2016 The Pure Nexus Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Navbar tuner -->
+    <string name="navbar_tuner_title">Navbar tuner</string>
+    <!-- statusbar items tuner -->
+    <string name="statusbar_icons_blacklist">Status bar icons</string>
+    <!-- notification controls -->
+    <string name="tuner_notification_control">Power notification controls</string>
+    
+    <!-- Screenrecord Notification Ticker -->
+    <string name="screenrecord_notif_ticker">Screen is being recorded</string>
+    <!-- Screenrecord notification title -->
+    <string name="screenrecord_notif_title">Recording screen</string>
+    <!-- Screenrecord notification action: Stop -->
+    <string name="screenrecord_notif_stop">Stop</string>
+    <!-- Screenrecord notification action: show/hide pointer -->
+    <string name="screenrecord_notif_pointer_on">Show pointer</string>
+    <string name="screenrecord_notif_pointer_off">Hide pointer</string>
+    <!-- Screen record notification error title -->
+    <string name="screenrecord_notif_error">Unable to record screen</string>
+    
+    <!-- Heads Up QS Tile -->
+    <string name="quick_settings_heads_up_label">Heads up</string>
+    <string name="accessibility_quick_settings_heads_up_off">Heads up off.</string>
+    <string name="accessibility_quick_settings_heads_up_on">Heads up on.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_off">Heads up turned off.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_on">Heads up turned on.</string>
+
+    <!-- Heads up snooze toast -->
+    <string name="heads_up_snooze_message_one_minute">Peeking notification from <xliff:g id="string">%s</xliff:g> are snoozing for 1 minute.</string>
+    <string name="heads_up_snooze_message">Peeking notification from <xliff:g id="string">%s</xliff:g> are snoozing for <xliff:g id="number">%d</xliff:g> minutes.</string>      
+
+    <!-- Music QS Tile -->
+    <string name="quick_settings_music_label">Music</string>
+    <string name="quick_settings_music_play">Play</string>
+    <string name="quick_settings_music_pause">Pause</string>
+
+    <!-- Path data for portrait battery -->
+    <string name="battery_portrait_path_full" translatable="false">M 5 2 H 19 V 21 H 5 V 2 Z</string>
+    <string name="battery_portrait_path_empty" translatable="false">M 5 21 H 19 V 21 H 5 V 21 Z</string>
+    <string name="battery_portrait_clip_path" translatable="false">M6,21V4h3V2h6v2h3v17H6z</string>
+
+    <!-- Path data for landscape battery -->
+    <string name="battery_landscape_path_full" translatable="false">M 1 4 H 25 V 20 H 1 V 4 Z</string>
+    <string name="battery_landscape_path_empty" translatable="false">M 1 4 H 1 V 20 H 1 V 4 Z</string>
+    <string name="battery_landscape_clip_path" translatable="false">M25,16h-2v4H1V4h22v4h2V16z</string>
+
+    <!-- Path data for circle battery -->
+    <string name="battery_circle_path" translatable="false">M 12 3.5 C 16.6944203736 3.5 20.5 7.30557962644 20.5 12 C 20.5 16.6944203736 16.6944203736 20.5 12 20.5 C 7.30557962644 20.5 3.5 16.6944203736 3.5 12 C 3.5 7.30557962644 7.30557962644 3.5 12 3.5 Z</string>
+    
+    <!-- Purgatory Tile -->
+    <string name="quick_settings_reaper">Purgatory</string>
+    
+    <!-- Reboot/Recovery QS Tile -->
+    <string name="quick_settings_reboot_label">Reboot</string>
+    <string name="quick_settings_reboot_recovery_label">Recovery</string>
+    
+    <!-- Screen off QS Tile  -->
+    <string name="quick_settings_screen_off_label">Screen off</string>
+    <string name="accessibility_quick_settings_screen_off">Screen off.</string>
+    
+    <!-- Screenshot QS Tile -->
+    <string name="accessibility_quick_settings_screenshot">Screenshot.</string>
+    <string name="quick_settings_screenshot_label">Screenshot</string>
+
+    <!-- Volume QS Tile -->
+    <string name="accessibility_quick_settings_volume_panel">Volume</string>
+    <string name="quick_settings_volume_panel_label">Volume</string>
+    
+    <!-- ONEPLUS RELATED -->
+    <!-- QuickSettings: Alert slider detail panel title [CHAR LIMIT=NONE] -->
+    <string name="quick_settings_alert_slider_title">Alert slider</string>
+    <string name="quick_settings_alert_slider_unavailable">Alert slider tile not available</string>
+
+    <!-- [CHAR LIMIT=130] Alert slider detail panel, description for alarms only -->
+    <string name="quick_settings_alert_slider_alarms_only_label">@string/quick_settings_dnd_alarms_label</string>
+
+    <!-- [CHAR LIMIT=130] Alert slider detail panel, description for alarms only -->
+    <string name="quick_settings_alert_slider_alarms_only_label_twoline">Alarms\nonly</string>
+
+    <!-- [CHAR LIMIT=130] Alert slider detail panel, description no interruptions -->
+    <string name="quick_settings_alert_slider_no_interruptions_label">@string/quick_settings_dnd_none_label</string>
+
+    <!-- [CHAR LIMIT=130] Alert slider detail panel, description no interruptions -->
+    <string name="quick_settings_alert_slider_no_interruptions_label_twoline">Total\nsilence</string>
+
+    <!-- [CHAR LIMIT=130] Alert slider detail panel, description no interruptions -->
+    <string name="quick_settings_alert_slider_detail_alarms_only_description">This blocks ALL sounds and vibrations except those from alarms and media playback.</string>
+
+    <!-- [CHAR LIMIT=130] Alert slider detail panel, description no interruptions -->
+    <string name="quick_settings_alert_slider_detail_no_interruptions_description">@string/zen_silence_introduction</string>    
+    
+</resources>
