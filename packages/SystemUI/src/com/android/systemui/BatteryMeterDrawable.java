@@ -68,6 +68,7 @@ public class BatteryMeterDrawable extends Drawable implements
     public static final int BATTERY_STYLE_HIDDEN    = 4;
     public static final int BATTERY_STYLE_LANDSCAPE = 5;
     public static final int BATTERY_STYLE_TEXT      = 6;
+    public static final int BATTERY_STYLE_SOLID     = 7;
 
     private final int[] mColors;
     private final int mIntrinsicWidth;
@@ -493,6 +494,8 @@ public class BatteryMeterDrawable extends Drawable implements
                 return R.drawable.ic_battery_circle;
             case BATTERY_STYLE_PORTRAIT:
                 return R.drawable.ic_battery_portrait;
+            case BATTERY_STYLE_SOLID:
+                return R.drawable.ic_battery_solid;
             default:
                 return 0;
         }
@@ -506,6 +509,8 @@ public class BatteryMeterDrawable extends Drawable implements
                 return R.style.BatteryMeterViewDrawable_Circle;
             case BATTERY_STYLE_PORTRAIT:
                 return R.style.BatteryMeterViewDrawable_Portrait;
+            case BATTERY_STYLE_SOLID:
+                return R.style.BatteryMeterViewDrawable_Solid;
             default:
                 return R.style.BatteryMeterViewDrawable;
         }
@@ -547,19 +552,8 @@ public class BatteryMeterDrawable extends Drawable implements
         if (mWidth <= 0 || mHeight <= 0) return;
 
         final float widthDiv2 = mWidth / 2f;
-        final float textSize;
-        switch(mStyle) {
-            case BATTERY_STYLE_CIRCLE:
-                textSize = widthDiv2 * 0.8f;
-                break;
-            case BATTERY_STYLE_LANDSCAPE:
-                textSize = widthDiv2 * 1.0f;
-                break;
-            default:
-                textSize = widthDiv2 * 0.9f;
-                break;
-        }
-
+        // text size is width / 2 - 2dp for wiggle room
+        final float textSize = widthDiv2 - mContext.getResources().getDisplayMetrics().density * 2;
         mTextAndBoltPaint.setTextSize(textSize);
 
         Rect iconBounds = new Rect(0, 0, mWidth, mHeight);
