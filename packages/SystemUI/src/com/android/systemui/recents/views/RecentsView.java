@@ -303,14 +303,8 @@ public class RecentsView extends FrameLayout {
         // Update the top level view's visibilities
         if (stack.getTaskCount() > 0) {
             hideEmptyView();
-            if (mFloatingButton != null) {
-                mFloatingButton.setVisibility(View.VISIBLE);
-            }
         } else {
             showEmptyView(R.string.recents_empty_message);
-            if (mFloatingButton != null) {
-                mFloatingButton.setVisibility(View.GONE);
-            }
         }
     }
 
@@ -436,6 +430,9 @@ public class RecentsView extends FrameLayout {
         if (RecentsDebugFlags.Static.EnableStackActionButton) {
             mStackActionButton.bringToFront();
         }
+        if (mFloatingButton != null) {
+            mFloatingButton.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -447,6 +444,9 @@ public class RecentsView extends FrameLayout {
         mTaskStackView.bringToFront();
         if (RecentsDebugFlags.Static.EnableStackActionButton) {
             mStackActionButton.bringToFront();
+        }
+        if (mFloatingButton != null) {
+            mFloatingButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -494,13 +494,13 @@ public class RecentsView extends FrameLayout {
         super.onAttachedToWindow();
         mMemText = (TextView) ((View)getParent()).findViewById(R.id.recents_memory_text);
         mMemBar = (ProgressBar) ((View)getParent()).findViewById(R.id.recents_memory_bar);
-        mSettingsObserver.observe();
         mClearRecents.setVisibility(View.VISIBLE);
         mClearRecents.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             EventBus.getDefault().send(new DismissAllTaskViewsEvent());
             }
         });
+        mSettingsObserver.observe();
     }
 
     @Override
