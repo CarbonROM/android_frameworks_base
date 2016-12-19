@@ -114,7 +114,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *     the caller runs as, or if the caller holds the
  *     INTERACT_ACROSS_USERS_FULL permission. Write-access is granted if the
  *     caller is granted read-access and additionaly holds the
- *     CHANGE_CONFIGURATION permission.</li>
+ *     CHANGE_CONFIGURATION permission. Additionally, read and write access
+ *     is granted by the MODIFY_OVERLAYS permission.</li>
  * </ul>
  *
  * <p>The AIDL interface works with String package names, int user IDs, and
@@ -545,19 +546,24 @@ public class OverlayManagerService extends SystemService {
         /**
          * Ensure that the caller has permission to interact with the given userId.
          * If the calling user is not the same as the provided user, the caller needs
-         * to hold the INTERACT_ACROSS_USERS_FULL permission (or be system uid or
+         * to hold the INTERACT_ACROSS_USERS_FULL permission or MODIFY_OVERLAYS permission (or be system uid or
          * root).
          *
          * @param userId the user to interact with
          * @param message message for any SecurityException
          */
-        private int handleIncomingUser(int userId, String message) {
-            return ActivityManager.handleIncomingUser(Binder.getCallingPid(),
-                    Binder.getCallingUid(), userId, false, true, message, null);
+        private int handleIncomingUser(final int userId, @NonNull final String message) {
+            if (getContext().checkCallingOrSelfPermission(
+                    android.Manifest.permission.MODIFY_OVERLAYS) == PackageManager.PERMISSION_GRANTED) {
+                return userId;
+            } else {
+                return ActivityManager.handleIncomingUser(Binder.getCallingPid(),
+                        Binder.getCallingUid(), userId, false, true, message, null);
+            }
         }
 
         /**
-         * Enforce that the caller holds the CHANGE_CONFIGURATION permission (or is
+         * Enforce that the caller holds the CHANGE_CONFIGURATION permission or MODIFY_OVERLAYS permission (or is
          * system or root).
          *
          * @param message used as message if SecurityException is thrown
@@ -566,9 +572,12 @@ public class OverlayManagerService extends SystemService {
         private void enforceChangeConfigurationPermission(String message) {
             final int callingUid = Binder.getCallingUid();
 
-            if (callingUid != Process.SYSTEM_UID && callingUid != 0) {
-                getContext().enforceCallingOrSelfPermission(
-                        android.Manifest.permission.CHANGE_CONFIGURATION, message);
+            if (getContext().checkCallingOrSelfPermission(
+                    android.Manifest.permission.MODIFY_OVERLAYS) != PackageManager.PERMISSION_GRANTED) {
+                if (callingUid != Process.SYSTEM_UID && callingUid != 0) {
+                    getContext().enforceCallingOrSelfPermission(
+                            android.Manifest.permission.CHANGE_CONFIGURATION, message);
+                }
             }
         }
 
