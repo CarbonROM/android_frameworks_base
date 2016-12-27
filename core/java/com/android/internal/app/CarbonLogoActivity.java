@@ -56,9 +56,7 @@ public class CarbonLogoActivity extends Activity {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        Typeface bold = Typeface.create("sans-serif", Typeface.BOLD);
         Typeface condensed = Typeface.create("sans-serif-condensed", Typeface.NORMAL);
-        Typeface light = Typeface.create("sans-serif-light", Typeface.NORMAL);
 
         mContent = new FrameLayout(this);
         mContent.setBackgroundColor(CLEAR_BGCOLOR);
@@ -82,14 +80,6 @@ public class CarbonLogoActivity extends Activity {
         bg.setBackgroundColor(SOLID_BGCOLOR);
         bg.setAlpha(0f);
 
-        final TextView letter = new TextView(this);
-
-        letter.setTypeface(bold);
-        letter.setTextSize(300);
-        letter.setTextColor(TEXT_COLOR);
-        letter.setGravity(Gravity.CENTER);
-        letter.setText("C");
-
         final int p = (int)(4 * metrics.density);
 
         final TextView tv = new TextView(this);
@@ -103,7 +93,6 @@ public class CarbonLogoActivity extends Activity {
         tv.setVisibility(View.INVISIBLE);
 
         mContent.addView(bg);
-        mContent.addView(letter, lp);
         mContent.addView(bglogo, lp);
         mContent.addView(logo, lp);
 
@@ -113,58 +102,28 @@ public class CarbonLogoActivity extends Activity {
 
         mContent.addView(tv, lp2);
 
-        mContent.setOnClickListener(new View.OnClickListener() {
-            int clicks;
-            @Override
-            public void onClick(View v) {
-                clicks++;
-                if (clicks >= 6) {
-                    mContent.performLongClick();
-                    return;
-                }
-                letter.animate().cancel();
-                final float offset = (int)letter.getRotation() % 360;
-                letter.animate()
-                    .rotationBy((Math.random() > 0.5f ? 360 : -360) - offset)
-                    .setInterpolator(new DecelerateInterpolator())
-                    .setDuration(700).start();
-            }
-        });
-
-        mContent.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (logo.getVisibility() != View.VISIBLE) {
-                    bg.setScaleX(0.01f);
-                    bg.animate().alpha(1f).scaleX(1f).setStartDelay(500).start();
-                    letter.animate().alpha(0f).scaleY(0.5f).scaleX(0.5f)
-                            .rotationBy(360)
-                            .setInterpolator(new AccelerateInterpolator())
-                            .setDuration(1000)
-                            .start();
-                    bglogo.setAlpha(0f);
-                    bglogo.setVisibility(View.VISIBLE);
-                    bglogo.setScaleX(0.5f);
-                    bglogo.setScaleY(0.5f);
-                    bglogo.animate().alpha(1f).scaleX(1f).scaleY(1f)
-                        .setDuration(600).setStartDelay(500)
-                        .start();
-                    logo.setAlpha(0f);
-                    logo.setVisibility(View.VISIBLE);
-                    logo.setScaleX(0.5f);
-                    logo.setScaleY(0.5f);
-                    logo.animate().alpha(1f).scaleX(1f).scaleY(1f)
-                        .setDuration(1000).setStartDelay(800)
-                        .setInterpolator(new AnticipateOvershootInterpolator())
-                        .start();
-                    tv.setAlpha(0f);
-                    tv.setVisibility(View.VISIBLE);
-                    tv.animate().alpha(1f).setDuration(1000).setStartDelay(1100).start();
-                    return true;
-                }
-                return false;
-            }
-        });
+        if (logo.getVisibility() != View.VISIBLE) {
+            bg.setScaleX(0.01f);
+            bg.animate().alpha(1f).scaleX(1f).setStartDelay(500).start();
+            bglogo.setAlpha(0f);
+            bglogo.setVisibility(View.VISIBLE);
+            bglogo.setScaleX(0.5f);
+            bglogo.setScaleY(0.5f);
+            bglogo.animate().alpha(1f).scaleX(1f).scaleY(1f)
+                .setDuration(600).setStartDelay(500)
+                .start();
+            logo.setAlpha(0f);
+            logo.setVisibility(View.VISIBLE);
+            logo.setScaleX(0.5f);
+            logo.setScaleY(0.5f);
+            logo.animate().alpha(1f).scaleX(1f).scaleY(1f)
+                .setDuration(1000).setStartDelay(800)
+                .setInterpolator(new AnticipateOvershootInterpolator())
+                .start();
+            tv.setAlpha(0f);
+            tv.setVisibility(View.VISIBLE);
+            tv.animate().alpha(1f).setDuration(1000).setStartDelay(1100).start();
+        }
 
         logo.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -186,4 +145,3 @@ public class CarbonLogoActivity extends Activity {
         setContentView(mContent);
     }
 }
-
