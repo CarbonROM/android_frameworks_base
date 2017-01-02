@@ -522,7 +522,6 @@ public final class ActivityThread {
         boolean persistent;
         Configuration config;
         CompatibilityInfo compatInfo;
-        List<String[]> assetPaths;
 
         /** Initial values for {@link Profiler}. */
         ProfilerInfo initProfilerInfo;
@@ -651,8 +650,6 @@ public final class ActivityThread {
         private static final String DB_INFO_FORMAT = "  %8s %8s %14s %14s  %s";
 
         private int mLastProcessState = -1;
-
-        private ArrayMap<String, Object> mAssetKeys = new ArrayMap<>(2);
 
         private void updatePendingConfiguration(Configuration config) {
             synchronized (mResourcesManager) {
@@ -861,8 +858,7 @@ public final class ActivityThread {
                 IUiAutomationConnection instrumentationUiConnection, int debugMode,
                 boolean enableBinderTracking, boolean trackAllocation,
                 boolean isRestrictedBackupMode, boolean persistent, Configuration config,
-                CompatibilityInfo compatInfo, Map<String, IBinder> services, Bundle coreSettings,
-                List <String[]> assetPaths) {
+                CompatibilityInfo compatInfo, Map<String, IBinder> services, Bundle coreSettings) {
 
             if (services != null) {
                 // Setup the service cache in the ServiceManager
@@ -886,7 +882,6 @@ public final class ActivityThread {
             data.persistent = persistent;
             data.config = config;
             data.compatInfo = compatInfo;
-            data.assetPaths = assetPaths;
             data.initProfilerInfo = profilerInfo;
             sendMessage(H.BIND_APPLICATION, data);
         }
@@ -904,29 +899,12 @@ public final class ActivityThread {
             sendMessage(H.CONFIGURATION_CHANGED, config);
         }
 
-        public void scheduleAssetsChanged(String[] assetPaths) {
-            if (assetPaths == null || assetPaths.length == 0) {
-                Slog.w(TAG, "Cannot update assets: array is " +
-                        assetPaths == null ? "null" : "empty");
-                return;
-            }
-            String targetPath = assetPaths[0];
-            if (!mAssetKeys.containsKey(targetPath)) {
-                mAssetKeys.put(targetPath, new Object());
-            }
-            Object key = mAssetKeys.get(targetPath);
-
-            Bundle b = new Bundle(1);
-            b.putStringArray("assetPaths", assetPaths);
-
-            Message m = Message.obtain();
-            m.what = H.ASSETS_CHANGED;
-            m.obj = key;
-            m.setData(b);
-
-            // remove any pending updates to the same asset path before posting this update
-            mH.removeMessages(H.ASSETS_CHANGED, key);
-            mH.sendMessage(m);
+        public void scheduleAssetsChanged(@NonNull final String packageName,
+                @NonNull final ApplicationInfo ai) {
+            final SomeArgs args = SomeArgs.obtain();
+            args.arg1 = packageName;
+            args.arg2 = ai;
+            sendMessage(H.ASSETS_CHANGED, args);
         }
 
         public void updateTimeZone() {
@@ -1751,8 +1729,8 @@ public final class ActivityThread {
                             (IVoiceInteractor) ((SomeArgs) msg.obj).arg2);
                     break;
                 case ASSETS_CHANGED:
-                    Bundle b = msg.getData();
-                    handleAssetsChanged(b.getStringArray("assetPaths"));
+                    handleAssetsChanged((String)((SomeArgs)msg.obj).arg1,
+                            (ApplicationInfo)((SomeArgs)msg.obj).arg2);
                     break;
             }
             Object obj = msg.obj;
@@ -1898,10 +1876,10 @@ public final class ActivityThread {
      * Creates the top level resources for the given package. Will return an existing
      * Resources if one has already been created.
      */
-    Resources getTopLevelResources(String resDir, String[] splitResDirs, String[] libDirs,
-            int displayId, LoadedApk pkgInfo) {
-        return mResourcesManager.getResources(null, resDir, splitResDirs, libDirs, displayId,
-                null, pkgInfo.getCompatibilityInfo(), pkgInfo.getClassLoader());
+    Resources getTopLevelResources(String resDir, String[] splitResDirs, String[] overlayDirs,
+            String[] libDirs, int displayId, LoadedApk pkgInfo) {
+        return mResourcesManager.getResources(null, resDir, splitResDirs, overlayDirs, libDirs,
+                displayId, null, pkgInfo.getCompatibilityInfo(), pkgInfo.getClassLoader());
     }
 
     final Handler getHandler() {
@@ -4779,10 +4757,6 @@ public final class ActivityThread {
         return config;
     }
 
-    public final void applyAssetsChangedToResources(String[] assetPaths) {
-        handleAssetsChanged(assetPaths);
-    }
-
     final void handleConfigurationChanged(Configuration config, CompatibilityInfo compat) {
 
         int configDiff = 0;
@@ -4845,13 +4819,34 @@ public final class ActivityThread {
         }
     }
 
-    final void handleAssetsChanged(String[] assetPaths) {
+    final void handleAssetsChanged(@NonNull final String packageToUpdate,
+            @NonNull final ApplicationInfo ai) {
         synchronized (mResourcesManager) {
-            mResourcesManager.applyAssetsChangedLocked(assetPaths);
+            // Update all affected loaded packages with new overlay package information
+            final ArrayList<WeakReference<LoadedApk>> loadedPackages = new ArrayList<>();
+            loadedPackages.addAll(mPackages.values());
+            loadedPackages.addAll(mResourcePackages.values());
+            for (final WeakReference<LoadedApk> ref : loadedPackages) {
+                final LoadedApk apk = ref.get();
+                if (apk != null) {
+                    final String packageName = apk.getPackageName();
+                    if (packageToUpdate.equals(packageName)) {
+                        apk.updateApplicationInfo(ai, null);
+                    }
+                }
+            }
+
+            // Update all affected Resources objects to use new ResourcesImpl
+            mResourcesManager.applyNewResourceDirsLocked(ai.sourceDir, ai.resourceDirs);
         }
 
-        for (Map.Entry<IBinder, ActivityClientRecord> entry : mActivities.entrySet()) {
-            requestRelaunchActivity(entry.getKey(), null, null, 0, false, null, null, false, false);
+        // Schedule all activities to reload
+        for (final Map.Entry<IBinder, ActivityClientRecord> entry : mActivities.entrySet()) {
+            final Activity activity = entry.getValue().activity;
+            if (!activity.mFinished) {
+                requestRelaunchActivity(entry.getKey(), null, null, 0, false, null, null, false,
+                        false);
+            }
         }
     }
 
@@ -5220,11 +5215,6 @@ public final class ActivityThread {
 
             // This calls mResourcesManager so keep it within the synchronized block.
             applyCompatConfiguration(mCurDefaultDisplayDpi);
-
-            // Prepare the asset manager for any overlay packages to load
-            for (String[] paths : data.assetPaths) {
-                mResourcesManager.applyAssetsChangedLocked(paths);
-            }
         }
 
         data.info = getPackageInfoNoCheck(data.appInfo, data.compatInfo);

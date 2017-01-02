@@ -63,7 +63,7 @@ interface IOverlayManager {
     OverlayInfo getOverlayInfo(in String packageName, in int userId);
 
     /**
-     * Requst that an overlay package be enabled or disabled when possible to
+     * Request that an overlay package be enabled or disabled when possible to
      * do so.
      *
      * It is always possible to disable an overlay, but due to technical and
@@ -73,11 +73,12 @@ interface IOverlayManager {
      * automatically enabled at that point in time.
      *
      * An enabled overlay is a part of target package's resources, i.e. it will
-     * be part any lookups performed via {@link android.content.res.Resources}
+     * be part of any lookups performed via {@link android.content.res.Resources}
      * and {@link android.content.res.AssetManager}. A disabled overlay will no
      * longer affect the resources of the target package. If the target is
-     * currently running, a configuration change will allow the resources to be
-     * reloaded.
+     * currently running, its outdated resources will be replaced by new ones.
+     * This happens the same way as when an application enters or exits split
+     * window mode.
      *
      * @param packageName The name of the overlay package.
      * @param enable true to enable the overlay, false to disable it.
@@ -86,7 +87,8 @@ interface IOverlayManager {
      * @return true if the system successfully registered the request, false
      *         otherwise.
      */
-    boolean setEnabled(in String packageName, in boolean enable, in int userId, in boolean shouldWait);
+    boolean setEnabled(in String packageName, in boolean enable, in int userId,
+                       in boolean shouldWait);
 
     /**
      * Change the priority of the given overlay to be just higher than the

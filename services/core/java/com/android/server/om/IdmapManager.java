@@ -32,23 +32,31 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+/**
+ * Handle the creation and deletion of idmap files.
+ *
+ * The actual work is performed by the idmap binary, launched through Installer
+ * and installd.
+ *
+ * Note: this class is subclassed in the OMS unit tests, and hence not marked as final.
+ */
 class IdmapManager {
     private final Installer mInstaller;
 
-    IdmapManager(Installer installer) {
+    IdmapManager(final Installer installer) {
         mInstaller = installer;
     }
 
-    boolean createIdmap(@NonNull PackageInfo targetPackage, @NonNull PackageInfo overlayPackage,
-            int userId) {
+    boolean createIdmap(@NonNull final PackageInfo targetPackage,
+            @NonNull final PackageInfo overlayPackage, int userId) {
         // unused userId: see comment in OverlayManagerServiceImpl.removeIdmapIfPossible
         if (DEBUG) {
             Slog.d(TAG, "create idmap for " + targetPackage.packageName + " and " +
                     overlayPackage.packageName);
         }
-        int sharedGid = UserHandle.getSharedAppGid(targetPackage.applicationInfo.uid);
-        String targetPath = targetPackage.applicationInfo.getBaseCodePath();
-        String overlayPath = overlayPackage.applicationInfo.getBaseCodePath();
+        final int sharedGid = UserHandle.getSharedAppGid(targetPackage.applicationInfo.uid);
+        final String targetPath = targetPackage.applicationInfo.getBaseCodePath();
+        final String overlayPath = overlayPackage.applicationInfo.getBaseCodePath();
         try {
             mInstaller.idmap(targetPath, overlayPath, sharedGid);
         } catch (InstallerException e) {
@@ -59,7 +67,7 @@ class IdmapManager {
         return true;
     }
 
-    boolean removeIdmap(@NonNull OverlayInfo oi, int userId) {
+    boolean removeIdmap(@NonNull final OverlayInfo oi, final int userId) {
         // unused userId: see comment in OverlayManagerServiceImpl.removeIdmapIfPossible
         if (DEBUG) {
             Slog.d(TAG, "remove idmap for " + oi.baseCodePath);
@@ -73,33 +81,33 @@ class IdmapManager {
         return true;
     }
 
-    boolean idmapExists(@NonNull OverlayInfo oi) {
+    boolean idmapExists(@NonNull final OverlayInfo oi) {
         // unused OverlayInfo.userId: see comment in OverlayManagerServiceImpl.removeIdmapIfPossible
         return new File(getIdmapPath(oi.baseCodePath)).isFile();
     }
 
-    boolean idmapExists(@NonNull PackageInfo overlayPackage, int userId) {
+    boolean idmapExists(@NonNull final PackageInfo overlayPackage, final int userId) {
         // unused userId: see comment in OverlayManagerServiceImpl.removeIdmapIfPossible
         return new File(getIdmapPath(overlayPackage.applicationInfo.getBaseCodePath())).isFile();
     }
 
-    boolean isDangerous(@NonNull PackageInfo overlayPackage, int userId) {
+    boolean isDangerous(@NonNull final PackageInfo overlayPackage, final int userId) {
         // unused userId: see comment in OverlayManagerServiceImpl.removeIdmapIfPossible
         return isDangerous(getIdmapPath(overlayPackage.applicationInfo.getBaseCodePath()));
     }
 
-    private String getIdmapPath(@NonNull String baseCodePath) {
-        StringBuilder sb = new StringBuilder("/data/resource-cache/");
+    private String getIdmapPath(@NonNull final String baseCodePath) {
+        final StringBuilder sb = new StringBuilder("/data/resource-cache/");
         sb.append(baseCodePath.substring(1).replace('/', '@'));
         sb.append("@idmap");
         return sb.toString();
     }
 
-    private boolean isDangerous(@NonNull String idmapPath) {
+    private boolean isDangerous(@NonNull final String idmapPath) {
         try (DataInputStream dis = new DataInputStream(new FileInputStream(idmapPath))) {
-            int magic = dis.readInt();
-            int version = dis.readInt();
-            int dangerous = dis.readInt();
+            final int magic = dis.readInt();
+            final int version = dis.readInt();
+            final int dangerous = dis.readInt();
             return dangerous != 0;
         } catch (IOException e) {
             return true;
