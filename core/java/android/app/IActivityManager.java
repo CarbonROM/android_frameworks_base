@@ -59,7 +59,6 @@ import com.android.internal.app.IVoiceInteractor;
 import com.android.internal.os.IResultReceiver;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * System private API for talking with the activity manager service.  This
@@ -267,7 +266,7 @@ public interface IActivityManager extends IInterface {
 
     public Configuration getConfiguration() throws RemoteException;
     public void updateConfiguration(Configuration values) throws RemoteException;
-    public void updateAssets(int userId, Map<String, String[]> overlays) throws RemoteException;
+    public void updateAssets(int userId, List<String> packageNames) throws RemoteException;
     public void setRequestedOrientation(IBinder token,
             int requestedOrientation) throws RemoteException;
     public int getRequestedOrientation(IBinder token) throws RemoteException;
@@ -1072,14 +1071,10 @@ public interface IActivityManager extends IInterface {
     int SEND_IDLE_JOB_TRIGGER_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 375;
     int SEND_INTENT_SENDER_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 376;
 
-    // Theme support value
-    // Start from behind so we don't come across conflicts
-    int UPDATE_ASSETS_TRANSACTION = IBinder.LAST_CALL_TRANSACTION - 1;
-
-
     // Start of N MR1 transactions
     int SET_VR_THREAD_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 377;
     int SET_RENDER_THREAD_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 378;
     int SET_HAS_TOP_UI = IBinder.FIRST_CALL_TRANSACTION + 379;
     int CAN_BYPASS_WORK_CHALLENGE = IBinder.FIRST_CALL_TRANSACTION + 380;
+    int UPDATE_ASSETS_TRANSACTION = IBinder.FIRST_CALL_TRANSACTION + 381;
 }
