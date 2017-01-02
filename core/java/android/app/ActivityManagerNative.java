@@ -16,6 +16,7 @@
 
 package android.app;
 
+import android.annotation.NonNull;
 import android.annotation.UserIdInt;
 import android.app.ActivityManager.StackInfo;
 import android.app.assist.AssistContent;
@@ -58,7 +59,6 @@ import com.android.internal.os.IResultReceiver;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /** {@hide} */
 public abstract class ActivityManagerNative extends Binder implements IActivityManager
@@ -1229,8 +1229,13 @@ public abstract class ActivityManagerNative extends Binder implements IActivityM
 
         case UPDATE_ASSETS_TRANSACTION: {
             data.enforceInterface(IActivityManager.descriptor);
-            int userId = data.readInt();
-            updateAssets(userId, data.readHashMap(null));
+            final int userId = data.readInt();
+            final int N = data.readInt();
+            final List<String> packageNames = new ArrayList<>();
+            for (int i = 0; i < N; i++) {
+                packageNames.add(data.readString());
+            }
+            updateAssets(userId, packageNames);
             reply.writeNoException();
             return true;
         }
@@ -4595,14 +4600,17 @@ class ActivityManagerProxy implements IActivityManager
         data.recycle();
         reply.recycle();
     }
-    public void updateAssets(int userId, Map<String, String[]> overlays)
-        throws RemoteException
+    public void updateAssets(final int userId, @NonNull final List<String> packageNames)
+            throws RemoteException
     {
-        Parcel data = Parcel.obtain();
-        Parcel reply = Parcel.obtain();
+        final Parcel data = Parcel.obtain();
+        final Parcel reply = Parcel.obtain();
         data.writeInterfaceToken(IActivityManager.descriptor);
         data.writeInt(userId);
-        data.writeMap(overlays);
+        data.writeInt(packageNames.size());
+        for (int i = 0; i < packageNames.size(); i++) {
+            data.writeString(packageNames.get(i));
+        }
         mRemote.transact(UPDATE_ASSETS_TRANSACTION, data, reply, 0);
         reply.readException();
         data.recycle();

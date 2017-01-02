@@ -192,6 +192,12 @@ namespace {
         if (err != NO_ERROR) {
             return err;
         }
+        print("", "dangerous", i, "");
+
+        err = buf.nextUint32(&i);
+        if (err != NO_ERROR) {
+            return err;
+        }
         print("", "base crc", i, "");
 
         err = buf.nextUint32(&i);
@@ -285,8 +291,6 @@ namespace {
                 }
                 if (data32 != ResTable_type::NO_ENTRY) {
                     print("", "entry", data32, "%s/%s", type.string(), name.string());
-                } else {
-                    print("", "entry", data32, "");
                 }
             }
         }

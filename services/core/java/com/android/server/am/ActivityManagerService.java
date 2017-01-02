@@ -53,7 +53,6 @@ import com.android.server.SystemServiceManager;
 import com.android.server.Watchdog;
 import com.android.server.am.ActivityStack.ActivityState;
 import com.android.server.firewall.IntentFirewall;
-import com.android.server.om.OverlayManagerService;
 import com.android.server.pm.Installer;
 import com.android.server.statusbar.StatusBarManagerInternal;
 import com.android.server.vr.VrManagerInternal;
@@ -6611,8 +6610,7 @@ public final class ActivityManagerService extends ActivityManagerNative
                     isRestrictedBackupMode || !normalMode, app.persistent,
                     new Configuration(mConfiguration), app.compat,
                     getCommonServicesLocked(app.isolated),
-                                   mCoreSettingsObserver.getCoreSettingsLocked(),
-                                   getAssetPaths(appInfo.packageName, app.userId));
+                                   mCoreSettingsObserver.getCoreSettingsLocked());
             checkTime(startTime, "attachApplicationLocked: immediately after bindApplication");
             updateLruProcessLocked(app, false, null);
             checkTime(startTime, "attachApplicationLocked: after updateLruProcessLocked");
@@ -6701,13 +6699,6 @@ public final class ActivityManagerService extends ActivityManagerNative
         }
 
         return true;
-    }
-
-    private List<String[]> getAssetPaths(String packageName, int userId)
-        throws NameNotFoundException {
-
-        OverlayManagerService oms = LocalServices.getService(OverlayManagerService.class);
-        return oms.getAllAssetPaths(packageName, userId);
     }
 
     @Override
@@ -19189,47 +19180,52 @@ public final class ActivityManagerService extends ActivityManagerNative
     /**
      * @hide
      */
-    public void updateAssets(int userId, Map<String,String[]> overlays) {
+    @Override
+    public void updateAssets(final int userId, @NonNull final List<String> packageNames) {
         enforceCallingPermission(android.Manifest.permission.CHANGE_CONFIGURATION, "updateAssets()");
 
         synchronized(this) {
             final long origId = Binder.clearCallingIdentity();
             try {
-                updateAssetsLocked(userId, overlays);
+                updateAssetsLocked(userId, packageNames);
             } finally {
                 Binder.restoreCallingIdentity(origId);
             }
         }
     }
 
-    void updateAssetsLocked(int userId, Map<String, String[]> overlays) {
-        String[] systemOverlayPaths = null;
-        if (overlays.keySet().contains("android")) {
-            systemOverlayPaths = overlays.get("android");
-            mSystemThread.applyAssetsChangedToResources(systemOverlayPaths);
-        }
-        for (int i = mLruProcesses.size() - 1; i >= 0; i--) {
-            ProcessRecord app = mLruProcesses.get(i);
-            try {
-                if (app.userId != userId || app.thread == null) {
-                    continue;
-                }
-                String packageName = app.info.packageName;
-                if ("android".equals(packageName)) {
-                    continue;
-                }
-                if (systemOverlayPaths != null) {
-                    app.thread.scheduleAssetsChanged(systemOverlayPaths);
-                }
-                if (overlays.keySet().contains(packageName)) {
-                    app.thread.scheduleAssetsChanged(overlays.get(packageName));
-                }
-            } catch (Exception e) {}
-        }
+    void updateAssetsLocked(final int userId, @NonNull final List<String> packagesToUpdate) {
+        final IPackageManager pm = AppGlobals.getPackageManager();
+        final Map<String, ApplicationInfo> cache = new ArrayMap<>();
 
-        Configuration config = new Configuration(mConfiguration);
-        config.assetSeq++;
-        updateConfiguration(config);
+        final boolean updateFrameworkRes = packagesToUpdate.contains("android");
+        for (int i = mLruProcesses.size() - 1; i >= 0; i--) {
+            final ProcessRecord app = mLruProcesses.get(i);
+            if (app.userId != userId || app.thread == null) {
+                continue;
+            }
+
+            for (final String packageName : app.pkgList.keySet()) {
+                if (updateFrameworkRes || packagesToUpdate.contains(packageName)) {
+                    try {
+                        final ApplicationInfo ai;
+                        if (cache.containsKey(packageName)) {
+                            ai = cache.get(packageName);
+                        } else {
+                            ai = pm.getApplicationInfo(packageName, 0, userId);
+                            cache.put(packageName, ai);
+                        }
+
+                        if (ai != null) {
+                            app.thread.scheduleAssetsChanged(packageName, ai);
+                        }
+                    } catch (RemoteException e) {
+                        Slog.w(TAG, String.format("Failed to update %s assets for %s",
+                                    packageName, app));
+                    }
+                }
+            }
+        }
     }
 
     /**
