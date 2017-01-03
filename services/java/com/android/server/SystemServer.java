@@ -498,14 +498,14 @@ public final class SystemServer {
         mSystemServiceManager.startService(UserManagerService.LifeCycle.class);
         Trace.traceEnd(Trace.TRACE_TAG_SYSTEM_SERVER);
 
-        // Manages Overlay packages
-        mSystemServiceManager.startService(new OverlayManagerService(mSystemContext, installer));
-
         // Initialize attribute cache used to cache resources from packages.
         AttributeCache.init(mSystemContext);
 
         // Set up the Application instance for the system process and get started.
         mActivityManagerService.setSystemProcess();
+
+        // Manages Overlay packages
+        mSystemServiceManager.startService(new OverlayManagerService(mSystemContext, installer));
 
         // The sensor service needs access to package manager service, app ops
         // service, and permissions service, therefore we start it after them.

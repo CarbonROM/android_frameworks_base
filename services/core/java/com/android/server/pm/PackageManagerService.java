@@ -383,24 +383,24 @@ public class PackageManagerService extends IPackageManager.Stub {
     // package apks to install directory.
     private static final String INSTALL_PACKAGE_SUFFIX = "-";
 
-    private static final int SCAN_NO_DEX = 1<<1;
-    private static final int SCAN_FORCE_DEX = 1<<2;
-    private static final int SCAN_UPDATE_SIGNATURE = 1<<3;
-    private static final int SCAN_NEW_INSTALL = 1<<4;
-    private static final int SCAN_NO_PATHS = 1<<5;
-    private static final int SCAN_UPDATE_TIME = 1<<6;
-    private static final int SCAN_DEFER_DEX = 1<<7;
-    private static final int SCAN_BOOTING = 1<<8;
-    private static final int SCAN_DELETE_DATA_ON_FAILURES = 1<<9;
-    private static final int SCAN_REPLACING = 1<<10;
-    private static final int SCAN_REQUIRE_KNOWN = 1<<11;
-    private static final int SCAN_MOVE = 1<<12;
-    private static final int SCAN_INITIAL = 1<<13;
-    private static final int SCAN_CHECK_ONLY = 1<<14;
-    private static final int SCAN_DONT_KILL_APP = 1<<15;
-    private static final int SCAN_IGNORE_FROZEN = 1<<16;
+    static final int SCAN_NO_DEX = 1<<1;
+    static final int SCAN_FORCE_DEX = 1<<2;
+    static final int SCAN_UPDATE_SIGNATURE = 1<<3;
+    static final int SCAN_NEW_INSTALL = 1<<4;
+    static final int SCAN_NO_PATHS = 1<<5;
+    static final int SCAN_UPDATE_TIME = 1<<6;
+    static final int SCAN_DEFER_DEX = 1<<7;
+    static final int SCAN_BOOTING = 1<<8;
+    static final int SCAN_DELETE_DATA_ON_FAILURES = 1<<9;
+    static final int SCAN_REPLACING = 1<<10;
+    static final int SCAN_REQUIRE_KNOWN = 1<<11;
+    static final int SCAN_MOVE = 1<<12;
+    static final int SCAN_INITIAL = 1<<13;
+    static final int SCAN_CHECK_ONLY = 1<<14;
+    static final int SCAN_DONT_KILL_APP = 1<<15;
+    static final int SCAN_IGNORE_FROZEN = 1<<16;
 
-    private static final int REMOVE_CHATTY = 1<<17;
+    static final int REMOVE_CHATTY = 1<<17;
 
     private static final int[] EMPTY_INT_ARRAY = new int[0];
 
@@ -16303,7 +16303,7 @@ public class PackageManagerService extends IPackageManager.Stub {
                     false /*installed*/, true /*stopped*/, true /*notLaunched*/,
                     false /*hidden*/, false /*suspended*/, null, null, null,
                     false /*blockUninstall*/,
-                    ps.readUserState(nextUserId).domainVerificationStatus, 0);
+                    ps.readUserState(nextUserId).domainVerificationStatus, 0, null);
         }
     }
 
@@ -20980,12 +20980,16 @@ Slog.v(TAG, ":: stepped forward, applying functor at tag " + parser.getName());
             return mProtectedPackages.isPackageDataProtected(userId, packageName);
         }
 
+        @Override
+        public boolean wasPackageEverLaunched(String packageName, int userId) {
+            synchronized (mPackages) {
+                return mSettings.wasPackageEverLaunchedLPr(packageName, userId);
+            }
+        }
+
+        @Override
         public List<PackageInfo> getOverlayPackages(int userId) {
             final ArrayList<PackageInfo> overlayPackages = new ArrayList<PackageInfo>();
-
-            enforceCrossUserPermission(Binder.getCallingUid(), userId, true, false, "get overlay packages");
-
-            // reader
             synchronized (mPackages) {
                 for (PackageParser.Package p : mPackages.values()) {
                     if (p.mOverlayTarget != null) {
@@ -21000,9 +21004,26 @@ Slog.v(TAG, ":: stepped forward, applying functor at tag " + parser.getName());
         }
 
         @Override
-        public boolean wasPackageEverLaunched(String packageName, int userId) {
+        public List<String> getTargetPackageNames(int userId) {
+            List<String> targetPackages = new ArrayList<>();
             synchronized (mPackages) {
-                return mSettings.wasPackageEverLaunchedLPr(packageName, userId);
+                for (PackageParser.Package p : mPackages.values()) {
+                    if (p.mOverlayTarget == null) {
+                        targetPackages.add(p.packageName);
+                    }
+                }
+            }
+            return targetPackages;
+        }
+
+        @Override
+        public void setResourceDirs(int userId, String packageName, String[] resourceDirs) {
+            synchronized (mPackages) {
+                final PackageSetting ps = mSettings.mPackages.get(packageName);
+                if (ps == null) {
+                    return;
+                }
+                ps.setResourceDirs(resourceDirs, userId);
             }
         }
     }
