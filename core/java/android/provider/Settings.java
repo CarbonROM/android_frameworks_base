@@ -4551,6 +4551,20 @@ public final class Settings {
         public static final String GESTURES_ENABLED = "gestures_enabled";
 
         /**
+         * Controls whether double tap to wake is enabled.
+         * @hide
+         */
+        public static final String GESTURE_DOUBLE_TAP = "gesture_double_tap";
+
+        /**
+         * Whether user can swap navigation lateral keys.
+         * <p>
+         * Type: int (0 for false, 1 for true)
+         * @hide
+         */
+        public static final String SWAP_NAVIGATION_KEYS = "swap_navigation_keys";
+
+       /**
          * Controls whether draw V gesture is enabled.
          * @hide
          */
