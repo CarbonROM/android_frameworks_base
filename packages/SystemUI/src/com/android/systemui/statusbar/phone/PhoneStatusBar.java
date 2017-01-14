@@ -189,6 +189,7 @@ import com.android.systemui.statusbar.policy.BatteryController.BatteryStateChang
 import com.android.systemui.statusbar.policy.BatteryControllerImpl;
 import com.android.systemui.statusbar.policy.BluetoothControllerImpl;
 import com.android.systemui.statusbar.policy.BrightnessMirrorController;
+import com.android.systemui.statusbar.policy.BurnInProtectionController;
 import com.android.systemui.statusbar.policy.CastControllerImpl;
 import com.android.systemui.statusbar.policy.EncryptionHelper;
 import com.android.systemui.statusbar.policy.FlashlightController;
@@ -355,6 +356,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     FingerprintUnlockController mFingerprintUnlockController;
     LightStatusBarController mLightStatusBarController;
     protected LockscreenWallpaper mLockscreenWallpaper;
+
+    private BurnInProtectionController mBurnInProtectionController;
 
     int mNaturalBarHeight = -1;
 
@@ -1073,6 +1076,8 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             mNotificationPanelDebugText.setVisibility(View.VISIBLE);
         }
 
+        mBurnInProtectionController = new BurnInProtectionController(mContext, mStatusBarView);
+
         try {
             boolean showNav = mWindowManagerService.hasNavigationBar();
             if (DEBUG) Log.v(TAG, "hasNavigationBar=" + showNav);
@@ -1781,6 +1786,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         } else {
             removeNavigationBar();
         }
+        mBurnInProtectionController.setNavigationBarView(enabled ? mNavigationBarView : null);
     }
 
     private void prepareNavigationBarView() {
@@ -5381,6 +5387,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mStackScroller.setAnimationsEnabled(false);
         mVisualStabilityManager.setScreenOn(false);
         updateVisibleToUser();
+        if (mBurnInProtectionController != null) {
+            mBurnInProtectionController.stopSwiftTimer();
+        }
         if (mLaunchCameraOnFinishedGoingToSleep) {
             mLaunchCameraOnFinishedGoingToSleep = false;
 
@@ -5401,6 +5410,9 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         mVisualStabilityManager.setScreenOn(true);
         mNotificationPanel.setTouchDisabled(false);
         updateVisibleToUser();
+        if (mBurnInProtectionController != null) {
+            mBurnInProtectionController.startSwiftTimer();
+        }
     }
 
     public void onScreenTurningOn() {
