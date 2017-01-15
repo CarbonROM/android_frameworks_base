@@ -395,7 +395,7 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
     // task manager
     private TaskManager mTaskManager;
     private LinearLayout mTaskManagerPanel;
-    private ImageButton mTaskManagerButton;
+    private TaskManagerButton mTaskManagerButton;
     // task manager enabled
     private boolean mShowTaskManager;
     // task manager click state
@@ -1282,23 +1282,10 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
             });
         }
 
-	// Task manager
-        mTaskManagerPanel =
-                (LinearLayout) mStatusBarWindow.findViewById(R.id.task_manager_panel);
-        mTaskManager = new TaskManager(mContext, mTaskManagerPanel);
-        mTaskManager.setActivityStarter(this);
-        mTaskManagerButton = (ImageButton) mHeader.findViewById(R.id.task_manager_button);
-        mTaskManagerButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                mShowTaskList = !mShowTaskList;
-                mNotificationPanel.setTaskManagerVisibility(mShowTaskList);
-            }
-        });
-        /* Hide this for now. We dont recreate statusbar yet
-        mHeader.setTaskManagerEnabled(mShowTaskManager);
+        showtaskmanager();
+        mHeader.setTaskManagerEnabled(mShowTaskList);
         mNotificationPanel.setTaskManagerEnabled(mShowTaskManager);
-        mShowTaskList = false;*/
+        mShowTaskList = false;
 
         // User info. Trigger first load.
         mKeyguardStatusBar.setUserInfoController(mUserInfoController);
@@ -1414,6 +1401,13 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         return mStatusBarView;
     }
 
+    public void showtaskmanager() {
+        mTaskManagerPanel =
+                (LinearLayout) mStatusBarWindow.findViewById(R.id.task_manager_panel);
+        mTaskManager = new TaskManager(mContext, mTaskManagerPanel);
+        mTaskManagerButton = (TaskManagerButton) mHeader.findViewById(R.id.task_manager_button);
+    }
+
     private void initEmergencyCryptkeeperText() {
         View emergencyViewStub = mStatusBarWindow.findViewById(R.id.emergency_cryptkeeper_text);
         if (mNetworkController.hasEmergencyCryptKeeperText()) {
@@ -1479,6 +1473,13 @@ public class PhoneStatusBar extends BaseStatusBar implements DemoMode,
         SignalClusterView signalClusterView = reinflateSignalCluster(mStatusBarView);
         mIconController.setSignalCluster(signalClusterView);
         reinflateSignalCluster(mKeyguardStatusBar);
+    }
+
+    public void setenabled() {
+        if (mNotificationPanel != null) {
+           mShowTaskList = !mShowTaskList;
+           mNotificationPanel.setTaskManagerVisibility(mShowTaskList);
+           }
     }
 
     private SignalClusterView reinflateSignalCluster(View view) {
