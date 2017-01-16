@@ -1,0 +1,4 @@
+{
+  "pushCert": "certificate version 0.1\npusher F40FB8E3 1484537972 -0800\npushee ssh://review.carbonrom.org:29418/CarbonROM/android_frameworks_base\nnonce 1484537973-AA9767C8F1EF8C721E31243C314B05902713F370\n\n0000000000000000000000000000000000000000 cd382925a01765f652f1452887529f6e7e35ea1e refs/for/cr-5.1%topic\u003dreal-time-reverts\n-----BEGIN PGP SIGNATURE-----\nVersion: GnuPG v1\n\niQEcBAABAgAGBQJYfEB0AAoJEBncrnT0D7jj/zgH/RsKuqFXQiIRd9rdCleO3kEH\n8wl509Ish8YAfel4Jw6g5MihWpdnK8Q21/1hkl7cSfYiIu0wPsGwtl6whIXPFhLE\nbuI5Hk6w1g9kp84ruXcc8qXilE7zDGEFX0ORCNB7gS+tbO4BFqoPqdWQWBgHeUt2\nQsZ+Y+YKROdrug4O6UyR7lf4Cj/YqIVqgQ51gE8VIh9AwcQFB5ixL4PT4Ci4baQ3\nWOno5VnbVGcNlGU4/GdEHY2l/Bst+6jRBKnv1J6d+dmdnRIyl+SVc/plrDGas0Tr\nFuLE4beuL2Nh9fCOsgw1LuWRevhCT8iULYQwpfR7PtwIovN/oueEOntw9nSmU5c\u003d\n\u003dwE23\n-----END PGP SIGNATURE-----\n",
+  "comments": []
+}
