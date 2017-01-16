@@ -3753,6 +3753,12 @@ public final class Settings {
         public static final String DOUBLE_TAP_SLEEP_ANYWHERE = "double_tap_sleep_anywhere";
 
         /**
+         * Require double tap instead of simple tap to wake from Doze pulse screen
+         * @hide
+         */
+        public static final String DOZE_WAKEUP_DOUBLETAP = "doze_wakeup_doubletap";
+
+        /**
          * whether to enable torch on lockscreen
          * @hide
          */
