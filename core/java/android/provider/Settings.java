@@ -3944,6 +3944,12 @@ public final class Settings {
         public static final String QS_ROWS_LANDSCAPE = "qs_rows_landscape";
 
         /**
+         * Dashboard columns in settings
+         * @hide
+         */
+        public static final String DASHBOARD_COLUMNS = "dashboard_columns";
+
+        /**
          * Whether to hide the clock, show it in the right or left
          * position or show it in the center
          * 0: don't show the clock
