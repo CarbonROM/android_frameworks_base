@@ -225,7 +225,6 @@ public class NotificationPanelView extends PanelView implements
 
     private boolean mDoubleTapToSleepEnabled;
     private boolean mDoubleTapToSleepAnywhere;
-    private boolean mDozeWakeupDoubleTap;
     private int mStatusBarHeaderHeight;
     private GestureDetector mDoubleTapGesture;
 
@@ -782,12 +781,10 @@ public class NotificationPanelView extends PanelView implements
         }
         if (mDoubleTapToSleepEnabled
                 && mStatusBarState == StatusBarState.KEYGUARD
-                && !mStatusBar.isDozing()
                 && event.getY() < mStatusBarHeaderHeight) {
             mDoubleTapGesture.onTouchEvent(event);
         } else if (mDoubleTapToSleepAnywhere
-                && mStatusBarState == StatusBarState.KEYGUARD
-                && !mStatusBar.isDozing()) {
+                && mStatusBarState == StatusBarState.KEYGUARD) {
             mDoubleTapGesture.onTouchEvent(event);
         }
         initDownStates(event);
@@ -798,10 +795,7 @@ public class NotificationPanelView extends PanelView implements
         }
         if ((!mIsExpanding || mHintAnimationRunning)
                 && !mQsExpanded
-                && mStatusBar.getBarState() != StatusBarState.SHADE
-                && !(mDozeWakeupDoubleTap
-                     && mStatusBarState == StatusBarState.KEYGUARD
-                     && mStatusBar.isDozing())) {
+                && mStatusBar.getBarState() != StatusBarState.SHADE) {
             mAfforanceHelper.onTouchEvent(event);
         }
         if (mOnlyAffordanceInThisMotion) {
@@ -2427,8 +2421,6 @@ public class NotificationPanelView extends PanelView implements
                     Settings.System.DOUBLE_TAP_SLEEP_GESTURE), false, this);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.DOUBLE_TAP_SLEEP_ANYWHERE), false, this);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.DOZE_WAKEUP_DOUBLETAP), false, this);
             update();
         }
 
@@ -2452,8 +2444,6 @@ public class NotificationPanelView extends PanelView implements
                     resolver, Settings.System.DOUBLE_TAP_SLEEP_GESTURE, 1) == 1;
             mDoubleTapToSleepAnywhere = Settings.System.getInt(
                     resolver, Settings.System.DOUBLE_TAP_SLEEP_ANYWHERE, 0) == 1;
-            mDozeWakeupDoubleTap = Settings.System.getInt(
-                    resolver, Settings.System.DOZE_WAKEUP_DOUBLETAP, 0) == 1;
         }
     }
 

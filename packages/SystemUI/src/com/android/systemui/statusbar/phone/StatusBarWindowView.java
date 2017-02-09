@@ -98,10 +98,6 @@ public class StatusBarWindowView extends FrameLayout {
 
     private boolean mDoubleTapToSleepEnabled;
     private GestureDetector mDoubleTapGesture;
-
-    private boolean mDozeWakeupDoubleTap;
-    private GestureDetector mDozeWakeupDoubleTapGesture;
-
     private Handler mHandler = new Handler();
     private SettingsObserver mSettingsObserver;
 
@@ -213,15 +209,6 @@ public class StatusBarWindowView extends FrameLayout {
             }
         });
 
-        mDozeWakeupDoubleTapGesture = new GestureDetector(mContext,
-                new GestureDetector.SimpleOnGestureListener() {
-            @Override
-            public boolean onDoubleTap(MotionEvent e) {
-                mService.wakeUpIfDozing(e.getEventTime(), e);
-                return true;
-            }
-        });
-
         // We need to ensure that our window doesn't suffer from overdraw which would normally
         // occur if our window is translucent. Since we are drawing the whole window anyway with
         // the scrim, we don't need the window to be cleared in the beginning.
@@ -308,13 +295,9 @@ public class StatusBarWindowView extends FrameLayout {
                 && mStackScrollLayout.getVisibility() == View.VISIBLE
                 && mService.getBarState() == StatusBarState.KEYGUARD
                 && !mService.isBouncerShowing()) {
-            if (!mDozeWakeupDoubleTap || (mDozeWakeupDoubleTap && !mService.isDozing())) {
-                intercept = mDragDownHelper.onInterceptTouchEvent(ev);
-            }
+            intercept = mDragDownHelper.onInterceptTouchEvent(ev);
             // wake up on a touch down event, if dozing
-            if (mDozeWakeupDoubleTap) {
-                mDozeWakeupDoubleTapGesture.onTouchEvent(ev);
-            } else if (ev.getActionMasked() == MotionEvent.ACTION_DOWN) {
+            if (ev.getActionMasked() == MotionEvent.ACTION_DOWN) {
                 mService.wakeUpIfDozing(ev.getEventTime(), ev);
             }
         }
@@ -747,8 +730,6 @@ public class StatusBarWindowView extends FrameLayout {
             ContentResolver resolver = mContext.getContentResolver();
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.DOUBLE_TAP_SLEEP_GESTURE), false, this);
-            resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.DOZE_WAKEUP_DOUBLETAP), false, this);
             update();
         }
 
@@ -771,8 +752,6 @@ public class StatusBarWindowView extends FrameLayout {
             ContentResolver resolver = mContext.getContentResolver();
             mDoubleTapToSleepEnabled = Settings.System.getInt(
                     resolver, Settings.System.DOUBLE_TAP_SLEEP_GESTURE, 1) == 1;
-            mDozeWakeupDoubleTap = Settings.System.getInt(
-                    resolver, Settings.System.DOZE_WAKEUP_DOUBLETAP, 0) == 1;
         }
     }
 }
