@@ -70,6 +70,7 @@
             7 - Launch Last app
             8 - Split Screen
             9 - Screen off
+           10 - Kill app
          This needs to match the constants in
          services/core/java/com/android/server/policy/PhoneWindowManager.java
     -->

@@ -4207,6 +4207,7 @@ public final class Settings {
          * 7 - Launch last app
          * 8 - Split Screen
          * 9 - Screen off
+         * 10 - Kill app
          * @hide
          */
         public static final String KEY_HOME_LONG_PRESS_ACTION = "key_home_long_press_action";
