@@ -253,6 +253,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private static final int KEY_ACTION_LAST_APP = 7;
     private static final int KEY_ACTION_SPLIT_SCREEN = 8;
     private static final int KEY_ACTION_SCREEN_OFF = 9;
+    private static final int KEY_ACTION_KILL_APP = 10;
 
     // Special values, used internal only.
     private static final int KEY_ACTION_HOME = 100;
@@ -1891,7 +1892,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private void handleLongPressOnKeyCode(int keyCode) {
         int longPressBehavior = getKeyLongPressBehavior(keyCode);
         if (longPressBehavior != KEY_ACTION_NOTHING) {
-            performHapticFeedbackLw(null, HapticFeedbackConstants.LONG_PRESS, false);
+            if (longPressBehavior != KEY_ACTION_KILL_APP) { // Don't vibrate for Kill App action. It will be performed separately in the mBackLongPress Runnable() call.
+                performHapticFeedbackLw(null, HapticFeedbackConstants.LONG_PRESS, false);
+            }
             runBehaviorAction(keyCode, longPressBehavior);
         }
     }
@@ -3684,7 +3687,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             KEY_ACTION_CAMERA,
             KEY_ACTION_LAST_APP,
             KEY_ACTION_SPLIT_SCREEN,
-            KEY_ACTION_SCREEN_OFF
+            KEY_ACTION_SCREEN_OFF,
+            KEY_ACTION_KILL_APP
         };
 
     /**
@@ -3903,6 +3907,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 break;
             case KEY_ACTION_SCREEN_OFF:
                 mPowerManager.goToSleep(SystemClock.uptimeMillis());
+                break;
+            case KEY_ACTION_KILL_APP:
+                mHandler.postDelayed(mBackLongPress, mBackKillTimeout);
                 break;
         }
     }
