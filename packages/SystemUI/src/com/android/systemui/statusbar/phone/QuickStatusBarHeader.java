@@ -111,11 +111,11 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
     private SparseBooleanArray mRoamingsBySubId = new SparseBooleanArray();
     private boolean mIsRoaming;
 
-    private boolean isSettingsIcon;
-    private boolean isSettingsExpanded;
-    private boolean isEdit;
-    private boolean isExpandIndicator;
-    private boolean isMultiUserSwitch;
+    private boolean hasSettingsIcon;
+    private boolean hasSettingsExpanded;
+    private boolean hasEdit;
+    private boolean hasExpandIndicator;
+    private boolean hasMultiUserSwitch;
 
     // qs headers
     private ImageView mBackgroundImage;
@@ -317,18 +317,18 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
         mEmergencyOnly.setVisibility(mExpanded && (mShowEmergencyCallsOnly || mIsRoaming)
                 ? View.VISIBLE : View.INVISIBLE);
         final boolean isDemo = UserManager.isDeviceInDemoMode(mContext);
-        isMultiUserSwitch = isMultiUserSwitchEnabled();
-        mMultiUserSwitch.setVisibility(mExpanded && mMultiUserSwitch.hasMultipleUsers() && !isDemo
+        hasMultiUserSwitch = !isMultiUserSwitchDisabled();
+        mMultiUserSwitch.setVisibility(mExpanded && hasMultiUserSwitch && !isDemo
                 ? View.VISIBLE : View.GONE);
-        mMultiUserAvatar.setVisibility(isMultiUserSwitch ? View.VISIBLE : View.GONE);
-        isEdit = isEditEnabled();
-        mEdit.setVisibility(!isEdit || isDemo || !mExpanded ? View.GONE : View.VISIBLE);
-        isSettingsIcon = isSettingsIconEnabled();
-        isSettingsExpanded = isSettingsExpandedEnabled();
-        mSettingsButton.setVisibility(mExpanded && isSettingsExpanded || isSettingsIcon
+        mMultiUserAvatar.setVisibility(hasMultiUserSwitch ? View.VISIBLE : View.GONE);
+        hasEdit = !isEditDisabled();
+        mEdit.setVisibility(hasEdit && !isDemo && mExpanded ? View.VISIBLE : View.GONE);
+        hasSettingsIcon = !isSettingsIconDisabled();
+        hasSettingsExpanded = isSettingsExpandedEnabled();
+        mSettingsButton.setVisibility(mExpanded && hasSettingsExpanded || hasSettingsIcon
                 ? View.VISIBLE : View.GONE);
-        isExpandIndicator = isExpandIndicatorEnabled();
-        mExpandIndicator.setVisibility(isExpandIndicator ? View.VISIBLE : View.GONE);
+        hasExpandIndicator = !isExpandIndicatorDisabled();
+        mExpandIndicator.setVisibility(hasExpandIndicator ? View.VISIBLE : View.GONE);
     }
 
     private void updateDateTimePosition() {
@@ -485,29 +485,29 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
         mMultiUserAvatar.setImageDrawable(picture);
     }
 
-    public boolean isSettingsIconEnabled() {
+    public boolean isSettingsIconDisabled() {
         return Settings.System.getInt(mContext.getContentResolver(),
-            Settings.System.QS_SETTINGS_ICON_TOGGLE, 1) == 1;
+            Settings.System.QS_SETTINGS_ICON_TOGGLE, 0) == 1;
     }
 
     public boolean isSettingsExpandedEnabled() {
         return Settings.System.getInt(mContext.getContentResolver(),
-            Settings.System.QS_SETTINGS_EXPANDED_TOGGLE, 0) == 1;
+            Settings.System.QS_SETTINGS_EXPANDED_TOGGLE, 1) == 1;
     }
 
-    public boolean isEditEnabled() {
+    public boolean isEditDisabled() {
         return Settings.System.getInt(mContext.getContentResolver(),
-            Settings.System.QS_EDIT_TOGGLE, 1) == 1;
+            Settings.System.QS_EDIT_TOGGLE, 0) == 1;
     }
 
-    public boolean isExpandIndicatorEnabled() {
+    public boolean isExpandIndicatorDisabled() {
         return Settings.System.getInt(mContext.getContentResolver(),
-            Settings.System.QS_EXPAND_INDICATOR_TOGGLE, 1) == 1;
+            Settings.System.QS_EXPAND_INDICATOR_TOGGLE, 0) == 1;
     }
 
-    public boolean isMultiUserSwitchEnabled() {
+    public boolean isMultiUserSwitchDisabled() {
         return Settings.System.getInt(mContext.getContentResolver(),
-            Settings.System.QS_MULTIUSER_SWITCH_TOGGLE, 1) == 1;
+            Settings.System.QS_MULTIUSER_SWITCH_TOGGLE, 0) == 1;
     }
 
     @Override
