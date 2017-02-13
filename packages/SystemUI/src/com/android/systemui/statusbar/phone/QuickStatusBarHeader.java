@@ -309,10 +309,11 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
         updateDateTimePosition();
         mEmergencyOnly.setVisibility(mExpanded && mShowEmergencyCallsOnly
                 ? View.VISIBLE : View.INVISIBLE);
-        mSettingsButton.setVisibility(View.VISIBLE);
         final boolean isDemo = UserManager.isDeviceInDemoMode(mContext);
+        isMultiUserSwitch = isMultiUserSwitchEnabled();
         mMultiUserSwitch.setVisibility(mExpanded && mMultiUserSwitch.hasMultipleUsers() && !isDemo
                 ? View.VISIBLE : View.GONE);
+        mMultiUserAvatar.setVisibility(isMultiUserSwitch ? View.VISIBLE : View.GONE);
         isEdit = isEditEnabled();
         mEdit.setVisibility(!isEdit || isDemo || !mExpanded ? View.GONE : View.VISIBLE);
         isSettingsIcon = isSettingsIconEnabled();
@@ -321,9 +322,6 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
                 ? View.VISIBLE : View.GONE);
         isExpandIndicator = isExpandIndicatorEnabled();
         mExpandIndicator.setVisibility(isExpandIndicator ? View.VISIBLE : View.GONE);
-        isMultiUserSwitch = isMultiUserSwitchEnabled();
-        mMultiUserSwitch.setVisibility(isMultiUserSwitch ? View.VISIBLE : View.GONE);
-        mMultiUserAvatar.setVisibility(isMultiUserSwitch ? View.VISIBLE : View.GONE);
     }
 
     private void updateDateTimePosition() {
