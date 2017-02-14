@@ -214,10 +214,17 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
     }
 
     protected void updateSettingsAnimator() {
-        mSettingsAlpha = new TouchAnimator.Builder()
+        Builder builder = new Builder()
                 .addFloat(mEdit, "alpha", 0, 1)
-                .addFloat(mMultiUserSwitch, "alpha", 0, 1)
-                .build();
+                .addFloat(mMultiUserSwitch, "alpha", 0, 1);
+
+        if (hasSettingsExpanded && !hasSettingsIcon) {
+            builder.addFloat(mSettingsButton, "alpha", 0, 1);
+        } else {
+            mSettingsButton.setAlpha(1);
+        }
+
+        mSettingsAlpha = builder.build();
 
         final boolean isRtl = isLayoutRtl();
         if (isRtl && mDateTimeGroup.getWidth() == 0) {
@@ -325,6 +332,7 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
         mEdit.setVisibility(hasEdit && !isDemo && mExpanded ? View.VISIBLE : View.GONE);
         hasSettingsIcon = !isSettingsIconDisabled();
         hasSettingsExpanded = isSettingsExpandedEnabled();
+        updateSettingsAnimator();
         mSettingsButton.setVisibility(mExpanded && hasSettingsExpanded || hasSettingsIcon
                 ? View.VISIBLE : View.GONE);
         hasExpandIndicator = !isExpandIndicatorDisabled();
