@@ -207,10 +207,16 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
     }
 
     protected void updateSettingsAnimator() {
+        hasSettingsExpanded = isSettingsExpandedEnabled();
         mSettingsAlpha = new TouchAnimator.Builder()
                 .addFloat(mEdit, "alpha", 0, 1)
-                .addFloat(mMultiUserSwitch, "alpha", 0, 1)
-                .build();
+                .addFloat(mMultiUserSwitch, "alpha", 0, 1);
+
+        if (hasSettingsExpanded) {
+            mSettingsAlpha.addFloat(mSettingsButton, "alpha", 0, 1);
+        }
+
+        mSettingsAlpha.build();
 
         final boolean isRtl = isLayoutRtl();
         if (isRtl && mDateTimeGroup.getWidth() == 0) {
