@@ -207,10 +207,16 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
     }
 
     protected void updateSettingsAnimator() {
-        mSettingsAlpha = new TouchAnimator.Builder()
+        hasSettingsExpanded = isSettingsExpandedEnabled();
+        TouchAnimator.Builder mSettingsAlphaBuilder = new TouchAnimator.Builder()
                 .addFloat(mEdit, "alpha", 0, 1)
-                .addFloat(mMultiUserSwitch, "alpha", 0, 1)
-                .build();
+                .addFloat(mMultiUserSwitch, "alpha", 0, 1);
+
+        if (hasSettingsExpanded) {
+            mSettingsAlphaBuilder.addFloat(mSettingsButton, "alpha", 0, 1);
+        }
+
+        mSettingsAlpha = mSettingsAlphaBuilder.build();
 
         final boolean isRtl = isLayoutRtl();
         if (isRtl && mDateTimeGroup.getWidth() == 0) {
@@ -309,6 +315,7 @@ public class QuickStatusBarHeader extends BaseStatusBarHeader implements
         updateDateTimePosition();
         mEmergencyOnly.setVisibility(mExpanded && mShowEmergencyCallsOnly
                 ? View.VISIBLE : View.INVISIBLE);
+        mSettingsButton.setVisibility(View.VISIBLE);
         final boolean isDemo = UserManager.isDeviceInDemoMode(mContext);
         hasMultiUserSwitch = !isMultiUserSwitchDisabled();
         mMultiUserSwitch.setVisibility(mExpanded && hasMultiUserSwitch && !isDemo
