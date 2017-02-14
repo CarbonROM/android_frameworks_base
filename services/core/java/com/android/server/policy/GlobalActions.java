@@ -148,6 +148,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     private final boolean mShowSilentToggle;
     private final EmergencyAffordanceManager mEmergencyAffordanceManager;
     private static boolean mTorchEnabled = false;
+    private int mDissmissDuration;
 
     private int mScreenshotDelay;
 
@@ -249,6 +250,8 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
         mDialog.getWindow().setAttributes(attrs);
         mDialog.getWindow().setDimAmount(setPowerRebootDialogDim());
         mDialog.show();
+        mDissmissDuration = mDialog.dismiss().getDuration();
+        Log.e(TAG, "mDissmissDuration is: " + mDissmissDuration);
         mDialog.getWindow().getDecorView().setSystemUiVisibility(View.STATUS_BAR_DISABLE_EXPAND);
     }
 
@@ -1641,7 +1644,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     }
 
     private void checkSettings() {
-        mScreenshotDelay = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.SCREENSHOT_DELAY, 100);
+        mScreenshotDelay = (Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.SCREENSHOT_DELAY, 100) + mDissmissDuration);
     }
 }
