@@ -17,7 +17,6 @@
  -->
 
 <resources>
-
     <!-- Custom Carrier Label -->
     <style name="TextAppearance.StatusBar.CarrierLabel" parent="@*android:style/TextAppearance.StatusBar.Icon">
         <item name="android:textSize">@dimen/status_bar_carrier_height</item>
@@ -38,5 +37,9 @@
     <style name="BatteryMeterViewDrawable.Solid"/>
     <style name="BatteryMeterViewDrawable.Circle">
         <item name="blendMode">overlay</item>
+    </style>
+    <!-- Switch bar text appearance -->
+    <style name="TextAppearance.SwitchBar" parent="@android:style/TextAppearance.Material.Title">
+        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
     </style>
 </resources>
