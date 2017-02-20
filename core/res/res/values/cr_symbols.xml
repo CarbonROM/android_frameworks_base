@@ -81,4 +81,6 @@
   <!-- Automatic brightness enhancements -->
   <java-symbol type="integer" name="config_autoBrightnessBrighteningLightFastDebounce"/>
 
+  <!-- Hardware Keys Default Constants  -->
+  <java-symbol type="integer" name="config_deviceHardwareKeys" />
 </resources>
