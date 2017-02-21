@@ -251,6 +251,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private static final int KEY_MASK_ASSIST = 0x08;
     private static final int KEY_MASK_APP_SWITCH = 0x10;
     private static final int KEY_MASK_CAMERA = 0x20;
+    private static final int KEY_MASK_VOLUME = 0x40;
 
     static final int SHORT_PRESS_SLEEP_GO_TO_SLEEP = 0;
     static final int SHORT_PRESS_SLEEP_GO_TO_SLEEP_AND_GO_HOME = 1;

@@ -99,6 +99,7 @@
              8 - Assistant (search)
             16 - App switch
             32 - Camera
+            64 - Volume Rocker
          For example, a device with Home, Back and AppSwitch keys would set this
          config to 19. -->
     <integer name="config_deviceHardwareKeys">19</integer>
