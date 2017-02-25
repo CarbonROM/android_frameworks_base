@@ -61,8 +61,6 @@
 #include "BootAnimation.h"
 #include "audioplay.h"
 
-#include <private/regionalization/Environment.h>
-
 namespace android {
 
 static const char OEM_BOOTANIMATION_FILE[] = "/oem/media/bootanimation.zip";
@@ -321,22 +319,6 @@ const char *BootAnimation::getAnimationFileName(ImageID image)
     const char *fileName[3] = { OEM_BOOTANIMATION_FILE,
             SYSTEM_BOOTANIMATION_FILE,
             SYSTEM_ENCRYPTED_BOOTANIMATION_FILE };
-
-    // Load animations of Carrier through regionalization environment
-    if (Environment::isSupported()) {
-        Environment* environment = new Environment();
-        const char* animFile = environment->getMediaFile(
-                Environment::ANIMATION_TYPE, Environment::BOOT_STATUS);
-        ALOGE("Get Carrier Animation type: %d,status:%d", Environment::ANIMATION_TYPE,Environment::BOOT_STATUS);
-        if (animFile != NULL && strcmp(animFile, "") != 0) {
-           return animFile;
-        }else{
-           ALOGD("Get Carrier Animation file: %s failed", animFile);
-        }
-        delete environment;
-    }else{
-           ALOGE("Get Carrier Animation file,since it's not support carrier");
-    }
 
     return fileName[image];
 }
