@@ -2737,4 +2737,7 @@
     <bool name="config_proximityCheckOnWake">false</bool>
     <integer name="config_proximityCheckTimeout">300</integer>
     <bool name="config_proximityCheckOnWakeEnabledByDefault">true</bool>
+
+    <!-- Allow the flashlight to use wakelocks -->
+    <bool name="config_useWakeLockForFlashlight">false</bool>
 </resources>
