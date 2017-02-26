@@ -2763,4 +2763,7 @@
 
   <!-- Gesture Sensor -->
   <java-symbol type="bool" name="config_enableGestureService" />
+
+  <!-- Allow devices to use wakelock for flashlight -->
+  <java-symbol type="bool" name="config_useWakeLockForFlashlight" />
 </resources>
