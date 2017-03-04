@@ -3803,9 +3803,13 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 launchHomeFromHotKey();
                 break;
             case KEY_ACTION_BACK:
+                triggerVirtualKeypress(KeyEvent.KEYCODE_BACK, false);
+                break;
             case KEY_ACTION_MENU:
+                triggerVirtualKeypress(KeyEvent.KEYCODE_MENU, false);
+                break;
             case KEY_ACTION_IN_APP_SEARCH:
-                triggerVirtualKeypress(keyCode, false);
+                triggerVirtualKeypress(KeyEvent.KEYCODE_SEARCH, false);
                 break;
             case KEY_ACTION_APP_SWITCH:
                 toggleRecentApps();
