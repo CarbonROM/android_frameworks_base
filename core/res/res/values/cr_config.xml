@@ -107,9 +107,6 @@
     backgrounds (requires config_allowNotificationIconTextTinting to be true)-->
     <bool name="config_useDarkBgNotificationIconTextTinting">false</bool>
 
-    <!-- Whether device has physical tri state switch -->
-    <bool name="config_hasAlertSlider">false</bool>
-
   <!-- Minimum screen brightness setting allowed by the power manager.
        The user is forbidden from setting the brightness below this level. -->
   <integer name="config_buttonBrightnessSettingMinimum">10</integer>
