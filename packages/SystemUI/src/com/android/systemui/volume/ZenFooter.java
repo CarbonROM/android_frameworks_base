@@ -116,41 +116,22 @@ public class ZenFooter extends LinearLayout {
     }
 
     public void update() {
-        final boolean hasAlertSlider = ZenModeConfig.hasAlertSlider(mContext);
-        mIcon.setImageResource(isZenNone() ? R.drawable.ic_dnd_total_silence : !isZen() ? 0 : R.drawable.ic_dnd);
+        mIcon.setImageResource(isZenNone() ? R.drawable.ic_dnd_total_silence : R.drawable.ic_dnd);
         final String line1 =
                 isZenPriority() ? mContext.getString(R.string.interruption_level_priority)
-                        : isZenAlarms() ? mContext.getString(R.string.interruption_level_alarms)
-                        : isZenNone() ? mContext.getString(R.string.interruption_level_none)
-                        : null;
+                : isZenAlarms() ? mContext.getString(R.string.interruption_level_alarms)
+                : isZenNone() ? mContext.getString(R.string.interruption_level_none)
+                : null;
         Util.setText(mSummaryLine1, line1);
 
-        CharSequence line2 = ZenModeConfig.getConditionSummary(mContext, mConfig,
+        final CharSequence line2 = ZenModeConfig.getConditionSummary(mContext, mConfig,
                                 mController.getCurrentUser(), true /*shortVersion*/);
-
-        if (hasAlertSlider) {
-            switch(mZen) {
-                case Global.ZEN_MODE_NO_INTERRUPTIONS:
-                    line2 = mContext.getString(R.string.zen_footer_alert_slider_no_interruptions_summary);
-                    break;
-                case Global.ZEN_MODE_ALARMS:
-                    line2 = mContext.getString(R.string.zen_footer_alert_slider_alarms_only_summary);
-                    break;
-                case Global.ZEN_MODE_IMPORTANT_INTERRUPTIONS:
-                    line2 = mContext.getString(R.string.zen_footer_alert_slider_priority_only_summary);
-                    break;
-            }
-        }
-
         Util.setText(mSummaryLine2, line2);
-        mSpTexts.update();
-
-        Util.setText(mEndNowButton, mContext.getString(R.string.volume_zen_end_now));
-        mEndNowButton.setVisibility(hasAlertSlider ? View.GONE : View.VISIBLE);
     }
 
     public void onConfigurationChanged() {
-        update();
+        Util.setText(mEndNowButton, mContext.getString(R.string.volume_zen_end_now));
+        mSpTexts.update();
     }
 
     private final ZenModeController.Callback mZenCallback = new ZenModeController.Callback() {
