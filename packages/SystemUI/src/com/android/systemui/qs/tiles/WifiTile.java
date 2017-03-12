@@ -126,6 +126,21 @@ public class WifiTile extends QSTile<QSTile.SignalState> {
                 mState.value = true;
             }
             showDetail(true);
+
+        }
+    }
+
+    @Override
+    protected void handleLongClick() {
+        boolean easyToggle = isWiFiEasyToggleEnabled();
+        if (easyToggle) {
+            if (!mWifiController.canConfigWifi()) {
+                mHost.startActivityDismissingKeyguard(new Intent(Settings.ACTION_WIFI_SETTINGS));
+            } else {
+                showDetail(true);
+            }
+        } else {
+            mHost.startActivityDismissingKeyguard(new Intent(Settings.ACTION_WIFI_SETTINGS));
         }
     }
 
