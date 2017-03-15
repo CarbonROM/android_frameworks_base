@@ -4178,6 +4178,15 @@ public final class Settings {
         public static final String KEY_MENU_DOUBLE_TAP_ACTION = "key_menu_double_tap_action";
 
         /**
+         * Action to perform when the back key is long-pressed from the navigation bar.
+         * (Default can be configered via config_longPressOnNavigationBackBehavior)
+         * (See KEY_NAV_HOME_LONG_PRESS_ACTION for valid values)
+         * @hide
+         */
+        public static final String KEY_NAV_BACK_LONG_PRESS_ACTION = "key_nav_back_long_press_action";
+
+
+        /**
          * Action to perform when the back key is long-pressed.
          * (Default can be configured via config_longPressOnHardwareBackBehavior)
          * (See KEY_HOME_LONG_PRESS_ACTION for valid values)

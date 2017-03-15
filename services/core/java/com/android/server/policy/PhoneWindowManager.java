@@ -995,6 +995,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.KEY_CAMERA_DOUBLE_TAP_ACTION), false, this,
                     UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.KEY_NAV_BACK_LONG_PRESS_ACTION), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.ALERT_SLIDER_ORDER), false, this,
+                    UserHandle.USER_ALL);
             updateSettings();
         }
 
@@ -1797,7 +1803,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
                 final KeyEvent downEvent = new KeyEvent(now, now, KeyEvent.ACTION_DOWN,
                         keyCode, 0, 0, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
-                        KeyEvent.FLAG_FROM_SYSTEM, InputDevice.SOURCE_CUSTOM);
+                        KeyEvent.FLAG_FROM_SYSTEM, (InputDevice.SOURCE_CUSTOM || Input.Device.SOURCE_NAVIGATION));
                 final KeyEvent upEvent = KeyEvent.changeAction(downEvent, KeyEvent.ACTION_UP);
 
                 im.injectInputEvent(downEvent, InputManager.INJECT_INPUT_EVENT_MODE_ASYNC);
@@ -2192,6 +2198,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         final boolean hasMenu = (mDeviceHardwareKeys & KEY_MASK_MENU) != 0;
         final boolean hasAssist = (mDeviceHardwareKeys & KEY_MASK_ASSIST) != 0;
         final boolean hasCamera = (mDeviceHardwareKeys & KEY_MASK_CAMERA) != 0;
+        final boolean hasNavBar = mNavBarEnabled
 
         for (int i = 0; i < SUPPORTED_KEYCODE_LIST.length; i++) {
             final int keyCode = SUPPORTED_KEYCODE_LIST[i];
@@ -2208,6 +2215,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 behavior = KEY_ACTION_NOTHING;
             }
             mKeyDoubleTapBehavior.put(keyCode, behavior);
+        }
+
+        if (hasNavBar) {
+            mKeyLongPressBehavior.put(KeyEvent.KEYCODE_NAV_BACK, Settings.System.getIntForUser(resolver,
+                    Settings.System.KEY_NAV_BACK_LONG_PRESS_ACTION,
+                    mKeyLongPressBehavior.get(KeyEvent.KEYCODE_NAV_BACK), UserHandle.USER_CURRENT));
         }
 
         if (hasHome) {
@@ -3495,7 +3508,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             KeyEvent.KEYCODE_MENU,
             KeyEvent.KEYCODE_ASSIST,
             KeyEvent.KEYCODE_APP_SWITCH,
-            KeyEvent.KEYCODE_CAMERA
+            KeyEvent.KEYCODE_CAMERA,
+            KeyEvent.KEYCODE_NAV_BACK
         };
 
     /**
@@ -3637,6 +3651,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
      */
     private int getKeyLongPressBehaviorResId(int keyCode) {
         switch(keyCode) {
+            case KeyEvent.KEYCODE_NAV_BACK:
+                return com.android.internal.R.integer.config_longPressOnNavBackBehavior;
             case KeyEvent.KEYCODE_HOME:
                 return com.android.internal.R.integer.config_longPressOnHomeKeyBehavior;
             case KeyEvent.KEYCODE_BACK:
@@ -3685,6 +3701,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 launchHomeFromHotKey();
                 break;
             case KEY_ACTION_BACK:
+            case KEY_ACTION_NAV_BACK:
             case KEY_ACTION_MENU:
             case KEY_ACTION_IN_APP_SEARCH:
                 triggerVirtualKeypress(keyCode, false);
@@ -3717,6 +3734,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             case KeyEvent.KEYCODE_HOME:
                 launchHomeFromHotKey();
                 break;
+            case KeyEvent.KEYCODE_NAV_BACK:
             case KeyEvent.KEYCODE_BACK:
             case KeyEvent.KEYCODE_MENU:
                 triggerVirtualKeypress(keyCode, false);
