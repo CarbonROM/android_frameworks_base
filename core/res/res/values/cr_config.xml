@@ -90,6 +90,9 @@
     <integer name="config_longPressOnCameraKeyBehavior">0</integer>
     <integer name="config_doubleTapOnCameraKeyBehavior">0</integer>
 
+    <!-- nav keys-->
+    <integer name="config_longPressOnNavigationBackBehavior">0</integer>
+
     <!-- Hardware 'face' keys present on the device, stored as a bit field.
          This integer should equal the sum of the corresponding value for each
          of the following keys present:
