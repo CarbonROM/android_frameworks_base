@@ -486,6 +486,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private boolean lIsPerfBoostEnabled;
     private int[] mBoostParamValWeak;
     private int[] mBoostParamValStrong;
+    private boolean mKeypressBoostBlocked;
 
     // FIXME This state is shared between the input reader and handler thread.
     // Technically it's broken and buggy but it has been like this for many years
@@ -828,6 +829,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private static final int MSG_REQUEST_TRANSIENT_BARS_ARG_STATUS = 0;
     private static final int MSG_REQUEST_TRANSIENT_BARS_ARG_NAVIGATION = 1;
 
+    // BoostFramework constants
+    private static final int MSG_DISPATCH_KEYPRESS_BOOST_UNBLOCK = 100;
+
     private class PolicyHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
@@ -915,6 +919,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     break;
                 case MSG_SYSTEM_KEY_PRESS:
                     sendSystemKeyToStatusBar(msg.arg1);
+                    break;
+                case MSG_DISPATCH_KEYPRESS_BOOST_UNBLOCK:
+                    mKeypressBoostBlocked = false;
                     break;
             }
         }
@@ -4095,6 +4102,14 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         if (mBoostDuration != 0) {
             Slog.i(TAG, "Dispatching Keypress boost for " + mBoostDuration + " ms.");
             mPerf.perfLockAcquire(mBoostDuration, mBoostParamVal);
+
+            // Block Keypress boost
+            mKeypressBoostBlocked = true;
+
+            // Calculate unblock time and dispatch delayed unblock MSG
+            int mBoostBlockTime = mBoostDuration + 50/*ms*/;
+            mHandler.sendEmptyMessageDelayed(MSG_DISPATCH_KEYPRESS_BOOST_UNBLOCK, mBoostBlockTime);
+
         }
     }
 
@@ -5925,7 +5940,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
 
         // Intercept the Keypress event for Keypress boost
-        if (lIsPerfBoostEnabled) {
+        if (lIsPerfBoostEnabled && !mKeypressBoostBlocked) {
             dispatchKeypressBoost(keyCode);
         }
 
