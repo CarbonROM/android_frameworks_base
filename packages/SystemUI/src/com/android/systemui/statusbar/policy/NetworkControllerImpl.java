@@ -787,7 +787,6 @@ public class NetworkControllerImpl extends BroadcastReceiver
                             datatype.equals("e") ? TelephonyIcons.E :
                             datatype.equals("g") ? TelephonyIcons.G :
                             datatype.equals("h") ? TelephonyIcons.H :
-                            datatype.equals("hp") ? TelephonyIcons.HP :
                             datatype.equals("lte") ? TelephonyIcons.LTE :
                             datatype.equals("lte+") ? TelephonyIcons.LTE_PLUS :
                             datatype.equals("roam") ? TelephonyIcons.ROAMING :
@@ -864,7 +863,6 @@ public class NetworkControllerImpl extends BroadcastReceiver
         boolean alwaysShowCdmaRssi = false;
         boolean hideLtePlus = false;
         boolean hspaDataDistinguishable;
-	boolean hspapDataDistinguishable;
 
         static Config readConfig(Context context) {
             Config config = new Config();
@@ -876,8 +874,6 @@ public class NetworkControllerImpl extends BroadcastReceiver
             config.hspaDataDistinguishable =
                     res.getBoolean(R.bool.config_hspa_data_distinguishable);
             config.hideLtePlus = res.getBoolean(R.bool.config_hideLtePlus);
-            config.hspapDataDistinguishable =
-                    res.getBoolean(R.bool.config_hspap_data_distinguishable);
             return config;
         }
     }
