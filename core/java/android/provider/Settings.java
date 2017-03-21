@@ -6795,6 +6795,12 @@ public final class Settings {
         public static final String QS_BT_EASY_TOGGLE = "qs_bt_easy_toggle";
 
         /**
+         * Use round icons instead of the default icons
+         * @hide
+         */
+        public static final String USE_ROUND_ICONS = "use_round_icons";
+
+        /**
          * Whether the device should doze if configured.
          * @hide
          */
