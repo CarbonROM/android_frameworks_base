@@ -3923,6 +3923,12 @@ public final class Settings {
          */
         public static final String SHOW_LTE_FOURGEE = "show_lte_fourgee";
 
+         /**
+         * Use round icons instead of the default icons
+         * @hide
+         */
+        public static final String USE_ROUND_ICONS = "use_round_icons";
+
         /**
          * Quick Settings number of columns
          * @hide
