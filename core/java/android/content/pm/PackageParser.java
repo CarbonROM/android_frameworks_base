@@ -25,6 +25,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import android.app.ActivityManager;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.AssetManager;
@@ -38,6 +39,7 @@ import android.os.FileUtils;
 import android.os.PatternMatcher;
 import android.os.Trace;
 import android.os.UserHandle;
+import android.provider.Settings.Secure;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.ArraySet;
@@ -3336,8 +3338,8 @@ public class PackageParser {
             }
         }
 
-        final boolean useRoundIcon =
-                Resources.getSystem().getBoolean(com.android.internal.R.bool.config_useRoundIcon);
+        final boolean useRoundIcon = Settings.Secure.getInt(mContext.getContentResolver(),
+            Settings.Secure.USE_ROUND_ICONS, 0) == 1;
         int roundIconVal = useRoundIcon ? sa.getResourceId(roundIconRes, 0) : 0;
         if (roundIconVal != 0) {
             outInfo.icon = roundIconVal;
@@ -4548,8 +4550,8 @@ public class PackageParser {
             outInfo.nonLocalizedLabel = v.coerceToString();
         }
 
-        final boolean useRoundIcon =
-                Resources.getSystem().getBoolean(com.android.internal.R.bool.config_useRoundIcon);
+        final boolean useRoundIcon = Settings.Secure.getInt(mContext.getContentResolver(),
+            Settings.Secure.USE_ROUND_ICONS, 0) == 1;
         int roundIconVal = useRoundIcon ? sa.getResourceId(
                 com.android.internal.R.styleable.AndroidManifestIntentFilter_roundIcon, 0) : 0;
         if (roundIconVal != 0) {
