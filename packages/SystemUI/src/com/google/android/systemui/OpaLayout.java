@@ -143,6 +143,7 @@ public class OpaLayout extends FrameLayout implements ButtonDispatcher.ButtonInt
             mSettingsObserver = new SettingsObserver(new Handler());
         }
         mSettingsObserver.observe();
+        hideAllOpa();
     }
 
     public OpaLayout(Context context, AttributeSet attrs) {
@@ -176,6 +177,7 @@ public class OpaLayout extends FrameLayout implements ButtonDispatcher.ButtonInt
             mSettingsObserver = new SettingsObserver(new Handler());
         }
         mSettingsObserver.observe();
+        hideAllOpa();
     }
 
     public OpaLayout(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -209,6 +211,7 @@ public class OpaLayout extends FrameLayout implements ButtonDispatcher.ButtonInt
             mSettingsObserver = new SettingsObserver(new Handler());
         }
         mSettingsObserver.observe();
+        hideAllOpa();
     }
 
     public OpaLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -242,6 +245,7 @@ public class OpaLayout extends FrameLayout implements ButtonDispatcher.ButtonInt
             mSettingsObserver = new SettingsObserver(new Handler());
         }
         mSettingsObserver.observe();
+        hideAllOpa();
     }
 
     private void startAll(ArraySet<Animator> animators) {
