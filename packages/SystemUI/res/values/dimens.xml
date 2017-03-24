@@ -102,6 +102,9 @@
     <!-- The width of the view containing navigation buttons -->
     <dimen name="navigation_key_width">70dp</dimen>
 
+    <!-- The width of the view containing the home button -->
+    <dimen name="pixelhome_key_width">@dimen/navigation_key_width</dimen>
+
     <dimen name="navigation_key_padding">0dp</dimen>
 
     <dimen name="navigation_key_width_sw600dp_land">162dp</dimen>

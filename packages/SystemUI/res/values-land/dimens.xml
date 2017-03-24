@@ -34,4 +34,7 @@
     <integer name="quick_settings_num_columns">4</integer>
     <bool name="quick_settings_wide">true</bool>
     <dimen name="qs_detail_margin_top">0dp</dimen>
+
+    <!-- The width of the view containing the home button -->
+    <dimen name="pixelhome_key_width">85dp</dimen>
 </resources>
