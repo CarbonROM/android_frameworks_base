@@ -92,6 +92,8 @@ public class OpaLayout extends FrameLayout implements ButtonDispatcher.ButtonInt
 
     private SettingsObserver mSettingsObserver;
 
+    private boolean mFirstRun = true;
+
     protected class SettingsObserver extends ContentObserver {
         SettingsObserver(Handler handler) {
             super(handler);
@@ -245,7 +247,12 @@ public class OpaLayout extends FrameLayout implements ButtonDispatcher.ButtonInt
     }
 
     private void startAll(ArraySet<Animator> animators) {
-        showAllOpa();
+        if (!mFirstRun) {
+            hideAllOpa();
+        } else {
+            mFirstRun = false;
+            showAllOpa();
+        }
         for(int i=0; i < animators.size(); i++) {
             Animator curAnim = (Animator) mCurrentAnimators.valueAt(i);
             curAnim.start();
