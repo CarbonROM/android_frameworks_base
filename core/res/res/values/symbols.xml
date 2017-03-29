@@ -2406,7 +2406,6 @@
   <java-symbol type="layout" name="chooser_row" />
   <java-symbol type="color" name="chooser_service_row_background_color" />
   <java-symbol type="id" name="target_badge" />
-  <java-symbol type="bool" name="config_supportDoubleTapWake" />
   <java-symbol type="drawable" name="ic_perm_device_info" />
   <java-symbol type="string" name="config_radio_access_family" />
   <java-symbol type="string" name="notification_inbox_ellipsis" />
@@ -2814,6 +2813,4 @@
   <java-symbol type="bool" name="config_enableCpuBoostForPanelViewFling" />
   <java-symbol type="array" name="panelview_flingboost_param_value" />
 
-=======
->>>>>>> parent of ec42bdf... Dispatch keys to a device specific key handler
 </resources>
