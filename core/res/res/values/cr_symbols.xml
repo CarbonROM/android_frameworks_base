@@ -134,4 +134,8 @@
   <!-- FP unlock Boost -->
   <java-symbol type="integer" name="fpunlockboost_duration" />
 
+  <!-- Kill app long press back -->
+  <java-symbol type="string" name="app_killed_message" />
+  <java-symbol type="string" name="no_app_killed_message" />
+  <java-symbol type="integer" name="config_backKillTimeout" />
 </resources>
