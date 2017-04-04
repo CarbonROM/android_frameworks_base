@@ -148,6 +148,7 @@ import android.view.accessibility.AccessibilityManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 import com.android.internal.R;
 import com.android.internal.annotations.GuardedBy;
 import com.android.internal.logging.MetricsLogger;
@@ -156,6 +157,7 @@ import com.android.internal.policy.PhoneWindow;
 import com.android.internal.policy.IKeyguardService;
 import com.android.internal.policy.IShortcutService;
 import com.android.internal.statusbar.IStatusBarService;
+import com.android.internal.util.DevUtils;
 import com.android.internal.util.ScreenShapeHelper;
 import com.android.internal.widget.PointerLocationView;
 import com.android.server.GestureLauncherService;
@@ -174,6 +176,7 @@ import java.util.List;
 import java.lang.reflect.Constructor;
 
 import dalvik.system.PathClassLoader;
+import java.util.Locale;
 
 /**
  * WindowManagerPolicy implementation for the Android phone UI.  This
@@ -553,7 +556,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     boolean mVolumeRockerWake;
     boolean mVolBtnMusicControls;
     boolean mIsLongPress;
-
+    int mBackKillTimeout;
     int mDeviceHardwareKeys;
 
     int mPointerLocationMode = 0; // guarded by mLock
@@ -1738,6 +1741,20 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
     };
 
+    Runnable mBackLongPress = new Runnable() {
+        public void run() {
+            String killResult = DevUtils.killForegroundApp(mContext, mCurrentUserId);
+            if (killResult != null) {
+                performHapticFeedbackLw(null, HapticFeedbackConstants.LONG_PRESS, false);
+            }
+            Toast.makeText(mContext, killResult == null
+                ? mContext.getString(R.string.no_app_killed_message)
+                : String.format(Locale.getDefault(),
+                        mContext.getString(R.string.app_killed_message),
+                        killResult), Toast.LENGTH_SHORT).show();
+        }
+    };
+
     @Override
     public void showGlobalActions() {
         mHandler.removeMessages(MSG_DISPATCH_SHOW_GLOBAL_ACTIONS);
@@ -2144,6 +2161,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
         mDeviceHardwareKeys = mContext.getResources().getInteger(
                 com.android.internal.R.integer.config_deviceHardwareKeys);
+
+        mBackKillTimeout = mContext.getResources().getInteger(
+                com.android.internal.R.integer.config_backKillTimeout);
 
         readConfigurationDependentBehaviors();
 
@@ -4121,6 +4141,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return -1;
         }
 
+        if (keyCode == KeyEvent.KEYCODE_BACK && !down) {
+            mHandler.removeCallbacks(mBackLongPress);
+        }
+
         // First we always handle the home key here, so applications
         // can never break it, although if keyguard is on, we do let
         // it handle it, because that gives us the correct 5 second
@@ -4304,6 +4328,13 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 mHandler.post(mScreenshotRunnable);
             }
             return -1;
+        } else if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (Settings.Secure.getIntForUser(mContext.getContentResolver(),
+                    Settings.Secure.KILL_APP_LONGPRESS_BACK, 0, UserHandle.USER_CURRENT) == 1) {
+                if (down && repeatCount == 0) {
+                    mHandler.postDelayed(mBackLongPress, mBackKillTimeout);
+                }
+            }
         } else if (keyCode == KeyEvent.KEYCODE_BRIGHTNESS_UP
                 || keyCode == KeyEvent.KEYCODE_BRIGHTNESS_DOWN) {
             if (down) {
