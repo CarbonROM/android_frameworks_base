@@ -138,4 +138,8 @@
 
     <!-- The duration (in milliseconds) of recent app screen exit animation. -->
     <integer name="config_recentExitDur">450</integer>
+
+    <!-- kill app long press back -->
+    <integer name="config_backKillTimeout">1500</integer>
+
 </resources>
