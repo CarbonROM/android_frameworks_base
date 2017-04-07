@@ -2737,4 +2737,7 @@
     <bool name="config_proximityCheckOnWake">false</bool>
     <integer name="config_proximityCheckTimeout">300</integer>
     <bool name="config_proximityCheckOnWakeEnabledByDefault">true</bool>
+    <!-- Configuartion to support SIM contact batch operation.-->
+    <bool name="config_sim_phonebook_batch_operation">true</bool>
+    <bool name="config_volte_preferred">false</bool>
 </resources>
