@@ -115,11 +115,14 @@
        The user is forbidden from setting the brightness above this level. -->
   <integer name="config_buttonBrightnessSettingMaximum">255</integer>
 
-  <!-- Default button brightness setting.
+     <!-- Default button brightness setting.
        Must be in the range specified by minimum and maximum. -->
-<integer name="config_buttonBrightnessSettingDefault">255</integer>
+    <integer name="config_buttonBrightnessSettingDefault">255</integer>
 
     <!-- Whether device has dash charging support -->
     <bool name="config_hasDashCharger">false</bool>
 
+    <!-- call removeCient in cancelAuthentification after stop to
+        avoid 3s delay for certain fpc HALs -->
+    <bool name="config_fingerprintRemoveClientOnCancel">false</bool>
 </resources>
