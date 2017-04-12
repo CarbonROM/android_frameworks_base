@@ -126,4 +126,6 @@ oneway interface IConnectionServiceAdapter {
     void resetConnectionTime(String callIdi, in Session.Info sessionInfo);
 
     void setConferenceState(String callId, boolean isConference, in Session.Info sessionInfo);
+
+    void resetCdmaConnectionTime(String callIdi, in Session.Info sessionInfo);
 }
