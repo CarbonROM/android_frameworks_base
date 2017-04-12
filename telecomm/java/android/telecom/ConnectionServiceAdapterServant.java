@@ -634,6 +634,11 @@ final class ConnectionServiceAdapterServant {
         }
 
         @Override
+        public void resetCdmaConnectionTime(String callId, Session.Info sessionInfo) {
+            // Do nothing
+        }
+
+        @Override
         public void setConferenceState(String callId, boolean isConference,
                 Session.Info sessionInfo) {
             SomeArgs args = SomeArgs.obtain();
