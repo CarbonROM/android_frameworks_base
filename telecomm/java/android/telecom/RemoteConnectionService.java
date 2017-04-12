@@ -477,6 +477,11 @@ final class RemoteConnectionService {
                 Session.Info sessionInfo) {
             // Do nothing
         }
+
+        @Override
+        public void resetCdmaConnectionTime(String callId, Session.Info sessionInfo) {
+            // Do nothing
+        }
     };
 
     private final ConnectionServiceAdapterServant mServant =
