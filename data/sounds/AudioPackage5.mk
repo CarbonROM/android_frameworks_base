@@ -37,11 +37,9 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/notifications/Canopus.ogg:system/media/audio/notifications/Canopus.ogg \
 	$(LOCAL_PATH)/notifications/Capella.ogg:system/media/audio/notifications/Capella.ogg \
 	$(LOCAL_PATH)/notifications/Castor.ogg:system/media/audio/notifications/Castor.ogg \
-	$(LOCAL_PATH)/notifications/CetiAlpha.ogg:system/media/audio/notifications/CetiAlpha.ogg \
 	$(LOCAL_PATH)/notifications/Deneb.ogg:system/media/audio/notifications/Deneb.ogg \
 	$(LOCAL_PATH)/notifications/Electra.ogg:system/media/audio/notifications/Electra.ogg \
 	$(LOCAL_PATH)/notifications/Fomalhaut.ogg:system/media/audio/notifications/Fomalhaut.ogg \
-	$(LOCAL_PATH)/notifications/Merope.ogg:system/media/audio/notifications/Merope.ogg \
 	$(LOCAL_PATH)/notifications/Polaris.ogg:system/media/audio/notifications/Polaris.ogg \
 	$(LOCAL_PATH)/notifications/Pollux.ogg:system/media/audio/notifications/Pollux.ogg \
 	$(LOCAL_PATH)/notifications/Procyon.ogg:system/media/audio/notifications/Procyon.ogg \
