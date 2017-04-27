@@ -2048,7 +2048,10 @@ public class AudioService extends IAudioService.Stub {
         return (mStreamStates[streamType].getMaxIndex() + 5) / 10;
     }
 
-    /** @see AudioManager#setStreamMaxVolume(int,int) */
+    /** 
+    * @see AudioManager#setStreamMaxVolume(int,int) 
+    * @hide
+    */
     public void setStreamMaxVolume(int streamType, int maxVol) {
         ensureValidStreamType(streamType);
         mStreamStates[streamType].setMaxIndex(maxVol);
