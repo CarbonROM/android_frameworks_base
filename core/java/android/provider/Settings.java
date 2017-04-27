@@ -3753,7 +3753,7 @@ public final class Settings {
 
         /**
          * Whether to allow fullscreen screenshots or let the user select which area to screenshot
-         *
+         * @hide
          */
         public static final String SCREENSHOT_TYPE = "screenshot_type";
 
@@ -4098,8 +4098,8 @@ public final class Settings {
         public static final String QS_EXPAND_INDICATOR_TOGGLE = "qs_expand_indicator_toggle";
 
         /**
-         * custom carrier label. The value is
-         * String.
+         * custom carrier label. The value is String.
+         * @hide
          */
         public static final String CUSTOM_CARRIER_LABEL = "custom_carrier_label";
 
