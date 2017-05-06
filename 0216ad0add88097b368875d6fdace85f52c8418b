@@ -1,4 +1,22 @@
 {
   "pushCert": "certificate version 0.1\npusher 4452F18E 1494005675 +0530\npushee ssh://review.carbonrom.org:29418/CarbonROM/android_frameworks_base\nnonce 1494005665-5ADFE087D064CC9747FB2CAD57C433521A598A2A\n\n0000000000000000000000000000000000000000 0216ad0add88097b368875d6fdace85f52c8418b refs/for/cr-5.1\n-----BEGIN PGP SIGNATURE-----\nVersion: GnuPG v1\n\niJwEAAECAAYFAlkMt6sACgkQGJ2Uj0RS8Y61WAQApfH+6XSQR7TcuSNfDppIbP1B\n4caDnVJ0jSQRGLHd6NHbIzlGlBI9UH6dCZthLzksdO3r26lMC6tsYr6ciIJrA+GZ\nVJpJlLC3l7+sPT2bZOTuDZWrU9y0xD1q9c9MkTDTiqeEtu4Hf2cP0gVB7ZlmWQdk\npOI9rbeeScHxTzWK8cE\u003d\n\u003dOFyS\n-----END PGP SIGNATURE-----\n",
-  "comments": []
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a045101_d0578c25",
+        "filename": "core/res/res/values/cr_config.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 4
+      },
+      "writtenOn": "2017-05-06T16:53:54Z",
+      "side": 1,
+      "message": "here should not be a whitespace. there is no text following afterwards.",
+      "revId": "0216ad0add88097b368875d6fdace85f52c8418b",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081",
+      "unresolved": false
+    }
+  ]
 }
