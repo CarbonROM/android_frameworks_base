@@ -2786,6 +2786,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             case TYPE_STATUS_BAR_PANEL:
             case TYPE_STATUS_BAR_SUB_PANEL:
             case TYPE_SYSTEM_DIALOG:
+            case TYPE_SLIM_RECENTS:
             case TYPE_VOLUME_OVERLAY:
             case TYPE_PRIVATE_PRESENTATION:
             case TYPE_DOCK_DIVIDER:
@@ -2970,6 +2971,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         case TYPE_INPUT_CONSUMER:
             return 6;
         case TYPE_SYSTEM_DIALOG:
+        case TYPE_SLIM_RECENTS:
             return 7;
         case TYPE_TOAST:
             // toasts and the plugged-in battery thing
