@@ -125,4 +125,10 @@
     <!-- call removeCient in cancelAuthentification after stop to
          avoid 3s delay for certain fpc HALs -->
     <bool name="config_fingerprintRemoveClientOnCancel">false</bool>
+
+    <!-- The duration (in milliseconds) of recent app screen animation. -->
+    <integer name="config_recentDefaultDur">300</integer>
+
+    <!-- The duration (in milliseconds) of recent app screen exit animation. -->
+    <integer name="config_recentExitDur">450</integer>
 </resources>
