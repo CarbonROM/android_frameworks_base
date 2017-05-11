@@ -193,8 +193,8 @@ class MountService extends IMountService.Stub
         }
     }
 
-    private static final boolean DEBUG_EVENTS = false;
-    private static final boolean DEBUG_OBB = false;
+    private static final boolean DEBUG_EVENTS = true;
+    private static final boolean DEBUG_OBB = true;
 
     // Disable this since it messes up long-running cryptfs operations.
     private static final boolean WATCHDOG_ENABLE = false;
