@@ -6720,7 +6720,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
 
         // Apply custom policy for supported key codes.
-        if (canApplyCustomPolicy(keyCode) && !isCustomSource && keyCode != KeyEvent.KEYCODE_HOME) {
+        if (canApplyCustomPolicy(keyCode) && !isCustomSource && !(!isScreenOn() && (keyCode == KeyEvent.KEYCODE_HOME))) {
             if (mNavBarEnabled && !navBarKey /* TODO> && !isADBVirtualKeyOrAnyOtherKeyThatWeNeedToHandleAKAWhenMonkeyTestOrWHATEVER! */) {
                 if (DEBUG_INPUT) {
                     Log.d(TAG, "interceptKeyBeforeQueueing(): key policy: mNavBarEnabled, discard hw event.");
@@ -6754,12 +6754,13 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
 
+        final boolean isHomeWakeKey = !isScreenOn()
+                && (keyCode == KeyEvent.KEYCODE_HOME);
+
         // Basic policy based on interactive state.
         final boolean isVolumeRockerWake = !isScreenOn()
                 && mVolumeRockerWake
                 && (keyCode == KeyEvent.KEYCODE_VOLUME_UP || keyCode == KeyEvent.KEYCODE_VOLUME_DOWN);
-        final boolean isHomeWakeKey = !isScreenOn()
-                && (keyCode == KeyEvent.KEYCODE_HOME);
         int result;
         boolean isWakeKey = (policyFlags & WindowManagerPolicy.FLAG_WAKE) != 0
                 || event.isWakeKey() || isVolumeRockerWake || isHomeWakeKey;
