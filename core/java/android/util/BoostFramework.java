@@ -91,6 +91,8 @@ public class BoostFramework {
                     mIOPStop =  perfClass.getDeclaredMethod("perfIOPrefetchStop", argClasses);
 
                     mIsLoaded = true;
+                    Log.i(TAG,"BoostFramework() : Performance JAR Loaded");
+
                 }
                 catch(Exception e) {
                     Log.e(TAG,"BoostFramework() : Exception_1 = " + e);
@@ -124,6 +126,7 @@ public class BoostFramework {
         new Thread(() -> {
             try {
                 mAcquireFunc.invoke(mPerf, duration, list);
+                Log.i(TAG,"perfLockAcquire() : Success");
             } catch(Exception e) {
                 Log.e(TAG,"Exception " + e);
             }
