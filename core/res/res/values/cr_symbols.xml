@@ -97,11 +97,6 @@
   <java-symbol type="integer" name="config_longPressOnAppSwitchKeyBehavior" />
   <java-symbol type="integer" name="config_longPressOnCameraKeyBehavior" />
 
-  <!-- Button Brightness -->
-  <java-symbol type="integer" name="config_buttonBrightnessSettingMinimum" />
-  <java-symbol type="integer" name="config_buttonBrightnessSettingMaximum" />
-  <java-symbol type="integer" name="config_buttonBrightnessSettingDefault" />
-
   <java-symbol type="drawable" name="ic_audio_notification_new" />
   <java-symbol type="drawable" name="ic_audio_notification_mute_new" />
   <java-symbol type="drawable" name="ic_audio_notification_mute_alpha" />

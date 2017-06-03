@@ -4319,24 +4319,6 @@ public final class Settings {
                                 "touchscreen_gesture_haptic_feedback";
 
         /**
-         * Value for button brightness.
-         * This is an integer value in a range between 0 and 255.
-         *      0 = off
-         *    255 = default
-         *    255 = max
-         * @hide
-         */
-        public static final String BUTTON_BRIGHTNESS = "button_brightness";
-
-        /**
-         * Whether user can enable/disable button brightness.
-         * <p>
-         * Type: int (0 for false, 1 for true)
-         * @hide
-         */
-        public static final String BUTTON_BRIGHTNESS_ENABLED = "button_brightness_enabled";
-
-        /**
          * Boolean value whether to link ringtone and notification volume
          *
          * @hide
@@ -4610,8 +4592,6 @@ public final class Settings {
             PRIVATE_SETTINGS.add(KEY_APP_SWITCH_DOUBLE_TAP_ACTION);
             PRIVATE_SETTINGS.add(KEY_CAMERA_LONG_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_CAMERA_DOUBLE_TAP_ACTION);
-            PRIVATE_SETTINGS.add(BUTTON_BRIGHTNESS);
-            PRIVATE_SETTINGS.add(BUTTON_BRIGHTNESS_ENABLED);
         }
 
         /**
