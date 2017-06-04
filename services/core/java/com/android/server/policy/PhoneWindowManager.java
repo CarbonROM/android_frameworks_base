@@ -251,6 +251,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private static final int KEY_ACTION_IN_APP_SEARCH = 5;
     private static final int KEY_ACTION_CAMERA = 6;
     private static final int KEY_ACTION_LAST_APP = 7;
+    private static final int KEY_ACTION_SPLIT_SCREEN = 8;
 
     // Special values, used internal only.
     private static final int KEY_ACTION_HOME = KEY_ACTION_LAST_APP + 1;
@@ -1965,6 +1966,16 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             statusbar.onCameraLaunchGestureDetected(-1);
         }
      }
+
+    /**
+     * Request current window to enter multiwindow mode.
+     */
+    private void toggleSplitScreen() {
+        StatusBarManagerInternal statusbar = getStatusBarManagerInternal();
+        if (statusbar != null) {
+            statusbar.toggleSplitScreen();
+        }
+    }
 
     private boolean isRoundWindow() {
         return mContext.getResources().getConfiguration().isScreenRound();
@@ -3870,6 +3881,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 awakenDreams();
                 triggerVirtualKeypress(KeyEvent.KEYCODE_APP_SWITCH, !mRecentsVisible);
                 break;
+            case KEY_ACTION_SPLIT_SCREEN;
+                toggleSplitScreen();
+                break;
         }
     }
 
@@ -4071,7 +4085,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 } else {
                     if (keyCode == KeyEvent.KEYCODE_APP_SWITCH
                             || longPressBehavior == KEY_ACTION_APP_SWITCH
-                            || doubleTapBehavior == KEY_ACTION_APP_SWITCH) {
+                            || doubleTapBehavior == KEY_ACTION_APP_SWITCH
+                            || longPressBehavior == KEY_ACTION_SPLIT_SCREEN
+                            || doubleTapBehavior == KEY_ACTION_SPLIT_SCREEN
+                            || longPressBehavior == KEY_ACTION_LAST_APP
+                            || doubleTapBehavior == KEY_ACTION_LAST_APP ) {
                         preloadRecentApps();
                     }
                 }
