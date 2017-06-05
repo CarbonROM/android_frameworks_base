@@ -255,8 +255,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private static final int KEY_ACTION_SCREEN_OFF = 9;
 
     // Special values, used internal only.
-    private static final int KEY_ACTION_HOME = KEY_ACTION_LAST_APP + 1;
-    private static final int KEY_ACTION_BACK = KEY_ACTION_LAST_APP + 2;
+    private static final int KEY_ACTION_HOME = 100;
+    private static final int KEY_ACTION_BACK = 101;
 
     // Masks for checking presence of hardware keys.
     // Must match values in core/res/res/values/config.xml
@@ -2365,13 +2365,13 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             int behavior;
             // long press
             behavior = res.getInteger(getKeyLongPressBehaviorResId(keyCode));
-            if (behavior < KEY_ACTION_NOTHING || behavior > KEY_ACTION_LAST_APP) {
+            if (behavior < KEY_ACTION_NOTHING || behavior > SUPPORTED_KEY_ACTIONS.length) {
                 behavior = KEY_ACTION_NOTHING;
             }
             mKeyLongPressBehavior.put(keyCode, behavior);
             // double tap
             behavior = res.getInteger(getKeyDoubleTapBehaviorResId(keyCode));
-            if (behavior < KEY_ACTION_NOTHING || behavior > KEY_ACTION_LAST_APP) {
+            if (behavior < KEY_ACTION_NOTHING || behavior > SUPPORTED_KEY_ACTIONS.length) {
                 behavior = KEY_ACTION_NOTHING;
             }
             mKeyDoubleTapBehavior.put(keyCode, behavior);
@@ -3672,6 +3672,22 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         };
 
     /**
+     * List of key actions available for key code behaviors.
+     */
+    static final int[] SUPPORTED_KEY_ACTIONS = {
+            KEY_ACTION_NOTHING,
+            KEY_ACTION_MENU,
+            KEY_ACTION_APP_SWITCH,
+            KEY_ACTION_SEARCH,
+            KEY_ACTION_VOICE_SEARCH,
+            KEY_ACTION_IN_APP_SEARCH,
+            KEY_ACTION_CAMERA,
+            KEY_ACTION_LAST_APP,
+            KEY_ACTION_SPLIT_SCREEN,
+            KEY_ACTION_SCREEN_OFF
+        };
+
+    /**
      * @return if key code's last event has been consumed.
      * @param keyCode the KeyEvent key code.
      */
@@ -3864,7 +3880,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 triggerVirtualKeypress(KeyEvent.KEYCODE_MENU, false);
                 break;
             case KEY_ACTION_IN_APP_SEARCH:
-                triggerVirtualKeypress(KeyEvent.KEYCODE_SEARCH, false);
+                triggerVirtualKeypress(keyCode, false);
                 break;
             case KEY_ACTION_APP_SWITCH:
                 toggleRecentApps();
