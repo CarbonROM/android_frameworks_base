@@ -3963,8 +3963,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 toggleRecentApps();
                 break;
             case KeyEvent.KEYCODE_CAMERA:
-                launchCamera();
-                break;
         }
     }
 
