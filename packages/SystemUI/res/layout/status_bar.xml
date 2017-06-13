@@ -89,6 +89,7 @@
                 android:paddingEnd="@dimen/status_bar_clock_end_padding"
                 android:gravity="center_vertical|start"
                 />
+                
         </com.android.keyguard.AlphaOptimizedLinearLayout>
     </LinearLayout>
 
