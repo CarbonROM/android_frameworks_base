@@ -722,10 +722,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private SparseBooleanArray mKeyConsumed = new SparseBooleanArray(SUPPORTED_KEYCODE_LIST.length);
     private SparseBooleanArray mKeyDoubleTapPending = new SparseBooleanArray(SUPPORTED_KEYCODE_LIST.length);
     private SparseArray<Runnable> mKeyDoubleTapRunnable = new SparseArray<>(SUPPORTED_KEYCODE_LIST.length);
-    private SparseIntArray mKeyShortPressBehavior = new SparseIntArray(SUPPORTED_KEYCODE_LIST.length);
     private SparseIntArray mKeyLongPressBehavior = new SparseIntArray(SUPPORTED_KEYCODE_LIST.length);
     private SparseIntArray mKeyDoubleTapBehavior = new SparseIntArray(SUPPORTED_KEYCODE_LIST.length);
-    private SparseIntArray mKeyShortPressBehaviorDefaultResId = new SparseIntArray(SUPPORTED_KEYCODE_LIST.length);
+    private SparseIntArray mKeySingleTapBehavior = new SparseIntArray(SUPPORTED_KEYCODE_LIST.length);
+    private SparseIntArray mKeySingleTapBehaviorDefaultResId = new SparseIntArray(SUPPORTED_KEYCODE_LIST.length);
     private SparseIntArray mKeyLongPressBehaviorDefaultResId = new SparseIntArray(SUPPORTED_KEYCODE_LIST.length);
     private SparseIntArray mKeyDoubleTapBehaviorDefaultResId = new SparseIntArray(SUPPORTED_KEYCODE_LIST.length);
 
@@ -1045,7 +1045,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     Settings.System.KEY_CAMERA_DOUBLE_TAP_ACTION), false, this,
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.KEY_BACK_SHORT_PRESS_ACTION), false, this,
+                    Settings.System.KEY_BACK_SINGLE_TAP_ACTION), false, this,
                     UserHandle.USER_ALL);
             updateSettings();
         }
@@ -1807,6 +1807,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         launchHomeFromHotKey();
     }
 
+
     /**
      * Creates an accessor to HDMI control service that performs the operation of
      * turning on TV (optional) and switching input to us. If HDMI control service
@@ -1900,6 +1901,17 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     };
 
     /**
+     * Handle short press action.
+     * @param keyCode the intercepted KeyEvent key code.
+     */
+    private void handleShortPressOnKeyCode(int keyCode) {
+        int shortPressBehavior = getKeyShortPressBehavior(keyCode);
+        if (longPressBehavior != KEY_ACTION_NOTHING) {
+           runBehaviorAction(keyCode, singleTapBehavior);
+        }
+    }
+
+    /**
      * Handle long press action.
      * @param keyCode The intercepted KeyEvent key code.
      */
@@ -1922,17 +1934,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         if (doubleTapBehavior != KEY_ACTION_NOTHING) {
             runBehaviorAction(keyCode, doubleTapBehavior);
         }
-    }
-
-    /**
-     * Handle single-tap action.
-     * @param keyCode the intercepted KeyEvent key code.
-     */
-    private void handleShortPressOnKeyCode(int keyCode) {
-       int shortPressBehavior = getKeyShortPressBehavior(keyCode);
-       if (shortPressBehavior != KEY_ACTION_NOTHING) {
-          runBehaviorAction(keyCode, shortPressBehavior);
-       }
     }
 
     /**
@@ -2319,9 +2320,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 mKeyConsumed.put(keyCode, false);
                 mKeyDoubleTapPending.put(keyCode, false);
                 mKeyDoubleTapRunnable.put(keyCode, createDoubleTapTimeoutRunnable(keyCode));
-                mKeyShortPressBehaviorDefaultResId.put(keyCode, getKeyShortPressBehaviorResId(keyCode));
                 mKeyDoubleTapBehaviorDefaultResId.put(keyCode, getKeyDoubleTapBehaviorResId(keyCode));
                 mKeyLongPressBehaviorDefaultResId.put(keyCode, getKeyLongPressBehaviorResId(keyCode));
+                mKeyShortPressBehaviorDefaultResId.put(keyCode, getKeyShortPressBehaviorResId(keyCode));
              }
          }
 
@@ -2396,7 +2397,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             final int keyCode = SUPPORTED_KEYCODE_LIST[i];
             int behavior;
             // short press
-            behavior = res.getInteger(getKeyShortPressBehaviorResId(keyCode));
+            behavior = res.getIntegery(getKeyShortPressBehaviorResId(keyCode));
             if (behavior < KEY_ACTION_NOTHING || behavior > SUPPORTED_KEY_ACTIONS.length) {
                 behavior = KEY_ACTION_NOTHING;
             }
@@ -3810,21 +3811,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     }
 
     /**
-     * @return key code's short press behavior.
-     * @param keyCode the KeyEvent key code.
-     */
-    private int getKeyShortPressBehavior(int keyCode) {
-        int behavior = -1;
-        try {
-            behavior = mKeyShortPressBehavior.get(keyCode);
-        } catch (NullPointerException e) {
-           // Ops.
-        } finally {
-           return behavior;
-        }
-    }
-
-    /**
      * @return key code's long press behavior.
      * @param keyCode the KeyEvent key code.
      */
@@ -3838,6 +3824,21 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return behavior;
         }
     }
+
+    /**
+     * @return key code's short press behavior.
+     * @param keyCode the KeyEvent key code.
+     */
+    private int getKeyShortPressBehavior(int keyCode) {
+       int behavior = -1;
+       try {
+           behavior = mKeyShortPressBehavior.get(keyCode);
+       } catch (NullPointerException e) {
+         // Ops.
+       } finally {
+          return behavior ;
+       }
+     }
 
     /**
      * @return if key code's double tap is pending.
@@ -3897,17 +3898,17 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return 0;
     }
-  
+
     /**
      * @return the default res id for the key short press default action.
      * @param keyCode the KeyEvent key code.
      */
     private int getKeyShortPressBehaviorResId(int keyCode) {
-       switch(keyCode) {
-          case KeyEvent.KEYCODE_BACK:
-            return com.android.internal.R.integer.config_shortPressOnBackKeyBehavior;
-       }
-       return 0;
+        switch(keyCode) {
+           case KeyEvent.KEYCODE_BACK:
+               return com.android.internal.R.integer.config_shortPressOnBackKeyBehavior;
+         }
+         return 0;
     }
 
     /**
@@ -4164,7 +4165,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 setKeyPressed(keyCode, true);
                 setKeyConsumed(keyCode, false);
                 final boolean doubleTapPending = isKeyDoubleTapPending(keyCode);
-                final int shortPressBehavior = getKeyShortPressBehavior(keyCode);
                 final int longPressBehavior = getKeyLongPressBehavior(keyCode);
                 final int doubleTapBehavior = getKeyDoubleTapBehavior(keyCode);
                 if (doubleTapPending) {
