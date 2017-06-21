@@ -347,6 +347,7 @@ public final class Settings {
      * Input: Nothing.
      * <p>
      * Output: Nothing.
+
      */
     @SdkConstant(SdkConstantType.ACTIVITY_INTENT_ACTION)
     public static final String ACTION_WIFI_SETTINGS =
@@ -2664,13 +2665,6 @@ public final class Settings {
             "lock_pattern_tactile_feedback_enabled";
 
         /**
-         * Whether to use the custom quick unlock screen control
-         * @hide
-         */
-        public static final String LOCKSCREEN_QUICK_UNLOCK_CONTROL =
-                "lockscreen_quick_unlock_control";
-
-        /**
          * A formatted string of the next alarm that is set, or the empty string
          * if there is no alarm set.
          *
@@ -3579,12 +3573,6 @@ public final class Settings {
         public static final Validator LOCKSCREEN_DISABLED_VALIDATOR = sBooleanValidator;
 
         /**
-         * Whether to show media art on lockscreen
-         * @hide
-         */
-        public static final String LOCKSCREEN_MEDIA_METADATA = "lockscreen_media_metadata";
-
-        /**
          * @deprecated Use {@link android.provider.Settings.Global#LOW_BATTERY_SOUND}
          * instead
          * @hide
@@ -4112,25 +4100,6 @@ public final class Settings {
         public static final String STATUS_BAR_SHOW_CARRIER = "status_bar_show_carrier";
 
        /**
-         * Whether the proximity sensor will adjust call to speaker
-         * @hide
-         */
-        public static final String PROXIMITY_AUTO_SPEAKER = "proximity_auto_speaker";
-
-        /**
-         * Time delay to activate speaker after proximity sensor triggered
-         * @hide
-         */
-        public static final String PROXIMITY_AUTO_SPEAKER_DELAY = "proximity_auto_speaker_delay";
-
-        /**
-         * Whether the proximity sensor will adjust call to speaker,
-         * only while in call (not while ringing on outgoing call)
-         * @hide
-         */
-        public static final String PROXIMITY_AUTO_SPEAKER_INCALL_ONLY = "proximity_auto_speaker_incall_only";
-
-       /**
          * Whether the proximity sensor should be used to check whether to
          * wake the device or not (e. g. for preventing pocket touches)
          *
@@ -4239,7 +4208,6 @@ public final class Settings {
          * 8 - Split Screen
          * 9 - Screen off
          * 10 - Kill app
-         * 11 - Take Screenshot
          * @hide
          */
         public static final String KEY_HOME_LONG_PRESS_ACTION = "key_home_long_press_action";
@@ -4252,6 +4220,13 @@ public final class Settings {
          */
         public static final String KEY_HOME_DOUBLE_TAP_ACTION = "key_home_double_tap_action";
 
+       /**
+         * Action to perform when the home key is short-pressed.
+         * (Default can be configured via config_shortPressOnHardwareBackBehavior)
+         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
+         * @hide
+         */
+        public static final String KEY_HOME_SHORT_PRESS_ACTION = "key_home_short_press_action";
 
         /**
          * Action to perform when the menu key is long-pressed.
@@ -4269,7 +4244,25 @@ public final class Settings {
          */
         public static final String KEY_MENU_DOUBLE_TAP_ACTION = "key_menu_double_tap_action";
 
-        /**
+       /**
+         * Action to perform when the menu key is short-pressed.
+         * (Default can be configured via config_shortPressOnHardwareBackBehavior)
+         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
+         * @hide
+         */
+        public static final String KEY_MENU_SHORT_PRESS_ACTION = "key_menu_short_press_action";
+
+
+       /**
+         * Action to perform when the back key is short-pressed.
+         * (Default can be configured via config_shortPressOnHardwareBackBehavior)
+         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
+         * @hide
+         */
+        public static final String KEY_BACK_SHORT_PRESS_ACTION = "key_back_short_press_action";
+
+
+       /**
          * Action to perform when the back key is long-pressed.
          * (Default can be configured via config_longPressOnHardwareBackBehavior)
          * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
@@ -4301,6 +4294,14 @@ public final class Settings {
          */
         public static final String KEY_ASSIST_DOUBLE_TAP_ACTION = "key_assist_double_tap_action";
 
+       /**
+         * Action to perform when the assist key is short-pressed.
+         * (Default can be configured via config_shortPressOnHardwareBackBehavior)
+         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
+         * @hide
+         */
+        public static final String KEY_ASSIST_SHORT_PRESS_ACTION = "key_assist_short_press_action";
+
         /**
          * Action to perform when the app switch key is long-pressed.
          * (Default can be configured via config_longPressOnHardwareAppSwitchBehavior)
@@ -4317,8 +4318,17 @@ public final class Settings {
          */
         public static final String KEY_APP_SWITCH_DOUBLE_TAP_ACTION = "key_app_switch_double_tap_action";
 
+       /**
+         * Action to perform when the app switch key is short-pressed.
+         * (Default can be configured via config_shortPressOnHardwareBackBehavior)
+         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
+         * @hide
+         */
+        public static final String KEY_APP_SWITCH_SHORT_PRESS_ACTION = "key_app_switch_short_press_action";
+
+
         /**
-         * Action to perform when the app switch key is long-pressed.
+         * Action to perform when the camera key is long-pressed.
          * (Default can be configured via config_longPressOnHardwareCameraBehavior)
          * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
          * @hide
@@ -4332,6 +4342,14 @@ public final class Settings {
          * @hide
          */
         public static final String KEY_CAMERA_DOUBLE_TAP_ACTION = "key_camera_double_tap_action";
+
+       /**
+         * Action to perform when the camera key is short-pressed.
+         * (Default can be configured via config_shortPressOnHardwareBackBehavior)
+         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
+         * @hide
+         */
+        public static final String KEY_CAMERA_SHORT_PRESS_ACTION = "key_camera_short_press_action";
 
         /** @hide */
         public static final Validator KEY_VALIDATOR = new Validator() {
@@ -4463,36 +4481,10 @@ public final class Settings {
         public static final String RECENT_PANEL_LEFTY_MODE = "recent_panel_lefty_mode";
 
         /**
-         * Whether to control brightness from status bar
-         * @hide
-         */
-        public static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
-
-        /**
          * Custom icon pack name to use for Slim Recents
          * @hide
          */
         public static final String SLIM_RECENTS_ICON_PACK = "slim_recents_icon_pack";
-
-        /**
-         * Volume key controls ringtone or media sound stream
-         * @hide
-         */
-        public static final String VOLUME_KEYS_CONTROL_MEDIA_STREAM =
-                "volume_keys_control_media_stream";
-
-        /**
-         * never show ime switcher notification
-         * by default its shown in the navbar on devices that supports it
-         * @hide
-         */
-        public static final String STATUS_BAR_IME_NOTIFICATION = "status_bar_ime_notification";
-
-        /**
-         * never show ime switcher button in navbar
-         * @hide
-         */
-        public static final String NAVIGATION_BAR_IME_BUTTON = "navigation_bar_ime_button";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
@@ -4661,16 +4653,22 @@ public final class Settings {
             PRIVATE_SETTINGS.add(NAVIGATION_BAR_ENABLED);
             PRIVATE_SETTINGS.add(KEY_HOME_LONG_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_HOME_DOUBLE_TAP_ACTION);
+            PRIVATE_SETTINGS.add(KEY_HOME_SHORT_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_MENU_LONG_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_MENU_DOUBLE_TAP_ACTION);
+            PRIVATE_SETTINGS.add(KEY_MENU_SHORT_PRESS_ACTION);
+            PRIVATE_SETTINGS.add(KEY_BACK_SHORT_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_BACK_LONG_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_BACK_DOUBLE_TAP_ACTION);
             PRIVATE_SETTINGS.add(KEY_ASSIST_LONG_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_ASSIST_DOUBLE_TAP_ACTION);
+            PRIVATE_SETTINGS.add(KEY_ASSIST_SHORT_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_APP_SWITCH_LONG_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_APP_SWITCH_DOUBLE_TAP_ACTION);
+            PRIVATE_SETTINGS.add(KEY_APP_SWITCH_SHORT_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_CAMERA_LONG_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_CAMERA_DOUBLE_TAP_ACTION);
+            PRIVATE_SETTINGS.add(KEY_CAMERA_SHORT_PRESS_ACTION);
             PRIVATE_SETTINGS.add(BUTTON_BRIGHTNESS);
             PRIVATE_SETTINGS.add(BUTTON_BRIGHTNESS_ENABLED);
         }

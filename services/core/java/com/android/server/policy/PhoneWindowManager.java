@@ -257,7 +257,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private static final int KEY_ACTION_SPLIT_SCREEN = 8;
     private static final int KEY_ACTION_SCREEN_OFF = 9;
     private static final int KEY_ACTION_KILL_APP = 10;
-    private static final int KEY_ACTION_SCREENSHOT = 11;
 
     // Special values, used internal only.
     private static final int KEY_ACTION_HOME = 100;
@@ -723,8 +722,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private SparseBooleanArray mKeyConsumed = new SparseBooleanArray(SUPPORTED_KEYCODE_LIST.length);
     private SparseBooleanArray mKeyDoubleTapPending = new SparseBooleanArray(SUPPORTED_KEYCODE_LIST.length);
     private SparseArray<Runnable> mKeyDoubleTapRunnable = new SparseArray<>(SUPPORTED_KEYCODE_LIST.length);
+    private SparseIntArray mKeyShortPressBehavior = new SparseIntArray(SUPPORTED_KEYCODE_LIST.length);
     private SparseIntArray mKeyLongPressBehavior = new SparseIntArray(SUPPORTED_KEYCODE_LIST.length);
     private SparseIntArray mKeyDoubleTapBehavior = new SparseIntArray(SUPPORTED_KEYCODE_LIST.length);
+    private SparseIntArray mKeyShortPressBehaviorDefaultResId = new SparseIntArray(SUPPORTED_KEYCODE_LIST.length);
     private SparseIntArray mKeyLongPressBehaviorDefaultResId = new SparseIntArray(SUPPORTED_KEYCODE_LIST.length);
     private SparseIntArray mKeyDoubleTapBehaviorDefaultResId = new SparseIntArray(SUPPORTED_KEYCODE_LIST.length);
 
@@ -1042,6 +1043,24 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.KEY_CAMERA_DOUBLE_TAP_ACTION), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.KEY_BACK_SHORT_PRESS_ACTION), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.KEY_MENU_SHORT_PRESS_ACTION), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.KEY_HOME_SHORT_PRESS_ACTION), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.KEY_ASSIST_SHORT_PRESS_ACTION), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.KEY_APP_SWITCH_SHORT_PRESS_ACTION), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.KEY_CAMERA_SHORT_PRESS_ACTION), false, this,
                     UserHandle.USER_ALL);
             updateSettings();
         }
@@ -1804,11 +1823,14 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     }
 
     /**
-     * Fires native short press action.
-     * @param keyCode The intercepted KeyEvent key code.
+     * Handle single-tap action.
+     * @param keyCode the intercepted KeyEvent key code.
      */
     private void handleShortPressOnKeyCode(int keyCode) {
-        runDefaultBehaviorAction(keyCode);
+       int shortPressBehavior = getKeyShortPressBehavior(keyCode);
+       if (shortPressBehavior != KEY_ACTION_NOTHING) {
+          runBehaviorAction(keyCode, shortPressBehavior);
+       }
     }
 
     /**
@@ -1928,6 +1950,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
     }
 
+
     /**
      * Create keyCode based runnable.
      * @param keyCode The key event code.
@@ -1988,10 +2011,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             statusbar.onCameraLaunchGestureDetected(-1);
         }
      }
-
-    private void takeScreenshot() {
-        mHandler.post(mScreenshotRunnable);
-    }
 
     /**
      * Request current window to enter multiwindow mode.
@@ -2316,6 +2335,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 mKeyConsumed.put(keyCode, false);
                 mKeyDoubleTapPending.put(keyCode, false);
                 mKeyDoubleTapRunnable.put(keyCode, createDoubleTapTimeoutRunnable(keyCode));
+                mKeyShortPressBehaviorDefaultResId.put(keyCode, getKeyShortPressBehaviorResId(keyCode));
                 mKeyDoubleTapBehaviorDefaultResId.put(keyCode, getKeyDoubleTapBehaviorResId(keyCode));
                 mKeyLongPressBehaviorDefaultResId.put(keyCode, getKeyLongPressBehaviorResId(keyCode));
              }
@@ -2391,6 +2411,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         for (int i = 0; i < SUPPORTED_KEYCODE_LIST.length; i++) {
             final int keyCode = SUPPORTED_KEYCODE_LIST[i];
             int behavior;
+            // short press
+            behavior = res.getInteger(getKeyShortPressBehaviorResId(keyCode));
+            if (behavior < KEY_ACTION_NOTHING || behavior > SUPPORTED_KEY_ACTIONS.length) {
+                behavior = KEY_ACTION_NOTHING;
+            }
             // long press
             behavior = res.getInteger(getKeyLongPressBehaviorResId(keyCode));
             if (behavior < KEY_ACTION_NOTHING || behavior > SUPPORTED_KEY_ACTIONS.length) {
@@ -2406,6 +2431,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
 
         if (hasHome) {
+            mKeyShortPressBehavior.put(KeyEvent.KEYCODE_HOME, Settings.System.getIntForUser(resolver,
+                    Settings.System.KEY_HOME_SHORT_PRESS_ACTION,
+                    mKeyShortPressBehavior.get(KeyEvent.KEYCODE_HOME), UserHandle.USER_CURRENT));
             mKeyLongPressBehavior.put(KeyEvent.KEYCODE_HOME, Settings.System.getIntForUser(resolver,
                     Settings.System.KEY_HOME_LONG_PRESS_ACTION,
                     mKeyLongPressBehavior.get(KeyEvent.KEYCODE_HOME), UserHandle.USER_CURRENT));
@@ -2415,6 +2443,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
 
         if (hasMenu) {
+            mKeyShortPressBehavior.put(KeyEvent.KEYCODE_MENU, Settings.System.getIntForUser(resolver,
+                    Settings.System.KEY_MENU_SHORT_PRESS_ACTION,
+                    mKeyShortPressBehavior.get(KeyEvent.KEYCODE_MENU), UserHandle.USER_CURRENT));
             mKeyLongPressBehavior.put(KeyEvent.KEYCODE_MENU, Settings.System.getIntForUser(resolver,
                     Settings.System.KEY_MENU_LONG_PRESS_ACTION,
                     mKeyLongPressBehavior.get(KeyEvent.KEYCODE_MENU), UserHandle.USER_CURRENT));
@@ -2424,6 +2455,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
 
         if (hasBack) {
+            mKeyShortPressBehavior.put(KeyEvent.KEYCODE_BACK, Settings.System.getIntForUser(resolver,
+                    Settings.System.KEY_BACK_SHORT_PRESS_ACTION,
+                    mKeyShortPressBehavior.get(KeyEvent.KEYCODE_BACK), UserHandle.USER_CURRENT));
             mKeyLongPressBehavior.put(KeyEvent.KEYCODE_BACK, Settings.System.getIntForUser(resolver,
                     Settings.System.KEY_BACK_LONG_PRESS_ACTION,
                     mKeyLongPressBehavior.get(KeyEvent.KEYCODE_BACK), UserHandle.USER_CURRENT));
@@ -2433,6 +2467,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
 
         if (hasAssist) {
+            mKeyShortPressBehavior.put(KeyEvent.KEYCODE_ASSIST, Settings.System.getIntForUser(resolver,
+                    Settings.System.KEY_ASSIST_SHORT_PRESS_ACTION,
+                    mKeyShortPressBehavior.get(KeyEvent.KEYCODE_ASSIST), UserHandle.USER_CURRENT));
             mKeyLongPressBehavior.put(KeyEvent.KEYCODE_ASSIST, Settings.System.getIntForUser(resolver,
                     Settings.System.KEY_ASSIST_LONG_PRESS_ACTION,
                     mKeyLongPressBehavior.get(KeyEvent.KEYCODE_ASSIST), UserHandle.USER_CURRENT));
@@ -2442,6 +2479,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
 
         if (hasAppSwitch) {
+            mKeyShortPressBehavior.put(KeyEvent.KEYCODE_APP_SWITCH, Settings.System.getIntForUser(resolver,
+                    Settings.System.KEY_APP_SWITCH_SHORT_PRESS_ACTION,
+                    mKeyShortPressBehavior.get(KeyEvent.KEYCODE_APP_SWITCH), UserHandle.USER_CURRENT));
             mKeyLongPressBehavior.put(KeyEvent.KEYCODE_APP_SWITCH, Settings.System.getIntForUser(resolver,
                     Settings.System.KEY_APP_SWITCH_LONG_PRESS_ACTION,
                     mKeyLongPressBehavior.get(KeyEvent.KEYCODE_APP_SWITCH), UserHandle.USER_CURRENT));
@@ -2451,6 +2491,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
 
         if (hasCamera) {
+            mKeyShortPressBehavior.put(KeyEvent.KEYCODE_CAMERA, Settings.System.getIntForUser(resolver,
+                    Settings.System.KEY_CAMERA_SHORT_PRESS_ACTION,
+                    mKeyShortPressBehavior.get(KeyEvent.KEYCODE_CAMERA), UserHandle.USER_CURRENT));
             mKeyLongPressBehavior.put(KeyEvent.KEYCODE_CAMERA, Settings.System.getIntForUser(resolver,
                     Settings.System.KEY_CAMERA_LONG_PRESS_ACTION,
                     mKeyLongPressBehavior.get(KeyEvent.KEYCODE_CAMERA), UserHandle.USER_CURRENT));
@@ -3713,8 +3756,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             KEY_ACTION_LAST_APP,
             KEY_ACTION_SPLIT_SCREEN,
             KEY_ACTION_SCREEN_OFF,
-            KEY_ACTION_KILL_APP,
-            KEY_ACTION_SCREENSHOT
+            KEY_ACTION_KILL_APP
         };
 
     /**
@@ -3799,6 +3841,21 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     }
 
     /**
+     * @return key code's short press behavior.
+     * @param keyCode the KeyEvent key code.
+     */
+    private int getKeyShortPressBehavior(int keyCode) {
+        int behavior = -1;
+        try {
+            behavior = mKeyShortPressBehavior.get(keyCode);
+        } catch (NullPointerException e) {
+           // Ops.
+        } finally {
+           return behavior;
+        }
+    }
+
+    /**
      * @return key code's long press behavior.
      * @param keyCode the KeyEvent key code.
      */
@@ -3871,6 +3928,28 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return 0;
     }
+  
+    /**
+     * @return the default res id for the key short press default action.
+     * @param keyCode the KeyEvent key code.
+     */
+    private int getKeyShortPressBehaviorResId(int keyCode) {
+       switch(keyCode) {
+          case KeyEvent.KEYCODE_HOME:
+            return com.android.internal.R.integer.config_shortPressOnHomeKeyBehavior;
+          case KeyEvent.KEYCODE_BACK:
+            return com.android.internal.R.integer.config_shortPressOnBackKeyBehavior;
+          case KeyEvent.KEYCODE_MENU:
+            return com.android.internal.R.integer.config_shortPressOnMenuKeyBehavior;
+          case KeyEvent.KEYCODE_ASSIST:
+            return com.android.internal.R.integer.config_shortPressOnAssistKeyBehavior;
+          case KeyEvent.KEYCODE_APP_SWITCH:
+            return com.android.internal.R.integer.config_shortPressOnAppSwitchKeyBehavior;
+          case KeyEvent.KEYCODE_CAMERA:
+            return com.android.internal.R.integer.config_shortPressOnCameraKeyBehavior;
+       }
+       return 0;
+    }
 
     /**
      * @return if key code is supported by custom policy.
@@ -3937,36 +4016,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             case KEY_ACTION_KILL_APP:
                 mHandler.postDelayed(mBackLongPress, mBackKillTimeout);
                 break;
-            case KEY_ACTION_SCREENSHOT:
-                takeScreenshot();
-                break;
         }
     }
 
-    /**
-     * Execute key code default action.
-     * @param keyCode the KeyEvent key code.
-     */
-    private void runDefaultBehaviorAction(int keyCode) {
-        switch(keyCode) {
-            case KeyEvent.KEYCODE_HOME:
-                launchHomeFromHotKey();
-                break;
-            case KeyEvent.KEYCODE_BACK:
-            case KeyEvent.KEYCODE_MENU:
-                triggerVirtualKeypress(keyCode, false);
-                break;
-            case KeyEvent.KEYCODE_ASSIST:
-                launchAssistAction(null, -1);
-                break;
-            case KeyEvent.KEYCODE_APP_SWITCH:
-                toggleRecentApps();
-                break;
-            case KeyEvent.KEYCODE_CAMERA:
-                launchCamera();
-                break;
-        }
-    }
 
     /** {@inheritDoc} */
     @Override
@@ -4129,6 +4181,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 setKeyPressed(keyCode, true);
                 setKeyConsumed(keyCode, false);
                 final boolean doubleTapPending = isKeyDoubleTapPending(keyCode);
+                final int shortPressBehavior = getKeyShortPressBehavior(keyCode);
                 final int longPressBehavior = getKeyLongPressBehavior(keyCode);
                 final int doubleTapBehavior = getKeyDoubleTapBehavior(keyCode);
                 if (doubleTapPending) {

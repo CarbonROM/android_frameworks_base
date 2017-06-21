@@ -96,6 +96,12 @@
   <java-symbol type="integer" name="config_longPressOnAssistKeyBehavior" />
   <java-symbol type="integer" name="config_longPressOnAppSwitchKeyBehavior" />
   <java-symbol type="integer" name="config_longPressOnCameraKeyBehavior" />
+  <java-symbol type="integer" name="config_shortPressOnHomeKeyBehavior" />
+  <java-symbol type="integer" name="config_shortPressOnBackKeyBehavior" />
+  <java-symbol type="integer" name="config_shortPressOnMenuKeyBehavior" />
+  <java-symbol type="integer" name="config_shortPressOnAssistKeyBehavior" />
+  <java-symbol type="integer" name="config_shortPressOnAppSwitchKeyBehavior" />
+  <java-symbol type="integer" name="config_shortPressOnCameraKeyBehavior" />
 
   <!-- Button Brightness -->
   <java-symbol type="integer" name="config_buttonBrightnessSettingMinimum" />
@@ -138,6 +144,4 @@
   <java-symbol type="string" name="app_killed_message" />
   <java-symbol type="string" name="no_app_killed_message" />
   <java-symbol type="integer" name="config_backKillTimeout" />
-
-  <java-symbol type="array" name="config_blockPackagesSensorDrain" />
 </resources>
