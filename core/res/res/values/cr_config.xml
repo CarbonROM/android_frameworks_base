@@ -83,6 +83,7 @@
     <!-- back -->
     <integer name="config_longPressOnBackKeyBehavior">0</integer>
     <integer name="config_doubleTapOnBackKeyBehavior">0</integer>
+    <integer name="config_shortPressOnBackKeyBehavior">0</integer>
     <!-- assist -->
     <integer name="config_longPressOnAssistKeyBehavior">0</integer>
     <integer name="config_doubleTapOnAssistKeyBehavior">0</integer>
