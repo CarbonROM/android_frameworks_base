@@ -4252,6 +4252,13 @@ public final class Settings {
          */
         public static final String KEY_HOME_DOUBLE_TAP_ACTION = "key_home_double_tap_action";
 
+       /**
+         * Action to perform when the home key is short-pressed.
+         * (Default can be configured via config_shortPressOnHardwareBackBehavior)
+         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
+         * @hide
+         */
+        public static final String KEY_HOME_SHORT_PRESS_ACTION = "key_home_short_press_action";
 
         /**
          * Action to perform when the menu key is long-pressed.
@@ -4269,7 +4276,25 @@ public final class Settings {
          */
         public static final String KEY_MENU_DOUBLE_TAP_ACTION = "key_menu_double_tap_action";
 
-        /**
+       /**
+         * Action to perform when the menu key is short-pressed.
+         * (Default can be configured via config_shortPressOnHardwareBackBehavior)
+         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
+         * @hide
+         */
+        public static final String KEY_MENU_SHORT_PRESS_ACTION = "key_menu_short_press_action";
+
+
+       /**
+         * Action to perform when the back key is short-pressed.
+         * (Default can be configured via config_shortPressOnHardwareBackBehavior)
+         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
+         * @hide
+         */
+        public static final String KEY_BACK_SHORT_PRESS_ACTION = "key_back_short_press_action";
+
+
+       /**
          * Action to perform when the back key is long-pressed.
          * (Default can be configured via config_longPressOnHardwareBackBehavior)
          * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
@@ -4301,6 +4326,14 @@ public final class Settings {
          */
         public static final String KEY_ASSIST_DOUBLE_TAP_ACTION = "key_assist_double_tap_action";
 
+       /**
+         * Action to perform when the assist key is short-pressed.
+         * (Default can be configured via config_shortPressOnHardwareBackBehavior)
+         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
+         * @hide
+         */
+        public static final String KEY_ASSIST_SHORT_PRESS_ACTION = "key_assist_short_press_action";
+
         /**
          * Action to perform when the app switch key is long-pressed.
          * (Default can be configured via config_longPressOnHardwareAppSwitchBehavior)
@@ -4317,8 +4350,17 @@ public final class Settings {
          */
         public static final String KEY_APP_SWITCH_DOUBLE_TAP_ACTION = "key_app_switch_double_tap_action";
 
+       /**
+         * Action to perform when the app switch key is short-pressed.
+         * (Default can be configured via config_shortPressOnHardwareBackBehavior)
+         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
+         * @hide
+         */
+        public static final String KEY_APP_SWITCH_SHORT_PRESS_ACTION = "key_app_switch_short_press_action";
+
+
         /**
-         * Action to perform when the app switch key is long-pressed.
+         * Action to perform when the camera key is long-pressed.
          * (Default can be configured via config_longPressOnHardwareCameraBehavior)
          * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
          * @hide
@@ -4332,6 +4374,14 @@ public final class Settings {
          * @hide
          */
         public static final String KEY_CAMERA_DOUBLE_TAP_ACTION = "key_camera_double_tap_action";
+
+       /**
+         * Action to perform when the camera key is short-pressed.
+         * (Default can be configured via config_shortPressOnHardwareBackBehavior)
+         * (See KEY_HOME_LONG_PRESS_ACTION for valid values)
+         * @hide
+         */
+        public static final String KEY_CAMERA_SHORT_PRESS_ACTION = "key_camera_short_press_action";
 
         /** @hide */
         public static final Validator KEY_VALIDATOR = new Validator() {
@@ -4659,16 +4709,22 @@ public final class Settings {
             PRIVATE_SETTINGS.add(EGG_MODE);
             // New private settings.
             PRIVATE_SETTINGS.add(NAVIGATION_BAR_ENABLED);
+            PRIVATE_SETTINGS.add(KEY_HOME_SHORT_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_HOME_LONG_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_HOME_DOUBLE_TAP_ACTION);
+            PRIVATE_SETTINGS.add(KEY_MENU_SHORT_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_MENU_LONG_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_MENU_DOUBLE_TAP_ACTION);
+            PRIVATE_SETTINGS.add(KEY_BACK_SHORT_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_BACK_LONG_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_BACK_DOUBLE_TAP_ACTION);
+            PRIVATE_SETTINGS.add(KEY_ASSIST_SHORT_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_ASSIST_LONG_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_ASSIST_DOUBLE_TAP_ACTION);
+            PRIVATE_SETTINGS.add(KEY_APP_SWITCH_SHORT_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_APP_SWITCH_LONG_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_APP_SWITCH_DOUBLE_TAP_ACTION);
+            PRIVATE_SETTINGS.add(KEY_CAMERA_SHORT_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_CAMERA_LONG_PRESS_ACTION);
             PRIVATE_SETTINGS.add(KEY_CAMERA_DOUBLE_TAP_ACTION);
             PRIVATE_SETTINGS.add(BUTTON_BRIGHTNESS);
