@@ -60,6 +60,8 @@
     <integer name="config_autoBrightnessBrighteningLightFastDebounce">500</integer>
 
     <!-- Control the behavior when the user long presses or double taps one of the below keys.
+          100 - Home
+          101 - Back
             0 - Nothing
             1 - Menu key
             2 - Recent apps view in SystemUI
@@ -78,21 +80,27 @@
     <!-- home -->
     <integer name="config_longPressOnHomeKeyBehavior">0</integer>
     <integer name="config_doubleTapOnHomeKeyBehavior">0</integer>
+    <integer name="config_shortPressOnHomeKeyBehavior">100</integer>
     <!-- menu -->
     <integer name="config_longPressOnMenuKeyBehavior">0</integer>
     <integer name="config_doubleTapOnMenuKeyBehavior">0</integer>
+    <integer name="config_shortPressOnMenuKeyBehavior">1</integer>
     <!-- back -->
     <integer name="config_longPressOnBackKeyBehavior">0</integer>
     <integer name="config_doubleTapOnBackKeyBehavior">0</integer>
+    <integer name="config_shortPressOnBackKeyBehavior">101</integer>
     <!-- assist -->
     <integer name="config_longPressOnAssistKeyBehavior">0</integer>
     <integer name="config_doubleTapOnAssistKeyBehavior">0</integer>
+    <integer name="config_shortPressOnAssistKeyBehavior">3</integer>
     <!-- app switch -->
     <integer name="config_longPressOnAppSwitchKeyBehavior">0</integer>
     <integer name="config_doubleTapOnAppSwitchKeyBehavior">0</integer>
+    <integer name="config_shortPressOnAppSwitchKeyBehavior">2</integer>
     <!-- camera -->
     <integer name="config_longPressOnCameraKeyBehavior">0</integer>
     <integer name="config_doubleTapOnCameraKeyBehavior">0</integer>
+    <integer name="config_shortPressOnCameraKeyBehavior">6</integer>
 
     <!-- Hardware 'face' keys present on the device, stored as a bit field.
          This integer should equal the sum of the corresponding value for each
