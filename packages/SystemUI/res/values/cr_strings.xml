@@ -31,5 +31,6 @@
     <!-- Screenshot QS Tile -->
     <string name="quick_settings_screenshot_label">Screenshot</string>
     <string name="quick_settings_region_screenshot_label">Partial screenshot</string>
+    <string name="quick_settings_extended_screenshot_label">Extended screenshot</string>
 
 </resources>
