@@ -4052,6 +4052,7 @@ public final class Settings {
         /**
          * 0 - fullscreen
          * 1 - partial
+         * 2 - extended
          * @hide
          */
         public static final String SCREENSHOT_DEFAULT_MODE = "screenshot_default_mode";
