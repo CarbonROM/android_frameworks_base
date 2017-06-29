@@ -40,6 +40,7 @@ import com.android.internal.logging.MetricsProto.MetricsEvent;
 public class ScreenshotTile extends QSTile<QSTile.BooleanState> {
 
     private boolean mRegion = false;
+    private boolean mExpanded = false;
 
     private boolean mListening;
     private final Object mScreenshotLock = new Object();
@@ -70,6 +71,7 @@ public class ScreenshotTile extends QSTile<QSTile.BooleanState> {
     @Override
     public void handleClick() {
         mRegion = !mRegion;
+        mExpanded = !mExpanded;
         refreshState();
     }
 
@@ -84,6 +86,8 @@ public class ScreenshotTile extends QSTile<QSTile.BooleanState> {
              // Do nothing
         }
         takeScreenshot(mRegion ? 2 : 1);
+        //WIP
+        takeScreenshot(mExpanded);
     }
 
     @Override
@@ -103,6 +107,11 @@ public class ScreenshotTile extends QSTile<QSTile.BooleanState> {
             state.icon = ResourceIcon.get(R.drawable.ic_qs_region_screenshot);
             state.contentDescription =  mContext.getString(
                     R.string.quick_settings_region_screenshot_label);
+        } else if (mExpanded){
+            state.label = mContext.getString(R.string.quick_settings_expanded_screenshot_label);
+            state.icon = ResourceIcon.get(R.drawable.ic_qs_expanded_screenshot);
+            state.contentDescription =  mContext.getString(
+                    R.string.quick_settings_expanded_screenshot_label);
         } else {
             state.label = mContext.getString(R.string.quick_settings_screenshot_label);
             state.icon = ResourceIcon.get(R.drawable.ic_qs_screenshot);
