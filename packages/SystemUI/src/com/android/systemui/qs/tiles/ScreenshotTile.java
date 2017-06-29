@@ -20,8 +20,11 @@ package com.android.systemui.qs.tiles;
 
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.provider.Settings;
+import android.provider.Settings.Secure;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -70,6 +73,7 @@ public class ScreenshotTile extends QSTile<QSTile.BooleanState> {
     @Override
     public void handleClick() {
         mRegion = !mRegion;
+        mExpanded= !mExpanded;
         refreshState();
     }
 
@@ -84,6 +88,8 @@ public class ScreenshotTile extends QSTile<QSTile.BooleanState> {
              // Do nothing
         }
         takeScreenshot(mRegion ? 2 : 1);
+        //WIP
+        takeScreenshot(mExpanded);
     }
 
     @Override
@@ -98,11 +104,17 @@ public class ScreenshotTile extends QSTile<QSTile.BooleanState> {
 
     @Override
     protected void handleUpdateState(BooleanState state, Object arg) {
+        boolean mExpanded = isExpandedScreenshotEnabled();
         if (mRegion) {
             state.label = mContext.getString(R.string.quick_settings_region_screenshot_label);
             state.icon = ResourceIcon.get(R.drawable.ic_qs_region_screenshot);
             state.contentDescription =  mContext.getString(
                     R.string.quick_settings_region_screenshot_label);
+        } else if (mExpanded{
+            state.label = mContext.getString(R.string.quick_settings_expanded_screenshot_label);
+            state.icon = ResourceIcon.get(R.drawable.ic_qs_expanded_screenshot);
+            state.contentDescription =  mContext.getString(
+                    R.string.quick_settings_expanded_screenshot_label);
         } else {
             state.label = mContext.getString(R.string.quick_settings_screenshot_label);
             state.icon = ResourceIcon.get(R.drawable.ic_qs_screenshot);
@@ -178,6 +190,11 @@ public class ScreenshotTile extends QSTile<QSTile.BooleanState> {
     private void checkSettings() {
         mScreenshotDelay = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.SCREENSHOT_DELAY, 100);
+    }
+
+    public boolean isExpandedScreenshotEnabled() {
+        return Settings.Secure.getInt(mContext.getContentResolver(),
+            Settings.Secure.SCREENSHOT_TYPE_EXPANDED, 0) == 1;
     }
 }
 
