@@ -3793,6 +3793,12 @@ public final class Settings {
         public static final String SCREENSHOT_TYPE = "screenshot_type";
 
         /**
+         * Whether to allow fullscreen screenshots or let the user select which area to screenshot
+         * @hide
+         */
+        public static final String SCREENSHOT_TYPE_EXPANDED = "screenshot_type_expanded";
+
+        /**
          * Enable double tap gesture anywhere on the lock screen put device to sleep
          * @hide
          */
