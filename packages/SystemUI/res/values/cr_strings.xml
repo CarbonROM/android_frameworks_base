@@ -47,6 +47,7 @@
     <string name="accessibility_quick_settings_sync_changed_on">Sync turned on</string>
     <string name="quick_settings_screenshot_label">Screenshot</string>
     <string name="quick_settings_region_screenshot_label">Partial screenshot</string>
+    <string name="quick_settings_expanded_screenshot_label">Expanded screenshot</string>
     <string name="quick_settings_androidauto_label">Android Auto</string>
     <string name="quick_settings_sound_label">Sound</string>
     <string name="quick_settings_sound_ring">Ring</string>
