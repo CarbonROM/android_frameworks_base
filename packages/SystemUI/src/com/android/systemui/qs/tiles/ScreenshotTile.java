@@ -18,10 +18,13 @@
 
 package com.android.systemui.qs.tiles;
 
+import java.util.Arrays;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.provider.Settings;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -39,7 +42,11 @@ import com.android.internal.logging.MetricsProto.MetricsEvent;
 /** Quick settings tile: Screenshot **/
 public class ScreenshotTile extends QSTile<QSTile.BooleanState> {
 
-    private boolean mRegion = false;
+    /*private boolean mRegion = false;
+    private boolean mExpanded = false;
+    private boolean mNormal = true;*/
+
+    private boolean mArray[] = {false,false,true};
 
     private boolean mListening;
     private final Object mScreenshotLock = new Object();
@@ -69,7 +76,9 @@ public class ScreenshotTile extends QSTile<QSTile.BooleanState> {
 
     @Override
     public void handleClick() {
-        mRegion = !mRegion;
+        mArray[0] = mArray [2];
+        mArray[1] = mArray [0];
+        mArray[2] = mArray [1];
         refreshState();
     }
 
@@ -83,7 +92,16 @@ public class ScreenshotTile extends QSTile<QSTile.BooleanState> {
         } catch (InterruptedException ie) {
              // Do nothing
         }
-        takeScreenshot(mRegion ? 2 : 1);
+        //takeScreenshot(mArray[1] ? 3 : mArray[0] ? 2 : 1);
+        if (mArray[0]){
+            takeScreenshot(2);
+        }
+        else if (mArray[1]){
+            takeScreenshot(3);
+        }
+        else if(mArray[2]){
+            takeScreenshot(1);
+        }
     }
 
     @Override
@@ -98,12 +116,17 @@ public class ScreenshotTile extends QSTile<QSTile.BooleanState> {
 
     @Override
     protected void handleUpdateState(BooleanState state, Object arg) {
-        if (mRegion) {
+        if (mArray[0]) {
             state.label = mContext.getString(R.string.quick_settings_region_screenshot_label);
             state.icon = ResourceIcon.get(R.drawable.ic_qs_region_screenshot);
             state.contentDescription =  mContext.getString(
                     R.string.quick_settings_region_screenshot_label);
-        } else {
+        } else if (mArray[1] && isExpandedScreenshotEnabled()) {
+            state.label = mContext.getString(R.string.quick_settings_expanded_screenshot_label);
+            //state.icon = ResourceIcon.get(R.drawable.ic_qs_expanded_screenshot);
+            state.contentDescription =  mContext.getString(
+                    R.string.quick_settings_expanded_screenshot_label);
+        } else if (mArray[2]) {
             state.label = mContext.getString(R.string.quick_settings_screenshot_label);
             state.icon = ResourceIcon.get(R.drawable.ic_qs_screenshot);
             state.contentDescription =  mContext.getString(
@@ -178,6 +201,11 @@ public class ScreenshotTile extends QSTile<QSTile.BooleanState> {
     private void checkSettings() {
         mScreenshotDelay = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.SCREENSHOT_DELAY, 100);
+    }
+
+    public boolean isExpandedScreenshotEnabled() {
+        return Settings.System.getInt(mContext.getContentResolver(),
+            Settings.System.SCREENSHOT_TYPE_EXPANDED, 0) == 1;
     }
 }
 
