@@ -546,7 +546,7 @@ class GlobalScreenshot {
      * Takes a screenshot of the current display and shows an animation.
      */
     void takeScreenshot(Runnable finisher, boolean statusBarVisible, boolean navBarVisible,
-            int x, int y, int width, int height) {
+            int x, int y, int width, int height, int expanded) {
         // We need to orient the screenshot correctly (and the Surface api seems to take screenshots
         // only in the natural orientation of the device :!)
         mDisplay.getRealMetrics(mDisplayMetrics);
@@ -563,13 +563,40 @@ class GlobalScreenshot {
         }
 
         // Take the screenshot
-        mScreenBitmap = SurfaceControl.screenshot((int) dims[0], (int) dims[1]);
-        if (mScreenBitmap == null) {
-            notifyScreenshotError(mContext, mNotificationManager,
-                    R.string.screenshot_failed_to_capture_text);
-            finisher.run();
-            return;
-        }
+        if (expanded) {  //expanded screenshot
+	     Scroller mScroller(mContext);
+             int numOfStitches = getResources().getDisplayMetrics() * computeVerticalScrollRange() / dims[1]; //calculate scroll range
+             Bitmap screenGrab[numOfStitches];
+             for(int i = 0; i < numOfStitches; i++) {
+                 screenGrab[i] = SurfaceControl.screenshot((int) dims[0], (int) dims[1]);
+                 if (screenGrab[i] == null) {
+                     notifyScreenshotError(mContext, mNotificationManager,
+                          R.string.screenshot_failed_to_capture_text);
+                     finisher.run();
+                 }
+                 mScroller.startScroll(0, 0, i * dims[i], 0);
+                 invalidate();
+                   //scrolls phone
+             }
+             Bitmap fullBitmap = Bitmap.createBitmap(dims[0], numOfStitches * dims[1], screenGrab[i].getConfig());  //creating the final bitmap
+             Canvas c = new Canvas(fullBitmap);
+             for(int i = 0; i < numOfStitches; i++) {
+                if(i == 0)
+                    c.drawBitmap(screenGrab[i], new Matrix(), null);
+                else
+                    c.drawBitmap(screenGrab[i], 0, (i + 1) * dims[1], null);
+             }
+             mScreenBitmap = fullBitmap;
+           
+        } else	//regular fullscreen screenshot       
+             mScreenBitmap = SurfaceControl.screenshot((int) dims[0], (int) dims[1]);
+ 
+         if (mScreenBitmap == null) {
+             notifyScreenshotError(mContext, mNotificationManager,
+                  R.string.screenshot_failed_to_capture_text);
+             finisher.run();
+             return;
+          }
 
         if (requiresRotation) {
             // Rotate the screenshot to the current orientation
