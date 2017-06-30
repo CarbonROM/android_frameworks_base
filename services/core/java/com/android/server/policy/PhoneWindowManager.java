@@ -30,6 +30,7 @@ import static android.view.WindowManager.DOCKED_LEFT;
 import static android.view.WindowManager.DOCKED_RIGHT;
 import static android.view.WindowManager.TAKE_SCREENSHOT_FULLSCREEN;
 import static android.view.WindowManager.TAKE_SCREENSHOT_SELECTED_REGION;
+import static android.view.WindowManager.TAKE_SCREENSHOT_EXPANDED;
 import static android.view.WindowManager.LayoutParams.*;
 import static android.view.WindowManagerPolicy.WindowManagerFuncs.CAMERA_LENS_COVERED;
 import static android.view.WindowManagerPolicy.WindowManagerFuncs.CAMERA_LENS_COVER_ABSENT;
@@ -4277,10 +4278,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         } else if (keyCode == KeyEvent.KEYCODE_S && event.isMetaPressed()
                 && event.isCtrlPressed()) {
             if (down && repeatCount == 0) {
-                int type = (event.isShiftPressed() ||
-                    Settings.System.getInt(mContext.getContentResolver(),
-                    Settings.System.SCREENSHOT_TYPE, 0) == 1) ?
-                    TAKE_SCREENSHOT_SELECTED_REGION : TAKE_SCREENSHOT_FULLSCREEN;
+                int type = 0;
+                if(event.isShiftPressed()) {
+                    if(Settings.System.getInt(mContext.getContentResolver(),Settings.System.SCREENSHOT_TYPE, 0) == 1)
+                        type = TAKE_SCREENSHOT_SELECTED_REGION;
+                    else if(Settings.System.getInt(mContext.getContentResolver(),Settings.System.SCREENSHOT_TYPE, 0) == 2)
+                        type = TAKE_SCREENSHOT_EXPANDED;
+                    else
+                        type = TAKE_SCREENSHOT_FULLSCREEN;
+                }
                 mScreenshotRunnable.setScreenshotType(type);
                 mHandler.post(mScreenshotRunnable);
                 return -1;
