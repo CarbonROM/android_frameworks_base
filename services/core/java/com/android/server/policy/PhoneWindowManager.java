@@ -109,6 +109,7 @@ import static android.view.WindowManager.LayoutParams.TYPE_WALLPAPER;
 import static android.view.WindowManager.LayoutParams.isSystemAlertWindowType;
 import static android.view.WindowManager.TAKE_SCREENSHOT_FULLSCREEN;
 import static android.view.WindowManager.TAKE_SCREENSHOT_SELECTED_REGION;
+import static android.view.WindowManager.TAKE_SCREENSHOT_EXTENDED;
 import static android.view.WindowManagerGlobal.ADD_OKAY;
 import static android.view.WindowManagerGlobal.ADD_PERMISSION_DENIED;
 import static android.view.WindowManagerPolicy.WindowManagerFuncs.CAMERA_LENS_COVERED;
@@ -3577,10 +3578,17 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 && event.isCtrlPressed()) {
             if (down && repeatCount == 0) {
                 int type = event.isShiftPressed() ? TAKE_SCREENSHOT_SELECTED_REGION
-                        : TAKE_SCREENSHOT_FULLSCREEN;
+                        : TAKE_SCREENSHOT_EXTENDED;	//needs work
+/*                if(event.isShiftPressed()) {
+                    if(Settings.System.getInt(mContext.getContentResolver(),Settings.System.SCREENSHOT_TYPE, 0) == 1)
+                        type = TAKE_SCREENSHOT_SELECTED_REGION;
+                    else if(Settings.System.getInt(mContext.getContentResolver(),Settings.System.SCREENSHOT_TYPE, 0) == 2)
+                        type = TAKE_SCREENSHOT_EXTENDED;
+                    else
+                        type = TAKE_SCREENSHOT_FULLSCREEN;
+                }*/
                 mScreenshotRunnable.setScreenshotType(type);
                 mHandler.post(mScreenshotRunnable);
-                return -1;
             }
         } else if (keyCode == KeyEvent.KEYCODE_SLASH && event.isMetaPressed()) {
             if (down && repeatCount == 0 && !isKeyguardLocked()) {
