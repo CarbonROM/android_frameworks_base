@@ -44,6 +44,7 @@ import android.media.MediaActionSound;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Environment;
 import android.os.Process;
 import android.provider.MediaStore;
@@ -64,11 +65,15 @@ import com.android.internal.messages.SystemMessageProto.SystemMessage;
 import com.android.systemui.R;
 import com.android.systemui.SystemUI;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -546,7 +551,7 @@ class GlobalScreenshot {
      * Takes a screenshot of the current display and shows an animation.
      */
     void takeScreenshot(Runnable finisher, boolean statusBarVisible, boolean navBarVisible,
-            int x, int y, int width, int height) {
+            int x, int y, int width, int height, boolean expanded) {
         // We need to orient the screenshot correctly (and the Surface api seems to take screenshots
         // only in the natural orientation of the device :!)
         mDisplay.getRealMetrics(mDisplayMetrics);
@@ -563,13 +568,44 @@ class GlobalScreenshot {
         }
 
         // Take the screenshot
-        mScreenBitmap = SurfaceControl.screenshot((int) dims[0], (int) dims[1]);
-        if (mScreenBitmap == null) {
-            notifyScreenshotError(mContext, mNotificationManager,
-                    R.string.screenshot_failed_to_capture_text);
-            finisher.run();
-            return;
+        ArrayList<Bitmap> imagesToStitch = new ArrayList<Bitmap>();
+        for (int i = 0; ; i++) {
+            if (expanded) {
+                try {   //delay screenshots
+                    Thread.sleep(4000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            imagesToStitch.add(SurfaceControl.screenshot((int) dims[0], (int) dims[1]));
+            if (imagesToStitch.get(i) == null) {
+                notifyScreenshotError(mContext, mNotificationManager,
+                        R.string.screenshot_failed_to_capture_text);
+                finisher.run();
+                return;
+            }
+
+            if (i != 0)
+                if (imagesToStitch.get(i).sameAs(imagesToStitch.get(i - 1))) {//if match, we are done
+                    imagesToStitch.remove(i);   //remove duplicate screenshot
+                    break;
+                }
+
+            if (expanded) {  //move the screen, then sleep.
+                try {
+                    java.lang.Process process = Runtime.getRuntime().exec("input swipe " +
+                            dims[0] / 2 + " " + dims[1] / 2 + " " + dims[0] / 2 + " " +
+                            dims[0] / 7);
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(
+                            process.getInputStream()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else
+                break;
         }
+        mScreenBitmap = mergeBitmapVertical(imagesToStitch);
 
         if (requiresRotation) {
             // Rotate the screenshot to the current orientation
@@ -602,10 +638,11 @@ class GlobalScreenshot {
                 statusBarVisible, navBarVisible);
     }
 
-    void takeScreenshot(Runnable finisher, boolean statusBarVisible, boolean navBarVisible) {
+    void takeScreenshot(Runnable finisher, boolean statusBarVisible, boolean navBarVisible,
+                        boolean isExpanded) {
         mDisplay.getRealMetrics(mDisplayMetrics);
         takeScreenshot(finisher, statusBarVisible, navBarVisible, 0, 0, mDisplayMetrics.widthPixels,
-                mDisplayMetrics.heightPixels);
+                mDisplayMetrics.heightPixels, isExpanded);
     }
 
     /**
@@ -635,7 +672,8 @@ class GlobalScreenshot {
                                 mScreenshotLayout.post(new Runnable() {
                                     public void run() {
                                         takeScreenshot(finisher, statusBarVisible, navBarVisible,
-                                                rect.left, rect.top, rect.width(), rect.height());
+                                                rect.left, rect.top, rect.width(), rect.height(),
+                                                false);
                                     }
                                 });
                             }
@@ -655,6 +693,24 @@ class GlobalScreenshot {
                 mScreenshotSelectorView.requestFocus();
             }
         });
+    }
+
+    /**
+     *  Merges two bitmaps together vertically.
+     */
+    Bitmap mergeBitmapVertical(ArrayList<Bitmap> imagesToStitch) {
+        int vertHeight = 0;
+        for(int i = 0; i < imagesToStitch.size(); i++)
+            vertHeight += imagesToStitch.get(i).getHeight();
+//        vertHeight /= imagesToStitch.get(0).getHeight(); //we scale
+
+        Bitmap merge = Bitmap.createBitmap(imagesToStitch.get(0).getWidth(), vertHeight,
+                imagesToStitch.get(0).getConfig());
+
+        Canvas c = new Canvas(merge);
+        for(int i = 0; i < imagesToStitch.size(); i++)
+            c.drawBitmap(imagesToStitch.get(i), 0f,(float) i * imagesToStitch.get(0).getHeight(), null);
+        return merge;
     }
 
     /**
