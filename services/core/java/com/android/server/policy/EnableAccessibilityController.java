@@ -16,12 +16,10 @@
 
 package com.android.server.policy;
 
-import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.annotation.Nullable;
 import android.app.ActivityManager;
 import android.content.ComponentName;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.ServiceInfo;
 import android.media.AudioManager;
@@ -36,10 +34,7 @@ import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.util.MathUtils;
-import android.view.IWindowManager;
 import android.view.MotionEvent;
-import android.view.WindowManager;
-import android.view.WindowManagerGlobal;
 import android.view.WindowManagerInternal;
 import android.view.accessibility.AccessibilityManager;
 import android.view.accessibility.IAccessibilityManager;

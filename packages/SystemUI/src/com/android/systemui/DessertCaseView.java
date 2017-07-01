@@ -20,6 +20,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -162,6 +163,7 @@ public class DessertCaseView extends FrameLayout {
         this(context, attrs, 0);
     }
 
+    @SuppressLint({"NewApi", "InlinedApi"})
     public DessertCaseView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
@@ -180,7 +182,7 @@ public class DessertCaseView extends FrameLayout {
             for (int resid : list) {
                 opts.inBitmap = loaded;
                 loaded = BitmapFactory.decodeResource(res, resid, opts);
-                final BitmapDrawable d = new BitmapDrawable(res, convertToAlphaMask(loaded));
+                @SuppressLint("NewApi") final BitmapDrawable d = new BitmapDrawable(res, convertToAlphaMask(loaded));
                 d.setColorFilter(new ColorMatrixColorFilter(ALPHA_MASK));
                 d.setBounds(0, 0, mCellSize, mCellSize);
                 mDrawables.append(resid, d);
@@ -276,6 +278,7 @@ public class DessertCaseView extends FrameLayout {
         fillFreeList(DURATION);
     }
 
+    @SuppressLint("NewApi")
     public synchronized void fillFreeList(int animationLen) {
         final Context ctx = getContext();
         final FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(mCellSize, mCellSize);
@@ -320,7 +323,7 @@ public class DessertCaseView extends FrameLayout {
             addView(v, lp);
             place(v, pt, false);
             if (animationLen > 0) {
-                final float s = (Integer) v.getTag(TAG_SPAN);
+                @SuppressLint("NewApi") final float s = (Integer) v.getTag(TAG_SPAN);
                 v.setScaleX(0.5f * s);
                 v.setScaleY(0.5f * s);
                 v.setAlpha(0f);
@@ -334,13 +337,16 @@ public class DessertCaseView extends FrameLayout {
     }
 
     // we don't have .withLayer() on general Animators
+    @SuppressLint("NewApi")
     private final Animator.AnimatorListener makeHardwareLayerListener(final View v) {
         return new AnimatorListenerAdapter() {
+            @SuppressLint({"NewApi", "InlinedApi"})
             @Override
             public void onAnimationStart(Animator animator) {
                 v.setLayerType(View.LAYER_TYPE_HARDWARE, null);
                 v.buildLayer();
             }
+            @SuppressLint({"NewApi", "InlinedApi"})
             @Override
             public void onAnimationEnd(Animator animator) {
                 v.setLayerType(View.LAYER_TYPE_NONE, null);
@@ -349,6 +355,7 @@ public class DessertCaseView extends FrameLayout {
     }
 
     private final HashSet<View> tmpSet = new HashSet<View>();
+    @SuppressLint("NewApi")
     public synchronized void place(View v, Point pt, boolean animate) {
         final int i = pt.x;
         final int j = pt.y;
@@ -424,7 +431,7 @@ public class DessertCaseView extends FrameLayout {
         if (animate) {
             v.bringToFront();
 
-            AnimatorSet set1 = new AnimatorSet();
+            @SuppressLint("NewApi") AnimatorSet set1 = new AnimatorSet();
             set1.playTogether(
                     ObjectAnimator.ofFloat(v, View.SCALE_X, (float) scale),
                     ObjectAnimator.ofFloat(v, View.SCALE_Y, (float) scale)
@@ -432,7 +439,7 @@ public class DessertCaseView extends FrameLayout {
             set1.setInterpolator(new AnticipateOvershootInterpolator());
             set1.setDuration(DURATION);
 
-            AnimatorSet set2 = new AnimatorSet();
+            @SuppressLint("NewApi") AnimatorSet set2 = new AnimatorSet();
             set2.playTogether(
                     ObjectAnimator.ofFloat(v, View.ROTATION, rot),
                     ObjectAnimator.ofFloat(v, View.X, i* mCellSize + (scale-1) * mCellSize /2),
@@ -455,8 +462,8 @@ public class DessertCaseView extends FrameLayout {
     }
 
     private Point[] getOccupied(View v) {
-        final int scale = (Integer) v.getTag(TAG_SPAN);
-        final Point pt = (Point)v.getTag(TAG_POS);
+        @SuppressLint("NewApi") final int scale = (Integer) v.getTag(TAG_SPAN);
+        @SuppressLint("NewApi") final Point pt = (Point)v.getTag(TAG_POS);
         if (pt == null || scale == 0) return new Point[0];
 
         final Point[] result = new Point[scale * scale];
@@ -506,6 +513,7 @@ public class DessertCaseView extends FrameLayout {
         private DessertCaseView mView;
         private float mDarkness;
 
+        @SuppressLint("InlinedApi")
         public RescalingContainer(Context context) {
             super(context);
 

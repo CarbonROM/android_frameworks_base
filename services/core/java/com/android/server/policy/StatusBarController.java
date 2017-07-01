@@ -16,10 +16,6 @@
 
 package com.android.server.policy;
 
-import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-import static android.view.WindowManager.LayoutParams.MATCH_PARENT;
-import static android.view.WindowManagerInternal.AppTransitionListener;
-
 import android.app.StatusBarManager;
 import android.os.IBinder;
 import android.os.SystemClock;
@@ -31,6 +27,10 @@ import android.view.animation.TranslateAnimation;
 
 import com.android.server.LocalServices;
 import com.android.server.statusbar.StatusBarManagerInternal;
+
+import static android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+import static android.view.WindowManager.LayoutParams.MATCH_PARENT;
+import static android.view.WindowManagerInternal.AppTransitionListener;
 
 /**
  * Implements status bar specific behavior.

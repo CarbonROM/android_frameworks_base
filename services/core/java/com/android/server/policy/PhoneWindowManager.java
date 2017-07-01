@@ -1,3 +1,4 @@
+
 /*
  * Copyright (C) 2006 The Android Open Source Project
  *
@@ -13,9 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.android.server.policy;
-
 import static android.app.ActivityManager.StackId.DOCKED_STACK_ID;
 import static android.app.ActivityManager.StackId.FREEFORM_WORKSPACE_STACK_ID;
 import static android.app.ActivityManager.StackId.HOME_STACK_ID;
@@ -30,6 +29,7 @@ import static android.view.WindowManager.DOCKED_LEFT;
 import static android.view.WindowManager.DOCKED_RIGHT;
 import static android.view.WindowManager.TAKE_SCREENSHOT_FULLSCREEN;
 import static android.view.WindowManager.TAKE_SCREENSHOT_SELECTED_REGION;
+import static android.view.WindowManager.TAKE_SCREENSHOT_EXPANDED;
 import static android.view.WindowManager.LayoutParams.*;
 import static android.view.WindowManagerPolicy.WindowManagerFuncs.CAMERA_LENS_COVERED;
 import static android.view.WindowManagerPolicy.WindowManagerFuncs.CAMERA_LENS_COVER_ABSENT;
@@ -37,7 +37,6 @@ import static android.view.WindowManagerPolicy.WindowManagerFuncs.CAMERA_LENS_UN
 import static android.view.WindowManagerPolicy.WindowManagerFuncs.LID_ABSENT;
 import static android.view.WindowManagerPolicy.WindowManagerFuncs.LID_CLOSED;
 import static android.view.WindowManagerPolicy.WindowManagerFuncs.LID_OPEN;
-
 import android.app.ActivityManager;
 import android.app.ActivityManager.StackId;
 import android.app.ActivityManagerInternal;
@@ -166,7 +165,6 @@ import com.android.server.policy.keyguard.KeyguardServiceDelegate;
 import com.android.server.policy.keyguard.KeyguardServiceDelegate.DrawnListener;
 import com.android.server.statusbar.StatusBarManagerInternal;
 import com.android.server.vr.VrManagerInternal;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -174,7 +172,6 @@ import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.List;
 import java.lang.reflect.Constructor;
-
 import dalvik.system.PathClassLoader;
 import java.util.Locale;
 
@@ -195,55 +192,43 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     static final boolean DEBUG_STARTING_WINDOW = false;
     static final boolean DEBUG_WAKEUP = false;
     static final boolean SHOW_STARTING_ANIMATIONS = true;
-
     // Whether to allow dock apps with METADATA_DOCK_HOME to temporarily take over the Home key.
     // No longer recommended for desk docks;
     static final boolean ENABLE_DESK_DOCK_HOME_CAPTURE = false;
-
     static final boolean ALTERNATE_CAR_MODE_NAV_SIZE = false;
-
     static final int SHORT_PRESS_POWER_NOTHING = 0;
     static final int SHORT_PRESS_POWER_GO_TO_SLEEP = 1;
     static final int SHORT_PRESS_POWER_REALLY_GO_TO_SLEEP = 2;
     static final int SHORT_PRESS_POWER_REALLY_GO_TO_SLEEP_AND_GO_HOME = 3;
     static final int SHORT_PRESS_POWER_GO_HOME = 4;
-
     static final int LONG_PRESS_POWER_NOTHING = 0;
     static final int LONG_PRESS_POWER_GLOBAL_ACTIONS = 1;
     static final int LONG_PRESS_POWER_SHUT_OFF = 2;
     static final int LONG_PRESS_POWER_SHUT_OFF_NO_CONFIRM = 3;
-
     static final int LONG_PRESS_BACK_NOTHING = 0;
     static final int LONG_PRESS_BACK_GO_TO_VOICE_ASSIST = 1;
-
     static final int MULTI_PRESS_POWER_NOTHING = 0;
     static final int MULTI_PRESS_POWER_THEATER_MODE = 1;
     static final int MULTI_PRESS_POWER_BRIGHTNESS_BOOST = 2;
-
     // Number of presses needed before we induce panic press behavior on the back button
     static final int PANIC_PRESS_BACK_COUNT = 4;
     static final int PANIC_PRESS_BACK_NOTHING = 0;
     static final int PANIC_PRESS_BACK_HOME = 1;
-
     // This controls whether we will intercept key events and
     // handle them with our customized input policy. Enable
     // when navigation bar is fully supporting this and we have
     // screen pinning unlock within long pressing back button.
     static final boolean ENABLE_CUSTOM_INPUT_POLICY = true;
-
     // These need to match the documentation/constant in
     // core/res/res/values/config.xml
     static final int LONG_PRESS_HOME_NOTHING = 0;
     static final int LONG_PRESS_HOME_RECENT_SYSTEM_UI = 1;
     static final int LONG_PRESS_HOME_ASSIST = 2;
     static final int LAST_LONG_PRESS_HOME_BEHAVIOR = LONG_PRESS_HOME_ASSIST;
-
     static final int DOUBLE_TAP_HOME_NOTHING = 0;
     static final int DOUBLE_TAP_HOME_RECENT_SYSTEM_UI = 1;
-
     static final int SHORT_PRESS_WINDOW_NOTHING = 0;
     static final int SHORT_PRESS_WINDOW_PICTURE_IN_PICTURE = 1;
-
     // These need to match the documentation/constant in
     // core/res/res/values/custom_config.xml
     private static final int KEY_ACTION_NOTHING = 0;
@@ -257,11 +242,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private static final int KEY_ACTION_SPLIT_SCREEN = 8;
     private static final int KEY_ACTION_SCREEN_OFF = 9;
     private static final int KEY_ACTION_KILL_APP = 10;
-
     // Special values, used internal only.
     private static final int KEY_ACTION_HOME = 100;
     private static final int KEY_ACTION_BACK = 101;
-
     // Masks for checking presence of hardware keys.
     // Must match values in core/res/res/values/config.xml
     private static final int KEY_MASK_HOME = 0x01;
@@ -270,69 +253,57 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private static final int KEY_MASK_ASSIST = 0x08;
     private static final int KEY_MASK_APP_SWITCH = 0x10;
     private static final int KEY_MASK_CAMERA = 0x20;
-
     static final int SHORT_PRESS_SLEEP_GO_TO_SLEEP = 0;
     static final int SHORT_PRESS_SLEEP_GO_TO_SLEEP_AND_GO_HOME = 1;
-
     static final int PENDING_KEY_NULL = -1;
-
     // Controls navigation bar opacity depending on which workspace stacks are currently
     // visible.
     // Nav bar is always opaque when either the freeform stack or docked stack is visible.
     static final int NAV_BAR_OPAQUE_WHEN_FREEFORM_OR_DOCKED = 0;
     // Nav bar is always translucent when the freeform stack is visible, otherwise always opaque.
     static final int NAV_BAR_TRANSLUCENT_WHEN_FREEFORM_OPAQUE_OTHERWISE = 1;
-
     static final int APPLICATION_MEDIA_SUBLAYER = -2;
     static final int APPLICATION_MEDIA_OVERLAY_SUBLAYER = -1;
     static final int APPLICATION_PANEL_SUBLAYER = 1;
     static final int APPLICATION_SUB_PANEL_SUBLAYER = 2;
     static final int APPLICATION_ABOVE_SUB_PANEL_SUBLAYER = 3;
-
     static public final String SYSTEM_DIALOG_REASON_KEY = "reason";
     static public final String SYSTEM_DIALOG_REASON_GLOBAL_ACTIONS = "globalactions";
     static public final String SYSTEM_DIALOG_REASON_RECENT_APPS = "recentapps";
     static public final String SYSTEM_DIALOG_REASON_HOME_KEY = "homekey";
     static public final String SYSTEM_DIALOG_REASON_ASSIST = "assist";
-
     /**
      * These are the system UI flags that, when changing, can cause the layout
      * of the screen to change.
      */
     static final int SYSTEM_UI_CHANGING_LAYOUT =
-              View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-            | View.SYSTEM_UI_FLAG_FULLSCREEN
-            | View.STATUS_BAR_TRANSLUCENT
-            | View.NAVIGATION_BAR_TRANSLUCENT
-            | View.STATUS_BAR_TRANSPARENT
-            | View.NAVIGATION_BAR_TRANSPARENT;
-
+            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN
+                    | View.STATUS_BAR_TRANSLUCENT
+                    | View.NAVIGATION_BAR_TRANSLUCENT
+                    | View.STATUS_BAR_TRANSPARENT
+                    | View.NAVIGATION_BAR_TRANSPARENT;
     private static final AudioAttributes VIBRATION_ATTRIBUTES = new AudioAttributes.Builder()
             .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
             .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
             .build();
-
     // The panic gesture may become active only after the keyguard is dismissed and the immersive
     // app shows again. If that doesn't happen for 30s we drop the gesture.
     private static final long PANIC_GESTURE_EXPIRATION = 30000;
-
     private static final String SYSUI_PACKAGE = "com.android.systemui";
     private static final String SYSUI_SCREENSHOT_SERVICE =
             "com.android.systemui.screenshot.TakeScreenshotService";
     private static final String SYSUI_SCREENSHOT_ERROR_RECEIVER =
             "com.android.systemui.screenshot.ScreenshotServiceErrorReceiver";
-
     private static final int NAV_BAR_BOTTOM = 0;
     private static final int NAV_BAR_RIGHT = 1;
     private static final int NAV_BAR_LEFT = 2;
-
     /**
      * Keyguard stuff
      */
     private WindowState mKeyguardScrim;
     private boolean mKeyguardHidden;
     private boolean mKeyguardDrawnOnce;
-
     /* Table of Application Launch keys.  Maps from key codes to intent categories.
      *
      * These are special keys that are used to launch particular kinds of applications,
@@ -355,22 +326,17 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         sApplicationLaunchKeyCategories.append(
                 KeyEvent.KEYCODE_CALCULATOR, Intent.CATEGORY_APP_CALCULATOR);
     }
-
     /** Amount of time (in milliseconds) to wait for windows drawn before powering on. */
     static final int WAITING_FOR_DRAWN_TIMEOUT = 1000;
-
     /** Amount of time (in milliseconds) a toast window can be shown. */
     public static final int TOAST_WINDOW_TIMEOUT = 3500; // 3.5 seconds
-
     private DeviceKeyHandler mDeviceKeyHandler;
-
     /**
      * Lock protecting internal state.  Must not call out into window
      * manager with lock held.  (This lock will be acquired in places
      * where the window manager is calling in with its own lock held.)
      */
     private final Object mLock = new Object();
-
     Context mContext;
     IWindowManager mWindowManager;
     WindowManagerFuncs mWindowManagerFuncs;
@@ -390,34 +356,24 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     BurnInProtectionHelper mBurnInProtectionHelper;
     AppOpsManager mAppOpsManager;
     private boolean mHasFeatureWatch;
-
     // Vibrator pattern for haptic feedback of a long press.
     long[] mLongPressVibePattern;
-
     // Vibrator pattern for haptic feedback of virtual key press.
     long[] mVirtualKeyVibePattern;
-
     // Vibrator pattern for a short vibration.
     long[] mKeyboardTapVibePattern;
-
     // Vibrator pattern for a short vibration when tapping on an hour/minute tick of a Clock.
     long[] mClockTickVibePattern;
-
     // Vibrator pattern for a short vibration when tapping on a day/month/year date of a Calendar.
     long[] mCalendarDateVibePattern;
-
     // Vibrator pattern for haptic feedback during boot when safe mode is disabled.
     long[] mSafeModeDisabledVibePattern;
-
     // Vibrator pattern for haptic feedback during boot when safe mode is enabled.
     long[] mSafeModeEnabledVibePattern;
-
     // Vibrator pattern for haptic feedback of a context click.
     long[] mContextClickVibePattern;
-
     /** If true, hitting shift & menu will broadcast Intent.ACTION_BUG_REPORT */
     boolean mEnableShiftMenuBugReports = false;
-
     boolean mSafeMode;
     WindowState mStatusBar = null;
     int mStatusBarHeight;
@@ -429,13 +385,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     int[] mNavigationBarWidthForRotationDefault = new int[4];
     int[] mNavigationBarHeightForRotationInCarMode = new int[4];
     int[] mNavigationBarWidthForRotationInCarMode = new int[4];
-
     private LongSparseArray<IShortcutService> mShortcutKeyServices = new LongSparseArray<>();
-
     // Whether to allow dock apps with METADATA_DOCK_HOME to temporarily take over the Home key.
     // This is for car dock and this is updated from resource.
     private boolean mEnableCarDockHomeCapture = true;
-
     boolean mBootMessageNeedsHiding;
     KeyguardServiceDelegate mKeyguardDelegate;
     final Runnable mWindowManagerDrawCallback = new Runnable() {
@@ -452,12 +405,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mHandler.sendEmptyMessage(MSG_KEYGUARD_DRAWN_COMPLETE);
         }
     };
-
     GlobalActions mGlobalActions;
     Handler mHandler;
     WindowState mLastInputMethodWindow = null;
     WindowState mLastInputMethodTargetWindow = null;
-
     private BoostFramework mPerfKey = null;
     private BoostFramework mPerfRotation = null;
     private boolean lIsPerfBoostEnabled;
@@ -468,7 +419,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private int mLastBoostDuration = 0;
     private final int ROTATION_BOOST_TIMEOUT = 5000 /*ms*/;
     private final int ROTATION_BOOST_FADE = 300 /*ms*/;
-
     // FIXME This state is shared between the input reader and handler thread.
     // Technically it's broken and buggy but it has been like this for many years
     // and we have not yet seen any problems.  Someday we'll rewrite this logic
@@ -486,18 +436,14 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     volatile boolean mGoingToSleep;
     volatile boolean mRecentsVisible;
     volatile boolean mTvPictureInPictureVisible;
-
     // Used to hold the last user key used to wake the device.  This helps us prevent up events
     // from being passed to the foregrounded app without a corresponding down event
     volatile int mPendingWakeKey = PENDING_KEY_NULL;
-
     int mRecentAppsHeldModifiers;
     boolean mLanguageSwitchKeyPressed;
-
     int mLidState = LID_ABSENT;
     int mCameraLensCoverState = CAMERA_LENS_COVER_ABSENT;
     boolean mHaveBuiltInKeyboard;
-
     boolean mSystemReady;
     boolean mSystemBooted;
     private boolean mDeferBindKeyguard;
@@ -514,19 +460,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     boolean mDemoHdmiRotationLock;
     int mDemoRotation;
     boolean mDemoRotationLock;
-
     boolean mWakeGestureEnabledSetting;
     MyWakeGestureListener mWakeGestureListener;
-
     // Default display does not rotate, apps that require non-default orientation will have to
     // have the orientation emulated.
     private boolean mForceDefaultOrientation = false;
-
     int mUserRotationMode = WindowManagerPolicy.USER_ROTATION_FREE;
     int mUserRotation = Surface.ROTATION_0;
     int mUserRotationAngles = -1;
     boolean mAccelerometerDefault;
-
     boolean mSupportAutoRotation;
     int mAllowAllRotations = -1;
     boolean mCarDockEnablesAccelerometer;
@@ -554,21 +496,16 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     boolean mHasSoftInput = false;
     boolean mTranslucentDecorEnabled = true;
     boolean mUseTvRouting;
-
     boolean mVolumeRockerWake;
     boolean mVolBtnMusicControls;
     boolean mIsLongPress;
     int mBackKillTimeout;
     int mDeviceHardwareKeys;
-
     int mPointerLocationMode = 0; // guarded by mLock
-
     // The last window we were told about in focusChanged.
     WindowState mFocusedWindow;
     IApplicationToken mFocusedApp;
-
     PointerLocationView mPointerLocationView;
-
     // The current size of the screen; really; extends into the overscan area of
     // the screen and doesn't account for any system elements like the status bar.
     int mOverscanScreenLeft, mOverscanScreenTop;
@@ -627,15 +564,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     final Rect mDockedStackBounds = new Rect();
     final Rect mLastNonDockedStackBounds = new Rect();
     final Rect mLastDockedStackBounds = new Rect();
-
     // What we last reported to system UI about whether the compatibility
     // menu needs to be displayed.
     boolean mLastFocusNeedsMenu = false;
     // If nonzero, a panic gesture was performed at that time in uptime millis and is still pending.
     private long mPendingPanicGestureUptime;
-
     InputConsumer mInputConsumer = null;
-
     static final Rect mTmpParentFrame = new Rect();
     static final Rect mTmpDisplayFrame = new Rect();
     static final Rect mTmpOverscanFrame = new Rect();
@@ -646,7 +580,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     static final Rect mTmpNavigationFrame = new Rect();
     static final Rect mTmpOutsetFrame = new Rect();
     private static final Rect mTmpRect = new Rect();
-
     WindowState mTopFullscreenOpaqueWindowState;
     WindowState mTopFullscreenOpaqueOrDimmingWindowState;
     WindowState mTopDockedOpaqueWindowState;
@@ -661,38 +594,31 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     boolean mHideLockScreen;
     boolean mForcingShowNavBar;
     int mForcingShowNavBarLayer;
-
     boolean mNavBarEnabled = false;
-
     // States of keyguard dismiss.
     private static final int DISMISS_KEYGUARD_NONE = 0; // Keyguard not being dismissed.
     private static final int DISMISS_KEYGUARD_START = 1; // Keyguard needs to be dismissed.
     private static final int DISMISS_KEYGUARD_CONTINUE = 2; // Keyguard has been dismissed.
     int mDismissKeyguard = DISMISS_KEYGUARD_NONE;
-
     /**
      * Indicates that we asked the Keyguard to be dismissed and we just wait for the Keyguard to
      * dismiss itself.
      */
     @GuardedBy("Lw")
     private boolean mCurrentlyDismissingKeyguard;
-
     /** The window that is currently dismissing the keyguard. Dismissing the keyguard must only
      * be done once per window. */
     private WindowState mWinDismissingKeyguard;
-
     /** When window is currently dismissing the keyguard, dismissing the keyguard must handle
      * the keygaurd secure state change instantly case, e.g. the use case of inserting a PIN
      * lock SIM card. This variable is used to record the previous keyguard secure state for
      * monitoring secure state change on window dismissing keyguard. */
     private boolean mSecureDismissingKeyguard;
-
     /** The window that is currently showing "over" the keyguard. If there is an app window
      * belonging to another app on top of this the keyguard shows. If there is a fullscreen
      * app window under this, still dismiss the keyguard but don't show the app underneath. Show
      * the wallpaper. */
     private WindowState mWinShowWhenLocked;
-
     boolean mShowingLockscreen;
     boolean mShowingDream;
     boolean mDreamingLockscreen;
@@ -716,7 +642,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     int mMetaState;
     int mInitialMetaState;
     boolean mForceShowSystemBars;
-
     // Custom policy for #SUPPORTED_KEYCODES_LIST key codes.
     private SparseBooleanArray mKeyPressed = new SparseBooleanArray(SUPPORTED_KEYCODE_LIST.length);
     private SparseBooleanArray mKeyConsumed = new SparseBooleanArray(SUPPORTED_KEYCODE_LIST.length);
@@ -726,42 +651,31 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private SparseIntArray mKeyDoubleTapBehavior = new SparseIntArray(SUPPORTED_KEYCODE_LIST.length);
     private SparseIntArray mKeyLongPressBehaviorDefaultResId = new SparseIntArray(SUPPORTED_KEYCODE_LIST.length);
     private SparseIntArray mKeyDoubleTapBehaviorDefaultResId = new SparseIntArray(SUPPORTED_KEYCODE_LIST.length);
-
     // support for activating the lock screen while the screen is on
     boolean mAllowLockscreenWhenOn;
     int mLockScreenTimeout;
     boolean mLockScreenTimerActive;
-
     // Behavior of ENDCALL Button.  (See Settings.System.END_BUTTON_BEHAVIOR.)
     int mEndcallBehavior;
-
     // Behavior of POWER button while in-call and screen on.
     // (See Settings.Secure.INCALL_POWER_BUTTON_BEHAVIOR.)
     int mIncallPowerBehavior;
-
     // Behavior of Back button while in-call and screen on
     int mIncallBackBehavior;
-
     Display mDisplay;
-
     private int mDisplayRotation;
-
     int mLandscapeRotation = 0;  // default landscape rotation
     int mSeascapeRotation = 0;   // "other" landscape rotation, 180 degrees from mLandscapeRotation
     int mPortraitRotation = 0;   // default portrait rotation
     int mUpsideDownRotation = 0; // "other" portrait rotation
-
     int mOverscanLeft = 0;
     int mOverscanTop = 0;
     int mOverscanRight = 0;
     int mOverscanBottom = 0;
-
     // What we do when the user long presses on home
     private int mLongPressOnHomeBehavior;
-
     // What we do when the user double-taps on home
     private int mDoubleTapOnHomeBehavior;
-
     // Allowed theater mode wake actions
     private boolean mAllowTheaterModeWakeFromKey;
     private boolean mAllowTheaterModeWakeFromPowerKey;
@@ -770,13 +684,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private boolean mAllowTheaterModeWakeFromCameraLens;
     private boolean mAllowTheaterModeWakeFromLidSwitch;
     private boolean mAllowTheaterModeWakeFromWakeGesture;
-
     // Whether to support long press from power button in non-interactive mode
     private boolean mSupportLongPressPowerWhenNonInteractive;
-
     // Whether to go to sleep entering theater mode from power button
     private boolean mGoToSleepOnButtonPressTheaterMode;
-
     // Screenshot trigger states
     // Time to volume and power must be pressed within this interval of each other.
     private static final long SCREENSHOT_CHORD_DEBOUNCE_DELAY_MILLIS = 150;
@@ -784,7 +695,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private static final float KEYGUARD_SCREENSHOT_CHORD_DELAY_MULTIPLIER = 2.5f;
     private boolean mScreenshotChordEnabled;
     private boolean mScreenshotChordVolumeDownKeyConsumed;
-
     // used for both screenshot and screenrecord
     private long mVolumeDownKeyTime;
     private boolean mVolumeDownKeyTriggered;
@@ -792,36 +702,26 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private long mVolumeUpKeyTime;
     private boolean mPowerKeyTriggered;
     private long mPowerKeyTime;
-
     // use the same delay values as for screenshot
     private boolean mScreenrecordChordEnabled;
     private boolean mScreenrecordChordVolumeUpKeyConsumed;
-
     /* The number of steps between min and max brightness */
     private static final int BRIGHTNESS_STEPS = 10;
-
     SettingsObserver mSettingsObserver;
     ShortcutManager mShortcutManager;
     PowerManager.WakeLock mBroadcastWakeLock;
     PowerManager.WakeLock mPowerKeyWakeLock;
     boolean mHavePendingMediaKeyRepeatWithWakeLock;
-
     private int mCurrentUserId;
-
     private int mScreenshotDelay;
-
     // Maps global key codes to the components that will handle them.
     private GlobalKeyManager mGlobalKeyManager;
-
     // Fallback actions by key code.
     private final SparseArray<KeyCharacterMap.FallbackAction> mFallbackActions =
             new SparseArray<KeyCharacterMap.FallbackAction>();
-
     private final LogDecelerateInterpolator mLogDecelerateInterpolator
             = new LogDecelerateInterpolator(100, 0);
-
     private final MutableBoolean mTmpBoolean = new MutableBoolean(false);
-
     private static final int MSG_ENABLE_POINTER_LOCATION = 1;
     private static final int MSG_DISABLE_POINTER_LOCATION = 2;
     private static final int MSG_DISPATCH_MEDIA_KEY_WITH_WAKE_LOCK = 3;
@@ -842,19 +742,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private static final int MSG_DISPOSE_INPUT_CONSUMER = 19;
     private static final int MSG_BACK_DELAYED_PRESS = 20;
     private static final int MSG_DISPATCH_VOLKEY_WITH_WAKE_LOCK = 21;
-
     private static final int MSG_REQUEST_TRANSIENT_BARS_ARG_STATUS = 0;
     private static final int MSG_REQUEST_TRANSIENT_BARS_ARG_NAVIGATION = 1;
-
     // AOSPA constants
     private static final int MSG_DISPATCH_KEYPRESS_BOOST_UNBLOCK = 100;
     private static final int MSG_RELEASE_ROTATION_LOCK = 101;
-
     private CameraManager mCameraManager;
     private boolean mTorchEnabled;
     private boolean mIsTorchActive;
     private boolean mWasTorchActive;
-
     private class PolicyHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
@@ -942,19 +838,16 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     private UEventObserver mHDMIObserver = new UEventObserver() {
         @Override
         public void onUEvent(UEventObserver.UEvent event) {
             setHdmiPlugged("1".equals(event.get("SWITCH_STATE")));
         }
     };
-
     class SettingsObserver extends ContentObserver {
         SettingsObserver(Handler handler) {
             super(handler);
         }
-
         void observe() {
             // Observe all users' changes
             ContentResolver resolver = mContext.getContentResolver();
@@ -1044,18 +937,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     UserHandle.USER_ALL);
             updateSettings();
         }
-
         @Override public void onChange(boolean selfChange) {
             updateSettings();
             updateRotation(false);
         }
     }
-
     class MyWakeGestureListener extends WakeGestureListener {
         MyWakeGestureListener(Context context, Handler handler) {
             super(context, handler);
         }
-
         @Override
         public void onWakeUp() {
             synchronized (mLock) {
@@ -1067,7 +957,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     class MyOrientationListener extends WindowOrientationListener {
         private final Runnable mUpdateRotationRunnable = new Runnable() {
             @Override
@@ -1083,11 +972,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
             }
         };
-
         MyOrientationListener(Context context, Handler handler) {
             super(context, handler);
         }
-
         @Override
         public void onProposedRotationChanged(int rotation) {
             if (localLOGV) Slog.v(TAG, "onProposedRotationChanged, rotation=" + rotation);
@@ -1095,9 +982,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
     }
     MyOrientationListener mOrientationListener;
-
     private final StatusBarController mStatusBarController = new StatusBarController();
-
     private final BarController mNavigationBarController = new BarController("NavigationBar",
             View.NAVIGATION_BAR_TRANSIENT,
             View.NAVIGATION_BAR_UNHIDE,
@@ -1105,11 +990,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             StatusBarManager.WINDOW_NAVIGATION_BAR,
             WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
             View.NAVIGATION_BAR_TRANSPARENT);
-
     private ImmersiveModeConfirmation mImmersiveModeConfirmation;
-
     private SystemGesturesPointerEventListener mSystemGestures;
-
     IStatusBarService getStatusBarService() {
         synchronized (mServiceAquireLock) {
             if (mStatusBarService == null) {
@@ -1119,7 +1001,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return mStatusBarService;
         }
     }
-
     StatusBarManagerInternal getStatusBarManagerInternal() {
         synchronized (mServiceAquireLock) {
             if (mStatusBarManagerInternal == null) {
@@ -1129,7 +1010,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return mStatusBarManagerInternal;
         }
     }
-
     /*
      * We always let the sensor be switched on by default except when
      * the user has explicitly disabled sensor based rotation or when the
@@ -1167,7 +1047,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return mSupportAutoRotation;
     }
-
     /*
      * Various use cases for invoking this function
      * screen turning off, should always disable listeners if already enabled
@@ -1212,12 +1091,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mOrientationSensorEnabled = false;
         }
     }
-
     private void interceptBackKeyDown() {
         MetricsLogger.count(mContext, "key_back_down", 1);
         // Reset back key state for long press
         mBackKeyHandled = false;
-
         // Cancel multi-press detection timeout.
         if (hasPanicPressOnBackBehavior()) {
             if (mBackKeyPressCounter != 0
@@ -1225,7 +1102,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 mHandler.removeMessages(MSG_BACK_DELAYED_PRESS);
             }
         }
-
         if (hasLongPressOnBackBehavior()) {
             Message msg = mHandler.obtainMessage(MSG_BACK_LONG_PRESS);
             msg.setAsynchronous(true);
@@ -1233,65 +1109,53 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     ViewConfiguration.get(mContext).getDeviceGlobalActionKeyTimeout());
         }
     }
-
     // returns true if the key was handled and should not be passed to the user
     private boolean interceptBackKeyUp(KeyEvent event) {
         // Cache handled state
         boolean handled = mBackKeyHandled;
-
         if (hasPanicPressOnBackBehavior()) {
             // Check for back key panic press
             ++mBackKeyPressCounter;
-
             final long eventTime = event.getDownTime();
-
             if (mBackKeyPressCounter <= PANIC_PRESS_BACK_COUNT) {
                 // This could be a multi-press.  Wait a little bit longer to confirm.
                 Message msg = mHandler.obtainMessage(MSG_BACK_DELAYED_PRESS,
-                    mBackKeyPressCounter, 0, eventTime);
+                        mBackKeyPressCounter, 0, eventTime);
                 msg.setAsynchronous(true);
                 mHandler.sendMessageDelayed(msg, ViewConfiguration.getMultiPressTimeout());
             }
         }
-
         // Reset back long press state
         cancelPendingBackKeyAction();
-
         if (mHasFeatureWatch) {
             TelecomManager telecomManager = getTelecommService();
-
             if (telecomManager != null) {
                 if (telecomManager.isRinging()) {
                     // Pressing back while there's a ringing incoming
                     // call should silence the ringer.
                     telecomManager.silenceRinger();
-
                     // It should not prevent navigating away
                     return false;
                 } else if (
-                    (mIncallBackBehavior & Settings.Secure.INCALL_BACK_BUTTON_BEHAVIOR_HANGUP) != 0
-                        && telecomManager.isInCall()) {
+                        (mIncallBackBehavior & Settings.Secure.INCALL_BACK_BUTTON_BEHAVIOR_HANGUP) != 0
+                                && telecomManager.isInCall()) {
                     // Otherwise, if "Back button ends call" is enabled,
                     // the Back button will hang up any current active call.
                     return telecomManager.endCall();
                 }
             }
         }
-
         return handled;
     }
-
     private void interceptPowerKeyDown(KeyEvent event, boolean interactive) {
         // Hold a wake lock until the power key is released.
         if (!mPowerKeyWakeLock.isHeld()) {
             mPowerKeyWakeLock.acquire();
         }
-
         // Cancel multi-press detection timeout.
         if (mPowerKeyPressCounter != 0) {
             mHandler.removeMessages(MSG_POWER_DELAYED_PRESS);
         }
-
         // Detect user pressing the power button in panic when an application has
         // taken over the whole screen.
         boolean panic = mImmersiveModeConfirmation.onPowerKeyDown(interactive,
@@ -1300,7 +1164,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         if (panic) {
             mHandler.post(mHiddenNavPanic);
         }
-
         // Latch power key state to detect screenshot chord.
         if (interactive && !mPowerKeyTriggered
                 && (event.getFlags() & KeyEvent.FLAG_FALLBACK) == 0) {
@@ -1310,7 +1173,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             interceptScreenshotChord();
             interceptScreenrecordChord();
         }
-
         // Stop ringing or end call if configured to do so when power is pressed.
         TelecomManager telecomManager = getTelecommService();
         boolean hungUp = false;
@@ -1327,7 +1189,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 hungUp = telecomManager.endCall();
             }
         }
-
         GestureLauncherService gestureService = LocalServices.getService(
                 GestureLauncherService.class);
         boolean gesturedServiceIntercepted = false;
@@ -1338,7 +1199,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 mCameraGestureTriggeredDuringGoingToSleep = true;
             }
         }
-
         // If the power key has still not yet been handled, then detect short
         // press, long press, or multi press and decide what to do.
         mPowerKeyHandled = hungUp || mVolumeDownKeyTriggered || gesturedServiceIntercepted || mVolumeUpKeyTriggered;
@@ -1372,7 +1232,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     mBeganFromNonInteractive = true;
                 } else {
                     final int maxCount = getMaxMultiPressPowerCount();
-
                     if (maxCount <= 1) {
                         mPowerKeyHandled = true;
                     } else {
@@ -1382,7 +1241,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     private String getCameraId() throws CameraAccessException {
         String[] ids = mCameraManager.getCameraIdList();
         int length = ids.length;
@@ -1398,17 +1256,14 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return null;
     }
-
     private void interceptPowerKeyUp(KeyEvent event, boolean interactive, boolean canceled) {
         final boolean handled = canceled || mPowerKeyHandled;
         mPowerKeyTriggered = false;
         cancelPendingScreenshotChordAction();
         cancelPendingPowerKeyAction();
-
         if (!handled) {
             // Figure out how to handle the key now that it has been released.
             mPowerKeyPressCounter += 1;
-
             final int maxCount = getMaxMultiPressPowerCount();
             final long eventTime = event.getDownTime();
             if (mPowerKeyPressCounter < maxCount) {
@@ -1420,15 +1275,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 mHandler.sendMessageDelayed(msg, ViewConfiguration.getDoubleTapTimeout());
                 return;
             }
-
             // No other actions.  Handle it immediately.
             powerPress(eventTime, interactive, mPowerKeyPressCounter);
         }
-
         // Done.  Reset our state.
         finishPowerKeyPress();
     }
-
     private void finishPowerKeyPress() {
         mBeganFromNonInteractive = false;
         mPowerKeyPressCounter = 0;
@@ -1436,11 +1288,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mPowerKeyWakeLock.release();
         }
     }
-
     private void finishBackKeyPress() {
         mBackKeyPressCounter = 0;
     }
-
     private void cancelPendingPowerKeyAction() {
         if (!mPowerKeyHandled) {
             mPowerKeyHandled = true;
@@ -1454,14 +1304,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     private void cancelPendingBackKeyAction() {
         if (!mBackKeyHandled) {
             mBackKeyHandled = true;
             mHandler.removeMessages(MSG_BACK_LONG_PRESS);
         }
     }
-
     private void backMultiPressAction(long eventTime, int count) {
         if (count >= PANIC_PRESS_BACK_COUNT) {
             switch (mPanicPressOnBackBehavior) {
@@ -1473,14 +1321,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     private void powerPress(long eventTime, boolean interactive, int count) {
         if (mScreenOnEarly && !mScreenOnFully) {
             Slog.i(TAG, "Suppressed redundant power key press while "
                     + "already in the process of turning the screen on.");
             return;
         }
-
         if (count == 2) {
             powerMultiPressAction(eventTime, interactive, mDoublePressOnPowerBehavior);
         } else if (count == 3) {
@@ -1510,7 +1356,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     private void powerMultiPressAction(long eventTime, boolean interactive, int behavior) {
         switch (behavior) {
             case MULTI_PRESS_POWER_NOTHING:
@@ -1520,7 +1365,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     Slog.i(TAG, "Ignoring toggling theater mode - device not setup.");
                     break;
                 }
-
                 if (isTheaterModeEnabled()) {
                     Slog.i(TAG, "Toggling theater mode off.");
                     Settings.Global.putInt(mContext.getContentResolver(),
@@ -1532,7 +1376,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     Slog.i(TAG, "Toggling theater mode on.");
                     Settings.Global.putInt(mContext.getContentResolver(),
                             Settings.Global.THEATER_MODE_ON, 1);
-
                     if (mGoToSleepOnButtonPressTheaterMode && interactive) {
                         mPowerManager.goToSleep(eventTime,
                                 PowerManager.GO_TO_SLEEP_REASON_POWER_BUTTON, 0);
@@ -1548,7 +1391,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 break;
         }
     }
-
     private int getMaxMultiPressPowerCount() {
         if (mTriplePressOnPowerBehavior != MULTI_PRESS_POWER_NOTHING) {
             return 3;
@@ -1558,50 +1400,47 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return 1;
     }
-
     private void powerLongPress() {
         if (!mTorchEnabled || isScreenOn()) {
             int behavior = getResolvedLongPressOnPowerBehavior();
             switch (behavior) {
-            case LONG_PRESS_POWER_NOTHING:
-                break;
-            case LONG_PRESS_POWER_GLOBAL_ACTIONS:
-                mPowerKeyHandled = true;
-                if (!performHapticFeedbackLw(null, HapticFeedbackConstants.LONG_PRESS, false)) {
-                    performAuditoryFeedbackForAccessibilityIfNeed();
-                }
-                KeyguardManager km = (KeyguardManager) mContext.getSystemService(Context.KEYGUARD_SERVICE);
-                boolean locked = km.inKeyguardRestrictedInputMode();
-                boolean globalActionsOnLockScreen = Settings.System.getInt(
-                        mContext.getContentResolver(), Settings.System.POWER_MENU_LOCKSCREEN, 1) == 1;
-                if (locked && !globalActionsOnLockScreen) {
-                    behavior = LONG_PRESS_POWER_NOTHING;
-                } else {
-                    showGlobalActionsInternal();
-                }
-                break;
-            case LONG_PRESS_POWER_SHUT_OFF:
-            case LONG_PRESS_POWER_SHUT_OFF_NO_CONFIRM:
-                mPowerKeyHandled = true;
-                performHapticFeedbackLw(null, HapticFeedbackConstants.LONG_PRESS, false);
-                sendCloseSystemWindows(SYSTEM_DIALOG_REASON_GLOBAL_ACTIONS);
-                mWindowManagerFuncs.shutdown(behavior == LONG_PRESS_POWER_SHUT_OFF);
-                break;
-           }
+                case LONG_PRESS_POWER_NOTHING:
+                    break;
+                case LONG_PRESS_POWER_GLOBAL_ACTIONS:
+                    mPowerKeyHandled = true;
+                    if (!performHapticFeedbackLw(null, HapticFeedbackConstants.LONG_PRESS, false)) {
+                        performAuditoryFeedbackForAccessibilityIfNeed();
+                    }
+                    KeyguardManager km = (KeyguardManager) mContext.getSystemService(Context.KEYGUARD_SERVICE);
+                    boolean locked = km.inKeyguardRestrictedInputMode();
+                    boolean globalActionsOnLockScreen = Settings.System.getInt(
+                            mContext.getContentResolver(), Settings.System.POWER_MENU_LOCKSCREEN, 1) == 1;
+                    if (locked && !globalActionsOnLockScreen) {
+                        behavior = LONG_PRESS_POWER_NOTHING;
+                    } else {
+                        showGlobalActionsInternal();
+                    }
+                    break;
+                case LONG_PRESS_POWER_SHUT_OFF:
+                case LONG_PRESS_POWER_SHUT_OFF_NO_CONFIRM:
+                    mPowerKeyHandled = true;
+                    performHapticFeedbackLw(null, HapticFeedbackConstants.LONG_PRESS, false);
+                    sendCloseSystemWindows(SYSTEM_DIALOG_REASON_GLOBAL_ACTIONS);
+                    mWindowManagerFuncs.shutdown(behavior == LONG_PRESS_POWER_SHUT_OFF);
+                    break;
+            }
         } else if (mTorchEnabled && !isScreenOn()) {
-           try {
-               mCameraManager.setTorchMode(getCameraId(), true);
-           } catch (Exception e) {
-           }
-        mWasTorchActive = false;
-        mIsTorchActive = true;
-        mPowerKeyHandled = true;
+            try {
+                mCameraManager.setTorchMode(getCameraId(), true);
+            } catch (Exception e) {
+            }
+            mWasTorchActive = false;
+            mIsTorchActive = true;
+            mPowerKeyHandled = true;
         }
     }
-
     private void backLongPress() {
         mBackKeyHandled = true;
-
         switch (mLongPressOnBackBehavior) {
             case LONG_PRESS_BACK_NOTHING:
                 break;
@@ -1616,60 +1455,52 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 break;
         }
     }
-
     private void disposeInputConsumer(InputConsumer inputConsumer) {
         if (inputConsumer != null) {
             inputConsumer.dismiss();
         }
     }
-
     private void sleepPress(long eventTime) {
         if (mShortPressOnSleepBehavior == SHORT_PRESS_SLEEP_GO_TO_SLEEP_AND_GO_HOME) {
             launchHomeFromHotKey(false /* awakenDreams */, true /*respectKeyguard*/);
         }
     }
-
     private void sleepRelease(long eventTime) {
         switch (mShortPressOnSleepBehavior) {
             case SHORT_PRESS_SLEEP_GO_TO_SLEEP:
             case SHORT_PRESS_SLEEP_GO_TO_SLEEP_AND_GO_HOME:
                 Slog.i(TAG, "sleepRelease() calling goToSleep(GO_TO_SLEEP_REASON_SLEEP_BUTTON)");
                 mPowerManager.goToSleep(eventTime,
-                       PowerManager.GO_TO_SLEEP_REASON_SLEEP_BUTTON, 0);
+                        PowerManager.GO_TO_SLEEP_REASON_SLEEP_BUTTON, 0);
                 break;
         }
     }
-
     private int getResolvedLongPressOnPowerBehavior() {
         if (FactoryTest.isLongPressOnPowerOffEnabled()) {
             return LONG_PRESS_POWER_SHUT_OFF_NO_CONFIRM;
         }
         return mLongPressOnPowerBehavior;
     }
-
     private boolean hasLongPressOnPowerBehavior() {
         return getResolvedLongPressOnPowerBehavior() != LONG_PRESS_POWER_NOTHING;
     }
-
     private boolean hasLongPressOnBackBehavior() {
         return mLongPressOnBackBehavior != LONG_PRESS_BACK_NOTHING;
     }
-
     private boolean hasPanicPressOnBackBehavior() {
         return mPanicPressOnBackBehavior != PANIC_PRESS_BACK_NOTHING;
     }
-
     private void interceptScreenshotChord() {
         if (mScreenshotChordEnabled
                 && mVolumeDownKeyTriggered && mPowerKeyTriggered && !mVolumeUpKeyTriggered) {
             final long now = SystemClock.uptimeMillis();
             if (now <= mVolumeDownKeyTime + SCREENSHOT_CHORD_DEBOUNCE_DELAY_MILLIS
                     && now <= mPowerKeyTime
-                            + SCREENSHOT_CHORD_DEBOUNCE_DELAY_MILLIS) {
+                    + SCREENSHOT_CHORD_DEBOUNCE_DELAY_MILLIS) {
                 mScreenshotChordVolumeDownKeyConsumed = true;
                 cancelPendingPowerKeyAction();
                 if (Settings.System.getInt(mContext.getContentResolver(),
-                    Settings.System.SCREENSHOT_TYPE, 0) == 1) {
+                        Settings.System.SCREENSHOT_TYPE, 0) == 1) {
                     mScreenshotRunnable.setScreenshotType(TAKE_SCREENSHOT_SELECTED_REGION);
                 } else {
                     mScreenshotRunnable.setScreenshotType(TAKE_SCREENSHOT_FULLSCREEN);
@@ -1678,7 +1509,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     private void interceptScreenrecordChord() {
         if (mScreenrecordChordEnabled
                 && mVolumeUpKeyTriggered && mPowerKeyTriggered && !mVolumeDownKeyTriggered) {
@@ -1687,12 +1517,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     && now <= mPowerKeyTime + SCREENSHOT_CHORD_DEBOUNCE_DELAY_MILLIS) {
                 mScreenrecordChordVolumeUpKeyConsumed = true;
                 cancelPendingPowerKeyAction();
-
                 mHandler.postDelayed(mScreenrecordRunnable, getScreenshotChordLongPressDelay());
             }
         }
     }
-
     private long getScreenshotChordLongPressDelay() {
         if (mKeyguardDelegate.isShowing()) {
             // Double the time it takes to take a screenshot from the keyguard
@@ -1701,15 +1529,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return ViewConfiguration.get(mContext).getDeviceGlobalActionKeyTimeout();
     }
-
     private void cancelPendingScreenshotChordAction() {
         mHandler.removeCallbacks(mScreenshotRunnable);
     }
-
     private void cancelPendingScreenrecordChordAction() {
         mHandler.removeCallbacks(mScreenrecordRunnable);
     }
-
     private final Runnable mEndCallLongPress = new Runnable() {
         @Override
         public void run() {
@@ -1720,29 +1545,23 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             showGlobalActionsInternal();
         }
     };
-
     private class ScreenshotRunnable implements Runnable {
         private int mScreenshotType = TAKE_SCREENSHOT_FULLSCREEN;
-
         public void setScreenshotType(int screenshotType) {
             mScreenshotType = screenshotType;
         }
-
         @Override
         public void run() {
             takeScreenshot(mScreenshotType);
         }
     }
-
     private final ScreenshotRunnable mScreenshotRunnable = new ScreenshotRunnable();
-
     private final Runnable mScreenrecordRunnable = new Runnable() {
         @Override
         public void run() {
             takeScreenrecord();
         }
     };
-
     Runnable mBackLongPress = new Runnable() {
         public void run() {
             String killResult = DevUtils.killForegroundApp(mContext, mCurrentUserId);
@@ -1750,19 +1569,17 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 performHapticFeedbackLw(null, HapticFeedbackConstants.LONG_PRESS, false);
             }
             Toast.makeText(mContext, killResult == null
-                ? mContext.getString(R.string.no_app_killed_message)
-                : String.format(Locale.getDefault(),
-                        mContext.getString(R.string.app_killed_message),
-                        killResult), Toast.LENGTH_SHORT).show();
+                    ? mContext.getString(R.string.no_app_killed_message)
+                    : String.format(Locale.getDefault(),
+                    mContext.getString(R.string.app_killed_message),
+                    killResult), Toast.LENGTH_SHORT).show();
         }
     };
-
     @Override
     public void showGlobalActions() {
         mHandler.removeMessages(MSG_DISPATCH_SHOW_GLOBAL_ACTIONS);
         mHandler.sendEmptyMessage(MSG_DISPATCH_SHOW_GLOBAL_ACTIONS);
     }
-
     void showGlobalActionsInternal() {
         sendCloseSystemWindows(SYSTEM_DIALOG_REASON_GLOBAL_ACTIONS);
         if (mGlobalActions == null) {
@@ -1776,32 +1593,26 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mPowerManager.userActivity(SystemClock.uptimeMillis(), false);
         }
     }
-
     boolean isDeviceProvisioned() {
         return Settings.Global.getInt(
                 mContext.getContentResolver(), Settings.Global.DEVICE_PROVISIONED, 0) != 0;
     }
-
     boolean isUserSetupComplete() {
         return Settings.Secure.getIntForUser(mContext.getContentResolver(),
                 Settings.Secure.USER_SETUP_COMPLETE, 0, UserHandle.USER_CURRENT) != 0;
     }
-
     private void handleShortPressOnHome() {
         // Turn on the connected TV and switch HDMI input if we're a HDMI playback device.
         getHdmiControl().turnOnTv();
-
         // If there's a dream running then use home to escape the dream
         // but don't actually go home.
         if (mDreamManagerInternal != null && mDreamManagerInternal.isDreaming()) {
             mDreamManagerInternal.stopDream(false /*immediate*/);
             return;
         }
-
         // Go home!
         launchHomeFromHotKey();
     }
-
     /**
      * Fires native short press action.
      * @param keyCode The intercepted KeyEvent key code.
@@ -1809,7 +1620,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private void handleShortPressOnKeyCode(int keyCode) {
         runDefaultBehaviorAction(keyCode);
     }
-
     /**
      * Creates an accessor to HDMI control service that performs the operation of
      * turning on TV (optional) and switching input to us. If HDMI control service
@@ -1818,7 +1628,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private HdmiControl getHdmiControl() {
         if (null == mHdmiControl) {
             HdmiControlManager manager = (HdmiControlManager) mContext.getSystemService(
-                        Context.HDMI_CONTROL_SERVICE);
+                    Context.HDMI_CONTROL_SERVICE);
             HdmiPlaybackClient client = null;
             if (manager != null) {
                 client = manager.getPlaybackClient();
@@ -1827,14 +1637,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return mHdmiControl;
     }
-
     private static class HdmiControl {
         private final HdmiPlaybackClient mClient;
-
         private HdmiControl(HdmiPlaybackClient client) {
             mClient = client;
         }
-
         public void turnOnTv() {
             if (mClient == null) {
                 return;
@@ -1849,14 +1656,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             });
         }
     }
-
     private void handleLongPressOnHome(int deviceId) {
         if (mLongPressOnHomeBehavior == LONG_PRESS_HOME_NOTHING) {
             return;
         }
         mHomeConsumed = true;
         performHapticFeedbackLw(null, HapticFeedbackConstants.LONG_PRESS, false);
-
         switch (mLongPressOnHomeBehavior) {
             case LONG_PRESS_HOME_RECENT_SYSTEM_UI:
                 toggleRecentApps();
@@ -1869,14 +1674,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 break;
         }
     }
-
     private void handleDoubleTapOnHome() {
         if (mDoubleTapOnHomeBehavior == DOUBLE_TAP_HOME_RECENT_SYSTEM_UI) {
             mHomeConsumed = true;
             toggleRecentApps();
         }
     }
-
     private void showTvPictureInPictureMenu(KeyEvent event) {
         if (DEBUG_INPUT) Log.d(TAG, "showTvPictureInPictureMenu event=" + event);
         mHandler.removeMessages(MSG_SHOW_TV_PICTURE_IN_PICTURE_MENU);
@@ -1884,14 +1687,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         msg.setAsynchronous(true);
         msg.sendToTarget();
     }
-
     private void showTvPictureInPictureMenuInternal() {
         StatusBarManagerInternal statusbar = getStatusBarManagerInternal();
         if (statusbar != null) {
             statusbar.showTvPictureInPictureMenu();
         }
     }
-
     private final Runnable mHomeDoubleTapTimeoutRunnable = new Runnable() {
         @Override
         public void run() {
@@ -1901,7 +1702,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     };
-
     /**
      * Handle long press action.
      * @param keyCode The intercepted KeyEvent key code.
@@ -1915,7 +1715,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             runBehaviorAction(keyCode, longPressBehavior);
         }
     }
-
     /**
      * Handle double-tap action.
      * @param keyCode The intercepted KeyEvent key code.
@@ -1926,7 +1725,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             runBehaviorAction(keyCode, doubleTapBehavior);
         }
     }
-
     /**
      * Create keyCode based runnable.
      * @param keyCode The key event code.
@@ -1944,36 +1742,29 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         };
         return r;
     }
-
     /**
      * Send custom KeyEvent.
      * @param keyCode The key code for the new KeyEvent.
      */
     private void triggerVirtualKeypress(final int keyCode, final boolean repeat) {
         final InputManager im = InputManager.getInstance();
-
         final Runnable r = new Runnable() {
             @Override
             public void run() {
                 long now = SystemClock.uptimeMillis();
-
                 final KeyEvent downEvent = new KeyEvent(now, now, KeyEvent.ACTION_DOWN,
                         keyCode, 0, 0, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
                         KeyEvent.FLAG_FROM_SYSTEM, InputDevice.SOURCE_CUSTOM);
                 final KeyEvent upEvent = KeyEvent.changeAction(downEvent, KeyEvent.ACTION_UP);
-
                 im.injectInputEvent(downEvent, InputManager.INJECT_INPUT_EVENT_MODE_ASYNC);
                 im.injectInputEvent(upEvent, InputManager.INJECT_INPUT_EVENT_MODE_ASYNC);
             }
         };
-
         mHandler.post(r);
-
         if (repeat) {
             mHandler.postDelayed(r, 100);
         }
     }
-
     /**
      * Request camera to be opened.
      * This goes through status bar service which will check if there
@@ -1986,8 +1777,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         if (statusbar != null) {
             statusbar.onCameraLaunchGestureDetected(-1);
         }
-     }
-
+    }
     /**
      * Request current window to enter multiwindow mode.
      */
@@ -1997,15 +1787,13 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             statusbar.toggleSplitScreen();
         }
     }
-
     private boolean isRoundWindow() {
         return mContext.getResources().getConfiguration().isScreenRound();
     }
-
     /** {@inheritDoc} */
     @Override
     public void init(Context context, IWindowManager windowManager,
-            WindowManagerFuncs windowManagerFuncs) {
+                     WindowManagerFuncs windowManagerFuncs) {
         mContext = context;
         mWindowManager = windowManager;
         mWindowManagerFuncs = windowManagerFuncs;
@@ -2017,8 +1805,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         mAppOpsManager = (AppOpsManager) mContext.getSystemService(Context.APP_OPS_SERVICE);
         mHasFeatureWatch = mContext.getPackageManager().hasSystemFeature(FEATURE_WATCH);
         mCameraManager = (CameraManager) mContext.getSystemService(Context.CAMERA_SERVICE);
-
-
         // Initialise Keypress Boost
         mBoostParamValWeak = context.getResources().getIntArray(
                 com.android.internal.R.array.qboost_weak_param_value);
@@ -2030,7 +1816,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mPerfKey = new BoostFramework();
             mPerfRotation = new BoostFramework();
         }
-
         // Init display burn-in protection
         boolean burnInProtectionEnabled = context.getResources().getBoolean(
                 com.android.internal.R.bool.config_enableBurnInProtection);
@@ -2065,7 +1850,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mBurnInProtectionHelper = new BurnInProtectionHelper(
                     context, minHorizontal, maxHorizontal, minVertical, maxVertical, maxRadius);
         }
-
         mHandler = new PolicyHandler();
         mWakeGestureListener = new MyWakeGestureListener(mContext, mHandler);
         mOrientationListener = new MyOrientationListener(mContext, mHandler);
@@ -2091,7 +1875,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         mDeskDockIntent.addCategory(Intent.CATEGORY_DESK_DOCK);
         mDeskDockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-
         mPowerManager = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
         mBroadcastWakeLock = mPowerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                 "PhoneWindowManager.mBroadcastWakeLock");
@@ -2122,12 +1905,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 com.android.internal.R.bool.config_lidControlsSleep);
         mTranslucentDecorEnabled = mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_enableTranslucentDecor);
-
         mAllowTheaterModeWakeFromKey = mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_allowTheaterModeWakeFromKey);
         mAllowTheaterModeWakeFromPowerKey = mAllowTheaterModeWakeFromKey
                 || mContext.getResources().getBoolean(
-                    com.android.internal.R.bool.config_allowTheaterModeWakeFromPowerKey);
+                com.android.internal.R.bool.config_allowTheaterModeWakeFromPowerKey);
         mAllowTheaterModeWakeFromMotion = mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_allowTheaterModeWakeFromMotion);
         mAllowTheaterModeWakeFromMotionWhenNotDreaming = mContext.getResources().getBoolean(
@@ -2138,18 +1920,14 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 com.android.internal.R.bool.config_allowTheaterModeWakeFromLidSwitch);
         mAllowTheaterModeWakeFromWakeGesture = mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_allowTheaterModeWakeFromGesture);
-
         mGoToSleepOnButtonPressTheaterMode = mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_goToSleepOnButtonPressTheaterMode);
-
         mSupportLongPressPowerWhenNonInteractive = mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_supportLongPressPowerWhenNonInteractive);
-
         mLongPressOnBackBehavior = mContext.getResources().getInteger(
                 com.android.internal.R.integer.config_longPressOnBackBehavior);
         mPanicPressOnBackBehavior = mContext.getResources().getInteger(
                 com.android.internal.R.integer.config_backPanicBehavior);
-
         mShortPressOnPowerBehavior = mContext.getResources().getInteger(
                 com.android.internal.R.integer.config_shortPressOnPowerBehavior);
         mLongPressOnPowerBehavior = mContext.getResources().getInteger(
@@ -2160,20 +1938,14 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 com.android.internal.R.integer.config_triplePressOnPowerBehavior);
         mShortPressOnSleepBehavior = mContext.getResources().getInteger(
                 com.android.internal.R.integer.config_shortPressOnSleepBehavior);
-
         mUseTvRouting = AudioSystem.getPlatformType(mContext) == AudioSystem.PLATFORM_TELEVISION;
-
         mDeviceHardwareKeys = mContext.getResources().getInteger(
                 com.android.internal.R.integer.config_deviceHardwareKeys);
-
         mBackKillTimeout = mContext.getResources().getInteger(
                 com.android.internal.R.integer.config_backKillTimeout);
-
         readConfigurationDependentBehaviors();
-
         mAccessibilityManager = (AccessibilityManager) context.getSystemService(
                 Context.ACCESSIBILITY_SERVICE);
-
         // register for dock events
         IntentFilter filter = new IntentFilter();
         filter.addAction(UiModeManager.ACTION_ENTER_CAR_MODE);
@@ -2187,17 +1959,14 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mDockMode = intent.getIntExtra(Intent.EXTRA_DOCK_STATE,
                     Intent.EXTRA_DOCK_STATE_UNDOCKED);
         }
-
         // register for dream-related broadcasts
         filter = new IntentFilter();
         filter.addAction(Intent.ACTION_DREAMING_STARTED);
         filter.addAction(Intent.ACTION_DREAMING_STOPPED);
         context.registerReceiver(mDreamReceiver, filter);
-
         // register for multiuser-relevant broadcasts
         filter = new IntentFilter(Intent.ACTION_USER_SWITCHED);
         context.registerReceiver(mMultiuserReceiver, filter);
-
         // monitor for system gestures
         mSystemGestures = new SystemGesturesPointerEventListener(context,
                 new SystemGesturesPointerEventListener.Callbacks() {
@@ -2265,7 +2034,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 });
         mImmersiveModeConfirmation = new ImmersiveModeConfirmation(mContext);
         mWindowManagerFuncs.registerPointerEventListener(mSystemGestures);
-
         mVibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
         mLongPressVibePattern = getLongIntArray(mContext.getResources(),
                 com.android.internal.R.array.config_longPressVibePattern);
@@ -2283,26 +2051,20 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 com.android.internal.R.array.config_safeModeEnabledVibePattern);
         mContextClickVibePattern = getLongIntArray(mContext.getResources(),
                 com.android.internal.R.array.config_contextClickVibePattern);
-
         mScreenshotChordEnabled = mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_enableScreenshotChord);
         mScreenrecordChordEnabled = mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_enableScreenrecordChord);
-
         mGlobalKeyManager = new GlobalKeyManager(mContext);
-
         // Controls rotation and the like.
         initializeHdmiState();
-
         // Match current screen state.
         if (!mPowerManager.isInteractive()) {
             startedGoingToSleep(WindowManagerPolicy.OFF_BECAUSE_OF_USER);
             finishedGoingToSleep(WindowManagerPolicy.OFF_BECAUSE_OF_USER);
         }
-
         mWindowManagerInternal.registerAppTransitionListener(
                 mStatusBarController.getAppTransitionListener());
-
         if (ENABLE_CUSTOM_INPUT_POLICY) {
             // Custom input policy settings.
             for (int i = 0; i < SUPPORTED_KEYCODE_LIST.length; i++) {
@@ -2313,15 +2075,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 mKeyDoubleTapRunnable.put(keyCode, createDoubleTapTimeoutRunnable(keyCode));
                 mKeyDoubleTapBehaviorDefaultResId.put(keyCode, getKeyDoubleTapBehaviorResId(keyCode));
                 mKeyLongPressBehaviorDefaultResId.put(keyCode, getKeyLongPressBehaviorResId(keyCode));
-             }
-         }
-
+            }
+        }
         String deviceKeyHandlerLib = mContext.getResources().getString(
                 com.android.internal.R.string.config_deviceKeyHandlerLib);
-
         String deviceKeyHandlerClass = mContext.getResources().getString(
                 com.android.internal.R.string.config_deviceKeyHandlerClass);
-
         if (!deviceKeyHandlerLib.isEmpty() && !deviceKeyHandlerClass.isEmpty()) {
             PathClassLoader loader =  new PathClassLoader(deviceKeyHandlerLib,
                     getClass().getClassLoader());
@@ -2330,7 +2089,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 Class clazz = Class.forName(deviceKeyHandlerClass);
                 Constructor<?> constr = clazz.getConstructor(Context.class);
                 mDeviceKeyHandler =
-                    (DeviceKeyHandler) constr.newInstance(mContext);
+                        (DeviceKeyHandler) constr.newInstance(mContext);
                 Slog.d(TAG, "Device key handler loaded successfully.");
             } catch(Exception ex) {
                 Slog.e(TAG, "Failed to load device key handler: "
@@ -2339,7 +2098,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         } else Slog.d(TAG, "No keyhandler specified, not using it.");
     }
-
     /**
      * Read values from config.xml that may be overridden depending on
      * the configuration of the device.
@@ -2348,33 +2106,27 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private void readConfigurationDependentBehaviors() {
         final ContentResolver resolver = mContext.getContentResolver();
         final Resources res = mContext.getResources();
-
         mLongPressOnHomeBehavior = res.getInteger(
                 com.android.internal.R.integer.config_longPressOnHomeBehavior);
         if (mLongPressOnHomeBehavior < LONG_PRESS_HOME_NOTHING ||
                 mLongPressOnHomeBehavior > LAST_LONG_PRESS_HOME_BEHAVIOR) {
             mLongPressOnHomeBehavior = LONG_PRESS_HOME_NOTHING;
         }
-
         mDoubleTapOnHomeBehavior = res.getInteger(
                 com.android.internal.R.integer.config_doubleTapOnHomeBehavior);
         if (mDoubleTapOnHomeBehavior < DOUBLE_TAP_HOME_NOTHING ||
                 mDoubleTapOnHomeBehavior > DOUBLE_TAP_HOME_RECENT_SYSTEM_UI) {
             mDoubleTapOnHomeBehavior = LONG_PRESS_HOME_NOTHING;
         }
-
         mShortPressWindowBehavior = SHORT_PRESS_WINDOW_NOTHING;
         if (mContext.getPackageManager().hasSystemFeature(FEATURE_PICTURE_IN_PICTURE)) {
             mShortPressWindowBehavior = SHORT_PRESS_WINDOW_PICTURE_IN_PICTURE;
         }
-
         mNavBarOpacityMode = res.getInteger(
                 com.android.internal.R.integer.config_navBarOpacityMode);
-
         if (!ENABLE_CUSTOM_INPUT_POLICY) {
             return;
         }
-
         // Read custom policy settings.
         final boolean hasHome = mNavBarEnabled || (mDeviceHardwareKeys & KEY_MASK_HOME) != 0;
         final boolean hasAppSwitch = mNavBarEnabled || (mDeviceHardwareKeys & KEY_MASK_APP_SWITCH) != 0;
@@ -2382,7 +2134,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         final boolean hasMenu = (mDeviceHardwareKeys & KEY_MASK_MENU) != 0;
         final boolean hasAssist = (mDeviceHardwareKeys & KEY_MASK_ASSIST) != 0;
         final boolean hasCamera = (mDeviceHardwareKeys & KEY_MASK_CAMERA) != 0;
-
         for (int i = 0; i < SUPPORTED_KEYCODE_LIST.length; i++) {
             final int keyCode = SUPPORTED_KEYCODE_LIST[i];
             int behavior;
@@ -2399,7 +2150,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
             mKeyDoubleTapBehavior.put(keyCode, behavior);
         }
-
         if (hasHome) {
             mKeyLongPressBehavior.put(KeyEvent.KEYCODE_HOME, Settings.System.getIntForUser(resolver,
                     Settings.System.KEY_HOME_LONG_PRESS_ACTION,
@@ -2408,7 +2158,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     Settings.System.KEY_HOME_DOUBLE_TAP_ACTION,
                     mKeyDoubleTapBehavior.get(KeyEvent.KEYCODE_HOME), UserHandle.USER_CURRENT));
         }
-
         if (hasMenu) {
             mKeyLongPressBehavior.put(KeyEvent.KEYCODE_MENU, Settings.System.getIntForUser(resolver,
                     Settings.System.KEY_MENU_LONG_PRESS_ACTION,
@@ -2417,7 +2166,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     Settings.System.KEY_MENU_DOUBLE_TAP_ACTION,
                     mKeyDoubleTapBehavior.get(KeyEvent.KEYCODE_MENU), UserHandle.USER_CURRENT));
         }
-
         if (hasBack) {
             mKeyLongPressBehavior.put(KeyEvent.KEYCODE_BACK, Settings.System.getIntForUser(resolver,
                     Settings.System.KEY_BACK_LONG_PRESS_ACTION,
@@ -2426,7 +2174,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     Settings.System.KEY_BACK_DOUBLE_TAP_ACTION,
                     mKeyDoubleTapBehavior.get(KeyEvent.KEYCODE_BACK), UserHandle.USER_CURRENT));
         }
-
         if (hasAssist) {
             mKeyLongPressBehavior.put(KeyEvent.KEYCODE_ASSIST, Settings.System.getIntForUser(resolver,
                     Settings.System.KEY_ASSIST_LONG_PRESS_ACTION,
@@ -2435,7 +2182,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     Settings.System.KEY_ASSIST_DOUBLE_TAP_ACTION,
                     mKeyDoubleTapBehavior.get(KeyEvent.KEYCODE_ASSIST), UserHandle.USER_CURRENT));
         }
-
         if (hasAppSwitch) {
             mKeyLongPressBehavior.put(KeyEvent.KEYCODE_APP_SWITCH, Settings.System.getIntForUser(resolver,
                     Settings.System.KEY_APP_SWITCH_LONG_PRESS_ACTION,
@@ -2444,7 +2190,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     Settings.System.KEY_APP_SWITCH_DOUBLE_TAP_ACTION,
                     mKeyDoubleTapBehavior.get(KeyEvent.KEYCODE_APP_SWITCH), UserHandle.USER_CURRENT));
         }
-
         if (hasCamera) {
             mKeyLongPressBehavior.put(KeyEvent.KEYCODE_CAMERA, Settings.System.getIntForUser(resolver,
                     Settings.System.KEY_CAMERA_LONG_PRESS_ACTION,
@@ -2454,7 +2199,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     mKeyDoubleTapBehavior.get(KeyEvent.KEYCODE_CAMERA), UserHandle.USER_CURRENT));
         }
     }
-
     @Override
     public void setInitialDisplaySize(Display display, int width, int height, int density) {
         // This method might be called before the policy has been fully initialized
@@ -2463,7 +2207,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return;
         }
         mDisplay = display;
-
         final Resources res = mContext.getResources();
         int shortSize, longSize;
         if (width > height) {
@@ -2491,16 +2234,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 mSeascapeRotation = Surface.ROTATION_270;
             }
         }
-
         // SystemUI (status bar) layout policy
         int shortSizeDp = shortSize * DisplayMetrics.DENSITY_DEFAULT / density;
         int longSizeDp = longSize * DisplayMetrics.DENSITY_DEFAULT / density;
-
         // Allow the navigation bar to move on non-square small devices (phones).
         mNavigationBarCanMove = width != height && shortSizeDp < 600;
-
         mHasNavigationBar = res.getBoolean(com.android.internal.R.bool.config_showNavigationBar);
-
         // Allow a system property to override this. Used by the emulator.
         // See also hasNavigationBar().
         String navBarOverride = SystemProperties.get("qemu.hw.mainkeys");
@@ -2509,7 +2248,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         } else if ("0".equals(navBarOverride)) {
             mHasNavigationBar = true;
         }
-
         // For demo purposes, allow the rotation of the HDMI display to be controlled.
         // By default, HDMI locks rotation to landscape.
         if ("portrait".equals(SystemProperties.get("persist.demo.hdmirotation"))) {
@@ -2518,7 +2256,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mDemoHdmiRotation = mLandscapeRotation;
         }
         mDemoHdmiRotationLock = SystemProperties.getBoolean("persist.demo.hdmirotationlock", false);
-
         // For demo purposes, allow the rotation of the remote display to be controlled.
         // By default, remote display locks rotation to landscape.
         if ("portrait".equals(SystemProperties.get("persist.demo.remoterotation"))) {
@@ -2528,7 +2265,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         mDemoRotationLock = SystemProperties.getBoolean(
                 "persist.demo.rotationlock", false);
-
         // Only force the default orientation if the screen is xlarge, at least 960dp x 720dp, per
         // http://developer.android.com/guide/practices/screens_support.html#range
         mForceDefaultOrientation = longSizeDp >= 960 && shortSizeDp >= 720 &&
@@ -2538,7 +2274,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 // $ adb shell wm size reset
                 !"true".equals(SystemProperties.get("config.override_forced_orient"));
     }
-
     /**
      * @return whether the navigation bar can be hidden, e.g. the device has a
      *         navigation bar and touch exploration is not enabled
@@ -2546,12 +2281,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private boolean canHideNavigationBar() {
         return hasNavigationBar();
     }
-
     @Override
     public boolean isDefaultOrientationForced() {
         return mForceDefaultOrientation;
     }
-
     @Override
     public void setDisplayOverscan(Display display, int left, int top, int right, int bottom) {
         if (display.getDisplayId() == Display.DEFAULT_DISPLAY) {
@@ -2561,7 +2294,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mOverscanBottom = bottom;
         }
     }
-
     public void updateSettings() {
         ContentResolver resolver = mContext.getContentResolver();
         boolean updateRotation = false;
@@ -2578,15 +2310,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     Settings.Secure.INCALL_BACK_BUTTON_BEHAVIOR,
                     Settings.Secure.INCALL_BACK_BUTTON_BEHAVIOR_DEFAULT,
                     UserHandle.USER_CURRENT);
-
             // volume rocker wake
             mVolumeRockerWake = Settings.System.getIntForUser(resolver,
                     Settings.System.VOLUME_ROCKER_WAKE, 0, UserHandle.USER_CURRENT) != 0;
-
             // volume rocker music control
             mVolBtnMusicControls = (Settings.System.getIntForUser(resolver,
                     Settings.System.VOLUME_ROCKER_MUSIC_CONTROLS, 0, UserHandle.USER_CURRENT) == 1);
-
             // Configure wake gesture.
             boolean wakeGestureEnabledSetting = Settings.Secure.getIntForUser(resolver,
                     Settings.Secure.WAKE_GESTURE_ENABLED, 0,
@@ -2595,15 +2324,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 mWakeGestureEnabledSetting = wakeGestureEnabledSetting;
                 updateWakeGestureListenerLp();
             }
-
             final boolean navBarEnabled = Settings.System.getIntForUser(resolver,
                     Settings.System.NAVIGATION_BAR_ENABLED, 0, UserHandle.USER_CURRENT) == 1;
             if (navBarEnabled != mNavBarEnabled) {
                 mNavBarEnabled = navBarEnabled;
             }
-
             readConfigurationDependentBehaviors();
-
             // Configure rotation lock.
             int userRotation = Settings.System.getIntForUser(resolver,
                     Settings.System.USER_ROTATION, Surface.ROTATION_0,
@@ -2614,18 +2340,16 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
             int userRotationMode = Settings.System.getIntForUser(resolver,
                     Settings.System.ACCELEROMETER_ROTATION, 0, UserHandle.USER_CURRENT) != 0 ?
-                            WindowManagerPolicy.USER_ROTATION_FREE :
-                                    WindowManagerPolicy.USER_ROTATION_LOCKED;
+                    WindowManagerPolicy.USER_ROTATION_FREE :
+                    WindowManagerPolicy.USER_ROTATION_LOCKED;
             if (mUserRotationMode != userRotationMode) {
                 mUserRotationMode = userRotationMode;
                 updateRotation = true;
                 updateOrientationListenerLp();
             }
-
             mUserRotationAngles = Settings.System.getIntForUser(resolver,
                     Settings.System.ACCELEROMETER_ROTATION_ANGLES, -1,
                     UserHandle.USER_CURRENT);
-
             if (mSystemReady) {
                 int pointerLocation = Settings.System.getIntForUser(resolver,
                         Settings.System.POINTER_LOCATION, 0, UserHandle.USER_CURRENT);
@@ -2648,10 +2372,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             if (mImmersiveModeConfirmation != null) {
                 mImmersiveModeConfirmation.loadSetting(mCurrentUserId);
             }
-
             mTorchEnabled = (Settings.System.getIntForUser(resolver,
                     Settings.System.KEYGUARD_TOGGLE_TORCH, 0, UserHandle.USER_CURRENT) == 1);
-
         }
         synchronized (mWindowManagerFuncs.getWindowManagerLock()) {
             PolicyControl.reloadFromSetting(mContext);
@@ -2660,7 +2382,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             updateRotation(true);
         }
     }
-
     private void updateWakeGestureListenerLp() {
         if (shouldEnableWakeGestureLp()) {
             mWakeGestureListener.requestWakeUpTrigger();
@@ -2668,13 +2389,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mWakeGestureListener.cancelWakeUpTrigger();
         }
     }
-
     private boolean shouldEnableWakeGestureLp() {
         return mWakeGestureEnabledSetting && !mAwake
                 && (!mLidControlsSleep || mLidState != LID_CLOSED)
                 && mWakeGestureListener.isSupported();
     }
-
     private void enablePointerLocation() {
         if (mPointerLocationView == null) {
             mPointerLocationView = new PointerLocationView(mContext);
@@ -2701,7 +2420,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mWindowManagerFuncs.registerPointerEventListener(mPointerLocationView);
         }
     }
-
     private void disablePointerLocation() {
         if (mPointerLocationView != null) {
             mWindowManagerFuncs.unregisterPointerEventListener(mPointerLocationView);
@@ -2710,7 +2428,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mPointerLocationView = null;
         }
     }
-
     private int readRotation(int resID) {
         try {
             int rotation = mContext.getResources().getInteger(resID);
@@ -2729,20 +2446,16 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return -1;
     }
-
     /** {@inheritDoc} */
     @Override
     public int checkAddPermission(WindowManager.LayoutParams attrs, int[] outAppOp) {
         int type = attrs.type;
-
         outAppOp[0] = AppOpsManager.OP_NONE;
-
         if (!((type >= FIRST_APPLICATION_WINDOW && type <= LAST_APPLICATION_WINDOW)
                 || (type >= FIRST_SUB_WINDOW && type <= LAST_SUB_WINDOW)
                 || (type >= FIRST_SYSTEM_WINDOW && type <= LAST_SYSTEM_WINDOW))) {
             return WindowManagerGlobal.ADD_INVALID_TYPE;
         }
-
         if (type < FIRST_SYSTEM_WINDOW || type > LAST_SYSTEM_WINDOW) {
             // Window manager will make sure these are okay.
             return WindowManagerGlobal.ADD_OKAY;
@@ -2782,7 +2495,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 if (callingUid == Process.SYSTEM_UID) {
                     return WindowManagerGlobal.ADD_OKAY;
                 }
-
                 // check if user has enabled this operation. SecurityException will be thrown if
                 // this app has not been allowed by the user
                 final int mode = mAppOpsManager.checkOpNoThrow(outAppOp[0], callingUid,
@@ -2817,7 +2529,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         }
                 }
             }
-
             if (mContext.checkCallingOrSelfPermission(permission)
                     != PackageManager.PERMISSION_GRANTED) {
                 return WindowManagerGlobal.ADD_PERMISSION_DENIED;
@@ -2825,10 +2536,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return WindowManagerGlobal.ADD_OKAY;
     }
-
     @Override
     public boolean checkShowToOwnerOnly(WindowManager.LayoutParams attrs) {
-
         // If this switch statement is modified, modify the comment in the declarations of
         // the type in {@link WindowManager.LayoutParams} as well.
         switch (attrs.type) {
@@ -2842,7 +2551,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     return true;
                 }
                 break;
-
             // These are the windows that by default are shown to all users. However, to
             // protect against spoofing, check permissions below.
             case TYPE_APPLICATION_STARTING:
@@ -2868,13 +2576,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             case TYPE_DOCK_DIVIDER:
                 break;
         }
-
         // Check if third party app has set window to system window type.
         return mContext.checkCallingOrSelfPermission(
                 android.Manifest.permission.INTERNAL_SYSTEM_WINDOW)
-                        != PackageManager.PERMISSION_GRANTED;
+                != PackageManager.PERMISSION_GRANTED;
     }
-
     @Override
     public void adjustWindowParamsLw(WindowManager.LayoutParams attrs) {
         switch (attrs.type) {
@@ -2886,7 +2592,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 attrs.flags &= ~WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH;
                 break;
             case TYPE_STATUS_BAR:
-
                 // If the Keyguard is in a hidden state (occluded by another window), we force to
                 // remove the wallpaper and keyguard flag so that any change in-flight after setting
                 // the keyguard as occluded wouldn't set these flags again.
@@ -2896,11 +2601,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     attrs.privateFlags &= ~WindowManager.LayoutParams.PRIVATE_FLAG_KEYGUARD;
                 }
                 break;
-
             case TYPE_SCREENSHOT:
                 attrs.flags |= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
                 break;
-
             case TYPE_TOAST:
                 // While apps should use the dedicated toast APIs to add such windows
                 // it possible legacy apps to add the window directly. Therefore, we
@@ -2913,12 +2616,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 attrs.windowAnimations = com.android.internal.R.style.Animation_Toast;
                 break;
         }
-
         if (attrs.type != TYPE_STATUS_BAR) {
             // The status bar is the only window allowed to exhibit keyguard behavior.
             attrs.privateFlags &= ~WindowManager.LayoutParams.PRIVATE_FLAG_KEYGUARD;
         }
-
         if (ActivityManager.isHighEndGfx()) {
             if ((attrs.flags & FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS) != 0) {
                 attrs.subtreeSystemUiVisibility |= View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
@@ -2928,20 +2629,17 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                             != 0;
             if ((attrs.flags & FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS) != 0
                     || forceWindowDrawsStatusBarBackground
-                            && attrs.height == MATCH_PARENT && attrs.width == MATCH_PARENT) {
+                    && attrs.height == MATCH_PARENT && attrs.width == MATCH_PARENT) {
                 attrs.subtreeSystemUiVisibility |= View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
             }
         }
     }
-
     void readLidState() {
         mLidState = mWindowManagerFuncs.getLidState();
     }
-
     private void readCameraLensCoverState() {
         mCameraLensCoverState = mWindowManagerFuncs.getCameraLensCoverState();
     }
-
     private boolean isHidden(int accessibilityMode) {
         switch (accessibilityMode) {
             case 1:
@@ -2952,74 +2650,63 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 return false;
         }
     }
-
     /** {@inheritDoc} */
     @Override
     public void adjustConfigurationLw(Configuration config, int keyboardPresence,
-            int navigationPresence) {
+                                      int navigationPresence) {
         mHaveBuiltInKeyboard = (keyboardPresence & PRESENCE_INTERNAL) != 0;
-
         readConfigurationDependentBehaviors();
         readLidState();
-
         if (config.keyboard == Configuration.KEYBOARD_NOKEYS
                 || (keyboardPresence == PRESENCE_INTERNAL
-                        && isHidden(mLidKeyboardAccessibility))) {
+                && isHidden(mLidKeyboardAccessibility))) {
             config.hardKeyboardHidden = Configuration.HARDKEYBOARDHIDDEN_YES;
             if (!mHasSoftInput) {
                 config.keyboardHidden = Configuration.KEYBOARDHIDDEN_YES;
             }
         }
-
         if (config.navigation == Configuration.NAVIGATION_NONAV
                 || (navigationPresence == PRESENCE_INTERNAL
-                        && isHidden(mLidNavigationAccessibility))) {
+                && isHidden(mLidNavigationAccessibility))) {
             config.navigationHidden = Configuration.NAVIGATIONHIDDEN_YES;
         }
     }
-
     @Override
     public void onConfigurationChanged() {
         final Resources res = mContext.getResources();
-
         mStatusBarHeight =
                 res.getDimensionPixelSize(com.android.internal.R.dimen.status_bar_height);
-
         // Height of the navigation bar when presented horizontally at bottom
         mNavigationBarHeightForRotationDefault[mPortraitRotation] =
-        mNavigationBarHeightForRotationDefault[mUpsideDownRotation] =
-                res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_height);
+                mNavigationBarHeightForRotationDefault[mUpsideDownRotation] =
+                        res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_height);
         mNavigationBarHeightForRotationDefault[mLandscapeRotation] =
-        mNavigationBarHeightForRotationDefault[mSeascapeRotation] = res.getDimensionPixelSize(
-                com.android.internal.R.dimen.navigation_bar_height_landscape);
-
+                mNavigationBarHeightForRotationDefault[mSeascapeRotation] = res.getDimensionPixelSize(
+                        com.android.internal.R.dimen.navigation_bar_height_landscape);
         // Width of the navigation bar when presented vertically along one side
         mNavigationBarWidthForRotationDefault[mPortraitRotation] =
-        mNavigationBarWidthForRotationDefault[mUpsideDownRotation] =
-        mNavigationBarWidthForRotationDefault[mLandscapeRotation] =
-        mNavigationBarWidthForRotationDefault[mSeascapeRotation] =
-                res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_width);
-
+                mNavigationBarWidthForRotationDefault[mUpsideDownRotation] =
+                        mNavigationBarWidthForRotationDefault[mLandscapeRotation] =
+                                mNavigationBarWidthForRotationDefault[mSeascapeRotation] =
+                                        res.getDimensionPixelSize(com.android.internal.R.dimen.navigation_bar_width);
         if (ALTERNATE_CAR_MODE_NAV_SIZE) {
             // Height of the navigation bar when presented horizontally at bottom
             mNavigationBarHeightForRotationInCarMode[mPortraitRotation] =
-            mNavigationBarHeightForRotationInCarMode[mUpsideDownRotation] =
-                    res.getDimensionPixelSize(
-                            com.android.internal.R.dimen.navigation_bar_height_car_mode);
+                    mNavigationBarHeightForRotationInCarMode[mUpsideDownRotation] =
+                            res.getDimensionPixelSize(
+                                    com.android.internal.R.dimen.navigation_bar_height_car_mode);
             mNavigationBarHeightForRotationInCarMode[mLandscapeRotation] =
-            mNavigationBarHeightForRotationInCarMode[mSeascapeRotation] = res.getDimensionPixelSize(
-                    com.android.internal.R.dimen.navigation_bar_height_landscape_car_mode);
-
+                    mNavigationBarHeightForRotationInCarMode[mSeascapeRotation] = res.getDimensionPixelSize(
+                            com.android.internal.R.dimen.navigation_bar_height_landscape_car_mode);
             // Width of the navigation bar when presented vertically along one side
             mNavigationBarWidthForRotationInCarMode[mPortraitRotation] =
-            mNavigationBarWidthForRotationInCarMode[mUpsideDownRotation] =
-            mNavigationBarWidthForRotationInCarMode[mLandscapeRotation] =
-            mNavigationBarWidthForRotationInCarMode[mSeascapeRotation] =
-                    res.getDimensionPixelSize(
-                            com.android.internal.R.dimen.navigation_bar_width_car_mode);
+                    mNavigationBarWidthForRotationInCarMode[mUpsideDownRotation] =
+                            mNavigationBarWidthForRotationInCarMode[mLandscapeRotation] =
+                                    mNavigationBarWidthForRotationInCarMode[mSeascapeRotation] =
+                                            res.getDimensionPixelSize(
+                                                    com.android.internal.R.dimen.navigation_bar_width_car_mode);
         }
     }
-
     /** {@inheritDoc} */
     @Override
     public int windowTypeToLayerLw(int type) {
@@ -3027,128 +2714,125 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return 2;
         }
         switch (type) {
-        case TYPE_PRIVATE_PRESENTATION:
-            return 2;
-        case TYPE_WALLPAPER:
-            // wallpaper is at the bottom, though the window manager may move it.
-            return 2;
-        case TYPE_DOCK_DIVIDER:
-            return 2;
-        case TYPE_QS_DIALOG:
-            return 2;
-        case TYPE_PHONE:
-            return 3;
-        case TYPE_SEARCH_BAR:
-        case TYPE_VOICE_INTERACTION_STARTING:
-            return 4;
-        case TYPE_VOICE_INTERACTION:
-            // voice interaction layer is almost immediately above apps.
-            return 5;
-        case TYPE_INPUT_CONSUMER:
-            return 6;
-        case TYPE_SYSTEM_DIALOG:
-        case TYPE_SLIM_RECENTS:
-            return 7;
-        case TYPE_TOAST:
-            // toasts and the plugged-in battery thing
-            return 8;
-        case TYPE_PRIORITY_PHONE:
-            // SIM errors and unlock.  Not sure if this really should be in a high layer.
-            return 9;
-        case TYPE_DREAM:
-            // used for Dreams (screensavers with TYPE_DREAM windows)
-            return 10;
-        case TYPE_SYSTEM_ALERT:
-            // like the ANR / app crashed dialogs
-            return 11;
-        case TYPE_INPUT_METHOD:
-            // on-screen keyboards and other such input method user interfaces go here.
-            return 12;
-        case TYPE_INPUT_METHOD_DIALOG:
-            // on-screen keyboards and other such input method user interfaces go here.
-            return 13;
-        case TYPE_KEYGUARD_SCRIM:
-            // the safety window that shows behind keyguard while keyguard is starting
-            return 14;
-        case TYPE_STATUS_BAR_SUB_PANEL:
-            return 15;
-        case TYPE_STATUS_BAR:
-            return 16;
-        case TYPE_STATUS_BAR_PANEL:
-            return 17;
-        case TYPE_KEYGUARD_DIALOG:
-            return 18;
-        case TYPE_VOLUME_OVERLAY:
-            // the on-screen volume indicator and controller shown when the user
-            // changes the device volume
-            return 19;
-        case TYPE_SYSTEM_OVERLAY:
-            // the on-screen volume indicator and controller shown when the user
-            // changes the device volume
-            return 20;
-        case TYPE_NAVIGATION_BAR:
-            // the navigation bar, if available, shows atop most things
-            return 21;
-        case TYPE_NAVIGATION_BAR_PANEL:
-            // some panels (e.g. search) need to show on top of the navigation bar
-            return 22;
-        case TYPE_SCREENSHOT:
-            // screenshot selection layer shouldn't go above system error, but it should cover
-            // navigation bars at the very least.
-            return 23;
-        case TYPE_SYSTEM_ERROR:
-            // system-level error dialogs
-            return 24;
-        case TYPE_MAGNIFICATION_OVERLAY:
-            // used to highlight the magnified portion of a display
-            return 25;
-        case TYPE_DISPLAY_OVERLAY:
-            // used to simulate secondary display devices
-            return 26;
-        case TYPE_DRAG:
-            // the drag layer: input for drag-and-drop is associated with this window,
-            // which sits above all other focusable windows
-            return 27;
-        case TYPE_ACCESSIBILITY_OVERLAY:
-            // overlay put by accessibility services to intercept user interaction
-            return 28;
-        case TYPE_SECURE_SYSTEM_OVERLAY:
-            return 29;
-        case TYPE_BOOT_PROGRESS:
-            return 30;
-        case TYPE_POINTER:
-            // the (mouse) pointer layer
-            return 31;
+            case TYPE_PRIVATE_PRESENTATION:
+                return 2;
+            case TYPE_WALLPAPER:
+                // wallpaper is at the bottom, though the window manager may move it.
+                return 2;
+            case TYPE_DOCK_DIVIDER:
+                return 2;
+            case TYPE_QS_DIALOG:
+                return 2;
+            case TYPE_PHONE:
+                return 3;
+            case TYPE_SEARCH_BAR:
+            case TYPE_VOICE_INTERACTION_STARTING:
+                return 4;
+            case TYPE_VOICE_INTERACTION:
+                // voice interaction layer is almost immediately above apps.
+                return 5;
+            case TYPE_INPUT_CONSUMER:
+                return 6;
+            case TYPE_SYSTEM_DIALOG:
+            case TYPE_SLIM_RECENTS:
+                return 7;
+            case TYPE_TOAST:
+                // toasts and the plugged-in battery thing
+                return 8;
+            case TYPE_PRIORITY_PHONE:
+                // SIM errors and unlock.  Not sure if this really should be in a high layer.
+                return 9;
+            case TYPE_DREAM:
+                // used for Dreams (screensavers with TYPE_DREAM windows)
+                return 10;
+            case TYPE_SYSTEM_ALERT:
+                // like the ANR / app crashed dialogs
+                return 11;
+            case TYPE_INPUT_METHOD:
+                // on-screen keyboards and other such input method user interfaces go here.
+                return 12;
+            case TYPE_INPUT_METHOD_DIALOG:
+                // on-screen keyboards and other such input method user interfaces go here.
+                return 13;
+            case TYPE_KEYGUARD_SCRIM:
+                // the safety window that shows behind keyguard while keyguard is starting
+                return 14;
+            case TYPE_STATUS_BAR_SUB_PANEL:
+                return 15;
+            case TYPE_STATUS_BAR:
+                return 16;
+            case TYPE_STATUS_BAR_PANEL:
+                return 17;
+            case TYPE_KEYGUARD_DIALOG:
+                return 18;
+            case TYPE_VOLUME_OVERLAY:
+                // the on-screen volume indicator and controller shown when the user
+                // changes the device volume
+                return 19;
+            case TYPE_SYSTEM_OVERLAY:
+                // the on-screen volume indicator and controller shown when the user
+                // changes the device volume
+                return 20;
+            case TYPE_NAVIGATION_BAR:
+                // the navigation bar, if available, shows atop most things
+                return 21;
+            case TYPE_NAVIGATION_BAR_PANEL:
+                // some panels (e.g. search) need to show on top of the navigation bar
+                return 22;
+            case TYPE_SCREENSHOT:
+                // screenshot selection layer shouldn't go above system error, but it should cover
+                // navigation bars at the very least.
+                return 23;
+            case TYPE_SYSTEM_ERROR:
+                // system-level error dialogs
+                return 24;
+            case TYPE_MAGNIFICATION_OVERLAY:
+                // used to highlight the magnified portion of a display
+                return 25;
+            case TYPE_DISPLAY_OVERLAY:
+                // used to simulate secondary display devices
+                return 26;
+            case TYPE_DRAG:
+                // the drag layer: input for drag-and-drop is associated with this window,
+                // which sits above all other focusable windows
+                return 27;
+            case TYPE_ACCESSIBILITY_OVERLAY:
+                // overlay put by accessibility services to intercept user interaction
+                return 28;
+            case TYPE_SECURE_SYSTEM_OVERLAY:
+                return 29;
+            case TYPE_BOOT_PROGRESS:
+                return 30;
+            case TYPE_POINTER:
+                // the (mouse) pointer layer
+                return 31;
         }
         Log.e(TAG, "Unknown window type: " + type);
         return 2;
     }
-
     /** {@inheritDoc} */
     @Override
     public int subWindowTypeToLayerLw(int type) {
         switch (type) {
-        case TYPE_APPLICATION_PANEL:
-        case TYPE_APPLICATION_ATTACHED_DIALOG:
-            return APPLICATION_PANEL_SUBLAYER;
-        case TYPE_APPLICATION_MEDIA:
-            return APPLICATION_MEDIA_SUBLAYER;
-        case TYPE_APPLICATION_MEDIA_OVERLAY:
-            return APPLICATION_MEDIA_OVERLAY_SUBLAYER;
-        case TYPE_APPLICATION_SUB_PANEL:
-            return APPLICATION_SUB_PANEL_SUBLAYER;
-        case TYPE_APPLICATION_ABOVE_SUB_PANEL:
-            return APPLICATION_ABOVE_SUB_PANEL_SUBLAYER;
+            case TYPE_APPLICATION_PANEL:
+            case TYPE_APPLICATION_ATTACHED_DIALOG:
+                return APPLICATION_PANEL_SUBLAYER;
+            case TYPE_APPLICATION_MEDIA:
+                return APPLICATION_MEDIA_SUBLAYER;
+            case TYPE_APPLICATION_MEDIA_OVERLAY:
+                return APPLICATION_MEDIA_OVERLAY_SUBLAYER;
+            case TYPE_APPLICATION_SUB_PANEL:
+                return APPLICATION_SUB_PANEL_SUBLAYER;
+            case TYPE_APPLICATION_ABOVE_SUB_PANEL:
+                return APPLICATION_ABOVE_SUB_PANEL_SUBLAYER;
         }
         Log.e(TAG, "Unknown sub-window type: " + type);
         return 0;
     }
-
     @Override
     public int getMaxWallpaperLayer() {
         return windowTypeToLayerLw(TYPE_STATUS_BAR);
     }
-
     private int getNavigationBarWidth(int rotation, int uiMode) {
         if (ALTERNATE_CAR_MODE_NAV_SIZE && (uiMode & UI_MODE_TYPE_MASK) == UI_MODE_TYPE_CAR) {
             return mNavigationBarWidthForRotationInCarMode[rotation];
@@ -3156,10 +2840,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return mNavigationBarWidthForRotationDefault[rotation];
         }
     }
-
     @Override
     public int getNonDecorDisplayWidth(int fullWidth, int fullHeight, int rotation,
-            int uiMode) {
+                                       int uiMode) {
         if (hasNavigationBar()) {
             // For a basic navigation bar, when we are in landscape mode we place
             // the navigation bar to the side.
@@ -3169,7 +2852,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return fullWidth;
     }
-
     private int getNavigationBarHeight(int rotation, int uiMode) {
         if (ALTERNATE_CAR_MODE_NAV_SIZE && (uiMode & UI_MODE_TYPE_MASK) == UI_MODE_TYPE_CAR) {
             return mNavigationBarHeightForRotationInCarMode[rotation];
@@ -3177,10 +2859,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return mNavigationBarHeightForRotationDefault[rotation];
         }
     }
-
     @Override
     public int getNonDecorDisplayHeight(int fullWidth, int fullHeight, int rotation,
-            int uiMode) {
+                                        int uiMode) {
         if (hasNavigationBar()) {
             // For a basic navigation bar, when we are in portrait mode we place
             // the navigation bar to the bottom.
@@ -3190,12 +2871,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return fullHeight;
     }
-
     @Override
     public int getConfigDisplayWidth(int fullWidth, int fullHeight, int rotation, int uiMode) {
         return getNonDecorDisplayWidth(fullWidth, fullHeight, rotation, uiMode);
     }
-
     @Override
     public int getConfigDisplayHeight(int fullWidth, int fullHeight, int rotation, int uiMode) {
         // There is a separate status bar at the top of the display.  We don't count that as part
@@ -3205,7 +2884,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         return getNonDecorDisplayHeight(
                 fullWidth, fullHeight, rotation, uiMode) - mStatusBarHeight;
     }
-
     @Override
     public boolean isForceHiding(WindowManager.LayoutParams attrs) {
         return (attrs.privateFlags & PRIVATE_FLAG_KEYGUARD) != 0 ||
@@ -3213,12 +2891,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         (mKeyguardDelegate != null && mKeyguardDelegate.isShowing())) ||
                 (attrs.type == TYPE_KEYGUARD_SCRIM);
     }
-
     @Override
     public boolean isKeyguardHostWindow(WindowManager.LayoutParams attrs) {
         return attrs.type == TYPE_STATUS_BAR;
     }
-
     @Override
     public boolean canBeForceHidden(WindowState win, WindowManager.LayoutParams attrs) {
         switch (attrs.type) {
@@ -3234,27 +2910,23 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         < windowTypeToLayerLw(TYPE_STATUS_BAR);
         }
     }
-
     @Override
     public WindowState getWinShowWhenLockedLw() {
         return mWinShowWhenLocked;
     }
-
     /** {@inheritDoc} */
     @Override
     public View addStartingWindow(IBinder appToken, String packageName, int theme,
-            CompatibilityInfo compatInfo, CharSequence nonLocalizedLabel, int labelRes,
-            int icon, int logo, int windowFlags, Configuration overrideConfig) {
+                                  CompatibilityInfo compatInfo, CharSequence nonLocalizedLabel, int labelRes,
+                                  int icon, int logo, int windowFlags, Configuration overrideConfig) {
         if (!SHOW_STARTING_ANIMATIONS) {
             return null;
         }
         if (packageName == null) {
             return null;
         }
-
         WindowManager wm = null;
         View view = null;
-
         try {
             Context context = mContext;
             if (DEBUG_STARTING_WINDOW) Slog.d(TAG, "addStartingWindow " + packageName
@@ -3268,7 +2940,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     // Ignore
                 }
             }
-
             if (overrideConfig != null && overrideConfig != EMPTY) {
                 if (DEBUG_STARTING_WINDOW) Slog.d(TAG, "addStartingWindow: creating context based"
                         + " on overrideConfig" + overrideConfig + " for starting window");
@@ -3286,10 +2957,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     context = overrideContext;
                 }
             }
-
             final PhoneWindow win = new PhoneWindow(context);
             win.setIsStartingWindow(true);
-
             CharSequence label = context.getResources().getText(labelRes, null);
             // Only change the accessibility title if the label is localized
             if (label != null) {
@@ -3297,10 +2966,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             } else {
                 win.setTitle(nonLocalizedLabel, false);
             }
-
             win.setType(
-                WindowManager.LayoutParams.TYPE_APPLICATION_STARTING);
-
+                    WindowManager.LayoutParams.TYPE_APPLICATION_STARTING);
             synchronized (mWindowManagerFuncs.getWindowManagerLock()) {
                 // Assumes it's safe to show starting windows of launched apps while
                 // the keyguard is being hidden. This is okay because starting windows never show
@@ -3309,27 +2976,23 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     windowFlags |= FLAG_SHOW_WHEN_LOCKED;
                 }
             }
-
             // Force the window flags: this is a fake window, so it is not really
             // touchable or focusable by the user.  We also add in the ALT_FOCUSABLE_IM
             // flag because we do know that the next window will take input
             // focus, so we want to get the IME window up on top of us right away.
             win.setFlags(
-                windowFlags|
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE|
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|
-                WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
-                windowFlags|
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE|
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|
-                WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-
+                    windowFlags|
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE|
+                            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|
+                            WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
+                    windowFlags|
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE|
+                            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|
+                            WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
             win.setDefaultIcon(icon);
             win.setDefaultLogo(logo);
-
             win.setLayout(WindowManager.LayoutParams.MATCH_PARENT,
                     WindowManager.LayoutParams.MATCH_PARENT);
-
             final WindowManager.LayoutParams params = win.getAttributes();
             params.token = appToken;
             params.packageName = packageName;
@@ -3338,21 +3001,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             params.privateFlags |=
                     WindowManager.LayoutParams.PRIVATE_FLAG_FAKE_HARDWARE_ACCELERATED;
             params.privateFlags |= WindowManager.LayoutParams.PRIVATE_FLAG_SHOW_FOR_ALL_USERS;
-
             if (!compatInfo.supportsScreen()) {
                 params.privateFlags |= WindowManager.LayoutParams.PRIVATE_FLAG_COMPATIBLE_WINDOW;
             }
-
             params.setTitle("Starting " + packageName);
-
             wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
             view = win.getDecorView();
-
             if (DEBUG_STARTING_WINDOW) Slog.d(TAG, "Adding starting window for "
-                + packageName + " / " + appToken + ": " + (view.getParent() != null ? view : null));
-
+                    + packageName + " / " + appToken + ": " + (view.getParent() != null ? view : null));
             wm.addView(view, params);
-
             // Only return the view if it was successfully added to the
             // window manager... which we can tell by it having a parent.
             return view.getParent() != null ? view : null;
@@ -3371,22 +3028,18 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 wm.removeViewImmediate(view);
             }
         }
-
         return null;
     }
-
     /** {@inheritDoc} */
     @Override
     public void removeStartingWindow(IBinder appToken, View window) {
         if (DEBUG_STARTING_WINDOW) Slog.v(TAG, "Removing starting window for " + appToken + ": "
                 + window + " Callers=" + Debug.getCallers(4));
-
         if (window != null) {
             WindowManager wm = (WindowManager)mContext.getSystemService(Context.WINDOW_SERVICE);
             wm.removeView(window);
         }
     }
-
     /**
      * Preflight adding a window to the system.
      *
@@ -3447,7 +3100,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return WindowManagerGlobal.ADD_OKAY;
     }
-
     /** {@inheritDoc} */
     @Override
     public void removeWindowLw(WindowState win) {
@@ -3463,14 +3115,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mNavigationBarController.setWindow(null);
         }
     }
-
     static final boolean PRINT_ANIM = false;
-
     /** {@inheritDoc} */
     @Override
     public int selectAnimationLw(WindowState win, int transit) {
         if (PRINT_ANIM) Log.i(TAG, "selectAnimation in " + win
-              + ": transit=" + transit);
+                + ": transit=" + transit);
         if (win == mStatusBar) {
             boolean isKeyguard = (win.getAttrs().privateFlags & PRIVATE_FLAG_KEYGUARD) != 0;
             if (transit == TRANSIT_EXIT
@@ -3517,7 +3167,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         } else if (win.getAttrs().type == TYPE_DOCK_DIVIDER) {
             return selectDockedDividerAnimationLw(win, transit);
         }
-
         if (transit == TRANSIT_PREVIEW_DONE) {
             if (win.hasAppShownWindows()) {
                 if (PRINT_ANIM) Log.i(TAG, "**** STARTING EXIT");
@@ -3531,22 +3180,19 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             // to reveal it.
             return -1;
         }
-
         return 0;
     }
-
     private int selectDockedDividerAnimationLw(WindowState win, int transit) {
         int insets = mWindowManagerFuncs.getDockedDividerInsetsLw();
-
         // If the divider is behind the navigation bar, don't animate.
         final Rect frame = win.getFrameLw();
         final boolean behindNavBar = mNavigationBar != null
                 && ((mNavigationBarPosition == NAV_BAR_BOTTOM
-                        && frame.top + insets >= mNavigationBar.getFrameLw().top)
+                && frame.top + insets >= mNavigationBar.getFrameLw().top)
                 || (mNavigationBarPosition == NAV_BAR_RIGHT
-                        && frame.left + insets >= mNavigationBar.getFrameLw().left)
+                && frame.left + insets >= mNavigationBar.getFrameLw().left)
                 || (mNavigationBarPosition == NAV_BAR_LEFT
-                        && frame.right - insets <= mNavigationBar.getFrameLw().right));
+                && frame.right - insets <= mNavigationBar.getFrameLw().right));
         final boolean landscape = frame.height() > frame.width();
         final boolean offscreenLandscape = landscape && (frame.right - insets <= 0
                 || frame.left + insets >= win.getDisplayFrameLw().right);
@@ -3564,13 +3210,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return 0;
         }
     }
-
     @Override
     public void selectRotationAnimationLw(int anim[]) {
         if (PRINT_ANIM) Slog.i(TAG, "selectRotationAnimation mTopFullscreen="
                 + mTopFullscreenOpaqueWindowState + " rotationAnimation="
                 + (mTopFullscreenOpaqueWindowState == null ?
-                        "0" : mTopFullscreenOpaqueWindowState.getAttrs().rotationAnimation));
+                "0" : mTopFullscreenOpaqueWindowState.getAttrs().rotationAnimation));
         if (mTopFullscreenOpaqueWindowState != null) {
             int animationHint = mTopFullscreenOpaqueWindowState.getRotationAnimationHint();
             if (animationHint < 0 && mTopIsFullscreen) {
@@ -3595,10 +3240,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             anim[0] = anim[1] = 0;
         }
     }
-
     @Override
     public boolean validateRotationAnimationLw(int exitAnimId, int enterAnimId,
-            boolean forceDefault) {
+                                               boolean forceDefault) {
         switch (exitAnimId) {
             case R.anim.rotation_animation_xfade_exit:
             case R.anim.rotation_animation_jump_exit:
@@ -3613,28 +3257,22 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 return true;
         }
     }
-
     @Override
     public Animation createForceHideEnterAnimation(boolean onWallpaper,
-            boolean goingToNotificationShade) {
+                                                   boolean goingToNotificationShade) {
         if (goingToNotificationShade) {
             return AnimationUtils.loadAnimation(mContext, R.anim.lock_screen_behind_enter_fade_in);
         }
-
         AnimationSet set = (AnimationSet) AnimationUtils.loadAnimation(mContext, onWallpaper ?
-                    R.anim.lock_screen_behind_enter_wallpaper :
-                    R.anim.lock_screen_behind_enter);
-
+                R.anim.lock_screen_behind_enter_wallpaper :
+                R.anim.lock_screen_behind_enter);
         // TODO: Use XML interpolators when we have log interpolators available in XML.
         final List<Animation> animations = set.getAnimations();
         for (int i = animations.size() - 1; i >= 0; --i) {
             animations.get(i).setInterpolator(mLogDecelerateInterpolator);
         }
-
         return set;
     }
-
-
     @Override
     public Animation createForceHideWallpaperExitAnimation(boolean goingToNotificationShade) {
         if (goingToNotificationShade) {
@@ -3643,7 +3281,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return AnimationUtils.loadAnimation(mContext, R.anim.lock_screen_wallpaper_exit);
         }
     }
-
     private static void awakenDreams() {
         IDreamManager dreamManager = getDreamManager();
         if (dreamManager != null) {
@@ -3654,16 +3291,13 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     static IDreamManager getDreamManager() {
         return IDreamManager.Stub.asInterface(
                 ServiceManager.checkService(DreamService.DREAM_SERVICE));
     }
-
     TelecomManager getTelecommService() {
         return (TelecomManager) mContext.getSystemService(Context.TELECOM_SERVICE);
     }
-
     static IAudioService getAudioService() {
         IAudioService audioService = IAudioService.Stub.asInterface(
                 ServiceManager.checkService(Context.AUDIO_SERVICE));
@@ -3672,16 +3306,13 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return audioService;
     }
-
     boolean keyguardOn() {
         return isKeyguardShowingAndNotOccluded() || inKeyguardRestrictedKeyInputMode();
     }
-
     private static final int[] WINDOW_TYPES_WHERE_HOME_DOESNT_WORK = {
             WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
             WindowManager.LayoutParams.TYPE_SYSTEM_ERROR,
-        };
-
+    };
     /**
      * List of key codes to intercept with our custom policy.
      */
@@ -3692,8 +3323,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             KeyEvent.KEYCODE_ASSIST,
             KeyEvent.KEYCODE_APP_SWITCH,
             KeyEvent.KEYCODE_CAMERA
-        };
-
+    };
     /**
      * List of key actions available for key code behaviors.
      */
@@ -3709,8 +3339,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             KEY_ACTION_SPLIT_SCREEN,
             KEY_ACTION_SCREEN_OFF,
             KEY_ACTION_KILL_APP
-        };
-
+    };
     /**
      * @return if key code's last event has been consumed.
      * @param keyCode the KeyEvent key code.
@@ -3725,7 +3354,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return consumed;
         }
     }
-
     /**
      * Set last key code's event consumed state.
      * @param keyCode the KeyEvent key code.
@@ -3737,7 +3365,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             // Ops.
         }
     }
-
     /**
      * Set last key code's event pressed state.
      * @param keyCode the KeyEvent key code.
@@ -3749,7 +3376,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             // Ops.
         }
     }
-
     /**
      * Set last key code's event double tap pending state.
      * @param keyCode the KeyEvent key code.
@@ -3761,7 +3387,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             // Ops.
         }
     }
-
     /**
      * @return key code's dpouble tap behavior.
      * @param keyCode the KeyEvent key code.
@@ -3776,7 +3401,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return behavior;
         }
     }
-
     /**
      * @return key code's double tap timeout runnable.
      * @param keyCode the KeyEvent key code.
@@ -3791,7 +3415,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return runnable;
         }
     }
-
     /**
      * @return key code's long press behavior.
      * @param keyCode the KeyEvent key code.
@@ -3806,7 +3429,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return behavior;
         }
     }
-
     /**
      * @return if key code's double tap is pending.
      * @param keyCode the KeyEvent key code.
@@ -3821,7 +3443,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return pending;
         }
     }
-
     /**
      * @return the default res id for the key double tap default action.
      * @param keyCode the KeyEvent key code.
@@ -3843,7 +3464,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return 0;
     }
-
     /**
      * @return the default res id for the key long press default action.
      * @param keyCode the KeyEvent key code.
@@ -3865,7 +3485,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return 0;
     }
-
     /**
      * @return if key code is supported by custom policy.
      * @param keyCode the KeyEvent key code.
@@ -3884,7 +3503,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return supported/* && mDeviceHardwareKeys > 0*/;
     }
-
     /**
      * Execute key code action based on behavior.
      * @param keyCode the KeyEvent key code.
@@ -3933,7 +3551,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 break;
         }
     }
-
     /**
      * Execute key code default action.
      * @param keyCode the KeyEvent key code.
@@ -3958,7 +3575,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 break;
         }
     }
-
     /** {@inheritDoc} */
     @Override
     public long interceptKeyBeforeDispatching(WindowState win, KeyEvent event, int policyFlags) {
@@ -3968,9 +3584,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         final int metaState = event.getMetaState();
         final int repeatCount = event.getRepeatCount();
         final int source = event.getSource();
-
         final boolean down = action == KeyEvent.ACTION_DOWN;
-
         final boolean canceled = event.isCanceled();
         final boolean fromSystem = (flags & KeyEvent.FLAG_FROM_SYSTEM) != 0;
         final boolean longPress = (flags & KeyEvent.FLAG_LONG_PRESS) != 0;
@@ -3978,13 +3592,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         final boolean virtualHardKey = (flags & KeyEvent.FLAG_VIRTUAL_HARD_KEY) != 0;
         final boolean navBarKey = source == InputDevice.SOURCE_NAVIGATION_BAR;
         final boolean isCustomSource = source == InputDevice.SOURCE_CUSTOM;
-
         final boolean appSwitchKey = keyCode == KeyEvent.KEYCODE_APP_SWITCH;
         final boolean homeKey = keyCode == KeyEvent.KEYCODE_HOME;
         final boolean menuKey = keyCode == KeyEvent.KEYCODE_MENU;
-
         final boolean keyguardOn = keyguardOn();
-
         if (DEBUG_INPUT) {
             Log.d(TAG, "interceptKeyBeforeDispatching(): event = " + event.toString()
                     +  ", keyguardOn = " + keyguardOn + ", canceled = " + canceled
@@ -3992,7 +3603,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     + ", navBarKey = " + navBarKey + ", fromSystem = " + fromSystem
                     + ", longPress = " + longPress);
         }
-
         // If we think we might have a volume down & power key chord on the way
         // but we're not sure, then tell the dispatcher to wait a little while and
         // try again later before dispatching.
@@ -4013,7 +3623,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 return -1;
             }
         }
-
         // If we think we might have a volume up & power key chord on the way
         // but we're not sure, then tell the dispatcher to wait a little while and
         // try again later before dispatching.
@@ -4033,7 +3642,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 return -1;
             }
         }
-
         // Cancel any pending meta actions if we see any other keys being pressed between the down
         // of the meta key and its corresponding up.
         if (mPendingMetaAction && !KeyEvent.isMetaKey(keyCode)) {
@@ -4043,31 +3651,25 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         if (mPendingCapsLockToggle && !KeyEvent.isMetaKey(keyCode) && !KeyEvent.isAltKey(keyCode)) {
             mPendingCapsLockToggle = false;
         }
-
         // Custom event handling for supported key codes.
         if (canApplyCustomPolicy(keyCode) && !isCustomSource) {
             if ((menuKey || appSwitchKey) && keyguardOn) {
                 // Don't handle the key.
                 return -1;
             }
-
             final Runnable doubleTapRunnable = getDoubleTapTimeoutRunnable(keyCode);
-
             // We have released the keyCode's key, decide what and if run our key's action.
             if (!down) {
                 cancelPreloadRecentApps();
-
                 setKeyPressed(keyCode, false);
                 if (isKeyConsumed(keyCode)) {
                     setKeyConsumed(keyCode, false);
                     return -1;
                 }
-
                 if (canceled) {
                     Log.i(TAG, "Ignoring; " + "keyCode: " + keyCode + ", event canceled.");
                     return -1;
                 }
-
                 if (homeKey) {
                     // If an incoming call is ringing, HOME is totally disabled.
                     // (The user is already on the InCallUI at this point,
@@ -4078,7 +3680,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         return -1;
                     }
                 }
-
                 // Delay handling home if a double-tap is possible.
                 final int doubleTapBehavior = getKeyDoubleTapBehavior(keyCode);
                 if (doubleTapBehavior != KEY_ACTION_NOTHING) {
@@ -4088,11 +3689,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                             ViewConfiguration.getDoubleTapTimeout() / 2);
                     return -1;
                 }
-
                 handleShortPressOnKeyCode(keyCode);
                 return -1;
             }
-
             if (homeKey) {
                 // If a system window has focus, then it doesn't make sense
                 // right now to interact with applications.
@@ -4114,7 +3713,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     }
                 }
             }
-
             // Remember that keyCode's key is pressed and handle special actions.
             if (repeatCount == 0) {
                 setKeyPressed(keyCode, true);
@@ -4151,33 +3749,27 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
             return -1;
         }
-
         if (keyCode == KeyEvent.KEYCODE_BACK && !down) {
             mHandler.removeCallbacks(mBackLongPress);
         }
-
         // First we always handle the home key here, so applications
         // can never break it, although if keyguard is on, we do let
         // it handle it, because that gives us the correct 5 second
         // timeout.
         if (keyCode == KeyEvent.KEYCODE_HOME) {
-
             // If we have released the home key, and didn't do anything else
             // while it was pressed, then it is time to go home!
             if (!down) {
                 cancelPreloadRecentApps();
-
                 mHomePressed = false;
                 if (mHomeConsumed) {
                     mHomeConsumed = false;
                     return -1;
                 }
-
                 if (canceled) {
                     Log.i(TAG, "Ignoring HOME; event canceled.");
                     return -1;
                 }
-
                 // Delay handling home if a double-tap is possible.
                 if (mDoubleTapOnHomeBehavior != DOUBLE_TAP_HOME_NOTHING) {
                     mHandler.removeCallbacks(mHomeDoubleTapTimeoutRunnable); // just in case
@@ -4186,11 +3778,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                             ViewConfiguration.getDoubleTapTimeout());
                     return -1;
                 }
-
                 handleShortPressOnHome();
                 return -1;
             }
-
             // If a system window has focus, then it doesn't make sense
             // right now to interact with applications.
             WindowManager.LayoutParams attrs = win != null ? win.getAttrs() : null;
@@ -4210,7 +3800,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     }
                 }
             }
-
             // Remember that home is pressed and handle special actions.
             if (repeatCount == 0) {
                 mHomePressed = true;
@@ -4231,7 +3820,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         } else if (keyCode == KeyEvent.KEYCODE_MENU) {
             // Hijack modified menu keys for debugging features
             final int chordBug = KeyEvent.META_SHIFT_ON;
-
             if (down && repeatCount == 0) {
                 if (mEnableShiftMenuBugReports && (metaState & chordBug) == chordBug) {
                     Intent intent = new Intent(Intent.ACTION_BUG_REPORT);
@@ -4277,10 +3865,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         } else if (keyCode == KeyEvent.KEYCODE_S && event.isMetaPressed()
                 && event.isCtrlPressed()) {
             if (down && repeatCount == 0) {
-                int type = (event.isShiftPressed() ||
-                    Settings.System.getInt(mContext.getContentResolver(),
-                    Settings.System.SCREENSHOT_TYPE, 0) == 1) ?
-                    TAKE_SCREENSHOT_SELECTED_REGION : TAKE_SCREENSHOT_FULLSCREEN;
+                int type = 0;
+                if(event.isShiftPressed()) {
+                    if(Settings.System.getInt(mContext.getContentResolver(),Settings.System.SCREENSHOT_TYPE, 0) == 1)
+                        type = TAKE_SCREENSHOT_SELECTED_REGION;
+                    else if(Settings.System.getInt(mContext.getContentResolver(),Settings.System.SCREENSHOT_TYPE, 0) == 2)
+                        type = TAKE_SCREENSHOT_EXPANDED;
+                    else
+                        type = TAKE_SCREENSHOT_FULLSCREEN;
+                }
                 mScreenshotRunnable.setScreenshotType(type);
                 mHandler.post(mScreenshotRunnable);
                 return -1;
@@ -4296,7 +3889,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 } else if (repeatCount == 1) {
                     mAssistKeyLongPressed = true;
                     if (!keyguardOn) {
-                         launchAssistLongPressAction();
+                        launchAssistLongPressAction();
                     }
                 }
             } else {
@@ -4331,7 +3924,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         } else if (keyCode == KeyEvent.KEYCODE_SYSRQ) {
             if (down && repeatCount == 0) {
                 if (Settings.System.getInt(mContext.getContentResolver(),
-                    Settings.System.SCREENSHOT_TYPE, 0) == 1) {
+                        Settings.System.SCREENSHOT_TYPE, 0) == 1) {
                     mScreenshotRunnable.setScreenshotType(TAKE_SCREENSHOT_SELECTED_REGION);
                 } else {
                     mScreenshotRunnable.setScreenshotType(TAKE_SCREENSHOT_FULLSCREEN);
@@ -4350,7 +3943,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 || keyCode == KeyEvent.KEYCODE_BRIGHTNESS_DOWN) {
             if (down) {
                 int direction = keyCode == KeyEvent.KEYCODE_BRIGHTNESS_UP ? 1 : -1;
-
                 // Disable autobrightness if it's on
                 int auto = Settings.System.getIntForUser(
                         mContext.getContentResolver(),
@@ -4363,7 +3955,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                             Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL,
                             UserHandle.USER_CURRENT_OR_SELF);
                 }
-
                 int min = mPowerManager.getMinimumScreenBrightnessSetting();
                 int max = mPowerManager.getMaximumScreenBrightnessSetting();
                 int step = (max - min + BRIGHTNESS_STEPS - 1) / BRIGHTNESS_STEPS * direction;
@@ -4375,7 +3966,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 // Make sure we don't go beyond the limits.
                 brightness = Math.min(max, brightness);
                 brightness = Math.max(min, brightness);
-
                 Settings.System.putIntForUser(mContext.getContentResolver(),
                         Settings.System.SCREEN_BRIGHTNESS, brightness,
                         UserHandle.USER_CURRENT_OR_SELF);
@@ -4392,7 +3982,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 return -1;
             }
         }
-
         // Toggle Caps Lock on META-ALT.
         boolean actionTriggered = false;
         if (KeyEvent.isModifierKey(keyCode)) {
@@ -4403,7 +3992,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             } else if (event.getAction() == KeyEvent.ACTION_UP) {
                 int altOnMask = mMetaState & KeyEvent.META_ALT_MASK;
                 int metaOnMask = mMetaState & KeyEvent.META_META_MASK;
-
                 // Check for Caps Lock toggle
                 if ((metaOnMask != 0) && (altOnMask != 0)) {
                     // Check if nothing else is pressed
@@ -4413,18 +4001,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         actionTriggered = true;
                     }
                 }
-
                 // Always stop tracking when key goes up.
                 mPendingCapsLockToggle = false;
             }
         }
         // Store current meta state to be able to evaluate it later.
         mMetaState = metaState;
-
         if (actionTriggered) {
             return -1;
         }
-
         if (KeyEvent.isMetaKey(keyCode)) {
             if (down) {
                 mPendingMetaAction = true;
@@ -4433,7 +4018,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
             return -1;
         }
-
         // Shortcuts are invoked through Search+key, so intercept those here
         // Any printing key that is chorded with Search should be consumed
         // even if no shortcut was invoked.  This prevents text from being
@@ -4464,7 +4048,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 return -1;
             }
         }
-
         // Invoke shortcuts using Meta.
         if (down && repeatCount == 0 && !keyguardOn
                 && (metaState & KeyEvent.META_META_ON) != 0) {
@@ -4487,7 +4070,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
             }
         }
-
         // Handle application launch keys.
         if (down && repeatCount == 0 && !keyguardOn) {
             String category = sApplicationLaunchKeyCategories.get(keyCode);
@@ -4505,7 +4087,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 return -1;
             }
         }
-
         // Display task switcher for ALT-TAB.
         if (down && repeatCount == 0 && keyCode == KeyEvent.KEYCODE_TAB) {
             if (mRecentAppsHeldModifiers == 0 && !keyguardOn && isUserSetupComplete()) {
@@ -4521,28 +4102,25 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mRecentAppsHeldModifiers = 0;
             hideRecentApps(true, false);
         }
-
         // Handle input method switching.
         if (down && repeatCount == 0
                 && (keyCode == KeyEvent.KEYCODE_LANGUAGE_SWITCH
-                        || (keyCode == KeyEvent.KEYCODE_SPACE
-                                && (metaState & KeyEvent.META_META_MASK) != 0))) {
+                || (keyCode == KeyEvent.KEYCODE_SPACE
+                && (metaState & KeyEvent.META_META_MASK) != 0))) {
             final boolean forwardDirection = (metaState & KeyEvent.META_SHIFT_MASK) == 0;
             mWindowManagerFuncs.switchInputMethod(forwardDirection);
             return -1;
         }
         if (mLanguageSwitchKeyPressed && !down
                 && (keyCode == KeyEvent.KEYCODE_LANGUAGE_SWITCH
-                        || keyCode == KeyEvent.KEYCODE_SPACE)) {
+                || keyCode == KeyEvent.KEYCODE_SPACE)) {
             mLanguageSwitchKeyPressed = false;
             return -1;
         }
-
         if (isValidGlobalKey(keyCode)
                 && mGlobalKeyManager.handleGlobalKey(mContext, keyCode, event)) {
             return -1;
         }
-
         // Specific device key handling
         if (mDeviceKeyHandler != null) {
             try {
@@ -4554,25 +4132,20 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 Slog.w(TAG, "Could not dispatch event to device key handler", e);
             }
         }
-
         if (down) {
             long shortcutCode = keyCode;
             if (event.isCtrlPressed()) {
                 shortcutCode |= ((long) KeyEvent.META_CTRL_ON) << Integer.SIZE;
             }
-
             if (event.isAltPressed()) {
                 shortcutCode |= ((long) KeyEvent.META_ALT_ON) << Integer.SIZE;
             }
-
             if (event.isShiftPressed()) {
                 shortcutCode |= ((long) KeyEvent.META_SHIFT_ON) << Integer.SIZE;
             }
-
             if (event.isMetaPressed()) {
                 shortcutCode |= ((long) KeyEvent.META_META_ON) << Integer.SIZE;
             }
-
             IShortcutService shortcutService = mShortcutKeyServices.get(shortcutCode);
             if (shortcutService != null) {
                 try {
@@ -4585,16 +4158,13 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 return -1;
             }
         }
-
         // Reserve all the META modifier combos for system behavior
         if ((metaState & KeyEvent.META_META_ON) != 0) {
             return -1;
         }
-
         // Let the application handle the key.
         return 0;
     }
-
     /** {@inheritDoc} */
     @Override
     public KeyEvent dispatchUnhandledKey(WindowState win, KeyEvent event, int policyFlags) {
@@ -4608,7 +4178,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     + ", repeatCount=" + event.getRepeatCount()
                     + ", policyFlags=" + policyFlags);
         }
-
         KeyEvent fallbackEvent = null;
         if ((event.getFlags() & KeyEvent.FLAG_FALLBACK) == 0) {
             final KeyCharacterMap kcm = event.getKeyCharacterMap();
@@ -4616,7 +4185,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             final int metaState = event.getMetaState();
             final boolean initialDown = event.getAction() == KeyEvent.ACTION_DOWN
                     && event.getRepeatCount() == 0;
-
             // Check for fallback actions specified by the key character map.
             final FallbackAction fallbackAction;
             if (initialDown) {
@@ -4624,13 +4192,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             } else {
                 fallbackAction = mFallbackActions.get(keyCode);
             }
-
             if (fallbackAction != null) {
                 if (DEBUG_INPUT) {
                     Slog.d(TAG, "Fallback: keyCode=" + fallbackAction.keyCode
                             + " metaState=" + Integer.toHexString(fallbackAction.metaState));
                 }
-
                 final int flags = event.getFlags() | KeyEvent.FLAG_FALLBACK;
                 fallbackEvent = KeyEvent.obtain(
                         event.getDownTime(), event.getEventTime(),
@@ -4638,12 +4204,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         event.getRepeatCount(), fallbackAction.metaState,
                         event.getDeviceId(), event.getScanCode(),
                         flags, event.getSource(), null);
-
                 if (!interceptFallback(win, fallbackEvent, policyFlags)) {
                     fallbackEvent.recycle();
                     fallbackEvent = null;
                 }
-
                 if (initialDown) {
                     mFallbackActions.put(keyCode, fallbackAction);
                 } else if (event.getAction() == KeyEvent.ACTION_UP) {
@@ -4652,7 +4216,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
             }
         }
-
         if (DEBUG_INPUT) {
             if (fallbackEvent == null) {
                 Slog.d(TAG, "No fallback.");
@@ -4662,7 +4225,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return fallbackEvent;
     }
-
     private boolean interceptFallback(WindowState win, KeyEvent fallbackEvent, int policyFlags) {
         int actions = interceptKeyBeforeQueueing(fallbackEvent, policyFlags);
         if ((actions & ACTION_PASS_TO_USER) != 0) {
@@ -4674,7 +4236,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return false;
     }
-
     @Override
     public void registerShortcutKey(long shortcutCode, IShortcutService shortcutService)
             throws RemoteException {
@@ -4683,11 +4244,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             if (service != null && service.asBinder().pingBinder()) {
                 throw new RemoteException("Key already exists.");
             }
-
             mShortcutKeyServices.put(shortcutCode, shortcutService);
         }
     }
-
     @Override
     public boolean canShowDismissingWindowWhileLockedLw() {
         // If the keyguard is trusted, it will unlock without a challenge. Therefore, if we are in
@@ -4696,11 +4255,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         return mKeyguardDelegate != null && mKeyguardDelegate.isTrusted()
                 && mCurrentlyDismissingKeyguard;
     }
-
     private void launchAssistLongPressAction() {
         launchAssistLongPressAction(true, true);
     }
-
     private void launchAssistLongPressAction(boolean performHapticFeedbacklw, boolean closeSystemWindows) {
         if (performHapticFeedbacklw) {
             performHapticFeedbackLw(null, HapticFeedbackConstants.LONG_PRESS, false);
@@ -4708,7 +4265,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         if (closeSystemWindows) {
             sendCloseSystemWindows(SYSTEM_DIALOG_REASON_ASSIST);
         }
-
         // launch the search activity
         Intent intent = new Intent(Intent.ACTION_SEARCH_LONG_PRESS);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -4725,7 +4281,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             // TODO> show informative toast.
         }
     }
-
     private void launchAssistAction(String hint, int deviceId) {
         sendCloseSystemWindows(SYSTEM_DIALOG_REASON_ASSIST);
         if (!isUserSetupComplete()) {
@@ -4755,7 +4310,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     private void startActivityAsUser(Intent intent, UserHandle handle) {
         if (isUserSetupComplete()) {
             mContext.startActivityAsUser(intent, handle);
@@ -4763,18 +4317,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             Slog.i(TAG, "Not starting activity because user setup is in progress: " + intent);
         }
     }
-
     private SearchManager getSearchManager() {
         if (mSearchManager == null) {
             mSearchManager = (SearchManager) mContext.getSystemService(Context.SEARCH_SERVICE);
         }
         return mSearchManager;
     }
-
     private void dispatchKeypressBoost(int keyCode) {
         int boostDuration = 0;
         int[] boostParamVal = mBoostParamValWeak;
-
         // Calculate the duration of the boost
         switch (keyCode) {
             case KeyEvent.KEYCODE_UNKNOWN:
@@ -4797,22 +4348,18 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 boostDuration = 650;
                 break;
         }
-
         // Dispatch the boost
         if (boostDuration != 0) {
             mLastBoostDuration = boostDuration;
             Slog.i(TAG, "Dispatching Keypress boost for " + boostDuration + " ms.");
             mPerfKey.perfLockAcquire(boostDuration, boostParamVal);
-
             // Block Keypress boost
             mKeypressBoostBlocked = true;
-
             // Calculate unblock time and dispatch delayed unblock MSG
             int boostBlockTime = boostDuration + 50/*ms*/;
             mHandler.sendEmptyMessageDelayed(MSG_DISPATCH_KEYPRESS_BOOST_UNBLOCK, boostBlockTime);
         }
     }
-
     private void preloadRecentApps() {
         mPreloadedRecentApps = true;
         StatusBarManagerInternal statusbar = getStatusBarManagerInternal();
@@ -4820,7 +4367,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             statusbar.preloadRecentApps();
         }
     }
-
     private void cancelPreloadRecentApps() {
         if (mPreloadedRecentApps) {
             mPreloadedRecentApps = false;
@@ -4830,7 +4376,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     private void toggleRecentApps() {
         mPreloadedRecentApps = false; // preloading no longer needs to be canceled
         StatusBarManagerInternal statusbar = getStatusBarManagerInternal();
@@ -4838,13 +4383,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             statusbar.toggleRecentApps();
         }
     }
-
     @Override
     public void showRecentApps(boolean fromHome) {
         mHandler.removeMessages(MSG_DISPATCH_SHOW_RECENTS);
         mHandler.obtainMessage(MSG_DISPATCH_SHOW_RECENTS, fromHome ? 1 : 0, 0).sendToTarget();
     }
-
     private void showRecentApps(boolean triggeredFromAltTab, boolean fromHome) {
         mPreloadedRecentApps = false; // preloading no longer needs to be canceled
         StatusBarManagerInternal statusbar = getStatusBarManagerInternal();
@@ -4852,21 +4395,18 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             statusbar.showRecentApps(triggeredFromAltTab, fromHome);
         }
     }
-
     private void toggleKeyboardShortcutsMenu(int deviceId) {
         StatusBarManagerInternal statusbar = getStatusBarManagerInternal();
         if (statusbar != null) {
             statusbar.toggleKeyboardShortcutsMenu(deviceId);
         }
     }
-
     private void dismissKeyboardShortcutsMenu() {
         StatusBarManagerInternal statusbar = getStatusBarManagerInternal();
         if (statusbar != null) {
             statusbar.dismissKeyboardShortcutsMenu();
         }
     }
-
     private void hideRecentApps(boolean triggeredFromAltTab, boolean triggeredFromHome) {
         mPreloadedRecentApps = false; // preloading no longer needs to be canceled
         StatusBarManagerInternal statusbar = getStatusBarManagerInternal();
@@ -4874,11 +4414,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             statusbar.hideRecentApps(triggeredFromAltTab, triggeredFromHome);
         }
     }
-
     void launchHomeFromHotKey() {
         launchHomeFromHotKey(true /* awakenFromDreams */, true /*respectKeyguard*/);
     }
-
     /**
      * A home key -> launch home action was detected.  Take the appropriate action
      * given the situation with the keyguard.
@@ -4889,7 +4427,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 // don't launch home if keyguard showing
                 return;
             }
-
             if (!mHideLockScreen && mKeyguardDelegate.isInputRestricted()) {
                 // when in keyguard restricted mode, must first verify unlock
                 // before launching home
@@ -4909,7 +4446,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 return;
             }
         }
-
         // no keyguard stuff to worry about, just launch home!
         try {
             ActivityManagerNative.getDefault().stopAppSwitches();
@@ -4927,7 +4463,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             startDockOrHome(true /*fromHomeKey*/, awakenFromDreams);
         }
     }
-
     private final Runnable mClearHideNavigationFlag = new Runnable() {
         @Override
         public void run() {
@@ -4939,7 +4474,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mWindowManagerFuncs.reevaluateStatusBarVisibility();
         }
     };
-
     /**
      * Input handler used while nav bar is hidden.  Captures any touch on the screen,
      * to determine when the nav bar should be shown and prevent applications from
@@ -4949,7 +4483,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         public HideNavInputEventReceiver(InputChannel inputChannel, Looper looper) {
             super(inputChannel, looper);
         }
-
         @Override
         public void onInputEvent(InputEvent event) {
             boolean handled = false;
@@ -5000,28 +4533,24 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     }
     final InputEventReceiver.Factory mHideNavInputEventReceiverFactory =
             new InputEventReceiver.Factory() {
-        @Override
-        public InputEventReceiver createInputEventReceiver(
-                InputChannel inputChannel, Looper looper) {
-            return new HideNavInputEventReceiver(inputChannel, looper);
-        }
-    };
-
+                @Override
+                public InputEventReceiver createInputEventReceiver(
+                        InputChannel inputChannel, Looper looper) {
+                    return new HideNavInputEventReceiver(inputChannel, looper);
+                }
+            };
     @Override
     public void setRecentsVisibilityLw(boolean visible) {
         mRecentsVisible = visible;
     }
-
     @Override
     public void setTvPipVisibilityLw(boolean visible) {
         mTvPictureInPictureVisible = visible;
     }
-
     @Override
     public int adjustSystemUiVisibilityLw(int visibility) {
         mStatusBarController.adjustSystemUiVisibilityLw(mLastSystemUiFlags, visibility);
         mNavigationBarController.adjustSystemUiVisibilityLw(mLastSystemUiFlags, visibility);
-
         // Reset any bits in mForceClearingStatusBarVisibility that
         // are now clear.
         mResettingSystemUiFlags &= visibility;
@@ -5030,15 +4559,13 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         return visibility & ~mResettingSystemUiFlags
                 & ~mForceClearedSystemUiFlags;
     }
-
     @Override
     public boolean getInsetHintLw(WindowManager.LayoutParams attrs, Rect taskBounds,
-            int displayRotation, int displayWidth, int displayHeight, Rect outContentInsets,
-            Rect outStableInsets, Rect outOutsets) {
+                                  int displayRotation, int displayWidth, int displayHeight, Rect outContentInsets,
+                                  Rect outStableInsets, Rect outOutsets) {
         final int fl = PolicyControl.getWindowFlags(null, attrs);
         final int sysuiVis = PolicyControl.getSystemUiVisibility(null, attrs);
         final int systemUiVisibility = (sysuiVis | attrs.subtreeSystemUiVisibility);
-
         final boolean useOutsets = outOutsets != null && shouldUseOutsets(attrs, fl);
         if (useOutsets) {
             int outset = ScreenShapeHelper.getWindowOutsetBottomPx(mContext.getResources());
@@ -5054,7 +4581,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
             }
         }
-
         if ((fl & (FLAG_LAYOUT_IN_SCREEN | FLAG_LAYOUT_INSET_DECOR))
                 == (FLAG_LAYOUT_IN_SCREEN | FLAG_LAYOUT_INSET_DECOR)) {
             int availRight, availBottom;
@@ -5078,14 +4604,13 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             } else if ((fl & FLAG_FULLSCREEN) != 0 || (fl & FLAG_LAYOUT_IN_OVERSCAN) != 0) {
                 outContentInsets.setEmpty();
             } else if ((systemUiVisibility & (View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)) == 0) {
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)) == 0) {
                 outContentInsets.set(mCurLeft, mCurTop,
                         availRight - mCurRight, availBottom - mCurBottom);
             } else {
                 outContentInsets.set(mCurLeft, mCurTop,
                         availRight - mCurRight, availBottom - mCurBottom);
             }
-
             outStableInsets.set(mStableLeft, mStableTop,
                     availRight - mStableRight, availBottom - mStableBottom);
             if (taskBounds != null) {
@@ -5100,13 +4625,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         outStableInsets.setEmpty();
         return mForceShowSystemBars;
     }
-
     /**
      * For any given task bounds, the insets relevant for these bounds given the insets relevant
      * for the entire display.
      */
     private void calculateRelevantTaskInsets(Rect taskBounds, Rect inOutInsets, int displayWidth,
-            int displayHeight) {
+                                             int displayHeight) {
         mTmpRect.set(0, 0, displayWidth, displayHeight);
         mTmpRect.inset(inOutInsets);
         mTmpRect.intersect(taskBounds);
@@ -5116,12 +4640,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         int bottomInset = taskBounds.bottom - mTmpRect.bottom;
         inOutInsets.set(leftInset, topInset, rightInset, bottomInset);
     }
-
     private boolean shouldUseOutsets(WindowManager.LayoutParams attrs, int fl) {
         return attrs.type == TYPE_WALLPAPER || (fl & (WindowManager.LayoutParams.FLAG_FULLSCREEN
                 | WindowManager.LayoutParams.FLAG_LAYOUT_IN_OVERSCAN)) != 0;
     }
-
     /** {@inheritDoc} */
     @Override
     public void beginLayoutLw(boolean isDefaultDisplay, int displayWidth, int displayHeight,
@@ -5187,7 +4709,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 = mCurBottom = displayHeight - overscanBottom;
         mDockLayer = 0x10000000;
         mStatusBarLayer = -1;
-
         // start with the current dock rect, which will be (0,0,displayWidth,displayHeight)
         final Rect pf = mTmpParentFrame;
         final Rect df = mTmpDisplayFrame;
@@ -5199,7 +4720,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         pf.right = df.right = of.right = vf.right = mDockRight;
         pf.bottom = df.bottom = of.bottom = vf.bottom = mDockBottom;
         dcf.setEmpty();  // Decor frame N/A for system bars.
-
         if (isDefaultDisplay) {
             // For purposes of putting out fake window up to steal focus, we will
             // drive nav being hidden only by whether it is requested.
@@ -5218,7 +4738,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             boolean statusBarExpandedNotKeyguard = !isKeyguardShowing && mStatusBar != null
                     && mStatusBar.getAttrs().height == MATCH_PARENT
                     && mStatusBar.getAttrs().width == MATCH_PARENT;
-
             // When the navigation bar isn't visible, we put up a fake
             // input window to catch all touch events.  This way we can
             // detect when the user presses anywhere to bring back the nav
@@ -5233,12 +4752,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 mInputConsumer = mWindowManagerFuncs.addInputConsumer(mHandler.getLooper(),
                         mHideNavInputEventReceiverFactory);
             }
-
             // For purposes of positioning and showing the nav bar, if we have
             // decided that it can't be hidden (because of the screen aspect ratio),
             // then take that into account.
             navVisible |= !canHideNavigationBar();
-
             boolean updateSysUiVisibility = layoutNavigationBar(displayWidth, displayHeight,
                     displayRotation, uiMode, overscanLeft, overscanRight, overscanBottom, dcf, navVisible, navTranslucent,
                     navAllowedHidden, statusBarExpandedNotKeyguard);
@@ -5250,9 +4767,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     private boolean layoutStatusBar(Rect pf, Rect df, Rect of, Rect vf, Rect dcf, int sysui,
-            boolean isKeyguardShowing) {
+                                    boolean isKeyguardShowing) {
         // decide where the status bar goes ahead of time
         if (mStatusBar != null) {
             // apply any navigation bar insets
@@ -5265,24 +4781,19 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             vf.top = mStableTop;
             vf.right = mStableRight;
             vf.bottom = mStableBottom;
-
             mStatusBarLayer = mStatusBar.getSurfaceLayer();
-
             // Let the status bar determine its size.
             mStatusBar.computeFrameLw(pf /* parentFrame */, df /* displayFrame */,
                     vf /* overlayFrame */, vf /* contentFrame */, vf /* visibleFrame */,
                     dcf /* decorFrame */, vf /* stableFrame */, vf /* outsetFrame */);
-
             // For layout, the status bar is always at the top with our fixed height.
             mStableTop = mUnrestrictedScreenTop + mStatusBarHeight;
-
             boolean statusBarTransient = (sysui & View.STATUS_BAR_TRANSIENT) != 0;
             boolean statusBarTranslucent = (sysui
                     & (View.STATUS_BAR_TRANSLUCENT | View.STATUS_BAR_TRANSPARENT)) != 0;
             if (!isKeyguardShowing) {
                 statusBarTranslucent &= areTranslucentBarsAllowed();
             }
-
             // If the status bar is hidden, we don't want to cause
             // windows behind it to scroll.
             if (mStatusBar.isVisibleLw() && !statusBarTransient) {
@@ -5290,12 +4801,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 // is available to apps but just covering them when the
                 // status bar is visible.
                 mDockTop = mUnrestrictedScreenTop + mStatusBarHeight;
-
                 mContentTop = mVoiceContentTop = mCurTop = mDockTop;
                 mContentBottom = mVoiceContentBottom = mCurBottom = mDockBottom;
                 mContentLeft = mVoiceContentLeft = mCurLeft = mDockLeft;
                 mContentRight = mVoiceContentRight = mCurRight = mDockRight;
-
                 if (DEBUG_LAYOUT) Slog.v(TAG, "Status bar: " +
                         String.format(
                                 "dock=[%d,%d][%d,%d] content=[%d,%d][%d,%d] cur=[%d,%d][%d,%d]",
@@ -5317,11 +4826,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return false;
     }
-
     private boolean layoutNavigationBar(int displayWidth, int displayHeight, int displayRotation,
-            int uiMode, int overscanLeft, int overscanRight, int overscanBottom, Rect dcf,
-            boolean navVisible, boolean navTranslucent, boolean navAllowedHidden,
-            boolean statusBarExpandedNotKeyguard) {
+                                        int uiMode, int overscanLeft, int overscanRight, int overscanBottom, Rect dcf,
+                                        boolean navVisible, boolean navTranslucent, boolean navAllowedHidden,
+                                        boolean statusBarExpandedNotKeyguard) {
         if (mNavigationBar != null) {
             boolean transientNavBarShowing = mNavigationBarController.isTransientShowing();
             // Force the navigation bar to its appropriate place and
@@ -5428,7 +4936,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return false;
     }
-
     private int navigationBarPosition(int displayWidth, int displayHeight, int displayRotation) {
         if (mNavigationBarCanMove && displayWidth > displayHeight) {
             if (displayRotation == Surface.ROTATION_270) {
@@ -5439,28 +4946,23 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return NAV_BAR_BOTTOM;
     }
-
     /** {@inheritDoc} */
     @Override
     public int getSystemDecorLayerLw() {
         if (mStatusBar != null && mStatusBar.isVisibleLw()) {
             return mStatusBar.getSurfaceLayer();
         }
-
         if (mNavigationBar != null && mNavigationBar.isVisibleLw()) {
             return mNavigationBar.getSurfaceLayer();
         }
-
         return 0;
     }
-
     @Override
     public void getContentRectLw(Rect r) {
         r.set(mContentLeft, mContentTop, mContentRight, mContentBottom);
     }
-
     void setAttachedWindowFrames(WindowState win, int fl, int adjust, WindowState attached,
-            boolean insetDecors, Rect pf, Rect df, Rect of, Rect cf, Rect vf) {
+                                 boolean insetDecors, Rect pf, Rect df, Rect of, Rect cf, Rect vf) {
         if (win.getSurfaceLayer() > mDockLayer && attached.getSurfaceLayer() < mDockLayer) {
             // Here's a special case: if this attached window is a panel that is
             // above the dock window, and the window it is attached to is below
@@ -5517,7 +5019,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         pf.set((fl & FLAG_LAYOUT_IN_SCREEN) == 0
                 ? attached.getFrameLw() : df);
     }
-
     private void applyStableConstraints(int sysui, int fl, Rect r) {
         if ((sysui & View.SYSTEM_UI_FLAG_LAYOUT_STABLE) != 0) {
             // If app is requesting a stable layout, don't let the
@@ -5535,7 +5036,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     private boolean canReceiveInput(WindowState win) {
         boolean notFocusable =
                 (win.getAttrs().flags & WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE) != 0;
@@ -5544,7 +5044,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         boolean notFocusableForIm = notFocusable ^ altFocusableIm;
         return !notFocusableForIm;
     }
-
     /** {@inheritDoc} */
     @Override
     public void layoutWindowLw(WindowState win, WindowState attached) {
@@ -5561,12 +5060,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             if (DEBUG_LAYOUT) Slog.i(TAG, "Offset ime target window by the last ime window state");
             offsetInputMethodWindowLw(mLastInputMethodWindow);
         }
-
         final int fl = PolicyControl.getWindowFlags(win, attrs);
         final int pfl = attrs.privateFlags;
         final int sim = attrs.softInputMode;
         final int sysUiFl = PolicyControl.getSystemUiVisibility(win, null);
-
         final Rect pf = mTmpParentFrame;
         final Rect df = mTmpDisplayFrame;
         final Rect of = mTmpOverscanFrame;
@@ -5576,18 +5073,14 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         final Rect sf = mTmpStableFrame;
         Rect osf = null;
         dcf.setEmpty();
-
         final boolean hasNavBar = (isDefaultDisplay && hasNavigationBar()
                 && mNavigationBar != null && mNavigationBar.isVisibleLw());
-
         final int adjust = sim & SOFT_INPUT_MASK_ADJUST;
-
         if (isDefaultDisplay) {
             sf.set(mStableLeft, mStableTop, mStableRight, mStableBottom);
         } else {
             sf.set(mOverscanLeft, mOverscanTop, mOverscanRight, mOverscanBottom);
         }
-
         if (!isDefaultDisplay) {
             if (attached != null) {
                 // If this window is attached to another, our display
@@ -5647,7 +5140,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 vf.set(cf);
             }
         } else if (attrs.type == TYPE_WALLPAPER) {
-           layoutWallpaper(win, pf, df, of, cf);
+            layoutWallpaper(win, pf, df, of, cf);
         } else if (win == mStatusBar) {
             pf.left = df.left = of.left = mUnrestrictedScreenLeft;
             pf.top = df.top = of.top = mUnrestrictedScreenTop;
@@ -5657,7 +5150,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             cf.top = vf.top = mStableTop;
             cf.right = vf.right = mStableRight;
             vf.bottom = mStableBottom;
-
             if (adjust == SOFT_INPUT_ADJUST_RESIZE) {
                 cf.bottom = mContentBottom;
             } else {
@@ -5665,7 +5157,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 vf.bottom = mContentBottom;
             }
         } else {
-
             // Default policy decor for the default display
             dcf.left = mSystemLeft;
             dcf.top = mSystemTop;
@@ -5675,7 +5166,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     & WindowManager.LayoutParams.PRIVATE_FLAG_INHERIT_TRANSLUCENT_DECOR) != 0;
             final boolean isAppWindow =
                     attrs.type >= WindowManager.LayoutParams.FIRST_APPLICATION_WINDOW &&
-                    attrs.type <= WindowManager.LayoutParams.LAST_APPLICATION_WINDOW;
+                            attrs.type <= WindowManager.LayoutParams.LAST_APPLICATION_WINDOW;
             final boolean topAtRest =
                     win == mTopFullscreenOpaqueWindowState && !win.isAnimatingLw();
             if (isAppWindow && !inheritTranslucentDecor && !topAtRest) {
@@ -5683,7 +5174,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         && (fl & WindowManager.LayoutParams.FLAG_FULLSCREEN) == 0
                         && (fl & WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS) == 0
                         && (fl & WindowManager.LayoutParams.
-                                FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS) == 0
+                        FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS) == 0
                         && (pfl & PRIVATE_FLAG_FORCE_DRAW_STATUS_BAR_BACKGROUND) == 0) {
                     // Ensure policy decor includes status bar
                     dcf.top = mStableTop;
@@ -5691,17 +5182,16 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 if ((fl & WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION) == 0
                         && (sysUiFl & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0
                         && (fl & WindowManager.LayoutParams.
-                                FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS) == 0) {
+                        FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS) == 0) {
                     // Ensure policy decor includes navigation bar
                     dcf.bottom = mStableBottom;
                     dcf.right = mStableRight;
                 }
             }
-
             if ((fl & (FLAG_LAYOUT_IN_SCREEN | FLAG_LAYOUT_INSET_DECOR))
                     == (FLAG_LAYOUT_IN_SCREEN | FLAG_LAYOUT_INSET_DECOR)) {
                 if (DEBUG_LAYOUT) Slog.v(TAG, "layoutWindowLw(" + attrs.getTitle()
-                            + "): IN_SCREEN, INSET_DECOR");
+                        + "): IN_SCREEN, INSET_DECOR");
                 // This is the case for a normal activity window: we want it
                 // to cover all of the screen space, and it can take care of
                 // moving its contents to account for screen decorations that
@@ -5719,7 +5209,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         // bar itself.
                         //
                         // However, they should still dodge the navigation bar if it exists.
-
                         pf.left = df.left = of.left = hasNavBar
                                 ? mDockLeft : mUnrestrictedScreenLeft;
                         pf.top = df.top = of.top = mUnrestrictedScreenTop;
@@ -5729,10 +5218,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         pf.bottom = df.bottom = of.bottom = hasNavBar
                                 ? mRestrictedScreenTop+mRestrictedScreenHeight
                                 : mUnrestrictedScreenTop + mUnrestrictedScreenHeight;
-
                         if (DEBUG_LAYOUT) Slog.v(TAG, String.format(
-                                        "Laying out status bar window: (%d,%d - %d,%d)",
-                                        pf.left, pf.top, pf.right, pf.bottom));
+                                "Laying out status bar window: (%d,%d - %d,%d)",
+                                pf.left, pf.top, pf.right, pf.bottom));
                     } else if ((fl & FLAG_LAYOUT_IN_OVERSCAN) != 0
                             && attrs.type >= WindowManager.LayoutParams.FIRST_APPLICATION_WINDOW
                             && attrs.type <= WindowManager.LayoutParams.LAST_SUB_WINDOW) {
@@ -5777,7 +5265,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         of.right = mUnrestrictedScreenLeft + mUnrestrictedScreenWidth;
                         of.bottom = mUnrestrictedScreenTop + mUnrestrictedScreenHeight;
                     }
-
                     if ((fl & FLAG_FULLSCREEN) == 0) {
                         if (win.isVoiceInteraction()) {
                             cf.left = mVoiceContentLeft;
@@ -5819,7 +5306,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
             } else if ((fl & FLAG_LAYOUT_IN_SCREEN) != 0 || (sysUiFl
                     & (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)) != 0) {
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)) != 0) {
                 if (DEBUG_LAYOUT) Slog.v(TAG, "layoutWindowLw(" + attrs.getTitle() +
                         "): IN_SCREEN");
                 // A window that has requested to fill the entire screen just
@@ -5831,14 +5318,14 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                             ? mDockLeft : mUnrestrictedScreenLeft;
                     pf.top = df.top = of.top = cf.top = mUnrestrictedScreenTop;
                     pf.right = df.right = of.right = cf.right = hasNavBar
-                                        ? mRestrictedScreenLeft+mRestrictedScreenWidth
-                                        : mUnrestrictedScreenLeft + mUnrestrictedScreenWidth;
+                            ? mRestrictedScreenLeft+mRestrictedScreenWidth
+                            : mUnrestrictedScreenLeft + mUnrestrictedScreenWidth;
                     pf.bottom = df.bottom = of.bottom = cf.bottom = hasNavBar
-                                          ? mRestrictedScreenTop+mRestrictedScreenHeight
-                                          : mUnrestrictedScreenTop + mUnrestrictedScreenHeight;
+                            ? mRestrictedScreenTop+mRestrictedScreenHeight
+                            : mUnrestrictedScreenTop + mUnrestrictedScreenHeight;
                     if (DEBUG_LAYOUT) Slog.v(TAG, String.format(
-                                    "Laying out IN_SCREEN status bar window: (%d,%d - %d,%d)",
-                                    pf.left, pf.top, pf.right, pf.bottom));
+                            "Laying out IN_SCREEN status bar window: (%d,%d - %d,%d)",
+                            pf.left, pf.top, pf.right, pf.bottom));
                 } else if (attrs.type == TYPE_NAVIGATION_BAR
                         || attrs.type == TYPE_NAVIGATION_BAR_PANEL) {
                     // The navigation bar has Real Ultimate Power.
@@ -5849,11 +5336,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     pf.bottom = df.bottom = of.bottom = mUnrestrictedScreenTop
                             + mUnrestrictedScreenHeight;
                     if (DEBUG_LAYOUT) Slog.v(TAG, String.format(
-                                    "Laying out navigation bar window: (%d,%d - %d,%d)",
-                                    pf.left, pf.top, pf.right, pf.bottom));
+                            "Laying out navigation bar window: (%d,%d - %d,%d)",
+                            pf.left, pf.top, pf.right, pf.bottom));
                 } else if ((attrs.type == TYPE_SECURE_SYSTEM_OVERLAY
-                                || attrs.type == TYPE_BOOT_PROGRESS
-                                || attrs.type == TYPE_SCREENSHOT)
+                        || attrs.type == TYPE_BOOT_PROGRESS
+                        || attrs.type == TYPE_SCREENSHOT)
                         && ((fl & FLAG_FULLSCREEN) != 0)) {
                     // Fullscreen secure system overlays get what they ask for. Screenshot region
                     // selection overlay should also expand to full screen.
@@ -5885,11 +5372,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 } else if (canHideNavigationBar()
                         && (sysUiFl & View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION) != 0
                         && (attrs.type == TYPE_STATUS_BAR
-                            || attrs.type == TYPE_TOAST
-                            || attrs.type == TYPE_DOCK_DIVIDER
-                            || attrs.type == TYPE_VOICE_INTERACTION_STARTING
-                            || (attrs.type >= WindowManager.LayoutParams.FIRST_APPLICATION_WINDOW
-                            && attrs.type <= WindowManager.LayoutParams.LAST_SUB_WINDOW))) {
+                        || attrs.type == TYPE_TOAST
+                        || attrs.type == TYPE_DOCK_DIVIDER
+                        || attrs.type == TYPE_VOICE_INTERACTION_STARTING
+                        || (attrs.type >= WindowManager.LayoutParams.FIRST_APPLICATION_WINDOW
+                        && attrs.type <= WindowManager.LayoutParams.LAST_SUB_WINDOW))) {
                     // Asking for layout as if the nav bar is hidden, lets the
                     // application extend into the unrestricted screen area.  We
                     // only do this for application windows (or toasts) to ensure no window that
@@ -5928,9 +5415,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     pf.bottom = df.bottom = of.bottom = cf.bottom = mRestrictedScreenTop
                             + mRestrictedScreenHeight;
                 }
-
                 applyStableConstraints(sysUiFl, fl, cf);
-
                 if (adjust != SOFT_INPUT_ADJUST_NOTHING) {
                     vf.left = mCurLeft;
                     vf.top = mCurTop;
@@ -5999,7 +5484,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
             }
         }
-
         // TYPE_SYSTEM_ERROR is above the NavigationBar so it can't be allowed to extend over it.
         // Also, we don't allow windows in multi-window mode to extend out of the screen.
         if ((fl & FLAG_LAYOUT_NO_LIMITS) != 0 && attrs.type != TYPE_SYSTEM_ERROR
@@ -6011,7 +5495,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 of.right = of.bottom = cf.right = cf.bottom = vf.right = vf.bottom = 10000;
             }
         }
-
         // If the device has a chin (e.g. some watches), a dead area at the bottom of the screen we
         // need to provide information to the clients that want to pretend that you can draw there.
         // We only want to apply outsets to certain types of windows. For example, we never want to
@@ -6036,7 +5519,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         + " with rotation " + rotation + ", result: " + osf);
             }
         }
-
         if (DEBUG_LAYOUT) Slog.v(TAG, "Compute frame " + attrs.getTitle()
                 + ": sim=#" + Integer.toHexString(sim)
                 + " attach=" + attached + " type=" + attrs.type
@@ -6047,9 +5529,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 + " dcf=" + dcf.toShortString()
                 + " sf=" + sf.toShortString()
                 + " osf=" + (osf == null ? "null" : osf.toShortString()));
-
         win.computeFrameLw(pf, df, of, cf, vf, dcf, sf, osf);
-
         // Dock windows carve out the bottom of the screen, so normal windows
         // can't appear underneath them.
         if (attrs.type == TYPE_INPUT_METHOD && win.isVisibleOrBehindKeyguardLw()
@@ -6062,9 +5542,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             offsetVoiceInputWindowLw(win);
         }
     }
-
     private void layoutWallpaper(WindowState win, Rect pf, Rect df, Rect of, Rect cf) {
-
         // The wallpaper also has Real Ultimate Power, but we want to tell
         // it about the overscan area.
         pf.left = df.left = mOverscanScreenLeft;
@@ -6076,7 +5554,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         of.right = cf.right = mUnrestrictedScreenLeft + mUnrestrictedScreenWidth;
         of.bottom = cf.bottom = mUnrestrictedScreenTop + mUnrestrictedScreenHeight;
     }
-
     private void offsetInputMethodWindowLw(WindowState win) {
         int top = Math.max(win.getDisplayFrameLw().top, win.getContentFrameLw().top);
         top += win.getGivenContentInsetsLw().top;
@@ -6095,7 +5572,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 + mDockBottom + " mContentBottom="
                 + mContentBottom + " mCurBottom=" + mCurBottom);
     }
-
     private void offsetVoiceInputWindowLw(WindowState win) {
         int top = Math.max(win.getDisplayFrameLw().top, win.getContentFrameLw().top);
         top += win.getGivenContentInsetsLw().top;
@@ -6103,13 +5579,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mVoiceContentBottom = top;
         }
     }
-
     /** {@inheritDoc} */
     @Override
     public void finishLayoutLw() {
         return;
     }
-
     /** {@inheritDoc} */
     @Override
     public void beginPostLayoutPolicyLw(int displayWidth, int displayHeight) {
@@ -6124,7 +5598,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         mForceStatusBarTransparent = false;
         mForcingShowNavBar = false;
         mForcingShowNavBarLayer = -1;
-
         mHideLockScreen = false;
         mAllowLockscreenWhenOn = false;
         mDismissKeyguard = DISMISS_KEYGUARD_NONE;
@@ -6135,11 +5608,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         mKeyguardSecureIncludingHidden = mKeyguardSecure
                 && (mKeyguardDelegate != null && mKeyguardDelegate.isShowing());
     }
-
     /** {@inheritDoc} */
     @Override
     public void applyPostLayoutPolicyLw(WindowState win, WindowManager.LayoutParams attrs,
-            WindowState attached) {
+                                        WindowState attached) {
         if (DEBUG_LAYOUT) Slog.i(TAG, "Win " + win + ": isVisibleOrBehindKeyguardLw="
                 + win.isVisibleOrBehindKeyguardLw());
         final int fl = PolicyControl.getWindowFlags(win, attrs);
@@ -6157,7 +5629,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 mForceStatusBarTransparent = true;
             }
         }
-
         boolean appWindow = attrs.type >= FIRST_APPLICATION_WINDOW
                 && attrs.type < FIRST_SYSTEM_WINDOW;
         final boolean showWhenLocked = (fl & FLAG_SHOW_WHEN_LOCKED) != 0;
@@ -6181,9 +5652,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     appWindow = true;
                 }
             }
-
             final IApplicationToken appToken = win.getAppToken();
-
             // For app windows that are not attached, we decide if all windows in the app they
             // represent should be hidden or if we should hide the lockscreen. For attached app
             // windows we defer the decision to the window it is attached to.
@@ -6238,7 +5707,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         mAllowLockscreenWhenOn = true;
                     }
                 }
-
                 if (!mKeyguardHidden && mWinShowWhenLocked != null &&
                         mWinShowWhenLocked.getAppToken() != win.getAppToken() &&
                         (attrs.flags & FLAG_SHOW_WHEN_LOCKED) == 0) {
@@ -6255,9 +5723,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 mWinShowWhenLocked = win;
             }
         }
-
         final boolean reallyVisible = win.isVisibleOrBehindKeyguardLw() && !win.isGoneForLayoutLw();
-
         // Voice interaction overrides both top fullscreen and top docked.
         if (reallyVisible && win.getAttrs().type == TYPE_VOICE_INTERACTION) {
             if (mTopFullscreenOpaqueWindowState == null) {
@@ -6273,13 +5739,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
             }
         }
-
         // Keep track of the window if it's dimming but not necessarily fullscreen.
         if (mTopFullscreenOpaqueOrDimmingWindowState == null && reallyVisible
                 && win.isDimming() && StackId.normallyFullscreenWindows(stackId)) {
             mTopFullscreenOpaqueOrDimmingWindowState = win;
         }
-
         // We need to keep track of the top "fullscreen" opaque window for the docked stack
         // separately, because both the "real fullscreen" opaque window and the one for the docked
         // stack can control View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.
@@ -6290,7 +5754,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 mTopDockedOpaqueOrDimmingWindowState = win;
             }
         }
-
         // Also keep track of any windows that are dimming but not necessarily fullscreen in the
         // docked stack.
         if (mTopDockedOpaqueOrDimmingWindowState == null && reallyVisible && win.isDimming()
@@ -6298,13 +5761,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mTopDockedOpaqueOrDimmingWindowState = win;
         }
     }
-
     private boolean isFullscreen(WindowManager.LayoutParams attrs) {
         return attrs.x == 0 && attrs.y == 0
                 && attrs.width == WindowManager.LayoutParams.MATCH_PARENT
                 && attrs.height == WindowManager.LayoutParams.MATCH_PARENT;
     }
-
     /** {@inheritDoc} */
     @Override
     public int finishPostLayoutPolicyLw() {
@@ -6318,14 +5779,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mTopFullscreenOpaqueWindowState.hideLw(false);
             mTopFullscreenOpaqueWindowState = mWinShowWhenLocked;
         }
-
         int changes = 0;
         boolean topIsFullscreen = false;
-
         final WindowManager.LayoutParams lp = (mTopFullscreenOpaqueWindowState != null)
                 ? mTopFullscreenOpaqueWindowState.getAttrs()
                 : null;
-
         // If we are not currently showing a dream then remember the current
         // lockscreen state.  We will use this to determine whether the dream
         // started while the lockscreen was showing and remember this state
@@ -6342,7 +5800,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 mHandler.obtainMessage(MSG_UPDATE_DREAMING_SLEEP_TOKEN, 1, 1).sendToTarget();
             }
         }
-
         if (mStatusBar != null) {
             if (DEBUG_LAYOUT) Slog.i(TAG, "force=" + mForceStatusBar
                     + " forcefkg=" + mForceStatusBarFromKeyguard
@@ -6355,7 +5812,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             } else if (!mStatusBar.isVisibleLw()) {
                 mStatusBarController.setShowTransparent(true /* transparent */);
             }
-
             WindowManager.LayoutParams statusBarAttrs = mStatusBar.getAttrs();
             boolean statusBarExpanded = statusBarAttrs.height == MATCH_PARENT
                     && statusBarAttrs.width == MATCH_PARENT;
@@ -6413,7 +5869,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
             }
         }
-
         if (mTopIsFullscreen != topIsFullscreen) {
             if (!topIsFullscreen) {
                 // Force another layout when status bar becomes fully shown.
@@ -6421,7 +5876,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
             mTopIsFullscreen = topIsFullscreen;
         }
-
         // Hide the key guard if a visible window explicitly specifies that it wants to be
         // displayed when the screen is locked.
         if (mKeyguardDelegate != null && mStatusBar != null) {
@@ -6462,7 +5916,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     }
                     dismissKeyguard = true;
                 }
-
                 // If we are currently dismissing Keyguard, there is no need to unocclude it.
                 if (!mCurrentlyDismissingKeyguard) {
                     if (setKeyguardOccludedLw(false)) {
@@ -6471,7 +5924,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                                 | FINISH_LAYOUT_REDO_WALLPAPER;
                     }
                 }
-
                 if (dismissKeyguard) {
                     // Only launch the next keyguard unlock window once per window.
                     mHandler.post(() -> mKeyguardDelegate.dismiss(
@@ -6488,18 +5940,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
             }
         }
-
         if ((updateSystemUiVisibilityLw()&SYSTEM_UI_CHANGING_LAYOUT) != 0) {
             // If the navigation bar has been hidden or shown, we need to do another
             // layout pass to update that window.
             changes |= FINISH_LAYOUT_REDO_LAYOUT;
         }
-
         // update since mAllowLockscreenWhenOn might have changed
         updateLockScreenTimeout();
         return changes;
     }
-
     /**
      * Updates the occluded state of the Keyguard.
      *
@@ -6529,7 +5978,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return false;
         }
     }
-
     private void onKeyguardShowingStateChanged(boolean showing) {
         if (!showing) {
             synchronized (mWindowManagerFuncs.getWindowManagerLock()) {
@@ -6537,12 +5985,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     private boolean isStatusBarKeyguard() {
         return mStatusBar != null
                 && (mStatusBar.getAttrs().privateFlags & PRIVATE_FLAG_KEYGUARD) != 0;
     }
-
     @Override
     public boolean allowAppAnimationsLw() {
         if (isStatusBarKeyguard() || mShowingDream) {
@@ -6551,7 +5997,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return true;
     }
-
     @Override
     public int focusChangedLw(WindowState lastFocus, WindowState newFocus) {
         mFocusedWindow = newFocus;
@@ -6562,7 +6007,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return 0;
     }
-
     /** {@inheritDoc} */
     @Override
     public void notifyLidSwitchChanged(long whenNanos, boolean lidOpen) {
@@ -6571,11 +6015,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         if (newLidState == mLidState) {
             return;
         }
-
         mLidState = newLidState;
         applyLidSwitchState();
         updateRotation(true);
-
         if (lidOpen) {
             wakeUp(SystemClock.uptimeMillis(), mAllowTheaterModeWakeFromLidSwitch,
                     "android.policy:LID");
@@ -6583,7 +6025,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mPowerManager.userActivity(SystemClock.uptimeMillis(), false);
         }
     }
-
     @Override
     public void notifyCameraLensCoverSwitchChanged(long whenNanos, boolean lensCovered) {
         int lensCoverState = lensCovered ? CAMERA_LENS_COVERED : CAMERA_LENS_UNCOVERED;
@@ -6606,7 +6047,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         mCameraLensCoverState = lensCoverState;
     }
-
     void setHdmiPlugged(boolean plugged) {
         if (mHdmiPlugged != plugged) {
             mHdmiPlugged = plugged;
@@ -6617,13 +6057,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mContext.sendStickyBroadcastAsUser(intent, UserHandle.ALL);
         }
     }
-
     void initializeHdmiState() {
         boolean plugged = false;
         // watch for HDMI plug messages if the hdmi switch exists
         if (new File("/sys/devices/virtual/switch/hdmi/state").exists()) {
             mHDMIObserver.startObserving("DEVPATH=/devices/virtual/switch/hdmi");
-
             final String filename = "/sys/class/switch/hdmi/state";
             FileReader reader = null;
             try {
@@ -6651,7 +6089,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         mHdmiPlugged = !plugged;
         setHdmiPlugged(!mHdmiPlugged);
     }
-
     /**
      * @return Whether music is being played right now "locally" (e.g. on the device's speakers
      *    or wired headphones) or "remotely" (e.g. on a device using the Cast protocol and
@@ -6665,12 +6102,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return am.isMusicActive();
     }
-
     final Object mScreenshotLock = new Object();
     final Object mScreenrecordLock = new Object();
     ServiceConnection mScreenshotConnection = null;
     ServiceConnection mScreenrecordConnection = null;
-
     final Runnable mScreenshotTimeout = new Runnable() {
         @Override public void run() {
             synchronized (mScreenshotLock) {
@@ -6682,7 +6117,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     };
-
     final Runnable mScreenrecordTimeout = new Runnable() {
         @Override public void run() {
             synchronized (mScreenrecordLock) {
@@ -6693,7 +6127,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     };
-
     // Assume this is called from the Handler thread.
     private void takeScreenshot(final int screenshotType) {
         synchronized (mScreenshotLock) {
@@ -6728,14 +6161,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         };
                         msg.replyTo = new Messenger(h);
                         msg.arg1 = msg.arg2 = 0;
-
                         // Needs delay or else we'll be taking a screenshot of the dialog each time
                         try {
                             Thread.sleep(mScreenshotDelay);
                         } catch (InterruptedException ie) {
                             // Do nothing
                         }
-
                         if (mStatusBar != null && mStatusBar.isVisibleLw())
                             msg.arg1 = 1;
                         if (mNavigationBar != null && mNavigationBar.isVisibleLw())
@@ -6746,7 +6177,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         }
                     }
                 }
-
                 @Override
                 public void onServiceDisconnected(ComponentName name) {
                     synchronized (mScreenshotLock) {
@@ -6767,7 +6197,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     /**
      * Notifies the screenshot service to show an error.
      */
@@ -6781,7 +6210,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 Intent.FLAG_RECEIVER_FOREGROUND);
         mContext.sendBroadcastAsUser(errorIntent, UserHandle.CURRENT);
     }
-
     // Assume this is called from the Handler thread.
     private void takeScreenrecord() {
         synchronized (mScreenrecordLock) {
@@ -6831,7 +6259,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     /** {@inheritDoc} */
     @Override
     public int interceptKeyBeforeQueueing(KeyEvent event, int policyFlags) {
@@ -6839,15 +6266,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             // If we have not yet booted, don't let key events do anything.
             return 0;
         }
-
         final int action = event.getAction();
         final int flags = event.getFlags();
         final int keyCode = event.getKeyCode();
         final int repeatCount = event.getRepeatCount();
         final int source = event.getSource();
-
         final boolean down = action == KeyEvent.ACTION_DOWN;
-
         final boolean canceled = event.isCanceled();
         final boolean fromSystem = (flags & KeyEvent.FLAG_FROM_SYSTEM) != 0;
         final boolean longPress = (flags & KeyEvent.FLAG_LONG_PRESS) != 0;
@@ -6855,22 +6279,18 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         final boolean virtualHardKey = (flags & KeyEvent.FLAG_VIRTUAL_HARD_KEY) != 0;
         final boolean navBarKey = source == InputDevice.SOURCE_NAVIGATION_BAR;
         final boolean isCustomSource = source == InputDevice.SOURCE_CUSTOM;
-
         final boolean interactive = (policyFlags & FLAG_INTERACTIVE) != 0;
         final boolean isInjected = (policyFlags & WindowManagerPolicy.FLAG_INJECTED) != 0;
-
         // If screen is off then we treat the case where the keyguard is open but hidden
         // the same as if it were open and in front.
         // This will prevent any keys other than the power button from waking the screen
         // when the keyguard is hidden by another activity.
         final boolean keyguardActive = (mKeyguardDelegate == null ? false :
-                                            (interactive ?
-                                                isKeyguardShowingAndNotOccluded() :
-                                                mKeyguardDelegate.isShowing()));
-
+                (interactive ?
+                        isKeyguardShowingAndNotOccluded() :
+                        mKeyguardDelegate.isShowing()));
         // Request haptic feedback for hw keys finger down events.
         boolean hapticFeedbackRequested = false;
-
         if (DEBUG_INPUT) {
             Log.d(TAG, "interceptKeyBeforeQueueing(): event =" + event.toString()
                     + ", interactive =" + interactive + ", keyguardActive =" + keyguardActive
@@ -6879,7 +6299,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     + ", navBarKey = " + navBarKey + ", fromSystem = " + fromSystem
                     + ", canApplyCustomPolicy = " + canApplyCustomPolicy(keyCode));
         }
-
         // Apply custom policy for supported key codes.
         if (canApplyCustomPolicy(keyCode) && !isCustomSource && !(!isScreenOn() && (keyCode == KeyEvent.KEYCODE_HOME))) {
             if (mNavBarEnabled && !navBarKey /* TODO> && !isADBVirtualKeyOrAnyOtherKeyThatWeNeedToHandleAKAWhenMonkeyTestOrWHATEVER! */) {
@@ -6914,10 +6333,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
             }
         }
-
         final boolean isHomeWakeKey = !isScreenOn()
                 && (keyCode == KeyEvent.KEYCODE_HOME);
-
         // Intercept the Keypress event for Keypress boost
         if (lIsPerfBoostEnabled && !isCustomSource) {
             if (down && !longPress && repeatCount == 0 || down && longPress && repeatCount == 1) {
@@ -6937,7 +6354,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 dispatchKeypressBoost(keyCode);
             }
         }
-
         // Basic policy based on interactive state.
         final boolean isVolumeRockerWake = !isScreenOn()
                 && mVolumeRockerWake
@@ -6950,7 +6366,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             // key to the application.
             result = ACTION_PASS_TO_USER;
             isWakeKey = false;
-
             if (interactive) {
                 // If the screen is awake, but the button pressed was the one that woke the device
                 // then don't pass it to the application
@@ -6980,27 +6395,23 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 mPendingWakeKey = keyCode;
             }
         }
-
         // If the key would be handled globally, just return the result, don't worry about special
         // key processing.
         if (isValidGlobalKey(keyCode)
                 && mGlobalKeyManager.shouldHandleGlobalKey(keyCode, event)) {
             if (isWakeKey) {
                 wakeUp(event.getEventTime(), mAllowTheaterModeWakeFromKey,
-                       "android.policy:KEY", true);
+                        "android.policy:KEY", true);
             }
             return result;
         }
-
         // If not requested by our custom policy, then check if the key is virtual.
         hapticFeedbackRequested |= (policyFlags & WindowManagerPolicy.FLAG_VIRTUAL) != 0;
-
         boolean useHapticFeedback = down
                 && hapticFeedbackRequested
                 && repeatCount == 0
                 // Trigger haptic feedback only for "real" events.
                 && source != InputDevice.SOURCE_CUSTOM;
-
         // Specific device key handling
         if (mDeviceKeyHandler != null) {
             try {
@@ -7012,7 +6423,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 Slog.w(TAG, "Could not dispatch event to device key handler", e);
             }
         }
-
         // Handle special keys.
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK: {
@@ -7020,7 +6430,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     interceptBackKeyDown();
                 } else {
                     boolean handled = interceptBackKeyUp(event);
-
                     // Don't pass back press to app if we've already handled it via long press
                     if (handled) {
                         result &= ~ACTION_PASS_TO_USER;
@@ -7028,7 +6437,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
                 break;
             }
-
             case KeyEvent.KEYCODE_VOLUME_DOWN:
             case KeyEvent.KEYCODE_VOLUME_UP:
             case KeyEvent.KEYCODE_VOLUME_MUTE: {
@@ -7077,12 +6485,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                             // Look for the DOWN event here, to agree with the "fallback"
                             // behavior in the InCallScreen.
                             Log.i(TAG, "interceptKeyBeforeQueueing:"
-                                  + " VOLUME key-down while ringing: Silence ringer!");
-
+                                    + " VOLUME key-down while ringing: Silence ringer!");
                             // Silence the ringer.  (It's safe to call this
                             // even if the ringer has already been silenced.)
                             telecomManager.silenceRinger();
-
                             // And *don't* pass this key thru to the current activity
                             // (which is probably the InCallScreen.)
                             result &= ~ACTION_PASS_TO_USER;
@@ -7092,18 +6498,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                                 && (result & ACTION_PASS_TO_USER) == 0) {
                             // If we are in call but we decided not to pass the key to
                             // the application, just pass it to the session service.
-
                             MediaSessionLegacyHelper.getHelper(mContext)
                                     .sendVolumeKeyEvent(event, false);
                             break;
                         }
                     }
                 }
-
-             // Disable music and volume control when used as wake key
+                // Disable music and volume control when used as wake key
                 if ((result & ACTION_PASS_TO_USER) == 0 && !mVolumeRockerWake) {
                     boolean mayChangeVolume = false;
-
                     if (isMusicActive()) {
                         if (mVolBtnMusicControls && (keyCode != KeyEvent.KEYCODE_VOLUME_MUTE)) {
                             // Detect long key presses.
@@ -7130,12 +6533,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                             mayChangeVolume = down;
                         }
                     }
-
                     if (mayChangeVolume) {
                         // If we aren't passing to the user and no one else
                         // handled it send it to the session manager to figure
                         // out.
-
                         // Rewrite the event to use key-down as sendVolumeKeyEvent will
                         // only change the volume on key down.
                         KeyEvent newEvent = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
@@ -7146,7 +6547,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
                 break;
             }
-
             case KeyEvent.KEYCODE_ENDCALL: {
                 result &= ~ACTION_PASS_TO_USER;
                 if (down) {
@@ -7183,7 +6583,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
                 break;
             }
-
             case KeyEvent.KEYCODE_POWER: {
                 if ((mTopFullscreenOpaqueWindowState.getAttrs().privateFlags
                         & WindowManager.LayoutParams.PRIVATE_FLAG_PREVENT_POWER_KEY) != 0
@@ -7199,7 +6598,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
                 break;
             }
-
             case KeyEvent.KEYCODE_SYSTEM_NAVIGATION_DOWN:
                 // fall through
             case KeyEvent.KEYCODE_SYSTEM_NAVIGATION_UP:
@@ -7211,7 +6609,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 interceptSystemNavigationKey(event);
                 break;
             }
-
             case KeyEvent.KEYCODE_SLEEP: {
                 result &= ~ACTION_PASS_TO_USER;
                 isWakeKey = false;
@@ -7225,7 +6622,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
                 break;
             }
-
             case KeyEvent.KEYCODE_SOFT_SLEEP: {
                 result &= ~ACTION_PASS_TO_USER;
                 isWakeKey = false;
@@ -7234,13 +6630,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
                 break;
             }
-
             case KeyEvent.KEYCODE_WAKEUP: {
                 result &= ~ACTION_PASS_TO_USER;
                 isWakeKey = true;
                 break;
             }
-
             case KeyEvent.KEYCODE_MEDIA_PLAY:
             case KeyEvent.KEYCODE_MEDIA_PAUSE:
             case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
@@ -7272,16 +6666,14 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
                 break;
             }
-
             case KeyEvent.KEYCODE_CALL: {
                 if (down) {
                     TelecomManager telecomManager = getTelecommService();
                     if (telecomManager != null) {
                         if (telecomManager.isRinging()) {
                             Log.i(TAG, "interceptKeyBeforeQueueing:"
-                                  + " CALL key-down while ringing: Answer the call!");
+                                    + " CALL key-down while ringing: Answer the call!");
                             telecomManager.acceptRingingCall();
-
                             // And *don't* pass this key thru to the current activity
                             // (which is presumably the InCallScreen.)
                             result &= ~ACTION_PASS_TO_USER;
@@ -7320,19 +6712,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 break;
             }
         }
-
         if (useHapticFeedback) {
             performHapticFeedbackLw(null, HapticFeedbackConstants.VIRTUAL_KEY, false);
         }
-
         if (isWakeKey) {
             wakeUp(event.getEventTime(), mAllowTheaterModeWakeFromKey, "android.policy:KEY",
                     event.getKeyCode() == KeyEvent.KEYCODE_WAKEUP); // Check prox only on wake key
         }
-
         return result;
     }
-
     /**
      * Handle statusbar expansion events.
      * @param event
@@ -7349,7 +6737,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     /**
      * Returns true if the key can have global actions attached to it.
      * We reserve all power management keys for the system since they require
@@ -7365,7 +6752,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 return true;
         }
     }
-
     private void scheduleLongPressKeyEvent(KeyEvent origEvent, int keyCode) {
         KeyEvent event = new KeyEvent(origEvent.getDownTime(), origEvent.getEventTime(),
                 origEvent.getAction(), keyCode, 0);
@@ -7373,7 +6759,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         msg.setAsynchronous(true);
         mHandler.sendMessageDelayed(msg, ViewConfiguration.getLongPressTimeout());
     }
-
     /**
      * When the screen is off we ignore some keys that might otherwise typically
      * be considered wake keys.  We filter them out here.
@@ -7391,7 +6776,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 }
             case KeyEvent.KEYCODE_VOLUME_MUTE:
                 return mDockMode != Intent.EXTRA_DOCK_STATE_UNDOCKED;
-
             // ignore media and camera keys
             case KeyEvent.KEYCODE_MUTE:
             case KeyEvent.KEYCODE_HEADSETHOOK:
@@ -7410,8 +6794,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return true;
     }
-
-
     /** {@inheritDoc} */
     @Override
     public int interceptMotionBeforeQueueingNonInteractive(long whenNanos, int policyFlags) {
@@ -7421,11 +6803,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 return 0;
             }
         }
-
         if (shouldDispatchInputWhenNonInteractive(null)) {
             return ACTION_PASS_TO_USER;
         }
-
         // If we have not passed the action up and we are in theater mode without dreaming,
         // there will be no dream to intercept the touch and wake into ambient.  The device should
         // wake up in this case.
@@ -7433,34 +6813,27 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             wakeUp(whenNanos / 1000000, mAllowTheaterModeWakeFromMotionWhenNotDreaming,
                     "android.policy:MOTION");
         }
-
         return 0;
     }
-
     private boolean shouldDispatchInputWhenNonInteractive(KeyEvent event) {
         final boolean displayOff = (mDisplay == null || mDisplay.getState() == Display.STATE_OFF);
-
         if (displayOff && !mHasFeatureWatch) {
             return false;
         }
-
         // Send events to keyguard while the screen is on and it's showing.
         if (isKeyguardShowingAndNotOccluded() && !displayOff) {
             return true;
         }
-
         // Watches handle BACK specially
         if (mHasFeatureWatch
                 && event != null
                 && (event.getKeyCode() == KeyEvent.KEYCODE_BACK
-                        || event.getKeyCode() == KeyEvent.KEYCODE_STEM_PRIMARY)) {
+                || event.getKeyCode() == KeyEvent.KEYCODE_STEM_PRIMARY)) {
             return false;
         }
-
         // Send events to a dozing dream even if the screen is off since the dream
         // is in control of the state of the screen.
         IDreamManager dreamManager = getDreamManager();
-
         try {
             if (dreamManager != null && dreamManager.isDreaming() && !dreamManager.isDozing()) {
                 return true;
@@ -7468,12 +6841,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         } catch (RemoteException e) {
             Slog.e(TAG, "RemoteException when checking if dreaming", e);
         }
-
         // Otherwise, consume events since the user can't see what is being
         // interacted with.
         return false;
     }
-
     private void dispatchDirectAudioEvent(KeyEvent event) {
         if (event.getAction() != KeyEvent.ACTION_DOWN) {
             return;
@@ -7512,28 +6883,22 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 break;
         }
     }
-
     void dispatchMediaKeyWithWakeLock(KeyEvent event) {
         if (DEBUG_INPUT) {
             Slog.d(TAG, "dispatchMediaKeyWithWakeLock: " + event);
         }
-
         if (mHavePendingMediaKeyRepeatWithWakeLock) {
             if (DEBUG_INPUT) {
                 Slog.d(TAG, "dispatchMediaKeyWithWakeLock: canceled repeat");
             }
-
             mHandler.removeMessages(MSG_DISPATCH_MEDIA_KEY_REPEAT_WITH_WAKE_LOCK);
             mHavePendingMediaKeyRepeatWithWakeLock = false;
             mBroadcastWakeLock.release(); // pending repeat was holding onto the wake lock
         }
-
         dispatchMediaKeyWithWakeLockToAudioService(event);
-
         if (event.getAction() == KeyEvent.ACTION_DOWN
                 && event.getRepeatCount() == 0) {
             mHavePendingMediaKeyRepeatWithWakeLock = true;
-
             Message msg = mHandler.obtainMessage(
                     MSG_DISPATCH_MEDIA_KEY_REPEAT_WITH_WAKE_LOCK, event);
             msg.setAsynchronous(true);
@@ -7542,26 +6907,21 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mBroadcastWakeLock.release();
         }
     }
-
     void dispatchMediaKeyRepeatWithWakeLock(KeyEvent event) {
         mHavePendingMediaKeyRepeatWithWakeLock = false;
-
         KeyEvent repeatEvent = KeyEvent.changeTimeRepeat(event,
                 SystemClock.uptimeMillis(), 1, event.getFlags() | KeyEvent.FLAG_LONG_PRESS);
         if (DEBUG_INPUT) {
             Slog.d(TAG, "dispatchMediaKeyRepeatWithWakeLock: " + repeatEvent);
         }
-
         dispatchMediaKeyWithWakeLockToAudioService(repeatEvent);
         mBroadcastWakeLock.release();
     }
-
     void dispatchMediaKeyWithWakeLockToAudioService(KeyEvent event) {
         if (ActivityManagerNative.isSystemReady()) {
             MediaSessionLegacyHelper.getHelper(mContext).sendMediaButtonEvent(event, true);
         }
     }
-
     void launchVoiceAssistWithWakeLock(boolean keyguardActive) {
         IDeviceIdleController dic = IDeviceIdleController.Stub.asInterface(
                 ServiceManager.getService(Context.DEVICE_IDLE_CONTROLLER));
@@ -7572,12 +6932,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
         Intent voiceIntent =
-            new Intent(RecognizerIntent.ACTION_VOICE_SEARCH_HANDS_FREE);
+                new Intent(RecognizerIntent.ACTION_VOICE_SEARCH_HANDS_FREE);
         voiceIntent.putExtra(RecognizerIntent.EXTRA_SECURE, keyguardActive);
         startActivityAsUser(voiceIntent, UserHandle.CURRENT_OR_SELF);
         mBroadcastWakeLock.release();
     }
-
     BroadcastReceiver mDockReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -7598,7 +6957,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     };
-
     BroadcastReceiver mDreamReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -7613,7 +6971,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     };
-
     BroadcastReceiver mMultiuserReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -7623,7 +6980,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 // and then updates our own bookkeeping based on the now-
                 // current user.
                 mSettingsObserver.onChange(false);
-
                 // force a re-application of focused window sysui visibility.
                 // the window may never have been shown for this user
                 // e.g. the keyguard when going through the new-user setup flow
@@ -7634,7 +6990,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     };
-
     private final Runnable mHiddenNavPanic = new Runnable() {
         @Override
         public void run() {
@@ -7650,7 +7005,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     };
-
     private void requestTransientBars(WindowState swipeTarget) {
         synchronized (mWindowManagerFuncs.getWindowManagerLock()) {
             if (!isUserSetupComplete()) {
@@ -7673,7 +7027,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     // Called on the PowerManager's Notifier thread.
     @Override
     public void startedGoingToSleep(int why) {
@@ -7684,16 +7037,13 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mKeyguardDelegate.onStartedGoingToSleep(why);
         }
     }
-
     // Called on the PowerManager's Notifier thread.
     @Override
     public void finishedGoingToSleep(int why) {
         EventLog.writeEvent(70000, 0);
         if (DEBUG_WAKEUP) Slog.i(TAG, "Finished going to sleep... (why=" + why + ")");
         MetricsLogger.histogram(mContext, "screen_timeout", mLockScreenTimeout / 1000);
-
         mGoingToSleep = false;
-
         // We must get this work done here because the power manager will drop
         // the wake lock and let the system suspend once this function returns.
         synchronized (mLock) {
@@ -7708,56 +7058,46 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         mCameraGestureTriggeredDuringGoingToSleep = false;
     }
-
     // Called on the PowerManager's Notifier thread.
     @Override
     public void startedWakingUp() {
         EventLog.writeEvent(70000, 1);
         if (DEBUG_WAKEUP) Slog.i(TAG, "Started waking up...");
-
         // Since goToSleep performs these functions synchronously, we must
         // do the same here.  We cannot post this work to a handler because
         // that might cause it to become reordered with respect to what
         // may happen in a future call to goToSleep.
         synchronized (mLock) {
             mAwake = true;
-
             updateWakeGestureListenerLp();
             updateOrientationListenerLp();
             updateLockScreenTimeout();
         }
-
         if (mKeyguardDelegate != null) {
             mKeyguardDelegate.onStartedWakingUp();
         }
     }
-
     // Called on the PowerManager's Notifier thread.
     @Override
     public void finishedWakingUp() {
         if (DEBUG_WAKEUP) Slog.i(TAG, "Finished waking up...");
     }
-
     private void wakeUpFromPowerKey(long eventTime) {
         wakeUp(eventTime, mAllowTheaterModeWakeFromPowerKey, "android.policy:POWER");
     }
-
     private boolean wakeUp(long wakeTime, boolean wakeInTheaterMode, String reason) {
         return wakeUp(wakeTime, wakeInTheaterMode, reason, false);
     }
-
     private boolean wakeUp(long wakeTime, boolean wakeInTheaterMode, String reason,
-            final boolean withProximityCheck) {
+                           final boolean withProximityCheck) {
         final boolean theaterModeEnabled = isTheaterModeEnabled();
         if (!wakeInTheaterMode && theaterModeEnabled) {
             return false;
         }
-
         if (theaterModeEnabled) {
             Settings.Global.putInt(mContext.getContentResolver(),
                     Settings.Global.THEATER_MODE_ON, 0);
         }
-
         if (withProximityCheck) {
             mPowerManager.wakeUpWithProximityCheck(wakeTime, reason);
         } else {
@@ -7765,31 +7105,26 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return true;
     }
-
     private void finishKeyguardDrawn() {
         synchronized (mLock) {
             if (!mScreenOnEarly || mKeyguardDrawComplete) {
                 return; // We are not awake yet or we have already informed of this event.
             }
-
             mKeyguardDrawComplete = true;
             if (mKeyguardDelegate != null) {
                 mHandler.removeMessages(MSG_KEYGUARD_DRAWN_TIMEOUT);
             }
             mWindowManagerDrawComplete = false;
         }
-
         // ... eventually calls finishWindowsDrawn which will finalize our screen turn on
         // as well as enabling the orientation change logic/sensor.
         mWindowManagerInternal.waitForAllWindowsDrawn(mWindowManagerDrawCallback,
                 WAITING_FOR_DRAWN_TIMEOUT);
     }
-
     // Called on the DisplayManager's DisplayPowerController thread.
     @Override
     public void screenTurnedOff() {
         if (DEBUG_WAKEUP) Slog.i(TAG, "Screen turned off...");
-
         updateScreenOffSleepToken(true);
         synchronized (mLock) {
             mScreenOnEarly = false;
@@ -7798,19 +7133,16 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mWindowManagerDrawComplete = false;
             mScreenOnListener = null;
             updateOrientationListenerLp();
-
             if (mKeyguardDelegate != null) {
                 mKeyguardDelegate.onScreenTurnedOff();
             }
         }
         reportScreenStateToVrManager(false);
     }
-
     // Called on the DisplayManager's DisplayPowerController thread.
     @Override
     public void screenTurningOn(final ScreenOnListener screenOnListener) {
         if (DEBUG_WAKEUP) Slog.i(TAG, "Screen turning on...");
-
         updateScreenOffSleepToken(false);
         synchronized (mLock) {
             mScreenOnEarly = true;
@@ -7818,7 +7150,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mKeyguardDrawComplete = false;
             mWindowManagerDrawComplete = false;
             mScreenOnListener = screenOnListener;
-
             if (mKeyguardDelegate != null) {
                 mHandler.removeMessages(MSG_KEYGUARD_DRAWN_TIMEOUT);
                 mHandler.sendEmptyMessageDelayed(MSG_KEYGUARD_DRAWN_TIMEOUT, 1000);
@@ -7830,7 +7161,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     // Called on the DisplayManager's DisplayPowerController thread.
     @Override
     public void screenTurnedOn() {
@@ -7841,7 +7171,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         reportScreenStateToVrManager(true);
     }
-
     private void reportScreenStateToVrManager(boolean isScreenOn) {
         VrManagerInternal vrService = LocalServices.getService(VrManagerInternal.class);
         if (vrService == null) {
@@ -7849,19 +7178,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         vrService.onScreenStateChanged(isScreenOn);
     }
-
     private void finishWindowsDrawn() {
         synchronized (mLock) {
             if (!mScreenOnEarly || mWindowManagerDrawComplete) {
                 return; // Screen is not turned on or we did already handle this case earlier.
             }
-
             mWindowManagerDrawComplete = true;
         }
-
         finishScreenTurningOn();
     }
-
     private void finishScreenTurningOn() {
         synchronized (mLock) {
             // We have just finished drawing screen content. Since the orientation listener
@@ -7877,17 +7202,14 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                             + ", mScreenOnFully=" + mScreenOnFully
                             + ", mKeyguardDrawComplete=" + mKeyguardDrawComplete
                             + ", mWindowManagerDrawComplete=" + mWindowManagerDrawComplete);
-
             if (mScreenOnFully || !mScreenOnEarly || !mWindowManagerDrawComplete
                     || (mAwake && !mKeyguardDrawComplete)) {
                 return; // spurious or not ready yet
             }
-
             if (DEBUG_WAKEUP) Slog.i(TAG, "Finished screen turning on...");
             listener = mScreenOnListener;
             mScreenOnListener = null;
             mScreenOnFully = true;
-
             // Remember the first time we draw the keyguard so we know when we're done with
             // the main part of booting and can enable the screen and hide boot messages.
             if (!mKeyguardDrawnOnce && mAwake) {
@@ -7901,11 +7223,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 enableScreen = false;
             }
         }
-
         if (listener != null) {
             listener.onScreenOn();
         }
-
         if (enableScreen) {
             try {
                 mWindowManager.enableScreenIfNeeded();
@@ -7913,7 +7233,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     private void handleHideBootMessage() {
         synchronized (mLock) {
             if (!mKeyguardDrawnOnce) {
@@ -7921,19 +7240,16 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 return; // keyguard hasn't drawn the first time yet, not done booting
             }
         }
-
         if (mBootMsgDialog != null) {
             if (DEBUG_WAKEUP) Slog.d(TAG, "handleHideBootMessage: dismissing");
             mBootMsgDialog.dismiss();
             mBootMsgDialog = null;
         }
     }
-
     @Override
     public boolean isScreenOn() {
         return mScreenOnFully;
     }
-
     /** {@inheritDoc} */
     @Override
     public void enableKeyguard(boolean enabled) {
@@ -7941,7 +7257,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mKeyguardDelegate.setKeyguardEnabled(enabled);
         }
     }
-
     /** {@inheritDoc} */
     @Override
     public void exitKeyguardSecurely(OnKeyguardExitResult callback) {
@@ -7949,38 +7264,32 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mKeyguardDelegate.verifyUnlock(callback);
         }
     }
-
     private boolean isKeyguardShowingAndNotOccluded() {
         if (mKeyguardDelegate == null) return false;
         return mKeyguardDelegate.isShowing() && !mKeyguardOccluded;
     }
-
     /** {@inheritDoc} */
     @Override
     public boolean isKeyguardLocked() {
         return keyguardOn();
     }
-
     /** {@inheritDoc} */
     @Override
     public boolean isKeyguardSecure(int userId) {
         if (mKeyguardDelegate == null) return false;
         return mKeyguardDelegate.isSecure(userId);
     }
-
     /** {@inheritDoc} */
     @Override
     public boolean isKeyguardShowingOrOccluded() {
         return mKeyguardDelegate == null ? false : mKeyguardDelegate.isShowing();
     }
-
     /** {@inheritDoc} */
     @Override
     public boolean inKeyguardRestrictedKeyInputMode() {
         if (mKeyguardDelegate == null) return false;
         return mKeyguardDelegate.isInputRestricted();
     }
-
     @Override
     public void dismissKeyguardLw() {
         if (mKeyguardDelegate != null && mKeyguardDelegate.isShowing()) {
@@ -7994,7 +7303,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             });
         }
     }
-
     @Override
     public void notifyActivityDrawnForKeyguardLw() {
         if (mKeyguardDelegate != null) {
@@ -8006,14 +7314,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             });
         }
     }
-
     @Override
     public boolean isKeyguardDrawnLw() {
         synchronized (mLock) {
             return mKeyguardDrawnOnce;
         }
     }
-
     @Override
     public void startKeyguardExitAnimation(long startTime, long fadeoutDuration) {
         if (mKeyguardDelegate != null) {
@@ -8021,24 +7327,20 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mKeyguardDelegate.startKeyguardExitAnimation(startTime, fadeoutDuration);
         }
     }
-
     @Override
     public void getStableInsetsLw(int displayRotation, int displayWidth, int displayHeight,
-            Rect outInsets) {
+                                  Rect outInsets) {
         outInsets.setEmpty();
-
         // Navigation bar and status bar.
         getNonDecorInsetsLw(displayRotation, displayWidth, displayHeight, outInsets);
         if (mStatusBar != null) {
             outInsets.top = mStatusBarHeight;
         }
     }
-
     @Override
     public void getNonDecorInsetsLw(int displayRotation, int displayWidth, int displayHeight,
-            Rect outInsets) {
+                                    Rect outInsets) {
         outInsets.setEmpty();
-
         // Only navigation bar
         if (mNavigationBar != null) {
             int position = navigationBarPosition(displayWidth, displayHeight, displayRotation);
@@ -8051,15 +7353,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     @Override
     public boolean isNavBarForcedShownLw(WindowState windowState) {
         return mForceShowSystemBars;
     }
-
     @Override
     public boolean isDockSideAllowed(int dockSide) {
-
         // We do not allow all dock sides at which the navigation bar touches the docked stack.
         if (!mNavigationBarCanMove) {
             return dockSide == DOCKED_TOP || dockSide == DOCKED_LEFT || dockSide == DOCKED_RIGHT;
@@ -8067,36 +7366,30 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return dockSide == DOCKED_TOP || dockSide == DOCKED_LEFT;
         }
     }
-
     void sendCloseSystemWindows() {
         PhoneWindow.sendCloseSystemWindows(mContext, null);
     }
-
     void sendCloseSystemWindows(String reason) {
         PhoneWindow.sendCloseSystemWindows(mContext, reason);
     }
-
     @Override
     public int rotationForOrientationLw(int orientation, int lastRotation) {
         if (false) {
             Slog.v(TAG, "rotationForOrientationLw(orient="
-                        + orientation + ", last=" + lastRotation
-                        + "); user=" + mUserRotation + " "
-                        + ((mUserRotationMode == WindowManagerPolicy.USER_ROTATION_LOCKED)
-                            ? "USER_ROTATION_LOCKED" : "")
-                        );
+                    + orientation + ", last=" + lastRotation
+                    + "); user=" + mUserRotation + " "
+                    + ((mUserRotationMode == WindowManagerPolicy.USER_ROTATION_LOCKED)
+                    ? "USER_ROTATION_LOCKED" : "")
+            );
         }
-
         if (mForceDefaultOrientation) {
             return Surface.ROTATION_0;
         }
-
         synchronized (mLock) {
             int sensorRotation = mOrientationListener.getProposedRotation(); // may be -1
             if (sensorRotation < 0) {
                 sensorRotation = lastRotation;
             }
-
             final int preferredRotation;
             if (mLidState == LID_OPEN && mLidOpenRotation >= 0) {
                 // Ignore sensor when lid switch is open and rotation is forced.
@@ -8140,11 +7433,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 // the sensor and any rotation lock settings.
                 preferredRotation = -1;
             } else if ((mUserRotationMode == WindowManagerPolicy.USER_ROTATION_FREE
-                            && (orientation == ActivityInfo.SCREEN_ORIENTATION_USER
-                                    || orientation == ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-                                    || orientation == ActivityInfo.SCREEN_ORIENTATION_USER_LANDSCAPE
-                                    || orientation == ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT
-                                    || orientation == ActivityInfo.SCREEN_ORIENTATION_FULL_USER))
+                    && (orientation == ActivityInfo.SCREEN_ORIENTATION_USER
+                    || orientation == ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+                    || orientation == ActivityInfo.SCREEN_ORIENTATION_USER_LANDSCAPE
+                    || orientation == ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT
+                    || orientation == ActivityInfo.SCREEN_ORIENTATION_FULL_USER))
                     || orientation == ActivityInfo.SCREEN_ORIENTATION_SENSOR
                     || orientation == ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
                     || orientation == ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
@@ -8163,9 +7456,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 boolean allowed = true;
                 if (mUserRotationAngles < 0) {
                     // Not set by user so use these defaults
-                     mUserRotationAngles = mAllowAllRotations == 1 ?
+                    mUserRotationAngles = mAllowAllRotations == 1 ?
                             (1 | 2 | 4 | 8) : // All angles
-                                (1 | 2 | 8); // All except 180
+                            (1 | 2 | 8); // All except 180
                 }
                 switch (sensorRotation) {
                     case Surface.ROTATION_0:
@@ -8198,7 +7491,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 // We will do exactly what the application asked us to do.
                 preferredRotation = -1;
             }
-
             switch (orientation) {
                 case ActivityInfo.SCREEN_ORIENTATION_PORTRAIT:
                     // Return portrait unless overridden.
@@ -8206,28 +7498,24 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         return preferredRotation;
                     }
                     return mPortraitRotation;
-
                 case ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE:
                     // Return landscape unless overridden.
                     if (isLandscapeOrSeascape(preferredRotation)) {
                         return preferredRotation;
                     }
                     return mLandscapeRotation;
-
                 case ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT:
                     // Return reverse portrait unless overridden.
                     if (isAnyPortrait(preferredRotation)) {
                         return preferredRotation;
                     }
                     return mUpsideDownRotation;
-
                 case ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE:
                     // Return seascape unless overridden.
                     if (isLandscapeOrSeascape(preferredRotation)) {
                         return preferredRotation;
                     }
                     return mSeascapeRotation;
-
                 case ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE:
                 case ActivityInfo.SCREEN_ORIENTATION_USER_LANDSCAPE:
                     // Return either landscape rotation.
@@ -8238,7 +7526,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         return lastRotation;
                     }
                     return mLandscapeRotation;
-
                 case ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT:
                 case ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT:
                     // Return either portrait rotation.
@@ -8249,7 +7536,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         return lastRotation;
                     }
                     return mPortraitRotation;
-
                 default:
                     // For USER, UNSPECIFIED, NOSENSOR, SENSOR and FULL_SENSOR,
                     // just return the preferred orientation we already calculated.
@@ -8260,7 +7546,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     @Override
     public boolean rotationHasCompatibleMetricsLw(int orientation, int rotation) {
         switch (orientation) {
@@ -8268,43 +7553,35 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             case ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT:
             case ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT:
                 return isAnyPortrait(rotation);
-
             case ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE:
             case ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE:
             case ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE:
                 return isLandscapeOrSeascape(rotation);
-
             default:
                 return true;
         }
     }
-
     @Override
     public void setRotationLw(int rotation) {
         mOrientationListener.setCurrentRotation(rotation);
     }
-
     private boolean isLandscapeOrSeascape(int rotation) {
         return rotation == mLandscapeRotation || rotation == mSeascapeRotation;
     }
-
     private boolean isAnyPortrait(int rotation) {
         return rotation == mPortraitRotation || rotation == mUpsideDownRotation;
     }
-
     @Override
     public int getUserRotationMode() {
         return Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.ACCELEROMETER_ROTATION, 0, UserHandle.USER_CURRENT) != 0 ?
-                        WindowManagerPolicy.USER_ROTATION_FREE :
-                                WindowManagerPolicy.USER_ROTATION_LOCKED;
+                WindowManagerPolicy.USER_ROTATION_FREE :
+                WindowManagerPolicy.USER_ROTATION_LOCKED;
     }
-
     // User rotation: to be used when all else fails in assigning an orientation to the device
     @Override
     public void setUserRotationMode(int mode, int rot) {
         ContentResolver res = mContext.getContentResolver();
-
         // mUserRotationMode and mUserRotation will be assigned by the content observer
         if (mode == WindowManagerPolicy.USER_ROTATION_LOCKED) {
             Settings.System.putIntForUser(res,
@@ -8322,7 +7599,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     UserHandle.USER_CURRENT);
         }
     }
-
     @Override
     public void setSafeMode(boolean safeMode) {
         mSafeMode = safeMode;
@@ -8330,7 +7606,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 ? HapticFeedbackConstants.SAFE_MODE_ENABLED
                 : HapticFeedbackConstants.SAFE_MODE_DISABLED, true);
     }
-
     static long[] getLongIntArray(Resources r, int resid) {
         int[] ar = r.getIntArray(resid);
         if (ar == null) {
@@ -8342,14 +7617,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return out;
     }
-
     /** {@inheritDoc} */
     @Override
     public void systemReady() {
         mKeyguardDelegate = new KeyguardServiceDelegate(mContext,
                 this::onKeyguardShowingStateChanged);
         mKeyguardDelegate.onSystemReady();
-
         readCameraLensCoverState();
         updateUiMode();
         boolean bindKeyguardNow;
@@ -8362,14 +7635,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     updateSettings();
                 }
             });
-
             bindKeyguardNow = mDeferBindKeyguard;
             if (bindKeyguardNow) {
                 // systemBooted ran but wasn't able to bind to the Keyguard, we'll do it now.
                 mDeferBindKeyguard = false;
             }
         }
-
         if (bindKeyguardNow) {
             mKeyguardDelegate.bindService(mContext);
             mKeyguardDelegate.onBootCompleted();
@@ -8377,7 +7648,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         mSystemGestures.systemReady();
         mImmersiveModeConfirmation.systemReady();
     }
-
     /** {@inheritDoc} */
     @Override
     public void systemBooted() {
@@ -8404,9 +7674,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         screenTurningOn(null);
         screenTurnedOn();
     }
-
     ProgressDialog mBootMsgDialog = null;
-
     /** {@inheritDoc} */
     @Override
     public void showBootMessage(final CharSequence msg, final boolean always) {
@@ -8419,7 +7687,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     } else {
                         theme = 0;
                     }
-
                     mBootMsgDialog = new ProgressDialog(mContext, theme) {
                         // This dialog will consume all events coming in to
                         // it, to avoid it trying to do things too early in boot.
@@ -8454,7 +7721,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                             WindowManager.LayoutParams.TYPE_BOOT_PROGRESS);
                     mBootMsgDialog.getWindow().addFlags(
                             WindowManager.LayoutParams.FLAG_DIM_BEHIND
-                            | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
+                                    | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
                     mBootMsgDialog.getWindow().setDimAmount(1);
                     WindowManager.LayoutParams lp = mBootMsgDialog.getWindow().getAttributes();
                     lp.screenOrientation = ActivityInfo.SCREEN_ORIENTATION_NOSENSOR;
@@ -8466,13 +7733,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         });
     }
-
     /** {@inheritDoc} */
     @Override
     public void hideBootMessages() {
         mHandler.sendEmptyMessage(MSG_HIDE_BOOT_MESSAGE);
     }
-
     /** {@inheritDoc} */
     @Override
     public void userActivity() {
@@ -8486,7 +7751,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         // it acquires.
         // In fact, the current code acquires way too many,
         // and probably has lurking deadlocks.
-
         synchronized (mScreenLockTimeout) {
             if (mLockScreenTimerActive) {
                 // reset the timer
@@ -8495,10 +7759,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     class ScreenLockTimeout implements Runnable {
         Bundle options;
-
         @Override
         public void run() {
             synchronized (this) {
@@ -8510,14 +7772,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 options = null;
             }
         }
-
         public void setLockOptions(Bundle options) {
             this.options = options;
         }
     }
-
     ScreenLockTimeout mScreenLockTimeout = new ScreenLockTimeout();
-
     @Override
     public void lockNow(Bundle options) {
         mContext.enforceCallingOrSelfPermission(android.Manifest.permission.DEVICE_POWER, null);
@@ -8529,7 +7788,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         mHandler.post(mScreenLockTimeout);
     }
-
     private void updateLockScreenTimeout() {
         synchronized (mScreenLockTimeout) {
             boolean enable = (mAllowLockscreenWhenOn && mAwake &&
@@ -8547,7 +7805,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     private void updateDreamingSleepToken(boolean acquire) {
         if (acquire) {
             if (mDreamingSleepToken == null) {
@@ -8560,7 +7817,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     private void updateScreenOffSleepToken(boolean acquire) {
         if (acquire) {
             if (mScreenOffSleepToken == null) {
@@ -8573,7 +7829,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     /** {@inheritDoc} */
     @Override
     public void enableScreenAfterBoot() {
@@ -8581,7 +7836,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         applyLidSwitchState();
         updateRotation(true);
     }
-
     private void applyLidSwitchState() {
         if (mLidState == LID_CLOSED && mLidControlsSleep) {
             mPowerManager.goToSleep(SystemClock.uptimeMillis(),
@@ -8590,12 +7844,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         } else if (mLidState == LID_CLOSED && mLidControlsScreenLock) {
             mWindowManagerFuncs.lockDeviceNow();
         }
-
         synchronized (mLock) {
             updateWakeGestureListenerLp();
         }
     }
-
     void updateUiMode() {
         if (mUiModeManager == null) {
             mUiModeManager = IUiModeManager.Stub.asInterface(
@@ -8606,7 +7858,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         } catch (RemoteException e) {
         }
     }
-
     void updateRotation(boolean alwaysSendConfiguration) {
         try {
             //set orientation on WindowManager
@@ -8615,7 +7866,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             // Ignore
         }
     }
-
     void updateRotation(boolean alwaysSendConfiguration, boolean forceRelayout) {
         try {
             //set orientation on WindowManager
@@ -8624,7 +7874,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             // Ignore
         }
     }
-
     /**
      * Return an Intent to launch the currently active dock app as home.  Returns
      * null if the standard home should be launched, which is the case if any of the following is
@@ -8640,7 +7889,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
      */
     Intent createHomeDockIntent() {
         Intent intent = null;
-
         // What home does is based on the mode, not the dock state.  That
         // is, when in car mode you should be taken to car home regardless
         // of whether we are actually in a car dock.
@@ -8654,16 +7902,14 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         } else if (mUiMode == Configuration.UI_MODE_TYPE_WATCH
                 && (mDockMode == Intent.EXTRA_DOCK_STATE_DESK
-                        || mDockMode == Intent.EXTRA_DOCK_STATE_HE_DESK
-                        || mDockMode == Intent.EXTRA_DOCK_STATE_LE_DESK)) {
+                || mDockMode == Intent.EXTRA_DOCK_STATE_HE_DESK
+                || mDockMode == Intent.EXTRA_DOCK_STATE_LE_DESK)) {
             // Always launch dock home from home when watch is docked, if it exists.
             intent = mDeskDockIntent;
         }
-
         if (intent == null) {
             return null;
         }
-
         ActivityInfo ai = null;
         ResolveInfo info = mContext.getPackageManager().resolveActivityAsUser(
                 intent,
@@ -8679,15 +7925,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             intent.setClassName(ai.packageName, ai.name);
             return intent;
         }
-
         return null;
     }
-
     void startDockOrHome(boolean fromHomeKey, boolean awakenFromDreams) {
         if (awakenFromDreams) {
             awakenDreams();
         }
-
         Intent dock = createHomeDockIntent();
         if (dock != null) {
             try {
@@ -8699,19 +7942,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             } catch (ActivityNotFoundException e) {
             }
         }
-
         Intent intent;
-
         if (fromHomeKey) {
             intent = new Intent(mHomeIntent);
             intent.putExtra(WindowManagerPolicy.EXTRA_FROM_HOME_KEY, fromHomeKey);
         } else {
             intent = mHomeIntent;
         }
-
         startActivityAsUser(intent, UserHandle.CURRENT);
     }
-
     /**
      * goes to the home screen
      * @return whether it did anything
@@ -8767,7 +8006,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return true;
     }
-
     @Override
     public void setCurrentOrientationLw(int newOrientation) {
         synchronized (mLock) {
@@ -8777,7 +8015,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
     }
-
     private void performAuditoryFeedbackForAccessibilityIfNeed() {
         if (!isGlobalAccessibilityGestureEnabled()) {
             return;
@@ -8792,22 +8029,18 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         ringTone.setStreamType(AudioManager.STREAM_MUSIC);
         ringTone.play();
     }
-
     private boolean isTheaterModeEnabled() {
         return Settings.Global.getInt(mContext.getContentResolver(),
                 Settings.Global.THEATER_MODE_ON, 0) == 1;
     }
-
     private boolean isGlobalAccessibilityGestureEnabled() {
         return Settings.Global.getInt(mContext.getContentResolver(),
                 Settings.Global.ENABLE_ACCESSIBILITY_GLOBAL_GESTURE_ENABLED, 0) == 1;
     }
-
     private boolean areSystemNavigationKeysEnabled() {
         return Settings.Secure.getIntForUser(mContext.getContentResolver(),
                 Settings.Secure.SYSTEM_NAVIGATION_KEYS_ENABLED, 0, UserHandle.USER_CURRENT) == 1;
     }
-
     @Override
     public boolean performHapticFeedbackLw(WindowState win, int effectId, boolean always) {
         if (!mVibrator.hasVibrator()) {
@@ -8865,18 +8098,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return true;
     }
-
     @Override
     public void keepScreenOnStartedLw() {
     }
-
     @Override
     public void keepScreenOnStoppedLw() {
         if (isKeyguardShowingAndNotOccluded()) {
             mPowerManager.userActivity(SystemClock.uptimeMillis(), false);
         }
     }
-
     private int updateSystemUiVisibilityLw() {
         // If there is no window focused, there will be nobody to handle the events
         // anyway, so just hang on in whatever state we're in until things settle down.
@@ -8903,14 +8133,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             // will quickly lose focus once it correctly gets hidden.
             return 0;
         }
-
         int tmpVisibility = PolicyControl.getSystemUiVisibility(win, null)
                 & ~mResettingSystemUiFlags
                 & ~mForceClearedSystemUiFlags;
         if (mForcingShowNavBar && win.getSurfaceLayer() < mForcingShowNavBarLayer) {
             tmpVisibility &= ~PolicyControl.adjustClearableFlags(win, View.SYSTEM_UI_CLEARABLE_FLAGS);
         }
-
         final int fullscreenVisibility = updateLightStatusBarLw(0 /* vis */,
                 mTopFullscreenOpaqueWindowState, mTopFullscreenOpaqueOrDimmingWindowState);
         final int dockedVisibility = updateLightStatusBarLw(0 /* vis */,
@@ -8936,25 +8164,23 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         final Rect fullscreenStackBounds = new Rect(mNonDockedStackBounds);
         final Rect dockedStackBounds = new Rect(mDockedStackBounds);
         mHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    StatusBarManagerInternal statusbar = getStatusBarManagerInternal();
-                    if (statusbar != null) {
-                        statusbar.setSystemUiVisibility(visibility, fullscreenVisibility,
-                                dockedVisibility, 0xffffffff, fullscreenStackBounds,
-                                dockedStackBounds, win.toString());
-                        statusbar.topAppWindowChanged(needsMenu);
-                    }
+            @Override
+            public void run() {
+                StatusBarManagerInternal statusbar = getStatusBarManagerInternal();
+                if (statusbar != null) {
+                    statusbar.setSystemUiVisibility(visibility, fullscreenVisibility,
+                            dockedVisibility, 0xffffffff, fullscreenStackBounds,
+                            dockedStackBounds, win.toString());
+                    statusbar.topAppWindowChanged(needsMenu);
                 }
-            });
+            }
+        });
         return diff;
     }
-
     private int updateLightStatusBarLw(int vis, WindowState opaque, WindowState opaqueOrDimming) {
         WindowState statusColorWin = isStatusBarKeyguard() && !mHideLockScreen
                 ? mStatusBar
                 : opaqueOrDimming;
-
         if (statusColorWin != null) {
             if (statusColorWin == opaque) {
                 // If the top fullscreen-or-dimming window is also the top fullscreen, respect
@@ -8969,28 +8195,23 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return vis;
     }
-
     private boolean drawsSystemBarBackground(WindowState win) {
         return win == null || (win.getAttrs().flags & FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS) != 0;
     }
-
     private boolean forcesDrawStatusBarBackground(WindowState win) {
         return win == null || (win.getAttrs().privateFlags
                 & PRIVATE_FLAG_FORCE_DRAW_STATUS_BAR_BACKGROUND) != 0;
     }
-
     private int updateSystemBarsLw(WindowState win, int oldVis, int vis) {
         final boolean dockedStackVisible = mWindowManagerInternal.isStackVisible(DOCKED_STACK_ID);
         final boolean freeformStackVisible =
                 mWindowManagerInternal.isStackVisible(FREEFORM_WORKSPACE_STACK_ID);
         final boolean resizing = mWindowManagerInternal.isDockedDividerResizing();
-
         // We need to force system bars when the docked stack is visible, when the freeform stack
         // is visible but also when we are resizing for the transitions when docked stack
         // visibility changes.
         mForceShowSystemBars = dockedStackVisible || freeformStackVisible || resizing;
         final boolean forceOpaqueStatusBar = mForceShowSystemBars && !mForceStatusBarFromKeyguard;
-
         // apply translucent bar vis flags
         WindowState fullscreenTransWin = isStatusBarKeyguard() && !mHideLockScreen
                 ? mStatusBar
@@ -8999,16 +8220,14 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         vis = mNavigationBarController.applyTranslucentFlagLw(fullscreenTransWin, vis, oldVis);
         final int dockedVis = mStatusBarController.applyTranslucentFlagLw(
                 mTopDockedOpaqueWindowState, 0, 0);
-
         final boolean fullscreenDrawsStatusBarBackground =
                 (drawsSystemBarBackground(mTopFullscreenOpaqueWindowState)
                         && (vis & View.STATUS_BAR_TRANSLUCENT) == 0)
-                || forcesDrawStatusBarBackground(mTopFullscreenOpaqueWindowState);
+                        || forcesDrawStatusBarBackground(mTopFullscreenOpaqueWindowState);
         final boolean dockedDrawsStatusBarBackground =
                 (drawsSystemBarBackground(mTopDockedOpaqueWindowState)
                         && (dockedVis & View.STATUS_BAR_TRANSLUCENT) == 0)
-                || forcesDrawStatusBarBackground(mTopDockedOpaqueWindowState);
-
+                        || forcesDrawStatusBarBackground(mTopDockedOpaqueWindowState);
         // prevent status bar interaction from clearing certain flags
         int type = win.getAttrs().type;
         boolean statusBarHasFocus = type == TYPE_STATUS_BAR;
@@ -9023,7 +8242,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
             vis = (vis & ~flags) | (oldVis & flags);
         }
-
         if (fullscreenDrawsStatusBarBackground && dockedDrawsStatusBarBackground) {
             vis |= View.STATUS_BAR_TRANSPARENT;
             vis &= ~View.STATUS_BAR_TRANSLUCENT;
@@ -9031,28 +8249,23 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 || forceOpaqueStatusBar) {
             vis &= ~(View.STATUS_BAR_TRANSLUCENT | View.STATUS_BAR_TRANSPARENT);
         }
-
         vis = configureNavBarOpacity(vis, dockedStackVisible, freeformStackVisible, resizing);
-
         // update status bar
         boolean immersiveSticky =
                 (vis & View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY) != 0;
         final boolean hideStatusBarWM =
                 mTopFullscreenOpaqueWindowState != null
-                && (PolicyControl.getWindowFlags(mTopFullscreenOpaqueWindowState, null)
+                        && (PolicyControl.getWindowFlags(mTopFullscreenOpaqueWindowState, null)
                         & WindowManager.LayoutParams.FLAG_FULLSCREEN) != 0;
         final boolean hideStatusBarSysui =
                 (vis & View.SYSTEM_UI_FLAG_FULLSCREEN) != 0;
         final boolean hideNavBarSysui =
                 (vis & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) != 0;
-
         final boolean transientStatusBarAllowed = mStatusBar != null
                 && (statusBarHasFocus || (!mForceShowSystemBars
-                        && (hideStatusBarWM || (hideStatusBarSysui && immersiveSticky))));
-
+                && (hideStatusBarWM || (hideStatusBarSysui && immersiveSticky))));
         final boolean transientNavBarAllowed = mNavigationBar != null
                 && !mForceShowSystemBars && hideNavBarSysui && immersiveSticky;
-
         final long now = SystemClock.uptimeMillis();
         final boolean pendingPanic = mPendingPanicGestureUptime != 0
                 && now - mPendingPanicGestureUptime <= PANIC_GESTURE_EXPIRATION;
@@ -9065,7 +8278,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 mNavigationBarController.showTransient();
             }
         }
-
         final boolean denyTransientStatus = mStatusBarController.isTransientShowRequested()
                 && !transientStatusBarAllowed && hideStatusBarSysui;
         final boolean denyTransientNav = mNavigationBarController.isTransientShowRequested()
@@ -9075,20 +8287,16 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             clearClearableFlagsLw();
             vis &= ~View.SYSTEM_UI_CLEARABLE_FLAGS;
         }
-
         final boolean immersive = (vis & View.SYSTEM_UI_FLAG_IMMERSIVE) != 0;
         immersiveSticky = (vis & View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY) != 0;
         final boolean navAllowedHidden = immersive || immersiveSticky;
-
         if (hideNavBarSysui && !navAllowedHidden && windowTypeToLayerLw(win.getBaseType())
                 > windowTypeToLayerLw(TYPE_INPUT_CONSUMER)) {
             // We can't hide the navbar from this window otherwise the input consumer would not get
             // the input events.
             vis = (vis & ~View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
         }
-
         vis = mStatusBarController.updateVisibilityLw(transientStatusBarAllowed, oldVis, vis);
-
         // update navigation bar
         boolean oldImmersiveMode = isImmersiveMode(oldVis);
         boolean newImmersiveMode = isImmersiveMode(vis);
@@ -9097,18 +8305,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mImmersiveModeConfirmation.immersiveModeChangedLw(pkg, newImmersiveMode,
                     isUserSetupComplete(), isNavBarEmpty(win.getSystemUiVisibility()));
         }
-
         vis = mNavigationBarController.updateVisibilityLw(transientNavBarAllowed, oldVis, vis);
-
         return vis;
     }
-
     /**
      * @return the current visibility flags with the nav-bar opacity related flags toggled based
      *         on the nav bar opacity rules chosen by {@link #mNavBarOpacityMode}.
      */
     private int configureNavBarOpacity(int visibility, boolean dockedStackVisible,
-            boolean freeformStackVisible, boolean isDockedDividerResizing) {
+                                       boolean freeformStackVisible, boolean isDockedDividerResizing) {
         if (mNavBarOpacityMode == NAV_BAR_OPAQUE_WHEN_FREEFORM_OR_DOCKED) {
             if (dockedStackVisible || freeformStackVisible || isDockedDividerResizing) {
                 visibility = setNavBarOpaqueFlag(visibility);
@@ -9122,22 +8327,18 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 visibility = setNavBarOpaqueFlag(visibility);
             }
         }
-
         if (!areTranslucentBarsAllowed()) {
             visibility &= ~View.NAVIGATION_BAR_TRANSLUCENT;
         }
         return visibility;
     }
-
     private int setNavBarOpaqueFlag(int visibility) {
         return visibility &= ~(View.NAVIGATION_BAR_TRANSLUCENT | View.NAVIGATION_BAR_TRANSPARENT);
     }
-
     private int setNavBarTranslucentFlag(int visibility) {
         visibility &= ~View.NAVIGATION_BAR_TRANSPARENT;
         return visibility |= View.NAVIGATION_BAR_TRANSLUCENT;
     }
-
     private void clearClearableFlagsLw() {
         int newVal = mResettingSystemUiFlags | View.SYSTEM_UI_CLEARABLE_FLAGS;
         if (newVal != mResettingSystemUiFlags) {
@@ -9145,7 +8346,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mWindowManagerFuncs.reevaluateStatusBarVisibility();
         }
     }
-
     private boolean isImmersiveMode(int vis) {
         final int flags = View.SYSTEM_UI_FLAG_IMMERSIVE | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
         return mNavigationBar != null
@@ -9153,15 +8353,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 && (vis & flags) != 0
                 && canHideNavigationBar();
     }
-
     private static boolean isNavBarEmpty(int systemUiFlags) {
         final int disableNavigationBar = (View.STATUS_BAR_DISABLE_HOME
                 | View.STATUS_BAR_DISABLE_BACK
                 | View.STATUS_BAR_DISABLE_RECENT);
-
         return (systemUiFlags & disableNavigationBar) == disableNavigationBar;
     }
-
     /**
      * @return whether the navigation or status bar can be made translucent
      *
@@ -9171,30 +8368,25 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private boolean areTranslucentBarsAllowed() {
         return mTranslucentDecorEnabled;
     }
-
     // Use this instead of checking config_showNavigationBar so that it can be consistently
     // overridden by qemu.hw.mainkeys in the emulator.
     @Override
     public boolean hasNavigationBar() {
         return mHasNavigationBar || mNavBarEnabled;
     }
-
     @Override
     public boolean needsNavigationBar() {
         return mHasNavigationBar;
     }
-
     @Override
     public void setLastInputMethodWindowLw(WindowState ime, WindowState target) {
         mLastInputMethodWindow = ime;
         mLastInputMethodTargetWindow = target;
     }
-
     @Override
     public int getInputMethodWindowVisibleHeightLw() {
         return mDockBottom - mCurBottom;
     }
-
     @Override
     public void setCurrentUserLw(int newUserId) {
         mCurrentUserId = newUserId;
@@ -9207,7 +8399,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         setLastInputMethodWindowLw(null, null);
     }
-
     @Override
     public boolean canMagnifyWindow(int windowType) {
         switch (windowType) {
@@ -9220,7 +8411,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return true;
     }
-
     @Override
     public boolean isTopLevelWindow(int windowType) {
         if (windowType >= WindowManager.LayoutParams.FIRST_SUB_WINDOW
@@ -9229,7 +8419,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return true;
     }
-
     @Override
     public boolean shouldRotateSeamlessly(int oldRotation, int newRotation) {
         // For the upside down rotation we don't rotate seamlessly as the navigation
@@ -9249,12 +8438,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         if (delta == Surface.ROTATION_180) {
             return false;
         }
-
         final WindowState w = mTopFullscreenOpaqueWindowState;
         if (w != mFocusedWindow) {
             return false;
         }
-
         // We only enable seamless rotation if the top window has requested
         // it and is in the fullscreen opaque state. Seamless rotation
         // requires freezing various Surface states and won't work well
@@ -9266,196 +8453,192 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
         return false;
     }
-
     @Override
     public void dump(String prefix, PrintWriter pw, String[] args) {
         pw.print(prefix); pw.print("mSafeMode="); pw.print(mSafeMode);
-                pw.print(" mSystemReady="); pw.print(mSystemReady);
-                pw.print(" mSystemBooted="); pw.println(mSystemBooted);
+        pw.print(" mSystemReady="); pw.print(mSystemReady);
+        pw.print(" mSystemBooted="); pw.println(mSystemBooted);
         pw.print(prefix); pw.print("mLidState="); pw.print(mLidState);
-                pw.print(" mLidOpenRotation="); pw.print(mLidOpenRotation);
-                pw.print(" mCameraLensCoverState="); pw.print(mCameraLensCoverState);
-                pw.print(" mHdmiPlugged="); pw.println(mHdmiPlugged);
+        pw.print(" mLidOpenRotation="); pw.print(mLidOpenRotation);
+        pw.print(" mCameraLensCoverState="); pw.print(mCameraLensCoverState);
+        pw.print(" mHdmiPlugged="); pw.println(mHdmiPlugged);
         if (mLastSystemUiFlags != 0 || mResettingSystemUiFlags != 0
                 || mForceClearedSystemUiFlags != 0) {
             pw.print(prefix); pw.print("mLastSystemUiFlags=0x");
-                    pw.print(Integer.toHexString(mLastSystemUiFlags));
-                    pw.print(" mResettingSystemUiFlags=0x");
-                    pw.print(Integer.toHexString(mResettingSystemUiFlags));
-                    pw.print(" mForceClearedSystemUiFlags=0x");
-                    pw.println(Integer.toHexString(mForceClearedSystemUiFlags));
+            pw.print(Integer.toHexString(mLastSystemUiFlags));
+            pw.print(" mResettingSystemUiFlags=0x");
+            pw.print(Integer.toHexString(mResettingSystemUiFlags));
+            pw.print(" mForceClearedSystemUiFlags=0x");
+            pw.println(Integer.toHexString(mForceClearedSystemUiFlags));
         }
         if (mLastFocusNeedsMenu) {
             pw.print(prefix); pw.print("mLastFocusNeedsMenu=");
-                    pw.println(mLastFocusNeedsMenu);
+            pw.println(mLastFocusNeedsMenu);
         }
         pw.print(prefix); pw.print("mWakeGestureEnabledSetting=");
-                pw.println(mWakeGestureEnabledSetting);
-
+        pw.println(mWakeGestureEnabledSetting);
         pw.print(prefix); pw.print("mSupportAutoRotation="); pw.println(mSupportAutoRotation);
         pw.print(prefix); pw.print("mUiMode="); pw.print(mUiMode);
-                pw.print(" mDockMode="); pw.print(mDockMode);
-                pw.print(" mEnableCarDockHomeCapture="); pw.print(mEnableCarDockHomeCapture);
-                pw.print(" mCarDockRotation="); pw.print(mCarDockRotation);
-                pw.print(" mDeskDockRotation="); pw.println(mDeskDockRotation);
+        pw.print(" mDockMode="); pw.print(mDockMode);
+        pw.print(" mEnableCarDockHomeCapture="); pw.print(mEnableCarDockHomeCapture);
+        pw.print(" mCarDockRotation="); pw.print(mCarDockRotation);
+        pw.print(" mDeskDockRotation="); pw.println(mDeskDockRotation);
         pw.print(prefix); pw.print("mUserRotationMode="); pw.print(mUserRotationMode);
-                pw.print(" mUserRotation="); pw.print(mUserRotation);
-                pw.print(" mAllowAllRotations="); pw.println(mAllowAllRotations);
+        pw.print(" mUserRotation="); pw.print(mUserRotation);
+        pw.print(" mAllowAllRotations="); pw.println(mAllowAllRotations);
         pw.print(prefix); pw.print("mCurrentAppOrientation="); pw.println(mCurrentAppOrientation);
         pw.print(prefix); pw.print("mCarDockEnablesAccelerometer=");
-                pw.print(mCarDockEnablesAccelerometer);
-                pw.print(" mDeskDockEnablesAccelerometer=");
-                pw.println(mDeskDockEnablesAccelerometer);
+        pw.print(mCarDockEnablesAccelerometer);
+        pw.print(" mDeskDockEnablesAccelerometer=");
+        pw.println(mDeskDockEnablesAccelerometer);
         pw.print(prefix); pw.print("mLidKeyboardAccessibility=");
-                pw.print(mLidKeyboardAccessibility);
-                pw.print(" mLidNavigationAccessibility="); pw.print(mLidNavigationAccessibility);
-                pw.print(" mLidControlsScreenLock="); pw.println(mLidControlsScreenLock);
-                pw.print(" mLidControlsSleep="); pw.println(mLidControlsSleep);
+        pw.print(mLidKeyboardAccessibility);
+        pw.print(" mLidNavigationAccessibility="); pw.print(mLidNavigationAccessibility);
+        pw.print(" mLidControlsScreenLock="); pw.println(mLidControlsScreenLock);
+        pw.print(" mLidControlsSleep="); pw.println(mLidControlsSleep);
         pw.print(prefix);
-                pw.print(" mLongPressOnBackBehavior="); pw.println(mLongPressOnBackBehavior);
+        pw.print(" mLongPressOnBackBehavior="); pw.println(mLongPressOnBackBehavior);
         pw.print(prefix);
-                pw.print("mShortPressOnPowerBehavior="); pw.print(mShortPressOnPowerBehavior);
-                pw.print(" mLongPressOnPowerBehavior="); pw.println(mLongPressOnPowerBehavior);
+        pw.print("mShortPressOnPowerBehavior="); pw.print(mShortPressOnPowerBehavior);
+        pw.print(" mLongPressOnPowerBehavior="); pw.println(mLongPressOnPowerBehavior);
         pw.print(prefix);
-                pw.print("mDoublePressOnPowerBehavior="); pw.print(mDoublePressOnPowerBehavior);
-                pw.print(" mTriplePressOnPowerBehavior="); pw.println(mTriplePressOnPowerBehavior);
+        pw.print("mDoublePressOnPowerBehavior="); pw.print(mDoublePressOnPowerBehavior);
+        pw.print(" mTriplePressOnPowerBehavior="); pw.println(mTriplePressOnPowerBehavior);
         pw.print(prefix); pw.print("mHasSoftInput="); pw.println(mHasSoftInput);
         pw.print(prefix); pw.print("mAwake="); pw.println(mAwake);
         pw.print(prefix); pw.print("mScreenOnEarly="); pw.print(mScreenOnEarly);
-                pw.print(" mScreenOnFully="); pw.println(mScreenOnFully);
+        pw.print(" mScreenOnFully="); pw.println(mScreenOnFully);
         pw.print(prefix); pw.print("mKeyguardDrawComplete="); pw.print(mKeyguardDrawComplete);
-                pw.print(" mWindowManagerDrawComplete="); pw.println(mWindowManagerDrawComplete);
+        pw.print(" mWindowManagerDrawComplete="); pw.println(mWindowManagerDrawComplete);
         pw.print(prefix); pw.print("mOrientationSensorEnabled=");
-                pw.println(mOrientationSensorEnabled);
+        pw.println(mOrientationSensorEnabled);
         pw.print(prefix); pw.print("mOverscanScreen=("); pw.print(mOverscanScreenLeft);
-                pw.print(","); pw.print(mOverscanScreenTop);
-                pw.print(") "); pw.print(mOverscanScreenWidth);
-                pw.print("x"); pw.println(mOverscanScreenHeight);
+        pw.print(","); pw.print(mOverscanScreenTop);
+        pw.print(") "); pw.print(mOverscanScreenWidth);
+        pw.print("x"); pw.println(mOverscanScreenHeight);
         if (mOverscanLeft != 0 || mOverscanTop != 0
                 || mOverscanRight != 0 || mOverscanBottom != 0) {
             pw.print(prefix); pw.print("mOverscan left="); pw.print(mOverscanLeft);
-                    pw.print(" top="); pw.print(mOverscanTop);
-                    pw.print(" right="); pw.print(mOverscanRight);
-                    pw.print(" bottom="); pw.println(mOverscanBottom);
+            pw.print(" top="); pw.print(mOverscanTop);
+            pw.print(" right="); pw.print(mOverscanRight);
+            pw.print(" bottom="); pw.println(mOverscanBottom);
         }
         pw.print(prefix); pw.print("mRestrictedOverscanScreen=(");
-                pw.print(mRestrictedOverscanScreenLeft);
-                pw.print(","); pw.print(mRestrictedOverscanScreenTop);
-                pw.print(") "); pw.print(mRestrictedOverscanScreenWidth);
-                pw.print("x"); pw.println(mRestrictedOverscanScreenHeight);
+        pw.print(mRestrictedOverscanScreenLeft);
+        pw.print(","); pw.print(mRestrictedOverscanScreenTop);
+        pw.print(") "); pw.print(mRestrictedOverscanScreenWidth);
+        pw.print("x"); pw.println(mRestrictedOverscanScreenHeight);
         pw.print(prefix); pw.print("mUnrestrictedScreen=("); pw.print(mUnrestrictedScreenLeft);
-                pw.print(","); pw.print(mUnrestrictedScreenTop);
-                pw.print(") "); pw.print(mUnrestrictedScreenWidth);
-                pw.print("x"); pw.println(mUnrestrictedScreenHeight);
+        pw.print(","); pw.print(mUnrestrictedScreenTop);
+        pw.print(") "); pw.print(mUnrestrictedScreenWidth);
+        pw.print("x"); pw.println(mUnrestrictedScreenHeight);
         pw.print(prefix); pw.print("mRestrictedScreen=("); pw.print(mRestrictedScreenLeft);
-                pw.print(","); pw.print(mRestrictedScreenTop);
-                pw.print(") "); pw.print(mRestrictedScreenWidth);
-                pw.print("x"); pw.println(mRestrictedScreenHeight);
+        pw.print(","); pw.print(mRestrictedScreenTop);
+        pw.print(") "); pw.print(mRestrictedScreenWidth);
+        pw.print("x"); pw.println(mRestrictedScreenHeight);
         pw.print(prefix); pw.print("mStableFullscreen=("); pw.print(mStableFullscreenLeft);
-                pw.print(","); pw.print(mStableFullscreenTop);
-                pw.print(")-("); pw.print(mStableFullscreenRight);
-                pw.print(","); pw.print(mStableFullscreenBottom); pw.println(")");
+        pw.print(","); pw.print(mStableFullscreenTop);
+        pw.print(")-("); pw.print(mStableFullscreenRight);
+        pw.print(","); pw.print(mStableFullscreenBottom); pw.println(")");
         pw.print(prefix); pw.print("mStable=("); pw.print(mStableLeft);
-                pw.print(","); pw.print(mStableTop);
-                pw.print(")-("); pw.print(mStableRight);
-                pw.print(","); pw.print(mStableBottom); pw.println(")");
+        pw.print(","); pw.print(mStableTop);
+        pw.print(")-("); pw.print(mStableRight);
+        pw.print(","); pw.print(mStableBottom); pw.println(")");
         pw.print(prefix); pw.print("mSystem=("); pw.print(mSystemLeft);
-                pw.print(","); pw.print(mSystemTop);
-                pw.print(")-("); pw.print(mSystemRight);
-                pw.print(","); pw.print(mSystemBottom); pw.println(")");
+        pw.print(","); pw.print(mSystemTop);
+        pw.print(")-("); pw.print(mSystemRight);
+        pw.print(","); pw.print(mSystemBottom); pw.println(")");
         pw.print(prefix); pw.print("mCur=("); pw.print(mCurLeft);
-                pw.print(","); pw.print(mCurTop);
-                pw.print(")-("); pw.print(mCurRight);
-                pw.print(","); pw.print(mCurBottom); pw.println(")");
+        pw.print(","); pw.print(mCurTop);
+        pw.print(")-("); pw.print(mCurRight);
+        pw.print(","); pw.print(mCurBottom); pw.println(")");
         pw.print(prefix); pw.print("mContent=("); pw.print(mContentLeft);
-                pw.print(","); pw.print(mContentTop);
-                pw.print(")-("); pw.print(mContentRight);
-                pw.print(","); pw.print(mContentBottom); pw.println(")");
+        pw.print(","); pw.print(mContentTop);
+        pw.print(")-("); pw.print(mContentRight);
+        pw.print(","); pw.print(mContentBottom); pw.println(")");
         pw.print(prefix); pw.print("mVoiceContent=("); pw.print(mVoiceContentLeft);
-                pw.print(","); pw.print(mVoiceContentTop);
-                pw.print(")-("); pw.print(mVoiceContentRight);
-                pw.print(","); pw.print(mVoiceContentBottom); pw.println(")");
+        pw.print(","); pw.print(mVoiceContentTop);
+        pw.print(")-("); pw.print(mVoiceContentRight);
+        pw.print(","); pw.print(mVoiceContentBottom); pw.println(")");
         pw.print(prefix); pw.print("mDock=("); pw.print(mDockLeft);
-                pw.print(","); pw.print(mDockTop);
-                pw.print(")-("); pw.print(mDockRight);
-                pw.print(","); pw.print(mDockBottom); pw.println(")");
+        pw.print(","); pw.print(mDockTop);
+        pw.print(")-("); pw.print(mDockRight);
+        pw.print(","); pw.print(mDockBottom); pw.println(")");
         pw.print(prefix); pw.print("mDockLayer="); pw.print(mDockLayer);
-                pw.print(" mStatusBarLayer="); pw.println(mStatusBarLayer);
+        pw.print(" mStatusBarLayer="); pw.println(mStatusBarLayer);
         pw.print(prefix); pw.print("mShowingLockscreen="); pw.print(mShowingLockscreen);
-                pw.print(" mShowingDream="); pw.print(mShowingDream);
-                pw.print(" mDreamingLockscreen="); pw.print(mDreamingLockscreen);
-                pw.print(" mDreamingSleepToken="); pw.println(mDreamingSleepToken);
+        pw.print(" mShowingDream="); pw.print(mShowingDream);
+        pw.print(" mDreamingLockscreen="); pw.print(mDreamingLockscreen);
+        pw.print(" mDreamingSleepToken="); pw.println(mDreamingSleepToken);
         if (mLastInputMethodWindow != null) {
             pw.print(prefix); pw.print("mLastInputMethodWindow=");
-                    pw.println(mLastInputMethodWindow);
+            pw.println(mLastInputMethodWindow);
         }
         if (mLastInputMethodTargetWindow != null) {
             pw.print(prefix); pw.print("mLastInputMethodTargetWindow=");
-                    pw.println(mLastInputMethodTargetWindow);
+            pw.println(mLastInputMethodTargetWindow);
         }
         if (mStatusBar != null) {
             pw.print(prefix); pw.print("mStatusBar=");
-                    pw.print(mStatusBar); pw.print(" isStatusBarKeyguard=");
-                    pw.println(isStatusBarKeyguard());
+            pw.print(mStatusBar); pw.print(" isStatusBarKeyguard=");
+            pw.println(isStatusBarKeyguard());
         }
         if (mNavigationBar != null) {
             pw.print(prefix); pw.print("mNavigationBar=");
-                    pw.println(mNavigationBar);
+            pw.println(mNavigationBar);
         }
         if (mFocusedWindow != null) {
             pw.print(prefix); pw.print("mFocusedWindow=");
-                    pw.println(mFocusedWindow);
+            pw.println(mFocusedWindow);
         }
         if (mFocusedApp != null) {
             pw.print(prefix); pw.print("mFocusedApp=");
-                    pw.println(mFocusedApp);
+            pw.println(mFocusedApp);
         }
         if (mWinDismissingKeyguard != null) {
             pw.print(prefix); pw.print("mWinDismissingKeyguard=");
-                    pw.println(mWinDismissingKeyguard);
+            pw.println(mWinDismissingKeyguard);
         }
         if (mTopFullscreenOpaqueWindowState != null) {
             pw.print(prefix); pw.print("mTopFullscreenOpaqueWindowState=");
-                    pw.println(mTopFullscreenOpaqueWindowState);
+            pw.println(mTopFullscreenOpaqueWindowState);
         }
         if (mTopFullscreenOpaqueOrDimmingWindowState != null) {
             pw.print(prefix); pw.print("mTopFullscreenOpaqueOrDimmingWindowState=");
-                    pw.println(mTopFullscreenOpaqueOrDimmingWindowState);
+            pw.println(mTopFullscreenOpaqueOrDimmingWindowState);
         }
         if (mForcingShowNavBar) {
             pw.print(prefix); pw.print("mForcingShowNavBar=");
-                    pw.println(mForcingShowNavBar); pw.print( "mForcingShowNavBarLayer=");
-                    pw.println(mForcingShowNavBarLayer);
+            pw.println(mForcingShowNavBar); pw.print( "mForcingShowNavBarLayer=");
+            pw.println(mForcingShowNavBarLayer);
         }
         pw.print(prefix); pw.print("mTopIsFullscreen="); pw.print(mTopIsFullscreen);
-                pw.print(" mHideLockScreen="); pw.println(mHideLockScreen);
+        pw.print(" mHideLockScreen="); pw.println(mHideLockScreen);
         pw.print(prefix); pw.print("mForceStatusBar="); pw.print(mForceStatusBar);
-                pw.print(" mForceStatusBarFromKeyguard=");
-                pw.println(mForceStatusBarFromKeyguard);
+        pw.print(" mForceStatusBarFromKeyguard=");
+        pw.println(mForceStatusBarFromKeyguard);
         pw.print(prefix); pw.print("mDismissKeyguard="); pw.print(mDismissKeyguard);
-                pw.print(" mCurrentlyDismissingKeyguard="); pw.println(mCurrentlyDismissingKeyguard);
-                pw.print(" mWinDismissingKeyguard="); pw.print(mWinDismissingKeyguard);
-                pw.print(" mHomePressed="); pw.println(mHomePressed);
+        pw.print(" mCurrentlyDismissingKeyguard="); pw.println(mCurrentlyDismissingKeyguard);
+        pw.print(" mWinDismissingKeyguard="); pw.print(mWinDismissingKeyguard);
+        pw.print(" mHomePressed="); pw.println(mHomePressed);
         pw.print(prefix); pw.print("mAllowLockscreenWhenOn="); pw.print(mAllowLockscreenWhenOn);
-                pw.print(" mLockScreenTimeout="); pw.print(mLockScreenTimeout);
-                pw.print(" mLockScreenTimerActive="); pw.println(mLockScreenTimerActive);
+        pw.print(" mLockScreenTimeout="); pw.print(mLockScreenTimeout);
+        pw.print(" mLockScreenTimerActive="); pw.println(mLockScreenTimerActive);
         pw.print(prefix); pw.print("mEndcallBehavior="); pw.print(mEndcallBehavior);
-                pw.print(" mIncallPowerBehavior="); pw.print(mIncallPowerBehavior);
-                pw.print(" mIncallBackBehavior="); pw.print(mIncallBackBehavior);
-                pw.print(" mLongPressOnHomeBehavior="); pw.println(mLongPressOnHomeBehavior);
+        pw.print(" mIncallPowerBehavior="); pw.print(mIncallPowerBehavior);
+        pw.print(" mIncallBackBehavior="); pw.print(mIncallBackBehavior);
+        pw.print(" mLongPressOnHomeBehavior="); pw.println(mLongPressOnHomeBehavior);
         pw.print(prefix); pw.print("mLandscapeRotation="); pw.print(mLandscapeRotation);
-                pw.print(" mSeascapeRotation="); pw.println(mSeascapeRotation);
+        pw.print(" mSeascapeRotation="); pw.println(mSeascapeRotation);
         pw.print(prefix); pw.print("mPortraitRotation="); pw.print(mPortraitRotation);
-                pw.print(" mUpsideDownRotation="); pw.println(mUpsideDownRotation);
+        pw.print(" mUpsideDownRotation="); pw.println(mUpsideDownRotation);
         pw.print(prefix); pw.print("mDemoHdmiRotation="); pw.print(mDemoHdmiRotation);
-                pw.print(" mDemoHdmiRotationLock="); pw.println(mDemoHdmiRotationLock);
+        pw.print(" mDemoHdmiRotationLock="); pw.println(mDemoHdmiRotationLock);
         pw.print(prefix); pw.print("mUndockedHdmiRotation="); pw.println(mUndockedHdmiRotation);
-
         mGlobalKeyManager.dump(prefix, pw);
         mStatusBarController.dump(pw, prefix);
         mNavigationBarController.dump(pw, prefix);
         PolicyControl.dump(prefix, pw);
-
         if (mWakeGestureListener != null) {
             mWakeGestureListener.dump(pw, prefix);
         }
@@ -9469,7 +8652,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mKeyguardDelegate.dump(prefix, pw);
         }
     }
-
     private void checkSettings() {
         mScreenshotDelay = Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.SCREENSHOT_DELAY, 100);

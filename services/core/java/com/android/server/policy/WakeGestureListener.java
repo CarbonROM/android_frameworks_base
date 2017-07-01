@@ -16,12 +16,12 @@
 
 package com.android.server.policy;
 
-import android.os.Handler;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.hardware.TriggerEvent;
 import android.hardware.TriggerEventListener;
+import android.os.Handler;
 
 import java.io.PrintWriter;
 

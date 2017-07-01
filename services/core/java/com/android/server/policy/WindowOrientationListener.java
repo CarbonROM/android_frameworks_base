@@ -24,12 +24,9 @@ import android.hardware.SensorManager;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.os.SystemProperties;
-import android.text.TextUtils;
 import android.util.Slog;
 
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * A special helper class used by the WindowManager
