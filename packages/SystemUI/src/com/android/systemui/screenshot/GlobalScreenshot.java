@@ -44,11 +44,13 @@ import android.media.MediaActionSound;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Environment;
 import android.os.Process;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -64,11 +66,15 @@ import com.android.internal.messages.SystemMessageProto.SystemMessage;
 import com.android.systemui.R;
 import com.android.systemui.SystemUI;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -546,7 +552,7 @@ class GlobalScreenshot {
      * Takes a screenshot of the current display and shows an animation.
      */
     void takeScreenshot(Runnable finisher, boolean statusBarVisible, boolean navBarVisible,
-            int x, int y, int width, int height) {
+            int x, int y, int width, int height, boolean expanded) {
         // We need to orient the screenshot correctly (and the Surface api seems to take screenshots
         // only in the natural orientation of the device :!)
         mDisplay.getRealMetrics(mDisplayMetrics);
@@ -562,13 +568,90 @@ class GlobalScreenshot {
             dims[1] = Math.abs(dims[1]);
         }
 
-        // Take the screenshot
-        mScreenBitmap = SurfaceControl.screenshot((int) dims[0], (int) dims[1]);
-        if (mScreenBitmap == null) {
-            notifyScreenshotError(mContext, mNotificationManager,
-                    R.string.screenshot_failed_to_capture_text);
-            finisher.run();
-            return;
+        if (!expanded) {
+            mScreenBitmap = SurfaceControl.screenshot((int) dims[0], (int) dims[1]);
+            if (mScreenBitmap == null) {
+                notifyScreenshotError(mContext, mNotificationManager,
+                        R.string.screenshot_failed_to_capture_text);
+                finisher.run();
+                return;
+            }
+        } else {
+            //if move down, stop screenshot.
+            mScreenshotSelectorView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            mScreenshotLayout.post(new Runnable() {
+                                public void run() {
+                                    notifyScreenshotError(mContext, mNotificationManager,
+                                            R.string.screenshot_failed_to_capture_text);
+                                    Log.w("System UI",
+                                            "Screenshot was cancelled from swiping down.");
+                                    finisher.run();
+                                }
+                            });
+                            return true;
+                    }
+                    return false;
+                }
+            });
+
+            // Take the expanded screenshot
+            ArrayList<Bitmap> imagesToStitch = new ArrayList<Bitmap>();
+            for (int i = 0; ; i++) {
+                try {
+                    Thread.sleep(1500);
+                    imagesToStitch.add(SurfaceControl.screenshot((int) dims[0], (int) dims[1]));
+                    if (imagesToStitch.get(i) == null && i != 0) {
+                        notifyScreenshotError(mContext, mNotificationManager,
+                                R.string.screenshot_failed_to_capture_text);
+                        finisher.run();
+                        return;
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+
+                //move the screen, then sleep.
+                try {
+                    Log.w("System UI", "Moving Screen!");
+                    if(i == 0)      //screnshot is not taken fast enough initially before movement.
+                        Thread.sleep(1000);
+                    java.lang.Process process = Runtime.getRuntime().exec(
+                        "input swipe " + Float.toString((int) (dims[0] / 2)) + " " +
+                                Integer.toString((int) (5 * dims[1] / 6)) + " " +
+                                Integer.toString((int) (dims[0] / 2)) + " " +
+                                Integer.toString((int) (dims[1] / 6)) + " 3500");
+                    //height / 6 is slightly larger than nav bar
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(
+                            process.getInputStream()));
+                    if(i != 0) {
+                        Bitmap former = Bitmap.createBitmap(imagesToStitch.get(i - 1), 0, 2 *(int) dims[1] / 6,
+                                (int) dims[0], (int) dims[1] / 6);
+                        Bitmap latter = Bitmap.createBitmap(imagesToStitch.get(i),     0, 2 *(int) dims[1] / 6,
+                                (int) dims[0], (int) dims[1] / 6);
+                        Thread.sleep(500);
+                        Log.w("System UI", "Sleep for 500ms");
+                        if (former.sameAs(latter)) {//if match, we are done
+                            Log.w("System UI", "Images are same");
+                            imagesToStitch.remove(i);   //remove duplicate screenshot
+                            break;
+                        }
+                        former.recycle();
+                        latter.recycle();
+                    }
+                    Thread.sleep(3500);
+                } catch (InterruptedException e){
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            Log.w("System UI", "Starting to merge vertical images");
+            mScreenBitmap = mergeBitmapVertical(imagesToStitch);
         }
 
         if (requiresRotation) {
@@ -602,10 +685,11 @@ class GlobalScreenshot {
                 statusBarVisible, navBarVisible);
     }
 
-    void takeScreenshot(Runnable finisher, boolean statusBarVisible, boolean navBarVisible) {
+    void takeScreenshot(Runnable finisher, boolean statusBarVisible, boolean navBarVisible,
+                        boolean isExpanded) {
         mDisplay.getRealMetrics(mDisplayMetrics);
         takeScreenshot(finisher, statusBarVisible, navBarVisible, 0, 0, mDisplayMetrics.widthPixels,
-                mDisplayMetrics.heightPixels);
+                mDisplayMetrics.heightPixels, isExpanded);
     }
 
     /**
@@ -635,7 +719,8 @@ class GlobalScreenshot {
                                 mScreenshotLayout.post(new Runnable() {
                                     public void run() {
                                         takeScreenshot(finisher, statusBarVisible, navBarVisible,
-                                                rect.left, rect.top, rect.width(), rect.height());
+                                                rect.left, rect.top, rect.width(), rect.height(),
+                                                false);
                                     }
                                 });
                             }
@@ -655,6 +740,149 @@ class GlobalScreenshot {
                 mScreenshotSelectorView.requestFocus();
             }
         });
+    }
+
+    /**
+     *  Merges two bitmaps together vertically.
+     */
+    Bitmap mergeBitmapVertical(ArrayList<Bitmap> imagesToStitch){
+        int vertHeight = 0;
+        int runningHeight = 0;
+
+        Bitmap tempStitch = null;
+        int statHeightResource = mContext.getResources()
+                .getIdentifier("status_bar_height", "dimen", "android");
+        int navHeightResource = mContext.getResources()
+                .getIdentifier("navigation_bar_height", "dimen", "android");
+
+
+        int statHeight = mContext.getResources().getDimensionPixelSize(statHeightResource);
+        int navHeight  = mContext.getResources().getDimensionPixelSize(navHeightResource);
+
+
+        Log.w("System UI","Navbar height of " + navHeight + " statbar of " + statHeight + " = " +
+                (navHeight + statHeight) );
+
+        if(imagesToStitch.size() == 1)
+            return imagesToStitch.get(0);
+        else {
+            Log.w("System UI","Entering else statement");
+            Log.w("System UI","We have " + imagesToStitch.size() + " images!");
+
+            for (int i = 0; i < imagesToStitch.size(); i++) {
+
+                Log.w("System UI", "Inputting image " + i + " of " + imagesToStitch.get(i).getHeight()
+                        + "x" + imagesToStitch.get(i).getWidth());
+
+                //try {
+                    if (i == 0) {
+                        tempStitch = stripNavStatBar(imagesToStitch.get(i), true,
+                                false, navHeight, statHeight);
+                        imagesToStitch.get(i).recycle();
+                        imagesToStitch.set(i, tempStitch);
+                    } else if (i == imagesToStitch.size() - 1) {
+                        tempStitch = stripNavStatBar(imagesToStitch.get(i), false,
+                                true, navHeight, statHeight);
+                        imagesToStitch.get(i).recycle();
+                        tempStitch = remove Overlap(imagesToStitch.get(i - 1),
+                                imagesToStitch.get(i));
+                        imagesToStitch.set(i, tempStitch);
+                    } else {
+                        tempStitch = stripNavStatBar(imagesToStitch.get(i), true,
+                                true, navHeight, statHeight);
+                        imagesToStitch.get(i).recycle();
+                        imagesToStitch.set(i, tempStitch);
+                    }
+             // //  } catch(Exception e) {
+                    // Log.e("SystemUI", "Screenshot merging failed.");
+               // }
+                Log.w("System UI", "Created img " + i + " of " + imagesToStitch.get(i).getHeight() +
+                        "x" + imagesToStitch.get(i).getWidth());
+            }
+
+            for(int i = 0; i < imagesToStitch.size(); i++)
+                vertHeight +=  imagesToStitch.get(i).getHeight();
+
+            int rescaledWidth = mDisplayMetrics.widthPixels;
+            double ratio = vertHeight / rescaledWidth;
+
+            Log.w("System UI","We start creating  the merge size");
+            Bitmap merge = Bitmap.createBitmap(rescaledWidth, vertHeight,
+                    Bitmap.Config.ARGB_8888);
+            Canvas c = new Canvas(merge);
+
+            while(vertHeight * rescaledWidth >=
+                    (c.getMaximumBitmapWidth() * c.getMaximumBitmapHeight())) {
+                Log.w("System UI", "Image needs to be rescaled! c.MaxWidth is " + c.getMaximumBitmapWidth() + "x" + c.getMaximumBitmapHeight());
+                Log.w("System UI", "Current dimensions are " + rescaledWidth + "x" + vertHeight);
+                rescaledWidth = (int) (rescaledWidth *  .97);   //shrink 3%
+                vertHeight = (int) (rescaledWidth * ratio); //remove
+                Log.w("System UI", "Scaled dimensions are " + rescaledWidth + "x" + vertHeight);
+            }
+
+            if(rescaledWidth < mDisplayMetrics.widthPixels) {
+                Log.w("System UI", "Rescaling with a factor of " + ratio);
+                for (int i = 0; i < imagesToStitch.size(); i++) {
+                    Log.w("System UI", "Rescaling image " + i + " of dimensions: " + rescaledWidth +
+                            "x" + imagesToStitch.get(i).getHeight() + "*" + ratio);
+                    Matrix m = new Matrix();
+                    m.setScale(rescaledWidth,
+                            (imagesToStitch.get(i).getHeight()) *
+                                    (rescaledWidth/ imagesToStitch.get(i).getWidth()));
+
+                    tempStitch = Bitmap.createBitmap(
+                            imagesToStitch.get(i), 0, 0, imagesToStitch.get(i).getWidth(),
+                            imagesToStitch.get(i).getHeight(), m, false);
+                    //imagesToStitch.get(i).recycle();
+                    imagesToStitch.set(i, tempStitch);
+                }
+            }
+
+            for (int i = 0; i < imagesToStitch.size(); i++) {
+                c.drawBitmap(imagesToStitch.get(i), 0f, runningHeight, null);
+                runningHeight += imagesToStitch.get(i).getHeight();
+                //imagesToStitch.get(i).recycle();
+            }   //vertHeight should be equal to runningHeight at this point.
+            Log.w("System UI","We finished merging! running height is " + runningHeight +
+                    " and vertHeight is " + vertHeight);
+            Log.w("System UI", "Final image is of dimensions " + merge.getWidth() +
+                    "x" + merge.getHeight());
+            return merge;
+        }
+    }
+
+    Bitmap stripNavStatBar(Bitmap bm, boolean navBar, boolean statBar,
+                           int navHeight, int statHeight) {
+        Bitmap tempStitch = null;
+
+        if(navBar && statBar) {
+            tempStitch = Bitmap
+                    .createBitmap(bm, 0,
+                            bm.getHeight() / 6, mDisplayMetrics.widthPixels,
+                            4 * bm.getHeight() / 6);
+            bm.recycle();
+            Log.w("System UI","We removed the status bar & nav bar this image");
+            return tempStitch;
+        } else if (!navBar && statBar) {            //removes statusbar from last image
+            tempStitch = Bitmap.createBitmap(bm, 0, statHeight * 2, bm.getWidth(),
+                    bm.getHeight() - (statHeight * 2));
+            bm.recycle();
+            Log.w("System UI","We removed the status bar of last image");
+            return tempStitch;
+        } else if (navBar && !statBar) {
+            tempStitch = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), (5 * bm.getHeight()) / 6);
+            bm.recycle();
+            Log.w("System UI","We removed the nav bar of image 0");
+            return tempStitch;  //return removeImageOverlap ( end - 1, end)
+
+        } else
+            return null;
+
+    }
+
+
+    Bitmap removeOverlap(Bitmap top, Bitmap bot) {
+
     }
 
     /**

@@ -59,13 +59,16 @@ public class TakeScreenshotService extends Service {
             if (mScreenshot == null) {
                 mScreenshot = new GlobalScreenshot(TakeScreenshotService.this);
             }
-
+            Log.w("SystemUI", msg.what + " is the message");
             switch (msg.what) {
-                case WindowManager.TAKE_SCREENSHOT_FULLSCREEN:
-                    mScreenshot.takeScreenshot(finisher, msg.arg1 > 0, msg.arg2 > 0);
-                    break;
                 case WindowManager.TAKE_SCREENSHOT_SELECTED_REGION:
                     mScreenshot.takeScreenshotPartial(finisher, msg.arg1 > 0, msg.arg2 > 0);
+                    break;
+                case WindowManager.TAKE_SCREENSHOT_EXPANDED:
+                    mScreenshot.takeScreenshot(finisher, msg.arg1 > 0, msg.arg2 > 0, true);
+                    break;
+                default:
+                    mScreenshot.takeScreenshot(finisher, msg.arg1 > 0, msg.arg2 > 0, false);
                     break;
             }
         }
