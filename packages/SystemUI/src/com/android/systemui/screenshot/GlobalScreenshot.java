@@ -69,6 +69,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -546,7 +547,7 @@ class GlobalScreenshot {
      * Takes a screenshot of the current display and shows an animation.
      */
     void takeScreenshot(Runnable finisher, boolean statusBarVisible, boolean navBarVisible,
-            int x, int y, int width, int height) {
+            int x, int y, int width, int height, boolean expanded) {
         // We need to orient the screenshot correctly (and the Surface api seems to take screenshots
         // only in the natural orientation of the device :!)
         mDisplay.getRealMetrics(mDisplayMetrics);
@@ -563,13 +564,34 @@ class GlobalScreenshot {
         }
 
         // Take the screenshot
-        mScreenBitmap = SurfaceControl.screenshot((int) dims[0], (int) dims[1]);
-        if (mScreenBitmap == null) {
-            notifyScreenshotError(mContext, mNotificationManager,
-                    R.string.screenshot_failed_to_capture_text);
-            finisher.run();
-            return;
+        ArrayList<Bitmap> imagesToStitch = new ArrayList<Bitmap>();
+        for(int i = 0; ; i++) {
+            imagesToStitch.add(SurfaceControl.screenshot((int) dims[0], (int) dims[1]));
+            if (imagesToStitch.get(i) == null) {
+                notifyScreenshotError(mContext, mNotificationManager,
+                        R.string.screenshot_failed_to_capture_text);
+                finisher.run();
+                return;
+            }
+            if(i != 0) {
+                if (imagesToStitch.get(i).sameAs(imagesToStitch.get(i - 1))) //if match, we are done
+                    break;
+                imagesToStitch.set(0, mergeBitmapVertical(imagesToStitch.get(0),
+                        imagesToStitch.get(i)));
+            }
+            if(expanded) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Process process = Runtime.getRuntime().exec("input swipe " + dims[0] / 2 + " " +
+                        dims[1] / 2 + " " + dims[0] / 2 + " " + dims[0] / 7);
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(
+                        process.getInputStream()));
+            }
         }
+        mScreenBitmap = imagesToStitch.get(0);
 
         if (requiresRotation) {
             // Rotate the screenshot to the current orientation
@@ -605,7 +627,7 @@ class GlobalScreenshot {
     void takeScreenshot(Runnable finisher, boolean statusBarVisible, boolean navBarVisible) {
         mDisplay.getRealMetrics(mDisplayMetrics);
         takeScreenshot(finisher, statusBarVisible, navBarVisible, 0, 0, mDisplayMetrics.widthPixels,
-                mDisplayMetrics.heightPixels);
+                mDisplayMetrics.heightPixels, false);
     }
 
     /**
@@ -635,7 +657,8 @@ class GlobalScreenshot {
                                 mScreenshotLayout.post(new Runnable() {
                                     public void run() {
                                         takeScreenshot(finisher, statusBarVisible, navBarVisible,
-                                                rect.left, rect.top, rect.width(), rect.height());
+                                                rect.left, rect.top, rect.width(), rect.height(),
+                                                false);
                                     }
                                 });
                             }
@@ -656,6 +679,28 @@ class GlobalScreenshot {
             }
         });
     }
+
+    /*
+     * Takes a screenshot of the entire scrollable display.
+     */
+    void takeScreenshotExpanded(final Runnable finisher, final boolean statusBarVisible,
+                                final boolean navBarVisible) {
+        mDisplay.getRealMetrics(mDisplayMetrics);
+        takeScreenshot(finisher, statusBarVisible, navBarVisible, 0, 0, mDisplayMetrics.widthPixels,
+                mDisplayMetrics.heightPixels, true);
+    }
+
+    /**
+     *  Merges two bitmaps together vertically.
+     */
+    Bitmap mergeBitmapVertical(Bitmap top, Bitmap bottom) {
+        Bitmap merge = Bitmap.createBitmap(top.getWidth(), top.getHeight() + bottom.getHeight(), top.getConfig());
+        Canvas c = new Canvas(merge);
+        c.drawBitmap(top, 0f, 0f, null);
+        c.drawBitmap(bottom, 0f, top.getHeight(), null);
+        return merge;
+    }
+
 
     /**
      * Cancels screenshot request
