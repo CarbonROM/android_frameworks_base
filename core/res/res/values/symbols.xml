@@ -2115,10 +2115,6 @@
   <java-symbol type="layout" name="year_label_text_view" />
   <java-symbol type="layout" name="date_picker_material" />
 
-  <!-- Config.xml entries -->
-  <java-symbol type="string" name="config_deviceKeyHandlerLib" />
-  <java-symbol type="string" name="config_deviceKeyHandlerClass" />
-
   <java-symbol type="id" name="time_header" />
   <java-symbol type="id" name="hours" />
   <java-symbol type="id" name="minutes" />
@@ -2756,13 +2752,6 @@
   <java-symbol type="bool" name="use_lock_pattern_drawable" />
   <java-symbol type="drawable" name="lockscreen_notselected" />
   <java-symbol type="drawable" name="lockscreen_selected" />
-
-  <java-symbol type="bool" name="config_proximityCheckOnWake" />
-  <java-symbol type="integer" name="config_proximityCheckTimeout" />
-  <java-symbol type="bool" name="config_proximityCheckOnWakeEnabledByDefault" />
-
-  <!-- Gesture Sensor -->
-  <java-symbol type="bool" name="config_enableGestureService" />
 
   <!-- Allow devices to use wakelock for flashlight -->
   <java-symbol type="bool" name="config_useWakeLockForFlashlight" />
