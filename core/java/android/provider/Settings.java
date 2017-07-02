@@ -4123,22 +4123,6 @@ public final class Settings {
          */
         public static final String PROXIMITY_AUTO_SPEAKER_INCALL_ONLY = "proximity_auto_speaker_incall_only";
 
-       /**
-         * Whether the proximity sensor should be used to check whether to
-         * wake the device or not (e. g. for preventing pocket touches)
-         *
-         * @hide
-         */
-        public static final String PROXIMITY_ON_WAKE =
-                                "proximity_on_wake";
-
-        /**
-         * IMPORTANT: If you add a new public settings you also have to add it to
-         * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
-         * it to PRIVATE_SETTINGS below. Also add a validator that can validate
-         * the setting value. See an example above.
-         */
-
         /**
          * Whether to show or hide the Settings Shortcut
          * @hide
@@ -4336,14 +4320,6 @@ public final class Settings {
                 }
             }
         };
-
-        /**
-         * Whether touchscreen gestures give a haptic feedback
-         *
-         * @hide
-         */
-        public static final String TOUCHSCREEN_GESTURE_HAPTIC_FEEDBACK =
-                                "touchscreen_gesture_haptic_feedback";
 
         /**
          * Value for button brightness.
@@ -4601,8 +4577,6 @@ public final class Settings {
             PUBLIC_SETTINGS.add(HAPTIC_FEEDBACK_ENABLED);
             PUBLIC_SETTINGS.add(SHOW_WEB_SUGGESTIONS);
             PUBLIC_SETTINGS.add(VIBRATE_WHEN_RINGING);
-            PUBLIC_SETTINGS.add(PROXIMITY_ON_WAKE);
-            PUBLIC_SETTINGS.add(TOUCHSCREEN_GESTURE_HAPTIC_FEEDBACK);
         }
 
         /**
