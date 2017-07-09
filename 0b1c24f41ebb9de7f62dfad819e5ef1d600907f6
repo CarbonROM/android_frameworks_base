@@ -1,4 +1,22 @@
 {
   "pushCert": "certificate version 0.1\npusher 6BA3F93C 1499564196 -0400\npushee ssh://review.carbonrom.org:29418/CarbonROM/android_frameworks_base\nnonce 1499564200-B18C1CBD35B62EE5FE40F0913056D41DF5852C22\n\n0000000000000000000000000000000000000000 ac02a9659f75fbada2381062f5e132e7780b142f refs/drafts/cr-5.1\n-----BEGIN PGP SIGNATURE-----\nVersion: GnuPG v1\n\niQEcBAABAgAGBQJZYYikAAoJEGGzPpFro/k87VkIAJvHg4kJpF3RvGNyT+FsiaYc\nu/fhDPktUK9pD7VB48BpbiCZTrTjny1f2+c3ELVlcVISEyJdh/DCdiQWgcRqqVXL\nDqcVYF4d9pLx6mRYTj5MLWXDlutPLfpej0tdsJxbhjSPvi+FEcIkL55pcErPQuTc\nrYGKlG8/f33YdTaCKX69WKLAcKuoDJfPJWv1nG6Ta57Lf2WrLnyu493byXwaqyHD\nc+9NVKdNXJzYVnEf/nhy1gxVMdlmQkvtxrKHf/NuDa3PePreXoUJlAH4T18M4ZAn\nwpjpLEGyypPaWKaxPJdmwcKG0Gjjl5J378pMwqM1BVzwtleAsWyoZv02PYRDYzM\u003d\n\u003dlI0M\n-----END PGP SIGNATURE-----\n",
-  "comments": []
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a0e1d27_4099646d",
+        "filename": "packages/SystemUI/src/com/android/systemui/screenshot/GlobalScreenshot.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 4
+      },
+      "writtenOn": "2017-07-09T15:29:18Z",
+      "side": 1,
+      "message": "Yes, you did durp indeed... :D",
+      "revId": "0b1c24f41ebb9de7f62dfad819e5ef1d600907f6",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081",
+      "unresolved": false
+    }
+  ]
 }
