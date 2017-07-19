@@ -5605,6 +5605,11 @@ public final class Settings {
           */
         public static final String STATUS_BAR_SHOW_BATTERY_PERCENT_PREV = "status_bar_show_battery_percent_prev";
 
+        /**
+         * Whether to display 4G icon instead LTE
+         * @hide
+         */
+        public static final String SHOW_FOURG_ICON = "show_fourg_icon";
 
         /**
          * IMPORTANT: If you add a new public settings you also have to add it to
@@ -6082,7 +6087,8 @@ public final class Settings {
             STATUS_BAR_BATTERY_STYLE,
             STATUS_BAR_BATTERY_STYLE_PREV,
             STATUS_BAR_SHOW_BATTERY_PERCENT,
-            STATUS_BAR_SHOW_BATTERY_PERCENT_PREV
+            STATUS_BAR_SHOW_BATTERY_PERCENT_PREV,
+            SHOW_FOURG_ICON
         };
 
         /**
@@ -6107,6 +6113,7 @@ public final class Settings {
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(STATUS_BAR_BATTERY_STYLE_PREV, 1);
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(STATUS_BAR_SHOW_BATTERY_PERCENT, 1);
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(STATUS_BAR_SHOW_BATTERY_PERCENT_PREV, 1);
+            CARBON_SYSTEM_SETTINGS_VALIDATORS.put(SHOW_FOURG_ICON, 0);
         }
     }
 
