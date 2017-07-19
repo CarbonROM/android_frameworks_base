@@ -5028,7 +5028,13 @@ public final class Settings {
          * @hide
          */
         public static final String VOLUME_PANEL_ON_LEFT = "volume_panel_on_left";
-	
+
+	/**
+         * Whether to display 4G icon instead LTE
+         * @hide
+         */
+        public static final String SHOW_FOURG_ICON = "show_fourg_icon";
+
 	/**
          * @hide
          */
