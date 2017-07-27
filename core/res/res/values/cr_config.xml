@@ -71,6 +71,7 @@
             8 - Split Screen
             9 - Screen off
            10 - Kill app
+           11 - Power menu
          This needs to match the constants in
          services/core/java/com/android/server/policy/PhoneWindowManager.java
     -->
