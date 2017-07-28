@@ -93,6 +93,8 @@ import android.os.RemoteException;
 
 import static android.view.WindowManager.TAKE_SCREENSHOT_FULLSCREEN;
 import static android.view.WindowManager.TAKE_SCREENSHOT_SELECTED_REGION;
+import static android.view.WindowManager.TAKE_SCREENSHOT_EXTENDED;
+
 
 /**
  * Helper to show the global actions dialog.  Each item is an {@link Action} that
@@ -125,6 +127,7 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     private ServiceConnection mScreenshotConnection = null;
     private int mScreenshotFullscreen = TAKE_SCREENSHOT_FULLSCREEN;
     private int mScreenshotSelectedRegion = TAKE_SCREENSHOT_SELECTED_REGION;
+    private int mScreenshotExtended = TAKE_SCREENSHOT_EXTENDED;
 
     private final Context mContext;
     private final WindowManagerFuncs mWindowManagerFuncs;
@@ -469,8 +472,11 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
                 if (Settings.System.getInt(mContext.getContentResolver(),
                       Settings.System.SCREENSHOT_TYPE, 0) == 1) {
                    takeScreenshot(mScreenshotSelectedRegion);
+                } else if (Settings.System.getInt(mContext.getContentResolver(),
+                            Settings.System.SCREENSHOT_TYPE, 0) == 2){
+                   takeScreenshot(mScreenshotExtended);
                 } else {
-                   takeScreenshot(mScreenshotFullscreen);
+                    takeScreenshot(mScreenshotFullscreen);
                 }
             }
 
@@ -787,24 +793,31 @@ class GlobalActions implements DialogInterface.OnDismissListener, DialogInterfac
     class ScreenshotRunnable implements Runnable {
         private int mScreenshotFullscreen = TAKE_SCREENSHOT_FULLSCREEN;
         private int mScreenshotSelectedRegion = TAKE_SCREENSHOT_SELECTED_REGION;
+        private int mScreenshotExtended = TAKE_SCREENSHOT_EXTENDED;
 
         public void setScreenshotType(int screenshotType) {
             if (Settings.System.getInt(mContext.getContentResolver(),
                 Settings.System.SCREENSHOT_TYPE, 0) == 1) {
-            mScreenshotSelectedRegion = screenshotType;
+                mScreenshotSelectedRegion = screenshotType;
+            } else if (Settings.System.getInt(mContext.getContentResolver(),
+                       Settings.System.SCREENSHOT_TYPE, 0) == 2) {
+                mScreenshotExtended = screenshotType;
             } else {
-            mScreenshotFullscreen = screenshotType;
+                mScreenshotFullscreen = screenshotType;
             }
         }
 
         @Override
         public void run() {
-        if (Settings.System.getInt(mContext.getContentResolver(),
-              Settings.System.SCREENSHOT_TYPE, 0) == 1) {
-           takeScreenshot(mScreenshotSelectedRegion);
-        } else {
-           takeScreenshot(mScreenshotFullscreen);
-           }
+            if (Settings.System.getInt(mContext.getContentResolver(),
+                Settings.System.SCREENSHOT_TYPE, 0) == 1) {
+                takeScreenshot(mScreenshotSelectedRegion);
+            } else if (Settings.System.getInt(mContext.getContentResolver(),
+                       Settings.System.SCREENSHOT_TYPE, 0) == 2) {
+                takeScreenshot(mScreenshotExtended);
+            } else {
+                takeScreenshot(mScreenshotFullscreen);
+            }
         }
     }
 
