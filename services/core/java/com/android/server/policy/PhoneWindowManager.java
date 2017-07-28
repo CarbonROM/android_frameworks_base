@@ -1673,6 +1673,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 if (Settings.System.getInt(mContext.getContentResolver(),
                     Settings.System.SCREENSHOT_TYPE, 0) == 1) {
                     mScreenshotRunnable.setScreenshotType(TAKE_SCREENSHOT_SELECTED_REGION);
+                } else if (Settings.System.getInt(mContext.getContentResolver(),
+                           Settings.System.SCREENSHOT_TYPE, 0) == 2){
+                    mScreenshotRunnable.setScreenshotType(TAKE_SCREENSHOT_EXPANDED);
                 } else {
                     mScreenshotRunnable.setScreenshotType(TAKE_SCREENSHOT_FULLSCREEN);
                 }
@@ -4337,6 +4340,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 if (Settings.System.getInt(mContext.getContentResolver(),
                     Settings.System.SCREENSHOT_TYPE, 0) == 1) {
                     mScreenshotRunnable.setScreenshotType(TAKE_SCREENSHOT_SELECTED_REGION);
+                } else if (Settings.System.getInt(mContext.getContentResolver(),
+                           Settings.System.SCREENSHOT_TYPE, 0) == 2){
+                    mScreenshotRunnable.setScreenshotType(TAKE_SCREENSHOT_EXPANDED);
                 } else {
                     mScreenshotRunnable.setScreenshotType(TAKE_SCREENSHOT_FULLSCREEN);
                 }
