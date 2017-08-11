@@ -1368,8 +1368,10 @@
          that matches the signature of at least one package on this list.
          -->
     <string-array name="config_locationProviderPackageNames" translatable="false">
-        <!-- The standard AOSP fused location provider -->
-        <item>com.android.location.fused</item>
+    <!-- The standard AOSP fused location provider -->
+    <item>com.android.location.fused</item>
+    <!-- microG unifiednlp location provider (standalone) -->
+    <item>org.microg.nlp</item>
     </string-array>
 
     <!-- This string array can be overriden to enable test location providers initially. -->
