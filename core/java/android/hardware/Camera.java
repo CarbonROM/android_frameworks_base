@@ -2153,11 +2153,13 @@ public class Camera {
     }
     private native final void native_sendMetaData();
 
+    /** @hide */
     public interface AECallback
     {
         void onAEChanged(int[] states, Camera camera);
     }
 
+    /** @hide */
     public void setAECallback(AECallback cb)
     {
         mAECallback = cb;
