@@ -1172,8 +1172,7 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener {
                             (mBouncer && !mKeyguardGoingAway) || mGoingToSleep ||
                             (mAssistantVisible && mKeyguardOccluded));
             } else {
-                return mDeviceInteractive && (mKeyguardIsVisible || (mBouncer && !mKeyguardGoingAway)) || (mAssistantVisible && mKeyguardOccluded);
-            }
+                return !mGoingToSleep && mDeviceInteractive && (mKeyguardIsVisible || (mBouncer && !mKeyguardGoingAway)) || (mAssistantVisible && mKeyguardOccluded);            }
         }
         return false;
     }
