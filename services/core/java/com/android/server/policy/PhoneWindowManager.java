@@ -260,6 +260,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private static final int KEY_ACTION_SCREEN_OFF = 11;
     private static final int KEY_ACTION_KILL_APP = 12;
     private static final int KEY_ACTION_SCREENSHOT = 13;
+    private static final int KEY_ACTION_CAMERA_BUTTON = 14;
 
     // Masks for checking presence of hardware keys.
     // Must match values in core/res/res/values/config.xml
@@ -3761,7 +3762,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             KEY_ACTION_SPLIT_SCREEN,
             KEY_ACTION_SCREEN_OFF,
             KEY_ACTION_KILL_APP,
-            KEY_ACTION_SCREENSHOT
+            KEY_ACTION_SCREENSHOT,
+            KEY_ACTION_CAMERA_BUTTON
         };
 
     /**
@@ -4023,6 +4025,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 break;
             case KEY_ACTION_SCREENSHOT:
                 takeScreenshot();
+                break;
+            case KEY_ACTION_CAMERA_BUTTON:
+                triggerVirtualKeypress(KeyEvent.KEYCODE_CAMERA, false);
                 break;
         }
     }

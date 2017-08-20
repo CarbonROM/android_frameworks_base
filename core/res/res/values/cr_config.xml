@@ -74,6 +74,7 @@
            11 - Screen off
            12 - Kill app
            13 - Take screenshot
+           14 - Camera Button
          This needs to match the constants in
          services/core/java/com/android/server/policy/PhoneWindowManager.java
     -->
@@ -100,7 +101,7 @@
     <!-- camera -->
     <integer name="config_longPressOnCameraKeyBehavior">0</integer>
     <integer name="config_doubleTapOnCameraKeyBehavior">0</integer>
-    <integer name="config_shortPressOnCameraKeyBehavior">8</integer>
+    <integer name="config_shortPressOnCameraKeyBehavior">14</integer>
 
     <!-- Hardware 'face' keys present on the device, stored as a bit field.
          This integer should equal the sum of the corresponding value for each
