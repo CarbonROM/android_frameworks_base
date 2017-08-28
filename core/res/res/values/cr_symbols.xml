@@ -25,8 +25,17 @@
   <!-- The list of components which should be automatically disabled. -->
   <string-array name="config_disabledComponents" translatable="false"/>
 
-  <!-- Power menu -->
   <java-symbol type="string" name="system_error_vendorprint" />
 
   <java-symbol type="array" name="config_blockPackagesSensorDrain" />
+
+  <!-- Power menu reboot -->
+  <java-symbol name="reboot_to_bootloader_title" type="string" />
+  <java-symbol name="reboot_to_bootloader_message" type="string" />
+  <java-symbol name="reboot_to_recovery_title" type="string" />
+  <java-symbol name="reboot_to_recovery_message" type="string" />
+  <java-symbol name="reboot_system_title" type="string" />
+  <java-symbol name="reboot_system_message" type="string" />
+  <java-symbol type="array" name="config_rebootActionsList" />
+  <java-symbol type="array" name="values_globalActionsList" />
 </resources>
