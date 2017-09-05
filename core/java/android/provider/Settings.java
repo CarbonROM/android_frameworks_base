@@ -4919,6 +4919,16 @@ public final class Settings {
         public static final String STATUS_BAR_SHOW_BATTERY_PERCENT = "status_bar_show_battery_percent";
 
         /**
+        * Whether to enable or disable vibration during calls
+        * @hide
+        */
+        public static final String INCALL_FEEDBACK_VIBRATE = "incall_feeedback_vibrate";
+
+        /** @hide */
+        public static final Validator INCALL_FEEDBACK_VIBRATE_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5121,6 +5131,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(LOCKSCREEN_MEDIA_BLUR);
             PRIVATE_SETTINGS.add(ACCELEROMETER_ROTATION_ANGLES);
             PRIVATE_SETTINGS.add(LOCKSCREEN_MEDIA_METADATA);
+            PRIVATE_SETTINGS.add(INCALL_FEEDBACK_VIBRATE);
         }
 
         /**
@@ -5224,6 +5235,7 @@ public final class Settings {
             VALIDATORS.put(LOCKSCREEN_MEDIA_BLUR, LOCKSCREEN_MEDIA_BLUR_VALIDATOR);
             VALIDATORS.put(ACCELEROMETER_ROTATION_ANGLES, ACCELEROMETER_ROTATION_ANGLES_VALIDATOR);
             VALIDATORS.put(LOCKSCREEN_MEDIA_METADATA, LOCKSCREEN_MEDIA_METADATA_VALIDATOR);
+            VALIDATORS.put(INCALL_FEEDBACK_VIBRATE, INCALL_FEEDBACK_VIBRATE_VALIDATOR);
         }
 
         /**
