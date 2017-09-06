@@ -910,7 +910,6 @@ public class Build {
     public static final boolean IS_USERDEBUG = "userdebug".equals(TYPE);
     /** {@hide} */
     public static final boolean IS_USER = "user".equals(TYPE);
-
     /**
      * Whether this build is running inside a container.
      *
