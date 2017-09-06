@@ -6499,6 +6499,9 @@ message MetricsEvent {
 
     //CarbonFibers
     CARBONFIBERS = 2000;
+    
+    //QS Screenshot
+    QS_SCREENSHOT_TILE = 2001;
 
   }
 }
