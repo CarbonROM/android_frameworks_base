@@ -905,11 +905,8 @@ public class Build {
             SystemProperties.getInt("ro.debuggable", 0) == 1;
 
     /** {@hide} */
-    public static final boolean IS_ENG = "eng".equals(TYPE);
-    /** {@hide} */
-    public static final boolean IS_USERDEBUG = "userdebug".equals(TYPE);
-    /** {@hide} */
-    public static final boolean IS_USER = "user".equals(TYPE);
+    public static final boolean IS_ENG =
+            "eng".equals(getString("ro.build.type"));
 
     /**
      * Whether this build is running inside a container.

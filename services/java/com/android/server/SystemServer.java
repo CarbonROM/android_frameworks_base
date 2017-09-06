@@ -530,18 +530,6 @@ public final class SystemServer {
         mActivityManagerService.initPowerManagement();
         traceEnd();
 
-        // Bring up recovery system in case a rescue party needs a reboot
-        if (!SystemProperties.getBoolean("config.disable_noncore", false)) {
-            traceBeginAndSlog("StartRecoverySystemService");
-            mSystemServiceManager.startService(RecoverySystemService.class);
-            traceEnd();
-        }
-
-        // Now that we have the bare essentials of the OS up and running, take
-        // note that we just booted, which might send out a rescue party if
-        // we're stuck in a runtime restart loop.
-        RescueParty.noteBoot(mSystemContext);
-
         // Manages LEDs and display backlight so we need it to bring up the display.
         traceBeginAndSlog("StartLightsService");
         mSystemServiceManager.startService(LightsService.class);
@@ -713,11 +701,6 @@ public final class SystemServer {
                 false);
 
         boolean isEmulator = SystemProperties.get("ro.kernel.qemu").equals("1");
-
-        // For debugging RescueParty
-        if (Build.IS_DEBUGGABLE && SystemProperties.getBoolean("debug.crash_system", false)) {
-            throw new RuntimeException();
-        }
 
         try {
             final String SECONDARY_ZYGOTE_PRELOAD = "SecondaryZygotePreload";
@@ -1131,6 +1114,12 @@ public final class SystemServer {
                 } catch (Throwable e) {
                     reportWtf("starting UpdateLockService", e);
                 }
+                traceEnd();
+            }
+
+            if (!disableNonCoreServices) {
+                traceBeginAndSlog("StartRecoverSystemService");
+                mSystemServiceManager.startService(RecoverySystemService.class);
                 traceEnd();
             }
 
