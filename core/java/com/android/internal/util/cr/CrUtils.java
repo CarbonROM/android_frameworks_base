@@ -35,6 +35,8 @@ import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.view.IWindowManager;
+import android.view.WindowManagerGlobal;
 
 import com.android.internal.R;
 import com.android.internal.statusbar.IStatusBarService;
@@ -43,6 +45,9 @@ import java.util.Locale;
 import java.util.Arrays;
 
 public class CrUtils {
+
+    public static final String INTENT_SCREENSHOT = "action_take_screenshot";
+    public static final String INTENT_REGION_SCREENSHOT = "action_take_region_screenshot";
 
     public static boolean isChineseLanguage() {
        return Resources.getSystem().getConfiguration().locale.getLanguage().startsWith(
@@ -205,5 +210,15 @@ public class CrUtils {
         // Default to celsius if can't access MCC
         return !TextUtils.isEmpty(networkOperator) && Arrays.asList(mcc).contains(
                 networkOperator.substring(0, /*Filter only 3 digits*/ 3));
+    }
+
+    // Method to take screenshots
+    public static void takeScreenshot(boolean full) {
+        IWindowManager wm = WindowManagerGlobal.getWindowManagerService();
+        try {
+            wm.sendCustomAction(new Intent(full? INTENT_SCREENSHOT : INTENT_REGION_SCREENSHOT));
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 }
