@@ -18,6 +18,7 @@ package android.app;
 
 import android.annotation.NonNull;
 import android.annotation.Nullable;
+import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentProvider;
@@ -1675,7 +1676,8 @@ class ContextImpl extends Context {
         }
 
         try {
-            return am.checkPermission(permission, pid, uid);
+            return ActivityManager.getService().checkPermission(
+                    permission, pid, uid);
         } catch (RemoteException e) {
             throw e.rethrowFromSystemServer();
         }

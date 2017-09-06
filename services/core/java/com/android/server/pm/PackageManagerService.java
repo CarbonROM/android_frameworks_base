@@ -8699,7 +8699,7 @@ public class PackageManagerService extends IPackageManager.Stub
         logCriticalInfo(priority, msg);
     }
 
-    public static void logCriticalInfo(int priority, String msg) {
+    static void logCriticalInfo(int priority, String msg) {
         Slog.println(priority, TAG, msg);
         EventLogTags.writePmCriticalInfo(msg);
         try {
