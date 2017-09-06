@@ -401,7 +401,6 @@ import com.android.server.IntentResolver;
 import com.android.server.LocalServices;
 import com.android.server.LockGuard;
 import com.android.server.NetworkManagementInternal;
-import com.android.server.RescueParty;
 import com.android.server.ServiceThread;
 import com.android.server.SystemConfig;
 import com.android.server.SystemService;
@@ -12073,10 +12072,6 @@ public class ActivityManagerService extends IActivityManager.Stub
         mConstants.start(mContext.getContentResolver());
         mCoreSettingsObserver = new CoreSettingsObserver(this);
         mFontScaleSettingObserver = new FontScaleSettingObserver();
-
-        // Now that the settings provider is published we can consider sending
-        // in a rescue party.
-        RescueParty.onSettingsProviderPublished(mContext);
 
         //mUsageStatsService.monitorPackages();
     }
