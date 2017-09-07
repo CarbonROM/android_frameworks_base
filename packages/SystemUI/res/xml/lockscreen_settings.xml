@@ -16,7 +16,7 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:sysui="http://schemas.android.com/apk/res-auto"
-    android:title="@string/other">
+    android:title="@string/lockscreen_tuner_activity">
 
 
     <Preference
@@ -31,7 +31,7 @@
 
     <Preference
         android:key="sysui_keyguard_right"
-        android:title="@string/lockscreen_shortcut_right" 
+        android:title="@string/lockscreen_shortcut_right"
         android:fragment="com.android.systemui.tuner.ShortcutPicker" />
 
     <com.android.systemui.tuner.TunerSwitch
