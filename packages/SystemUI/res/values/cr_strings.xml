@@ -41,4 +41,10 @@
     <string name="qs_data_switch_changed_2">Switch data card to SIM 2.</string>
     <string name="qs_data_sim_1">SIM 1</string>
     <string name="qs_data_sim_2">SIM 2</string>
+
+    <!-- SysUI Tuner -->
+    <string name="statusbar_icons_blacklist">Status bar icons</string>
+    <string name="navbar_tuner_activity">Navigation bar buttons</string>
+    <string name="lockscreen_tuner_activity">Lock screen shortcuts</string>
+    <string name="powernotif_tuner_activity">Power notifications</string>
 </resources>
