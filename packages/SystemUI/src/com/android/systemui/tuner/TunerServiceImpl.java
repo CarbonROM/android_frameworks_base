@@ -149,9 +149,6 @@ public class TunerServiceImpl extends TunerService {
                         TextUtils.join(",", iconHideList), mCurrentUser);
             }
         }
-        if (oldVersion < 2) {
-            setTunerEnabled(false);
-        }
         // 3 Removed because of a revert.
         if (oldVersion < 4) {
             // Delay this so that we can wait for everything to be registered first.
@@ -208,7 +205,7 @@ public class TunerServiceImpl extends TunerService {
         Uri uri = Settings.Secure.getUriFor(key);
         if (!mListeningUris.containsKey(uri)) {
             mListeningUris.put(uri, key);
-            mContentResolver.registerContentObserver(uri, false, mObserver, mCurrentUser);
+            mContentResolver.registerContentObserver(uri, true, mObserver, mCurrentUser);
         }
         // Send the first state.
         String value = DejankUtils.whitelistIpcs(() -> Settings.Secure
@@ -232,7 +229,7 @@ public class TunerServiceImpl extends TunerService {
         }
         mContentResolver.unregisterContentObserver(mObserver);
         for (Uri uri : mListeningUris.keySet()) {
-            mContentResolver.registerContentObserver(uri, false, mObserver, mCurrentUser);
+            mContentResolver.registerContentObserver(uri, true, mObserver, mCurrentUser);
         }
     }
 
@@ -293,29 +290,6 @@ public class TunerServiceImpl extends TunerService {
     public boolean isTunerEnabled() {
         return mUserTracker.getUserContext().getPackageManager().getComponentEnabledSetting(
                 mTunerComponent) == PackageManager.COMPONENT_ENABLED_STATE_ENABLED;
-    }
-
-    @Override
-    public void showResetRequest(Runnable onDisabled) {
-        SystemUIDialog dialog = new SystemUIDialog(mContext);
-        dialog.setShowForAllUsers(true);
-        dialog.setMessage(R.string.remove_from_settings_prompt);
-        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, mContext.getString(R.string.cancel),
-                (DialogInterface.OnClickListener) null);
-        dialog.setButton(DialogInterface.BUTTON_POSITIVE,
-                mContext.getString(R.string.qs_customize_remove), (d, which) -> {
-                    // Tell the tuner (in main SysUI process) to clear all its settings.
-                    mContext.sendBroadcast(new Intent(TunerService.ACTION_CLEAR));
-                    // Disable access to tuner.
-                    setTunerEnabled(false);
-                    // Make them sit through the warning dialog again.
-                    Secure.putInt(mContext.getContentResolver(),
-                            TunerFragment.SETTING_SEEN_TUNER_WARNING, 0);
-                    if (onDisabled != null) {
-                        onDisabled.run();
-                    }
-                });
-        dialog.show();
     }
 
     private class Observer extends ContentObserver {

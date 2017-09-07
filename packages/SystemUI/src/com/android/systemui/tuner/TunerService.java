@@ -22,7 +22,6 @@ import com.android.systemui.Dependency;
 
 public abstract class TunerService {
 
-    public static final String ACTION_CLEAR = "com.android.systemui.action.CLEAR_TUNER";
     private final Context mContext;
 
     public abstract void clearAll();
@@ -55,18 +54,6 @@ public abstract class TunerService {
     public TunerService(Context context) {
         mContext = context;
     }
-
-    public static class ClearReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (ACTION_CLEAR.equals(intent.getAction())) {
-                Dependency.get(TunerService.class).clearAll();
-            }
-        }
-    }
-
-    /** */
-    public abstract void showResetRequest(Runnable onDisabled);
 
     public static boolean parseIntegerSwitch(String value, boolean defaultValue) {
         try {
