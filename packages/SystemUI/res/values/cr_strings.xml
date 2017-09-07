@@ -49,4 +49,10 @@
     <!-- Carbon QS tile -->
     <string name="quick_settings_carbon_label">Carbon</string>
     <string name="quick_settings_carbon_toast">#blamepatrick</string>
+
+    <!-- SysUI Tuner -->
+    <string name="statusbar_icons_blacklist">Status bar icons</string>
+    <string name="navbar_tuner_activity">Navigation bar buttons</string>
+    <string name="lockscreen_tuner_activity">Lock screen shortcuts</string>
+    <string name="powernotif_tuner_activity">Power notifications</string>
 </resources>
