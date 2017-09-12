@@ -231,6 +231,8 @@
     <!-- DayNight mode -->
     <uses-permission android:name="android.permission.MODIFY_DAY_NIGHT_MODE" />
 
+    <uses-permission android:name="android.permission.ACCESS_SURFACE_FLINGER" />
+    
     <!-- Custom HW Key permissions -->
     <uses-permission android:name="android.permission.FORCE_STOP_PACKAGES" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
