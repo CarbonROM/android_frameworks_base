@@ -4228,6 +4228,12 @@ public final class Settings {
         public static final int END_BUTTON_BEHAVIOR_DEFAULT = END_BUTTON_BEHAVIOR_SLEEP;
 
         /**
+        * List of Apps hidden from recents
+        * @hide
+        */
+        public static final String HIDE_FROM_RECENTS_LIST = "hide_from_recents_list";
+
+        /**
          * Is advanced settings mode turned on. 0 == no, 1 == yes
          * @hide
          */
@@ -6088,6 +6094,7 @@ public final class Settings {
             SHOW_FOURG_ICON,
             DOUBLE_TAP_SLEEP_LOCKSCREEN,
             DOUBLE_TAP_SLEEP_GESTURE,
+            HIDE_FROM_RECENTS_LIST,
         };
 
         /**
@@ -6113,6 +6120,7 @@ public final class Settings {
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(SHOW_FOURG_ICON, 0);
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(DOUBLE_TAP_SLEEP_LOCKSCREEN, 0);
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(DOUBLE_TAP_SLEEP_GESTURE, 0);
+            CARBON_SYSTEM_SETTINGS_VALIDATORS.put(HIDE_FROM_RECENTS_LIST, 2);
         }
     }
 

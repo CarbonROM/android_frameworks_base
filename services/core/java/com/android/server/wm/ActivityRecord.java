@@ -273,7 +273,9 @@ import android.app.servertransaction.TopResumedActivityChangeItem;
 import android.app.servertransaction.TransferSplashScreenViewStateItem;
 import android.app.usage.UsageEvents.Event;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.LocusId;
 import android.content.pm.ActivityInfo;
@@ -303,6 +305,7 @@ import android.os.RemoteException;
 import android.os.SystemClock;
 import android.os.Trace;
 import android.os.UserHandle;
+import android.provider.Settings;
 import android.service.contentcapture.ActivityEvent;
 import android.service.dreams.DreamActivity;
 import android.service.voice.IVoiceInteractionSession;
@@ -2080,6 +2083,27 @@ final class ActivityRecord extends WindowToken implements WindowManagerService.A
 
         if ((aInfo.flags & FLAG_EXCLUDE_FROM_RECENTS) != 0) {
             intent.addFlags(FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        }
+
+        String hideFromRecentsString = Settings.System.getStringForUser(mWmService.mContext.getContentResolver(),
+                Settings.System.HIDE_FROM_RECENTS_LIST, UserHandle.USER_CURRENT);
+        ArrayList<String> excludeFromRecentsList = new ArrayList();
+
+        // this converts the String we get from Settings to an actual ArrayList
+        if (hideFromRecentsString!=null && hideFromRecentsString.length()!=0){
+            String[] parts = hideFromRecentsString.split("\\|");
+            for(int i = 0; i < parts.length; i++){
+                excludeFromRecentsList.add(parts[i]);
+            }
+        }
+
+        if (!excludeFromRecentsList.isEmpty()){
+            if (excludeFromRecentsList.contains(packageName)) {
+                // If our app is inside the ArrayList, hide it from the Recents.
+                // For the case where that flag already was added by some other instance,
+                // it most likely has a good reason to be, so do not force remove it
+                intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+            }
         }
 
         launchMode = aInfo.launchMode;
