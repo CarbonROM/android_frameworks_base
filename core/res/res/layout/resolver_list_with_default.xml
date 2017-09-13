@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_alwaysShow="true"
         android:orientation="vertical"
-        android:background="@color/white"
+        android:background="@color/resolver_background"
         android:elevation="8dp">
 
         <LinearLayout
@@ -89,7 +89,7 @@
                     android:layout_gravity="start|center_vertical"
                     android:layout_marginEnd="?attr/listPreferredItemPaddingEnd"
                     android:textAppearance="?attr/textAppearanceButton"
-                    android:textColor="?attr/textColorPrimary"
+                    android:textColor="@color/resolver_text"
                     android:minLines="1"
                     android:maxLines="1"
                     android:ellipsize="marquee" />
@@ -111,7 +111,7 @@
             android:paddingBottom="8dp"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            android:background="@color/white"
+            android:background="@color/resolver_background"
             android:elevation="8dp">
 
             <Button
@@ -151,7 +151,7 @@
         android:id="@+id/resolver_list"
         android:clipToPadding="false"
         android:scrollbarStyle="outsideOverlay"
-        android:background="@color/white"
+        android:background="@color/resolver_background"
         android:elevation="8dp"
         android:nestedScrollingEnabled="true"
         android:divider="@null" />
