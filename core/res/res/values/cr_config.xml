@@ -84,4 +84,7 @@
        platform signatures, specifically for use on devices with a vendor partition. -->
   <string-array name="config_vendorPlatformSignatures">
   </string-array>
+
+  <!-- Does the device supports multicolor LED -->
+  <bool name="config_multiColorNotificationLed">false</bool>
 </resources>
