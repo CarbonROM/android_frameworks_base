@@ -66,4 +66,7 @@
   <java-symbol type="array" name="config_deviceKeyHandlerClasses" />
 
   <java-symbol type="array" name="config_vendorPlatformSignatures" />
+
+  <!-- LED -->
+  <java-symbol type="bool" name="config_multiColorNotificationLed" />
 </resources>
