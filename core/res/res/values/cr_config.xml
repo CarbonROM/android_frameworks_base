@@ -42,4 +42,7 @@
 
   <!-- Enable sms authorization framework-->
   <bool name="config_sms_authorization_enabled">false</bool>
+  
+  <!-- Does the device supports multicolor LED -->
+  <bool name="config_multiColorNotificationLed">true</bool>
 </resources>
