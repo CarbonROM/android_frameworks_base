@@ -33,7 +33,6 @@
       <item>org.telegram.messenger.plus</item>
       <item>com.snapchat.android</item>
   </string-array>
-<<<<<<< HEAD
 
   <!--  Define optional package verifier name -->
   <string name="config_optionalPackageVerifierName" translatable="false"></string>
