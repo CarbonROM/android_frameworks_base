@@ -34,6 +34,9 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.PowerManager;
 import android.os.UserHandle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
+import android.provider.Settings;
 import android.support.annotation.VisibleForTesting;
 import android.text.Annotation;
 import android.text.Layout;
@@ -119,6 +122,7 @@ public class PowerNotificationWarnings implements PowerUI.WarningsUI {
     private final NotificationManager mNoMan;
     private final PowerManager mPowerMan;
     private final KeyguardManager mKeyguard;
+    private final Vibrator mVibrator;
     private final Handler mHandler = new Handler(Looper.getMainLooper());
     private final Receiver mReceiver = new Receiver();
     private final Intent mOpenBatterySettings = settings(Intent.ACTION_POWER_USAGE_SUMMARY);
@@ -150,6 +154,7 @@ public class PowerNotificationWarnings implements PowerUI.WarningsUI {
         mNoMan = mContext.getSystemService(NotificationManager.class);
         mPowerMan = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         mKeyguard = mContext.getSystemService(KeyguardManager.class);
+        mVibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
         mReceiver.init();
     }
 
@@ -545,6 +550,32 @@ public class PowerNotificationWarnings implements PowerUI.WarningsUI {
         mPlaySound = playSound;
         mWarning = true;
         updateNotification();
+    }
+
+    public void notifyBatteryPlugged() {
+        if (DEBUG) {
+            Slog.d(TAG, "notifyBatteryPplugged");
+        }
+        playBatteryPluggedVibration();
+    }
+
+    public void notifyBatteryUnplugged() {
+        if (DEBUG) {
+            Slog.d(TAG, "notifyBatteryUnplugged");
+        }
+        playBatteryPluggedVibration();
+    }
+
+    private void playBatteryPluggedVibration() {
+        if (Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.VIBRATION_ON_CHARGE_STATE_CHANGED, 1,
+                UserHandle.USER_CURRENT) == 0) {
+            return;
+        }
+        if (DEBUG) {
+            Slog.d(TAG, "playing battery plugged vibration");
+        }
+        mVibrator.vibrate(VibrationEffect.createOneShot(150, VibrationEffect.DEFAULT_AMPLITUDE));
     }
 
     @Override
