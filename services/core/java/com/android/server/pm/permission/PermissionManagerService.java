@@ -1343,7 +1343,7 @@ public class PermissionManagerService {
     }
 
     private static boolean isAlwaysRuntimePermission(final String permission) {
-        return Manifest.permission.INTERNET.equals(permission);
+        return Manifest.permission.INTERNET.equals(permission) || Manifest.permission.OTHER_SENSORS.equals(permission);
     }
 
     private void grantRequestedRuntimePermissionsForUser(PackageParser.Package pkg, int userId,
