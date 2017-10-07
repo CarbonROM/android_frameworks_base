@@ -17,6 +17,7 @@
 package com.android.server.pm.permission;
 
 import static android.Manifest.permission.INTERNET;
+import static android.Manifest.permission.OTHER_SENSORS;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.content.pm.PackageManager.FLAG_PERMISSION_REVIEW_REQUIRED;
@@ -1344,7 +1345,7 @@ public class PermissionManagerService {
     }
 
     private static boolean isAlwaysRuntimePermission(final String permission) {
-        return Manifest.permission.INTERNET.equals(permission);
+        return Manifest.permission.INTERNET.equals(permission) || Manifest.permission.OTHER_SENSORS.equals(permission);
     }
 
     private void grantRequestedRuntimePermissionsForUser(PackageParser.Package pkg, int userId,
