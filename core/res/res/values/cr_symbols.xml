@@ -28,5 +28,8 @@
   <!-- Carbon Easter Egg -->
   <java-symbol type="drawable" name="carbon_bg_logo" />
   <java-symbol type="drawable" name="carbon_logo" />
+  <!-- Device keyhandlers -->
+  <java-symbol type="array" name="config_deviceKeyHandlerLibs" />
+  <java-symbol type="array" name="config_deviceKeyHandlerClasses" />
 
 </resources>
