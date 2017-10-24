@@ -77,13 +77,21 @@ cc_defaults {
 
 cc_defaults {
     name: "hwui_compile_for_perf",
-    // TODO: Non-arm?
     cflags: [
         "-fno-omit-frame-pointer",
-        "-marm",
         "-mapcs",
     ],
 }
+
+arch: {
+    name: "hwui_compile_for_perf",
+    arm: {
+        cflags: ["-marm"],
+    },
+    arm64: {
+        cflags: ["-marm"],
+    },
+},
 
 cc_defaults {
     name: "hwui_debug",
