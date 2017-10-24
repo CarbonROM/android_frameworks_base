@@ -85,6 +85,16 @@ cc_defaults {
     ],
 }
 
+arch: {
+    name: "hwui_compile_for_perf",
+    arm: {
+        cflags: ["-marm"],
+    },
+    arm64: {
+        cflags: ["-marm"],
+    },
+},
+
 cc_defaults {
     name: "hwui_debug",
     cflags: ["-include debug/wrap_gles.h"],
