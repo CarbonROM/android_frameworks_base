@@ -4208,6 +4208,11 @@ public final class Settings {
          * @hide
          */
         public static final String QS_LAYOUT_ROWS = "qs_layout_rows";
+        
+          /** Whether to show Brightness Icon On Brightness Slider
+         * @hide
+         */
+        public static final String QS_SHOW_BRIGHTNESS_ICON = "qs_show_brightness_icon";
 
         /** Whether to skip music track with volume rocker 
         /**
