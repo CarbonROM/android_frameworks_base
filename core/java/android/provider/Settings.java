@@ -4082,7 +4082,7 @@ public final class Settings {
          * @hide
          */
         public static final String QS_LAYOUT_ROWS = "qs_layout_rows";
-      
+
         /** Wheter to play notification sound and vibration if screen is ON
          * 0 - never
          * 1 - always
@@ -4090,6 +4090,11 @@ public final class Settings {
          * @hide
          */
         public static final String NOTIFICATION_SOUND_VIB_SCREEN_ON = "notification_sound_vib_screen_on";
+
+        /** Whether to show Brightness Icon On Brightness Slider
+         * @hide
+         */
+        public static final String QS_SHOW_BRIGHTNESS_ICON = "qs_show_brightness_icon";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
