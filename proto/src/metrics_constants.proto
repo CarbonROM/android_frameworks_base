@@ -4575,5 +4575,10 @@ message MetricsEvent {
     //CarbonFibers
     CARBONFIBERS = 1200;
 
+    // OPEN: QS Screenshot Tile
+    // CATEGORY: QUICK_SETTINGS
+    // OS: CR-6.1
+    QS_SCREENSHOT = 1201;
+
   }
 }
