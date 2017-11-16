@@ -22,4 +22,7 @@
     <string name="global_action_settings">Settings</string>
     <string name="global_action_screenshot">Screenshot</string>
     <string name="global_action_flashlight">Flashlight</string>
+
+    <!-- QS Tiles -->
+    <string name="quick_settings_screenshot_label">Screenshot</string>
 </resources>
