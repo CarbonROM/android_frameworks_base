@@ -4575,5 +4575,7 @@ message MetricsEvent {
     //CarbonFibers
     CARBONFIBERS = 1200;
 
+    // Screenshot Tile
+    QS_SCREENSHOT_TILE = 1201;
   }
 }
