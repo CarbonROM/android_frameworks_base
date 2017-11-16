@@ -22,4 +22,8 @@
     <string name="global_action_settings">Settings</string>
     <string name="global_action_screenshot">Screenshot</string>
     <string name="global_action_flashlight">Flashlight</string>
+
+    <!-- Reboot/Recovery QS Tile -->
+    <string name="quick_settings_reboot_label">Reboot</string>
+    <string name="quick_settings_reboot_recovery_label">Recovery</string>
 </resources>
