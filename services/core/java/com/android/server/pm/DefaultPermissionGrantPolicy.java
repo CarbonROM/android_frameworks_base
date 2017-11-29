@@ -796,6 +796,13 @@ final class DefaultPermissionGrantPolicy {
                 grantRuntimePermissionsLPw(googlebackuptransportPackage, CONTACTS_PERMISSIONS, userId);
             }
 
+            // Data Transfer Tool
+            PackageParser.Package pixelMigratePackage = getSystemPackageLPr(
+                    "com.google.android.apps.pixelmigrate");
+            if (pixelMigratePackage != null && doesPackageSupportRuntimePermissions(pixelMigratePackage)) {
+                grantRuntimePermissionsLPw(pixelMigratePackage, WRITE_SECURE_SETTINGS, userId);
+            }
+
             // Google Play Framework
             PackageParser.Package gsfcorePackage = getSystemPackageLPr(
                     "com.google.android.gsf");
