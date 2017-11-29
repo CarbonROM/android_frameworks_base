@@ -502,15 +502,6 @@ final class DefaultPermissionGrantPolicy {
                 grantRuntimePermissionsLPw(contactsProviderPackage, STORAGE_PERMISSIONS, userId);
             }
 
-            // Device provisioning
-            Intent deviceProvisionIntent = new Intent(
-                    DevicePolicyManager.ACTION_PROVISION_MANAGED_DEVICE);
-            PackageParser.Package deviceProvisionPackage =
-                    getDefaultSystemHandlerActivityPackageLPr(deviceProvisionIntent, userId);
-            if (deviceProvisionPackage != null
-                    && doesPackageSupportRuntimePermissions(deviceProvisionPackage)) {
-                grantRuntimePermissionsLPw(deviceProvisionPackage, CONTACTS_PERMISSIONS, userId);
-            }
 
             // Maps
             Intent mapsIntent = new Intent(Intent.ACTION_MAIN);
@@ -794,6 +785,13 @@ final class DefaultPermissionGrantPolicy {
                     "com.google.android.backuptransport");
             if (googlebackuptransportPackage != null && doesPackageSupportRuntimePermissions(googlebackuptransportPackage)) {
                 grantRuntimePermissionsLPw(googlebackuptransportPackage, CONTACTS_PERMISSIONS, userId);
+            }
+
+            // Data Transfer Tool
+            PackageParser.Package pixelMigratePackage = getSystemPackageLPr(
+                    "com.google.android.apps.pixelmigrate");
+            if (pixelMigratePackage != null && doesPackageSupportRuntimePermissions(pixelMigratePackage)) {
+                grantRuntimePermissionsLPw(pixelMigratePackage, WRITE_SECURE_SETTINGS, userId);
             }
 
             // Google Play Framework
