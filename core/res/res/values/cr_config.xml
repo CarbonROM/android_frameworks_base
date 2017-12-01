@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 /*
-** Copyright 2006, The Android Open Source Project
+** Copyright 2021, CarbonROM
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -16,19 +16,12 @@
 ** limitations under the License.
 */
 -->
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-  <!-- Carbon Easter Egg -->
-  <java-symbol type="drawable" name="carbon_bg_logo" />
-  <java-symbol type="drawable" name="carbon_logo" />
-
-  <!-- Proximity check on screen on -->
-  <java-symbol type="bool" name="config_proximityCheckOnWake" />
-
-  <!-- Proximity check timeout -->
-  <java-symbol type="integer" name="config_proximityCheckTimeout" />
-
-  <!-- Proximity check on screen on default -->
-  <java-symbol type="bool" name="config_proximityCheckOnWakeEnabledByDefault" />
+    <!-- Default value for proximity check on screen wake
+     NOTE ! - Enable for devices that have a fast response proximity sensor (ideally < 300ms)-->
+    <bool name="config_proximityCheckOnWake">false</bool>
+    <integer name="config_proximityCheckTimeout">250</integer>
+    <bool name="config_proximityCheckOnWakeEnabledByDefault">false</bool>
 
 </resources>
