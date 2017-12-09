@@ -46,3 +46,7 @@
         />
 
 </RelativeLayout>
+        android:textColor="@color/toast_text_color"
+        />
+
+</LinearLayout>
