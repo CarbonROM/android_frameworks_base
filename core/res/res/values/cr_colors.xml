@@ -16,8 +16,9 @@
 -->
 
 <resources>
-    <color name="toast_bg">@color/white</color>
-    <color name="toast_text">@color/black</color>
+    <!-- Toast text and bg colors -->
+    <color name="toast_bg_color">@color/white</color>
+    <color name="toast_text_color">@color/black</color>
 
     <!-- Resolver -->
     <color name="resolver_list_bg">@android:color/white</color>
