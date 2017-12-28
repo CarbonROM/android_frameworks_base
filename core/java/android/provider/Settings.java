@@ -2734,6 +2734,13 @@ public final class Settings {
             }
         }
 
+       private static final Validator sNonNullStringValidator = new Validator() {
+            @Override
+            public boolean validate(String value) {
+                return value != null;
+            }
+        };
+
         /**
          * @deprecated Use {@link android.provider.Settings.Global#STAY_ON_WHILE_PLUGGED_IN} instead
          */
@@ -4108,6 +4115,28 @@ public final class Settings {
         public static final String QS_LAYOUT_ROWS = "qs_layout_rows";
 
         /**
+         * The user selected theme type
+         *
+         * @hide
+         */
+        public static final String THEME_GLOBAL_STYLE = "theme_global_style";
+
+        /** @hide */
+        public static final Validator THEME_GLOBAL_STYLE_VALIDATOR =
+                new InclusiveIntegerRangeValidator(0, 3);
+
+        /**
+         * The user selected theme accent
+         *
+         * @hide
+         */
+        public static final String THEME_CURRENT_ACCENT = "theme_current_accent";
+
+        /** @hide */
+        public static final Validator THEME_CURRENT_ACCENT_VALIDATOR =
+                sNonNullStringValidator;
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -4355,6 +4384,8 @@ public final class Settings {
             VALIDATORS.put(WIFI_STATIC_DNS1, WIFI_STATIC_DNS1_VALIDATOR);
             VALIDATORS.put(WIFI_STATIC_DNS2, WIFI_STATIC_DNS2_VALIDATOR);
             VALIDATORS.put(SHOW_BATTERY_PERCENT, SHOW_BATTERY_PERCENT_VALIDATOR);
+            VALIDATORS.put(THEME_GLOBAL_STYLE, THEME_GLOBAL_STYLE_VALIDATOR);
+            VALIDATORS.put(THEME_CURRENT_ACCENT, THEME_CURRENT_ACCENT_VALIDATOR);
         }
 
         /**
