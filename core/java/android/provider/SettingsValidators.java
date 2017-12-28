@@ -266,4 +266,11 @@ public class SettingsValidators {
             return true;
         }
     }
+
+    public static final Validator sNonNullStringValidator = new Validator() {
+        @Override
+        public boolean validate(String value) {
+            return value != null;
+        }
+    };
 }
