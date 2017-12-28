@@ -856,6 +856,12 @@ public class StatusBar extends SystemUI implements DemoMode,
                 mLockscreenSettingsObserver,
                 UserHandle.USER_ALL);
 
+        mContext.getContentResolver().registerContentObserver(
+                Settings.Global.getUriFor(Settings.Global.THEME_GLOBAL_STYLE),
+                true,
+                mThemeSettingsObserver,
+                UserHandle.USER_ALL);
+
         mBarService = IStatusBarService.Stub.asInterface(
                 ServiceManager.getService(Context.STATUS_BAR_SERVICE));
 
@@ -2882,14 +2888,16 @@ public class StatusBar extends SystemUI implements DemoMode,
     }
 
     public boolean isUsingDarkTheme() {
-        OverlayInfo themeInfo = null;
+        OverlayInfo systemuiThemeInfo = null;
+        OverlayInfo settingsThemeInfo = null;
         try {
-            themeInfo = mOverlayManager.getOverlayInfo("com.android.systemui.theme.dark",
+            systemuiThemeInfo = mOverlayManager.getOverlayInfo("org.carbonrom.noct",
                     mCurrentUserId);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        return themeInfo != null && themeInfo.isEnabled();
+        return (systemuiThemeInfo != null && systemuiThemeInfo.isEnabled()) ||
+                (settingsThemeInfo != null && settingsThemeInfo.isEnabled());
     }
 
     @Nullable
@@ -4671,14 +4679,34 @@ public class StatusBar extends SystemUI implements DemoMode,
     protected void updateTheme() {
         final boolean inflated = mStackScroller != null;
 
-        // The system wallpaper defines if QS should be light or dark.
+        // 0 = auto, 1 = time-based, 2 = light, 3 = dark
+        final int globalStyleSetting = Settings.Global.getInt(mContext.getContentResolver(),
+                Settings.Global.THEME_GLOBAL_STYLE, 0);
+        final int isNight = Settings.Global.getInt(mContext.getContentResolver(),
+                Settings.Global.IS_NIGHT_MODE, 0);
         WallpaperColors systemColors = mColorExtractor
                 .getWallpaperColors(WallpaperManager.FLAG_SYSTEM);
-        final boolean useDarkTheme = systemColors != null
-                && (systemColors.getColorHints() & WallpaperColors.HINT_SUPPORTS_DARK_THEME) != 0;
+        final boolean useDarkTheme;
+
+        switch (globalStyleSetting) {
+            case 1:
+                useDarkTheme = isNight;
+                break;
+            case 2:
+                useDarkTheme = false;
+                break;
+            case 3:
+                useDarkTheme = true;
+                break;
+            default:
+                useDarkTheme = systemColors != null && (systemColors.getColorHints() &
+                        WallpaperColors.HINT_SUPPORTS_DARK_THEME) != 0;
+                break;
+        }
+
         if (isUsingDarkTheme() != useDarkTheme) {
             try {
-                mOverlayManager.setEnabled("com.android.systemui.theme.dark",
+                mOverlayManager.setEnabled("org.carbonrom.noct",
                         useDarkTheme, mCurrentUserId);
             } catch (RemoteException e) {
                 Log.w(TAG, "Can't change theme", e);
@@ -5822,6 +5850,13 @@ public class StatusBar extends SystemUI implements DemoMode,
             setZenMode(mode);
 
             updateLockscreenNotificationSetting();
+        }
+    };
+
+    protected final ContentObserver mThemeSettingsObserver = new ContentObserver(mHandler) {
+        @Override
+        public void onChange(boolean selfChange) {
+            updateTheme();
         }
     };
 

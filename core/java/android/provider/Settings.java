@@ -10459,6 +10459,21 @@ public final class Settings {
                 "storage_settings_clobber_threshold";
 
         /**
+         * The user selected theme type
+         *
+         * @hide
+         */
+        public static final String THEME_GLOBAL_STYLE = "theme_global_style";
+
+        /**
+         * Whether it is currently night
+         *
+         * @hide
+         */
+        public static final String IS_NIGHT_MODE = "is_night_mode";
+
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
