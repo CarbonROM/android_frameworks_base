@@ -2734,6 +2734,13 @@ public final class Settings {
             }
         }
 
+       private static final Validator sNonNullStringValidator = new Validator() {
+            @Override
+            public boolean validate(String value) {
+                return value != null;
+            }
+        };
+
         /**
          * @deprecated Use {@link android.provider.Settings.Global#STAY_ON_WHILE_PLUGGED_IN} instead
          */
@@ -4106,6 +4113,35 @@ public final class Settings {
          * @hide
          */
         public static final String QS_LAYOUT_ROWS = "qs_layout_rows";
+
+        /**
+         * The user selected theme type
+         *
+         * @hide
+         */
+        public static final String THEME_GLOBAL_STYLE = "theme_global_style";
+
+        /** @hide */
+        //public static final Validator THEME_GLOBAL_STYLE_VALIDATOR =
+        //        new InclusiveIntegerRangeValidator(0, 3);
+
+        /**
+         * The user selected theme accent
+         *
+         * @hide
+         */
+        public static final String THEME_CURRENT_ACCENT = "theme_current_accent";
+
+        /** @hide */
+        //public static final Validator THEME_CURRENT_ACCENT_VALIDATOR =
+        //        sNonNullStringValidator;
+
+        /**
+         * Whether it is currently night
+         *
+         * @hide
+         */
+        public static final String IS_NIGHT_MODE = "is_night_mode";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings

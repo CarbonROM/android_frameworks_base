@@ -717,6 +717,9 @@ final class UiModeManagerService extends SystemService {
             TwilightState state = mTwilightManager.getLastTwilightState();
             if (state != null) {
                 mComputedNightMode = state.isNight();
+                int isNightMode = mComputedNightMode ? 1 : 0;
+                Settings.System.putInt(getContext().getContentResolver(),
+                    Settings.System.IS_NIGHT_MODE, isNightMode);
             }
         }
     }
