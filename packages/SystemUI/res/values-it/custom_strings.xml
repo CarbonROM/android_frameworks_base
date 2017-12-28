@@ -21,4 +21,20 @@
     <string name="global_action_restart_advanced">Riavvio avanzato</string>
     <string name="global_action_restart_recovery">Recovery</string>
     <string name="global_action_restart_bootloader">Bootloader</string>
+
+    <string name="global_action_restart_advanced">Avanzate</string>
+
+    <string name="alert_on_charged_level">Puoi disconnettere il caricatore ( ">"<xliff:g id="percentage">%s</xliff:g> )</string>
+    <string name="battery_level_good_title">Livello batteria ottimale</string>
+    <string name="notification_channel_charge_alert">Avviso carica batteria ottimale</string>
+
+    <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
+    <string name="custom_hint">Scorri sull\'icona per avviare</string>
+
+    <string name="quick_settings_doze_notifications_label">Notifiche Ambient</string>
+
+    <string name="quick_settings_region_screenshot_label">Screenshot parziale</string>
+
+    <string name="recents_app_killed">App terminata</string>
+
 </resources>
