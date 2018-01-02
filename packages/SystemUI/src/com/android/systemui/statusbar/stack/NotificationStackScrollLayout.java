@@ -1291,6 +1291,13 @@ public class NotificationStackScrollLayout extends ViewGroup
         }
     }
 
+    public void onOverlayChanged() {
+        mBgColor = getContext().getColor(R.color.notification_shade_background_color);
+
+        initView(getContext());
+        updateBackgroundDimming();
+    }
+
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);

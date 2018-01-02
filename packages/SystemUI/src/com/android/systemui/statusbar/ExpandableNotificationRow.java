@@ -23,6 +23,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.annotation.Nullable;
+import android.app.Notification;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.Configuration;
@@ -284,6 +285,12 @@ public class ExpandableNotificationRow extends ActivatableNotificationView
 
     public NotificationContentView getPublicLayout() {
         return mPublicLayout;
+    }
+
+    public void test() {
+        for (NotificationContentView l : mLayouts) {
+            l.onNotificationUpdated(mEntry);
+        }
     }
 
     public void setIconAnimationRunning(boolean running) {
@@ -854,6 +861,12 @@ public class ExpandableNotificationRow extends ActivatableNotificationView
         mMenuRow = new NotificationMenuRow(mContext); // Back to default
         if (existed) {
             createMenu();
+        }
+    }
+
+    public void onOverlayChanged() {
+        if (mGuts != null) {
+            mGuts.onOverlayChanged();
         }
     }
 
