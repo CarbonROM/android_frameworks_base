@@ -27,6 +27,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
+import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.os.UserManager;
 import android.os.storage.StorageManager;
@@ -496,7 +497,8 @@ class LockSettingsStorage {
         File file = new File(path);
         if (file.exists()) {
             try {
-                mContext.getSystemService(StorageManager.class).secdiscard(file.getAbsolutePath());
+                if (SystemProperties.getBoolean("ro.lockscreen.secdiscard", true))
+                    mContext.getSystemService(StorageManager.class).secdiscard(file.getAbsolutePath());
             } catch (Exception e) {
                 Slog.w(TAG, "Failed to secdiscard " + path, e);
             } finally {
