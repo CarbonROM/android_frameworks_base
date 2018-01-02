@@ -1323,6 +1323,32 @@ public class StatusBar extends SystemUI implements DemoMode,
         reevaluateStyles();
     }
 
+    @Override
+    public void onOverlayChanged() {
+        synchronized (mNotificationData) {
+            List<Entry> activeNotifications = mNotificationData.getActiveNotifications();
+            int N = activeNotifications.size();
+            for (int i = 0; i < N; i++) {
+                // TODO: PREVENT THIS
+                if (i >= mNotificationData.getActiveNotifications().size()) break;
+
+                Entry entry = activeNotifications.get(i);
+                StatusBarNotification sbn = entry.notification;
+
+                removeNotification(entry.key, null);
+                try {
+                    addNotification(sbn, null, true);
+                } catch (InflationException e) {
+                    handleInflationException(sbn, e);
+                }
+
+                entry.row.updateNotification(entry);
+                entry.row.onOverlayChanged();
+            }
+        }
+        mStackScroller.onOverlayChanged();
+    }
+
     private void reinflateViews() {
         reevaluateStyles();
 
@@ -1635,13 +1661,18 @@ public class StatusBar extends SystemUI implements DemoMode,
         return new UserHandle(mCurrentUserId);
     }
 
-    public void addNotification(StatusBarNotification notification, RankingMap ranking)
+    public void addNotification(StatusBarNotification n, RankingMap ranking)
             throws InflationException {
+        addNotification(n, ranking, false);
+    }
+
+    public void addNotification(StatusBarNotification notification, RankingMap ranking,
+            boolean recreate) throws InflationException {
         String key = notification.getKey();
         if (DEBUG) Log.d(TAG, "addNotification key=" + key);
 
         mNotificationData.updateRanking(ranking);
-        Entry shadeEntry = createNotificationViews(notification);
+        Entry shadeEntry = createNotificationViews(notification, recreate);
         boolean isHeadsUped = shouldPeek(shadeEntry);
         if (!isHeadsUped && notification.getNotification().fullScreenIntent != null) {
             if (shouldSuppressFullScreenIntent(key)) {
@@ -6781,12 +6812,12 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
     }
 
-    protected void inflateViews(Entry entry, ViewGroup parent) {
+    protected void inflateViews(Entry entry, ViewGroup parent, boolean recreate) {
         PackageManager pmUser = getPackageManagerForUser(mContext,
                 entry.notification.getUser().getIdentifier());
 
         final StatusBarNotification sbn = entry.notification;
-        if (entry.row != null) {
+        if (entry.row != null && !recreate) {
             entry.reset();
             updateNotification(entry, pmUser, sbn, entry.row);
         } else {
@@ -7214,8 +7245,8 @@ public class StatusBar extends SystemUI implements DemoMode,
         return entry.notification;
     }
 
-    protected NotificationData.Entry createNotificationViews(StatusBarNotification sbn)
-            throws InflationException {
+    protected NotificationData.Entry createNotificationViews(StatusBarNotification sbn,
+            boolean recreate) throws InflationException {
         if (DEBUG) {
             Log.d(TAG, "createNotificationViews(notification=" + sbn);
         }
@@ -7223,7 +7254,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         Dependency.get(LeakDetector.class).trackInstance(entry);
         entry.createIcons(mContext, sbn);
         // Construct the expanded view.
-        inflateViews(entry, mStackScroller);
+        inflateViews(entry, mStackScroller, recreate);
         return entry;
     }
 
@@ -7393,7 +7424,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         mGroupManager.onEntryUpdated(entry, oldNotification);
 
         entry.updateIcons(mContext, notification);
-        inflateViews(entry, mStackScroller);
+        inflateViews(entry, mStackScroller, false);
 
         mForegroundServiceController.updateNotification(notification,
                 mNotificationData.getImportance(key));
