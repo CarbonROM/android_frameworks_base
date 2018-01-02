@@ -212,6 +212,16 @@ public class NotificationGuts extends FrameLayout {
         }
     }
 
+    public void onOverlayChanged() {
+        mBackground = mContext.getDrawable(R.drawable.notification_guts_bg);
+        if (mBackground != null) {
+            mBackground.setCallback(this);
+        }
+
+        // draw background again
+        invalidate();
+    }
+
     public void closeControls(boolean leavebehinds, boolean controls, int x, int y, boolean force) {
         if (mGutsContent != null) {
             if (mGutsContent.isLeavebehind() && leavebehinds) {
