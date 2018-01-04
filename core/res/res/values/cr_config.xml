@@ -32,4 +32,7 @@
   <integer name="config_proximityCheckTimeout">250</integer>
   <bool name="config_proximityCheckOnWakeEnabledByDefault">false</bool>
 
+  <!-- Whether the device supports Smart Pixels -->
+  <bool name="config_enableSmartPixels">false</bool>
+
 </resources>
