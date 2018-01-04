@@ -256,6 +256,21 @@
             </intent-filter>
         </receiver>
 
+        <!-- EcoDisplay -->
+        <service android:name=".ecodisplay.EcoDisplayService"
+            android:exported="true"
+            android:enabled="true" />
+        <receiver android:name=".BootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".PowerSaveReceiver">
+            <intent-filter>
+                <action android:name="android.os.action.POWER_SAVE_MODE_CHANGED"/>
+            </intent-filter>
+        </receiver>
+
         <service android:name=".ImageWallpaper"
                 android:permission="android.permission.BIND_WALLPAPER"
                 android:exported="true" />
