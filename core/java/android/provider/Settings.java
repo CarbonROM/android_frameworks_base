@@ -3710,6 +3710,42 @@ public final class Settings {
         public static final String PIXEL_NAV_ANIMATION = "pixel_nav_animation";
 
         /**
+         * Whether to enable EcoDisplay
+         * @hide
+         */
+        public static final String ECODISPLAY_ENABLE = "ecodisplay_enable";
+
+        /**
+         * EcoDisplay pattern
+         * @hide
+         */
+        public static final String ECODISPLAY_PATTERN = "ecodisplay_pattern";
+
+        /**
+         * EcoDisplay Shift Timeout
+         * @hide
+         */
+        public static final String ECODISPLAY_SHIFT_TIMEOUT = "ecodisplay_shift_timeout";
+
+        /**
+         * Wether EcoDisplay should check the light sensor
+         * @hide
+         */
+        public static final String ECODISPLAY_USE_LIGHT_SENSOR = "ecodisplay_use_light_sensor";
+
+        /**
+         * Value EcoDisplay should check the light sensor for
+         * @hide
+         */
+        public static final String ECODISPLAY_LIGHT_SENSOR_VALUE = "ecodisplay_light_sensor_value";
+
+        /**
+         * Value EcoDisplay should check the light sensor for
+         * @hide
+         */
+        public static final String ECODISPLAY_ON_POWER_SAVE = "ecodisplay_light_sensor_value";
+
+        /**
          * Whether the notification LED should repeatedly flash when a notification is
          * pending. The value is boolean (1 or 0).
          * @hide
