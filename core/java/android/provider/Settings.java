@@ -5257,6 +5257,30 @@ public final class Settings {
         public static final String SHOW_WEB_SUGGESTIONS = "show_web_suggestions";
 
         /**
+         * Whether to enable Smart Pixels
+         * @hide
+         */
+        public static final String SMART_PIXELS_ENABLE = "smart_pixels_enable";
+
+        /**
+         * Smart Pixels pattern
+         * @hide
+         */
+        public static final String SMART_PIXELS_PATTERN = "smart_pixels_pattern";
+
+        /**
+         * Smart Pixels Shift Timeout
+         * @hide
+         */
+        public static final String SMART_PIXELS_SHIFT_TIMEOUT = "smart_pixels_shift_timeout";
+
+        /**
+         * Whether Smart Pixels should enable on power saver mode
+         * @hide
+         */
+        public static final String SMART_PIXELS_ON_POWER_SAVE = "smart_pixels_on_power_save";
+
+        /**
          * Whether the notification LED should repeatedly flash when a notification is
          * pending. The value is boolean (1 or 0).
          * @hide
@@ -5950,7 +5974,11 @@ public final class Settings {
          * @hide
          */
         public static final String[] CARBON_SETTINGS_TO_BACKUP = {
-            PROXIMITY_ON_WAKE
+            PROXIMITY_ON_WAKE,
+            SMART_PIXELS_ENABLE,
+            SMART_PIXELS_PATTERN,
+            SMART_PIXELS_SHIFT_TIMEOUT,
+            SMART_PIXELS_ON_POWER_SAVE
         };
 
         /**
@@ -5965,6 +5993,10 @@ public final class Settings {
         public static final Map<String, Integer> CARBON_SETTINGS_VALIDATORS = new ArrayMap<>();
         static {
             CARBON_SETTINGS_VALIDATORS.put(PROXIMITY_ON_WAKE, 0);
+            CARBON_SETTINGS_VALIDATORS.put(SMART_PIXELS_ENABLE, 0);
+            CARBON_SETTINGS_VALIDATORS.put(SMART_PIXELS_PATTERN, 1);
+            CARBON_SETTINGS_VALIDATORS.put(SMART_PIXELS_SHIFT_TIMEOUT, 1);
+            CARBON_SETTINGS_VALIDATORS.put(SMART_PIXELS_ON_POWER_SAVE, 0);
         }
     }
 
