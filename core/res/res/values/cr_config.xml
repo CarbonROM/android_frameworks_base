@@ -35,6 +35,7 @@
       <item>org.telegram.messenger.plus</item>
       <item>com.snapchat.android</item>
   </string-array>
+
   <!-- Paths to the libraries that contain device specific key handlers -->
   <string-array name="config_deviceKeyHandlerLibs" translatable="false">
   </string-array>
@@ -51,4 +52,8 @@
       <item>restart</item>
       <item>screenshot</item> <!--2 buttons nav-->
   </string-array>
+
+  <!-- Whether the device supports Smart Pixels -->
+  <bool name="config_enableSmartPixels">false</bool>
+
 </resources>
