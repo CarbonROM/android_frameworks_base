@@ -38,4 +38,8 @@
        platform signatures, specifically for use on devices with a vendor partition. -->
   <string-array name="config_vendorPlatformSignatures">
   </string-array>
+
+  <!-- Whether the device supports Smart Pixels -->
+  <bool name="config_enableSmartPixels">false</bool>
+
 </resources>
