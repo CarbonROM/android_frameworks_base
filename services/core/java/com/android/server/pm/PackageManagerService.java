@@ -219,6 +219,7 @@ import android.os.storage.VolumeInfo;
 import android.os.storage.VolumeRecord;
 import android.provider.Settings.Global;
 import android.provider.Settings.Secure;
+import android.provider.Settings.System;
 import android.security.KeyStore;
 import android.security.SystemKeyStore;
 import android.service.pm.PackageServiceDumpProto;
@@ -776,6 +777,9 @@ public class PackageManagerService extends IPackageManager.Stub
      */
     @GuardedBy("mPackages")
     final SparseArray<Map<String, Integer>> mChangedPackagesSequenceNumbers = new SparseArray<>();
+
+    private final String CARBON_VERSION = "ro.carbon.version";
+    private final String CARBON_OLD_VERSION = "old_carbon_version";
 
     class PackageParserCallback implements PackageParser.Callback {
         @Override public final boolean hasFeature(String feature) {
@@ -2569,10 +2573,19 @@ public class PackageManagerService extends IPackageManager.Stub
             File frameworkDir = new File(Environment.getRootDirectory(), "framework");
 
             final VersionInfo ver = mSettings.getInternalVersion();
-            mIsUpgrade = !Build.FINGERPRINT.equals(ver.fingerprint);
+            final String carbonVersion = SystemProperties.get(CARBON_VERSION);
+            final String carbonOldVersion = Settings.System.getString(context.getContentResolver(), CARBON_OLD_VERSION);
+            final boolean isCarbonUpgrade = !carbonVersion.equals(carbonOldVersion);
+            mIsUpgrade = !Build.FINGERPRINT.equals(ver.fingerprint) || isCarbonUpgrade;
             if (mIsUpgrade) {
-                logCriticalInfo(Log.INFO,
-                        "Upgrading from " + ver.fingerprint + " to " + Build.FINGERPRINT);
+                if (isCarbonUpgrade) {
+                	Settings.System.putString(getContext().getContentResolver(), CARBON_OLD_VERSION, carbonVersion);
+                    logCriticalInfo(Log.INFO,
+                            "Upgrading from " + carbonOldVersion + " to " + carbonVersion);
+                } else {
+                    logCriticalInfo(Log.INFO,
+                            "Upgrading from " + ver.fingerprint + " to " + Build.FINGERPRINT);
+                }
             }
 
             // when upgrading from pre-M, promote system app permissions from install to runtime
