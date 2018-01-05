@@ -312,6 +312,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FilenameFilter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -2569,10 +2570,44 @@ public class PackageManagerService extends IPackageManager.Stub
             File frameworkDir = new File(Environment.getRootDirectory(), "framework");
 
             final VersionInfo ver = mSettings.getInternalVersion();
-            mIsUpgrade = !Build.FINGERPRINT.equals(ver.fingerprint);
+
+            final File carbonOldVersionFile = new File(Environment.getDataSystemDirectory(),
+                "old_carbon_version.txt");
+            final String carbonVersion = SystemProperties.get("ro.carbon.version");
+            String carbonOldVersion = "unset";
+            try {
+                listFilesInDataSystem();
+                carbonOldVersion = FileUtils.readTextFile(carbonOldVersionFile, 0, null);
+            } catch (IOException e) {
+                // if the package cache is existing, we know encryption is done.
+                // If thats the case, we have an error.
+                final File packageCache = new File(Environment.getDataSystemDirectory(),
+                    "package_cache");
+                if (!packageCache.exists()) {
+                    carbonOldVersion = carbonVersion;
+                } else {
+                    logCriticalInfo(Log.INFO, "Error reading "
+                            + carbonOldVersionFile + ": " + e.getMessage());
+                }
+            }
+            final boolean isCarbonUpgrade = !carbonVersion.equals(carbonOldVersion);
+            mIsUpgrade = !Build.FINGERPRINT.equals(ver.fingerprint) || isCarbonUpgrade;
             if (mIsUpgrade) {
-                logCriticalInfo(Log.INFO,
-                        "Upgrading from " + ver.fingerprint + " to " + Build.FINGERPRINT);
+                if (isCarbonUpgrade) {
+                    try {
+                        FileUtils.stringToFile(carbonOldVersionFile, carbonVersion);
+                    } catch (IOException e) {
+                        logCriticalInfo(Log.INFO, "Error writing "
+                            + carbonOldVersionFile + ": " + e.getMessage());
+                    }
+                    logCriticalInfo(Log.INFO,
+                            "Upgrading from " + carbonOldVersion + " to " + carbonVersion);
+                    logCriticalInfo(Log.INFO,
+                            "Upgrading from " + ver.fingerprint + " to " + Build.FINGERPRINT);
+                } else {
+                    logCriticalInfo(Log.INFO,
+                            "Upgrading from " + ver.fingerprint + " to " + Build.FINGERPRINT);
+                }
             }
 
             // when upgrading from pre-M, promote system app permissions from install to runtime
@@ -3131,6 +3166,18 @@ public class PackageManagerService extends IPackageManager.Stub
         Trace.traceEnd(TRACE_TAG_PACKAGE_MANAGER);
     }
 
+    private static void listFilesInDataSystem() {
+        final File carbonOldVersionDir = Environment.getDataSystemDirectory();
+        final File[] listOfFiles = carbonOldVersionDir.listFiles();
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (listOfFiles[i].isFile()) {
+                logCriticalInfo(Log.INFO,"File " + listOfFiles[i].getName());
+            } else if (listOfFiles[i].isDirectory()) {
+                logCriticalInfo(Log.INFO,"Directory " + listOfFiles[i].getName());
+            }
+        }
+    }
+
     /**
      * Uncompress and install stub applications.
      * <p>In order to save space on the system partition, some applications are shipped in a
@@ -3366,6 +3413,8 @@ public class PackageManagerService extends IPackageManager.Stub
         if (cacheBaseDir == null) {
             return null;
         }
+
+        listFilesInDataSystem();
 
         // If this is a system upgrade scenario, delete the contents of the package cache dir.
         // This also serves to "GC" unused entries when the package cache version changes (which
