@@ -777,6 +777,9 @@ public class PackageManagerService extends IPackageManager.Stub
     @GuardedBy("mPackages")
     final SparseArray<Map<String, Integer>> mChangedPackagesSequenceNumbers = new SparseArray<>();
 
+    private final String CARBON_VERSION = "ro.carbon.version";
+    private final String CARBON_OLD_VERSION = "persist.sys.old.carbon.version";
+
     class PackageParserCallback implements PackageParser.Callback {
         @Override public final boolean hasFeature(String feature) {
             return PackageManagerService.this.hasSystemFeature(feature, 0);
@@ -2573,6 +2576,10 @@ public class PackageManagerService extends IPackageManager.Stub
             if (mIsUpgrade) {
                 logCriticalInfo(Log.INFO,
                         "Upgrading from " + ver.fingerprint + " to " + Build.FINGERPRINT);
+            } else {
+                mIsUpgrade = !SystemProperties.get(CARBON_VERSION).equals(SystemProperties.get(CARBON_OLD_VERSION));
+                if (mIsUpgrade)
+                    SystemProperties.set(CARBON_OLD_VERSION, SystemProperties.get(CARBON_VERSION));
             }
 
             // when upgrading from pre-M, promote system app permissions from install to runtime
