@@ -2568,10 +2568,41 @@ public class PackageManagerService extends IPackageManager.Stub
             File frameworkDir = new File(Environment.getRootDirectory(), "framework");
 
             final VersionInfo ver = mSettings.getInternalVersion();
-            mIsUpgrade = !Build.FINGERPRINT.equals(ver.fingerprint);
+
+            final File carbonOldVersionFile = new File(Environment.getDataSystemDirectory(),
+                "old_carbon_version.txt");
+            final String carbonVersion = SystemProperties.get("ro.carbon.version");
+            String carbonOldVersion = "unset";
+            try {
+                carbonOldVersion = FileUtils.readTextFile(carbonOldVersionFile, 0, null);
+            } catch (IOException e) {
+                // if the package cache is existing, we know encryption is done.
+                // If thats the case, we have an error.
+                final File packageCache = new File(Environment.getDataSystemDirectory(),
+                    "package_cache");
+                if (!packageCache.exists()) {
+                    carbonOldVersion = carbonVersion;
+                } else {
+                    logCriticalInfo(Log.INFO, "Error reading "
+                            + carbonOldVersionFile + ": " + e.getMessage());
+                }
+            }
+            final boolean isCarbonUpgrade = !carbonVersion.equals(carbonOldVersion);
+            mIsUpgrade = !Build.FINGERPRINT.equals(ver.fingerprint) || isCarbonUpgrade;
             if (mIsUpgrade) {
-                logCriticalInfo(Log.INFO,
-                        "Upgrading from " + ver.fingerprint + " to " + Build.FINGERPRINT);
+                if (isCarbonUpgrade || mFirstBoot) {
+                    try {
+                        FileUtils.stringToFile(carbonOldVersionFile, carbonVersion);
+                    } catch (IOException e) {
+                        logCriticalInfo(Log.INFO, "Error writing "
+                            + carbonOldVersionFile + ": " + e.getMessage());
+                    }
+                    logCriticalInfo(Log.INFO,
+                            "Upgrading from " + carbonOldVersion + " to " + carbonVersion);
+                } else {
+                    logCriticalInfo(Log.INFO,
+                            "Upgrading from " + ver.fingerprint + " to " + Build.FINGERPRINT);
+                }
             }
 
             // when upgrading from pre-M, promote system app permissions from install to runtime
