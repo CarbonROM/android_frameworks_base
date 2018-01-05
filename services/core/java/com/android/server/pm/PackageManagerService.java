@@ -312,6 +312,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FilenameFilter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -2569,10 +2570,35 @@ public class PackageManagerService extends IPackageManager.Stub
             File frameworkDir = new File(Environment.getRootDirectory(), "framework");
 
             final VersionInfo ver = mSettings.getInternalVersion();
-            mIsUpgrade = !Build.FINGERPRINT.equals(ver.fingerprint);
+
+            final File carbonOldVersionFile = new File(Environment.getDataSystemDirectory() +
+                "old_carbon_version");
+            final String carbonVersion = SystemProperties.get("ro.carbon.version");
+            String carbonOldVersion = "";
+            if (carbonOldVersionFile.exists()) {
+                try {
+                    carbonOldVersion = FileUtils.readTextFile(carbonOldVersionFile, 0, null);
+                } catch (IOException e) {
+                    Slog.e(TAG, "Failed to read old Carbon Version: " + e.getMessage());
+                }
+            }
+            final boolean isCarbonUpgrade = !carbonVersion.equals(carbonOldVersion);
+            mIsUpgrade = !Build.FINGERPRINT.equals(ver.fingerprint) || isCarbonUpgrade;
             if (mIsUpgrade) {
-                logCriticalInfo(Log.INFO,
-                        "Upgrading from " + ver.fingerprint + " to " + Build.FINGERPRINT);
+                if (isCarbonUpgrade) {
+                    try {
+                        FileWriter carbonWriter = new FileWriter(carbonOldVersionFile);
+                        carbonWriter.write(carbonVersion);
+                        carbonWriter.close();
+                    } catch (IOException e) {
+                        Slog.e(TAG, "Failed to write old Carbon Version: " + e.getMessage());
+                    }
+                    logCriticalInfo(Log.INFO,
+                            "Upgrading from " + carbonOldVersion + " to " + carbonVersion);
+                } else {
+                    logCriticalInfo(Log.INFO,
+                            "Upgrading from " + ver.fingerprint + " to " + Build.FINGERPRINT);
+                }
             }
 
             // when upgrading from pre-M, promote system app permissions from install to runtime
