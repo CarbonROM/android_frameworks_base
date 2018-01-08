@@ -4227,6 +4227,13 @@ public final class Settings {
          */
         public static final String QUICK_SETTINGS_REBOOT_OPTIONS = "quick_settings_reboot_options";
 
+        /*
+         * 0 - fullscreen
+         * 1 - partial
+         * @hide
+         */
+        public static final String SCREENSHOT_DEFAULT_MODE = "screenshot_default_mode";
+
         /**
          * @hide
          */
