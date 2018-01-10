@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4779d9e2_e2595f69",
+        "filename": "packages/SystemUI/src/com/google/android/systemui/ambientmusic/AmbientIndicationContainer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 4
+      },
+      "writtenOn": "2018-01-10T21:31:39Z",
+      "side": 1,
+      "message": "we should add some debugging here and make sure that mText is not null.",
+      "revId": "c91cd29ba8845ba45eb7a4285c52153ce57d44ac",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab8274a0_b63a40cb",
+        "filename": "packages/SystemUI/src/com/google/android/systemui/ambientmusic/AmbientIndicationContainer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 4
+      },
+      "writtenOn": "2018-01-10T21:31:39Z",
+      "side": 1,
+      "message": "figure out which call of updateColors is the one that crashes. maybe add a log line here.",
+      "revId": "c91cd29ba8845ba45eb7a4285c52153ce57d44ac",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e83317d_540cc340",
+        "filename": "packages/SystemUI/src/com/google/android/systemui/ambientmusic/AmbientIndicationContainer.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 4
+      },
+      "writtenOn": "2018-01-10T21:31:39Z",
+      "side": 1,
+      "message": "and another log here, to see which one it is.",
+      "revId": "c91cd29ba8845ba45eb7a4285c52153ce57d44ac",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081",
+      "unresolved": false
+    }
+  ]
+}
