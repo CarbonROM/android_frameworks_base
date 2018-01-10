@@ -22,4 +22,7 @@
     <string name="global_action_settings">Settings</string>
     <string name="global_action_screenshot">Screenshot</string>
     <string name="global_action_flashlight">Flashlight</string>
+
+    <!-- Google SystemUI -->
+    <string name="config_systemUIFactoryComponent">com.android.systemui.SystemUIFactory</string>
 </resources>
