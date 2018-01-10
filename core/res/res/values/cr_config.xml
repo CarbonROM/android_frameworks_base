@@ -47,4 +47,7 @@
   <!-- Whether the device supports Smart Pixels -->
   <bool name="config_enableSmartPixels">false</bool>
 
+  <!-- Flashlight proximity check -->
+  <integer name="config_flashlightProximityTimeout">300</integer>
+
 </resources>
