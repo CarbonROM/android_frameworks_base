@@ -45,4 +45,6 @@
     <!-- If this is true, key chords can be used to take a screen record on the device. -->
     <bool name="config_enableScreenrecordChord">true</bool>
 
+    <integer name="config_flashlightProximityTimeout">300</integer>
+
 </resources>
