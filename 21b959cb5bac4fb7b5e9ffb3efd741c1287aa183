@@ -1,4 +1,22 @@
 {
   "pushCert": "certificate version 0.1\npusher 6BA3F93C 1515630824 -0500\npushee ssh://review.carbonrom.org:29418/CarbonROM/android_frameworks_base\nnonce 1515630825-26CEB50A505F5AD53A07B2F95741A83549D0050B\n\n0000000000000000000000000000000000000000 21b959cb5bac4fb7b5e9ffb3efd741c1287aa183 refs/for/cr-6.1\n-----BEGIN PGP SIGNATURE-----\nVersion: GnuPG v1\n\niQEcBAABAgAGBQJaVrDoAAoJEGGzPpFro/k8iLMIAI4tvkiLZaZv9N/1DAf0hZuI\nbuEmxbPHzeIa2CN7gN1zu3g/VzGxBpNRZNu/hRUvQ0z7LWez62/DnTNnFIzW0uHb\nzfhfInpihtodWwwzU6oRcwHRuvGmTWk/o313fSNJwEYRtsxfPu0leDNPts4im6Dt\nK+3gJQtuOiAX7vlia1d/hB1t5eL2ZaQfAOLBcM2Jkl3VKcIY7j7Osw8SoQNJ3TI1\nL/AEeLDwDi0X2o2lypj6a6OBIv0AvjbruyXIcG2rqFQeh29FsBzbMeTFMnmDwKie\nux8Sgl3oddMSStwtKYebi0nFGTMcAgGNlSlIcQ+8lNoh3qs+tsMrCuxy21P0bJw\u003d\n\u003dED2/\n-----END PGP SIGNATURE-----\n",
-  "comments": []
+  "comments": [
+    {
+      "key": {
+        "uuid": "91ea5bcd_66c9843d",
+        "filename": "core/java/android/nfc/INfcAdapter.aidl",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 37
+      },
+      "writtenOn": "2018-01-11T00:36:03Z",
+      "side": 1,
+      "message": "Need to find what this is for",
+      "revId": "21b959cb5bac4fb7b5e9ffb3efd741c1287aa183",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081",
+      "unresolved": false
+    }
+  ]
 }
