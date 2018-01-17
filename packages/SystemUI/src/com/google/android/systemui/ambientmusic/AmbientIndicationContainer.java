@@ -20,7 +20,6 @@ import android.util.Log;
 
 import com.android.systemui.AutoReinflateContainer;
 import com.android.systemui.Interpolators;
-import com.android.systemui.doze.DozeReceiver;
 import com.android.systemui.R;
 import com.android.systemui.statusbar.phone.DoubleTapHelper;
 import com.android.systemui.statusbar.phone.NotificationPanelView;
@@ -33,11 +32,12 @@ import com.google.android.systemui.ambientmusic.AmbientIndicationTouchListener;
 import com.google.android.systemui.ambientmusic.AmbientIndicationInflateListener;
 import com.google.android.systemui.ambientmusic.AmbientIndicationActivationListener;
 import com.google.android.systemui.ambientmusic.AmbientIndicationDoubleTapListener;
+import com.google.android.systemui.ambientmusic.AmbientIndicationDozeReceiver;
 
 public class AmbientIndicationContainer
-extends AutoReinflateContainer
-implements DozeReceiver {
+extends AutoReinflateContainer {
     private View mAmbientIndication;
+    private AmbientIndicationDozeReceiver mDozeReceiver;
     private DoubleTapHelper mDoubleTapHelper;
     private boolean mDozing;
     private ImageView mIcon;
@@ -109,6 +109,8 @@ implements DozeReceiver {
         this.mStatusBar = statusBar;
         this.addInflateListener(new AmbientIndicationInflateListener(this));
         this.addOnLayoutChangeListener((View.OnLayoutChangeListener)new AmbientIndicationLayoutChangeListener(this));
+        this.mDozeReceiver = new AmbientIndicationDozeReceiver(this);
+        this.mDozing = false;
         Log.d(TAG, "Initialized view");
     }
 
@@ -148,8 +150,7 @@ implements DozeReceiver {
         this.mIcon.setColorFilter(n);
     }
 
-    @Override
-    public void setDozing(boolean bl) {
+    public void updateDozing(boolean bl) {
         this.mDozing = bl;
         this.updateColors();
     }
