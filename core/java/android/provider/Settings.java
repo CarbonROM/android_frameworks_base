@@ -10133,6 +10133,13 @@ public final class Settings {
         /** @hide */ public static final int HEADS_UP_ON = 1;
 
         /**
+         * Whether the system should theme based on the wallpaper.
+         *
+         * @hide
+         */
+        public static final String AUTO_THEME = "auto_theme";
+
+        /**
          * The name of the device
          */
         public static final String DEVICE_NAME = "device_name";

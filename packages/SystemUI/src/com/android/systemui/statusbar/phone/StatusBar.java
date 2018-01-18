@@ -740,6 +740,7 @@ public class StatusBar extends SystemUI implements DemoMode,
     private BatteryController mBatteryController;
     protected boolean mPanelExpanded;
     private IOverlayManager mOverlayManager;
+    private boolean mAutoTheme;
     private boolean mKeyguardRequested;
     private boolean mIsKeyguard;
     private LogMaker mStatusBarStateLog;
@@ -800,6 +801,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         mSystemServicesProxy = SystemServicesProxy.getInstance(mContext);
         mOverlayManager = IOverlayManager.Stub.asInterface(
                 ServiceManager.getService(Context.OVERLAY_SERVICE));
+        mAutoTheme = true;
 
         mColorExtractor = Dependency.get(SysuiColorExtractor.class);
         mColorExtractor.addOnColorsChangedListener(this);
@@ -2882,14 +2884,18 @@ public class StatusBar extends SystemUI implements DemoMode,
     }
 
     public boolean isUsingDarkTheme() {
-        OverlayInfo themeInfo = null;
+        List<OverlayInfo> themeInfo = null;
         try {
-            themeInfo = mOverlayManager.getOverlayInfo("com.android.systemui.theme.dark",
+            themeInfo = mOverlayManager.getOverlayInfosForTarget("android",
                     mCurrentUserId);
+            for(OverlayInfo info : themeInfo) {
+                if(info.packageName.contains("noct") && info.isEnabled())
+                     return true;
+            }
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        return themeInfo != null && themeInfo.isEnabled();
+        return false;
     }
 
     @Nullable
@@ -4674,11 +4680,13 @@ public class StatusBar extends SystemUI implements DemoMode,
         // The system wallpaper defines if QS should be light or dark.
         WallpaperColors systemColors = mColorExtractor
                 .getWallpaperColors(WallpaperManager.FLAG_SYSTEM);
-        final boolean useDarkTheme = systemColors != null
-                && (systemColors.getColorHints() & WallpaperColors.HINT_SUPPORTS_DARK_THEME) != 0;
-        if (isUsingDarkTheme() != useDarkTheme) {
+        if (mAutoTheme && systemColors != null) {
             try {
-                mOverlayManager.setEnabled("com.android.systemui.theme.dark",
+                final boolean useDarkTheme = !isUsingDarkTheme()
+                        && (systemColors.getColorHints() & WallpaperColors.HINT_SUPPORTS_DARK_THEME) != 0;
+                mOverlayManager.setEnabled("org.carbonrom.lux",
+                        !useDarkTheme, mCurrentUserId);
+                mOverlayManager.setEnabled("org.carbonrom.noct",
                         useDarkTheme, mCurrentUserId);
             } catch (RemoteException e) {
                 Log.w(TAG, "Can't change theme", e);
@@ -4692,12 +4700,10 @@ public class StatusBar extends SystemUI implements DemoMode,
         final int themeResId = lockDarkText ? R.style.Theme_SystemUI_Light : R.style.Theme_SystemUI;
         if (mContext.getThemeResId() != themeResId) {
             mContext.setTheme(themeResId);
-            if (inflated) {
-                reinflateViews();
-            }
         }
 
         if (inflated) {
+            reinflateViews();
             int which;
             if (mState == StatusBarState.KEYGUARD || mState == StatusBarState.SHADE_LOCKED) {
                 which = WallpaperManager.FLAG_LOCK;
@@ -4711,6 +4717,10 @@ public class StatusBar extends SystemUI implements DemoMode,
             // Make sure we have the correct navbar/statusbar colors.
             mStatusBarWindowManager.setKeyguardDark(useDarkText);
         }
+    }
+
+    private void setAutoTheme(boolean auto) {
+        mAutoTheme = auto;
     }
 
     private void updateDozingState() {
@@ -5820,8 +5830,11 @@ public class StatusBar extends SystemUI implements DemoMode,
             final int mode = Settings.Global.getInt(mContext.getContentResolver(),
                     Settings.Global.ZEN_MODE, Settings.Global.ZEN_MODE_OFF);
             setZenMode(mode);
-
             updateLockscreenNotificationSetting();
+
+            final boolean dark = Settings.Global.getInt(mContext.getContentResolver(),
+                    Settings.Global.AUTO_THEME, 1) != 0;
+            setAutoTheme(dark);
         }
     };
 
