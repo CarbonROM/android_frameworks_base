@@ -254,7 +254,11 @@ cc_library {
         // If enabled, every GLES call is wrapped & error checked
         // Has moderate overhead
         "hwui_enable_opengl_validation",
-],
+    ],
+
+    lto: {
+        thin: true,
+    },
 }
 
 // ------------------------
