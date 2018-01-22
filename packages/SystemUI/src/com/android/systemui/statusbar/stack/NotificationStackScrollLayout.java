@@ -3067,6 +3067,8 @@ public class NotificationStackScrollLayout extends ViewGroup
             }
             if (!childWasSwipedOut) {
                 Rect clipBounds = child.getClipBounds();
+                if (clipBounds != null)
+                    continue;
                 childWasSwipedOut = clipBounds.height() == 0;
             }
             int animationType = childWasSwipedOut
