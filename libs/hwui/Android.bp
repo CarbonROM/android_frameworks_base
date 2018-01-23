@@ -254,7 +254,13 @@ cc_library {
         // If enabled, every GLES call is wrapped & error checked
         // Has moderate overhead
         "hwui_enable_opengl_validation",
-],
+    ],
+
+    pgo: {
+        instrumentation: true,
+        profile_file: "hwui/hwui.profdata",
+        benchmarks: ["hwui"],
+    },
 }
 
 // ------------------------
