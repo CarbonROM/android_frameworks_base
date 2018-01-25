@@ -4082,6 +4082,13 @@ public final class Settings {
          * @hide
          */
         public static final String QS_LAYOUT_ROWS = "qs_layout_rows";
+         * Wheter to play notification sound and vibration if screen is ON
+         * 0 - never
+         * 1 - always
+         * 2 - if media playing
+         * @hide
+         */
+        public static final String NOTIFICATION_SOUND_VIB_SCREEN_ON = "notification_sound_vib_screen_on";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
