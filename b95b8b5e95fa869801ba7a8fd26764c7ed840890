@@ -1,0 +1,4 @@
+{
+  "pushCert": "certificate version 0.1\npusher 58AD3CDACC488923 1516851188 -0500\npushee ssh://review.carbonrom.org:29418/CarbonROM/android_frameworks_base\nnonce 1516851190-3AF918DB3AA9CDAA80969D3F408627FA12CD6344\n\n0000000000000000000000000000000000000000 bf4828a3a3d43ca33345a121e423cc2d5c5dfe5f refs/drafts/cr-6.1/music_stream\n-----BEGIN PGP SIGNATURE-----\n\niQEzBAABCAAdFiEEYQVPO71c7y9uUbTUWK082sxIiSMFAlppT/QACgkQWK082sxI\niSO/ggf+P5JPgPknDhIy4owp8pFLRkDTeIcIFooj8FcXr308WUp6JMyza+vkkV1F\nI7nsqqhu9XV1Zx5goJZkjcJlnwXlEHdZZeb+4+z2b9nCBx8RGz8gwWKPSNWsXfup\nWvxvkg9b9/RtqqDj6gWAdXse5+O3K/iKUXSxsutqyPQA75p77IRYUr8VR+j+1UJ2\n8oczY0zXaaXqMj1BggDEFsIZm2ihcbDRbrmDXgrx5FCsjEvy4DSrvKR3SiuvaWAF\nfIUwwn6UQn7ZmTRBYIqO+aNzLjDT+xLaIrM1qqk20eUq8p1O30uFHjFqMVz9sc98\nxsYJaEE0TPCY4Eo8HUZv8/q/PY8BbQ\u003d\u003d\n\u003dYRKt\n-----END PGP SIGNATURE-----\n",
+  "comments": []
+}
