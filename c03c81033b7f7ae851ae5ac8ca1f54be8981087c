@@ -1,4 +1,28 @@
 {
   "pushCert": "certificate version 0.1\npusher Adin Kwok \u003cadin.kwok@carbonrom.org\u003e 1516826441 +0000\npushee ssh://review.carbonrom.org:29418/CarbonROM/android_frameworks_base\nnonce 1516826443-39DEFEEE7CB690F4E3762DF3099E3BB390F3BDD3\n\n0000000000000000000000000000000000000000 c03c81033b7f7ae851ae5ac8ca1f54be8981087c refs/for/cr-6.1\n-----BEGIN PGP SIGNATURE-----\nVersion: GnuPG v1\n\niJwEAAECAAYFAlpo70kACgkQZ9dXR3SZl5i5lwP7Bq1K1182vOVRRDwbYMzsd3kn\nyC5VlTObpfCrmu6Gh/dSEahS9DG6B5+6g7M2FOG+Gm7r1oC2oC0l3lQuQWHi/pNl\n/vg4I7pvaDlkM38gcqUXc2+JhosnyflNxTdRoVykRsGxLL0vh0J0HeiAd/vKTX68\nCahkX4HYny4sFuhK5WU\u003d\n\u003dJUJQ\n-----END PGP SIGNATURE-----\n",
-  "comments": []
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f2cbbcb_beb69b37",
+        "filename": "packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 22
+      },
+      "writtenOn": "2018-01-25T04:29:25Z",
+      "side": 1,
+      "message": "this is on by default but the toggle isn\u0027t.. so first boot it\u0027s on but toggle is \u0027off\u0027 - toggling it on and then off does properly turn it off but it should match",
+      "range": {
+        "startLine": 372,
+        "startChar": 56,
+        "endLine": 372,
+        "endChar": 90
+      },
+      "revId": "c03c81033b7f7ae851ae5ac8ca1f54be8981087c",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081",
+      "unresolved": false
+    }
+  ]
 }
