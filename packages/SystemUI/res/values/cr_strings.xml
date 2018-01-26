@@ -56,4 +56,7 @@
     <string name="lockscreen_tuner_activity">Lock screen shortcuts</string>
     <string name="powernotif_tuner_activity">Power notifications</string>
 
+    <!-- Carbon QS tile -->
+    <string name="quick_settings_carbon_label">Carbon</string>
+    <string name="quick_settings_carbon_toast">#blamepatrick</string>
 </resources>
