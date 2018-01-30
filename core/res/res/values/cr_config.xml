@@ -118,4 +118,7 @@
        this value will apply on Launcher3 quickstep view and also the normal recents -->
   <dimen name="recents_task_view_rounded_corners_radius">2.0dip</dimen>
 
+  <!-- Whether auto face unlock is enabled by default -->
+  <bool name="config_autoFaceUnlockEnabledByDefault">false</bool>
+
 </resources>
