@@ -4136,10 +4136,16 @@ public final class Settings {
         public static final String SCREENRECORD_QUALITY_MODE = "screenrecord_quality_mode";
 
         /**
-         * Whether to show the notification ticker on the status bar
+         * Choice between no notifications, heads up, ticker, heads up & ticker
          * @hide
          */
-        public static final String STATUS_BAR_SHOW_TICKER = "status_bar_show_ticker";
+        public static final String STATUS_BAR_NOTIFICATION_STYLE = "status_bar_notification_style";
+
+        /**
+         * Whether to show the music info on the status bar with ticker
+         * @hide
+         */
+        public static final String STATUS_BAR_MUSIC_TICKER = "status_bar_music_ticker";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
