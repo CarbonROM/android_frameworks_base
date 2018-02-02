@@ -69,7 +69,9 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     private DarkIconManager mDarkIconManager;
     private SignalClusterView mSignalClusterView;
 
-    private int mTickerEnabled;
+    private int mNotificationStyle;
+    private boolean mHeadsUpEnabled;
+    private boolean mTickerEnabled;
     private TickerObserver mTickerObserver;
     private ContentResolver mContentResolver;
     private View mTickerViewFromStub;
@@ -104,17 +106,18 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
 
         protected void observe() {
             super.observe();
-            getContext().getContentResolver().registerContentObserver(
-                    Settings.System.getUriFor(Settings.System.STATUS_BAR_SHOW_TICKER), false, this,
-                    UserHandle.USER_ALL);
+            mContentResolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_NOTIFICATION_STYLE),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
         protected void update() {
-            mTickerEnabled = Settings.System.getIntForUser(mContentResolver,
-                    Settings.System.STATUS_BAR_SHOW_TICKER, 1,
+            mNotificationStyle = Settings.System.getIntForUser(mContentResolver,
+                    Settings.System.STATUS_BAR_NOTIFICATION_STYLE, 1,
                     UserHandle.USER_CURRENT);
             initTickerView();
+            initHeadsUpView();
         }
     }
 
@@ -317,7 +320,8 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     }
 
     private void initTickerView() {
-        if (mTickerEnabled != 0) {
+        mTickerEnabled = mNotificationStyle == 2 || mNotificationStyle == 3;
+        if (mTickerEnabled) {
             View tickerStub = mStatusBar.findViewById(R.id.ticker_stub);
             if (mTickerViewFromStub == null && tickerStub != null) {
                 mTickerViewFromStub = ((ViewStub) tickerStub).inflate();
@@ -329,5 +333,10 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         } else {
             mStatusBarComponent.disableTicker();
         }
+    }
+
+    private void initHeadsUpView() {
+        mHeadsUpEnabled = mNotificationStyle == 1 || mNotificationStyle == 3;
+        mStatusBarComponent.toggleHeadsUp(mHeadsUpEnabled);
     }
 }
