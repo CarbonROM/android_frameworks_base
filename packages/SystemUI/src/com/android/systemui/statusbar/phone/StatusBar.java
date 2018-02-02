@@ -496,9 +496,12 @@ public class StatusBar extends SystemUI implements DemoMode,
     int mTrackingPosition; // the position of the top of the tracking view.
 
     // status bar notification ticker
-    private int mTickerEnabled;
+    private boolean mTickerEnabled;
     private Ticker mTicker;
     private boolean mTicking;
+
+    // status bar music ticker
+    private int mMusicTickerEnabled;
 
     // Tracking finger for opening/closing.
     boolean mTracking;
@@ -630,7 +633,8 @@ public class StatusBar extends SystemUI implements DemoMode,
             if (DEBUG_MEDIA) Log.v(TAG, "DEBUG_MEDIA: onMetadataChanged: " + metadata);
             mMediaMetadata = metadata;
             updateMediaMetaData(true, true);
-            if (mTickerEnabled == 2) {
+            if (Settings.System.getInt(mContext.getContentResolver(),
+                    Settings.System.STATUS_BAR_MUSIC_TICKER, 0) == 1) {
                 tickTrackInfo();
             }
         }
@@ -1654,7 +1658,7 @@ public class StatusBar extends SystemUI implements DemoMode,
     }
 
     public void createTicker(
-            int tickerMode, Context ctx, View statusBarView, TickerView tickerTextView, ImageSwitcher tickerIcon, View tickerView) {
+            boolean tickerMode, Context ctx, View statusBarView, TickerView tickerTextView, ImageSwitcher tickerIcon, View tickerView) {
         mTickerEnabled = tickerMode;
         if (mTicker == null) {
             mTicker = new MyTicker(ctx, statusBarView);
@@ -1665,7 +1669,13 @@ public class StatusBar extends SystemUI implements DemoMode,
     }
 
     public void disableTicker() {
-        mTickerEnabled = 0;
+        mTickerEnabled = false;
+    }
+
+    public void toggleHeadsUp(boolean headsUpEnabled) {
+        Settings.Global.putInt(mContext.getContentResolver(),
+                Settings.Global.HEADS_UP_NOTIFICATIONS_ENABLED,
+                headsUpEnabled ? Settings.Global.HEADS_UP_ON : Settings.Global.HEADS_UP_OFF);
     }
 
     public int getStatusBarHeight() {
@@ -1913,7 +1923,7 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         if (old != null) {
             // Cancel the ticker if it's still running
-            if (mTickerEnabled != 0) {
+            if (mTickerEnabled) {
                 try {
                     mTicker.removeEntry(old);
                 } catch (Exception e) {}
@@ -3632,7 +3642,7 @@ public class StatusBar extends SystemUI implements DemoMode,
     }
 
     private void tick(StatusBarNotification n, boolean firstTime, boolean isMusic, MediaMetadata metaMediaData) {
-        if (mTicker == null || mTickerEnabled == 0) return;
+        if (mTicker == null || !mTickerEnabled) return;
 
         // no ticking on keyguard, we have carrier name in the statusbar
         if (isKeyguardShowing() || isDozing()) return;
@@ -3666,8 +3676,8 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         MyTicker(Context context, View sb) {
             super(context, sb);
-            if (mTickerEnabled == 0) {
-                Log.w(TAG, "MyTicker instantiated with mTickerEnabled=0", new Throwable());
+            if (!mTickerEnabled) {
+                Log.w(TAG, "MyTicker instantiated with mTickerEnabled = false", new Throwable());
             }
         }
 
@@ -3677,7 +3687,7 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         @Override
         public void tickerStarting() {
-            if (mTicker == null || mTickerEnabled == 0) return;
+            if (mTicker == null || !mTickerEnabled) return;
             mTicking = true;
             mStatusBarContent.setVisibility(View.GONE);
             mStatusBarContent.startAnimation(loadAnim(true, null));
@@ -3689,7 +3699,7 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         @Override
         public void tickerDone() {
-            if (mTicker == null || mTickerEnabled == 0) return;
+            if (mTicker == null || mTickerEnabled < 2) return;
             mStatusBarContent.setVisibility(View.VISIBLE);
             mStatusBarContent.startAnimation(loadAnim(false, null));
             if (mTickerView != null) {
@@ -3700,7 +3710,7 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         @Override
         public void tickerHalting() {
-            if (mTicker == null || mTickerEnabled == 0) return;
+            if (mTicker == null || mTickerEnabled < 2) return;
             if (mStatusBarContent.getVisibility() != View.VISIBLE) {
                 mStatusBarContent.setVisibility(View.VISIBLE);
                 mStatusBarContent
@@ -3743,7 +3753,7 @@ public class StatusBar extends SystemUI implements DemoMode,
     }
 
     private void haltTicker() {
-        if (mTicker != null && mTickerEnabled != 0) {
+        if (mTicker != null && mTickerEnabled) {
             mTicker.halt();
         }
     }
@@ -3760,7 +3770,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             pw.println("  mExpandedVisible=" + mExpandedVisible
                     + ", mTrackingPosition=" + mTrackingPosition);
             pw.println("  mTickerEnabled=" + mTickerEnabled);
-            if (mTickerEnabled != 0) {
+            if (mTickerEnabled) {
                 pw.println("  mTicking=" + mTicking);
             }
             pw.println("  mTracking=" + mTracking);
@@ -5924,7 +5934,7 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         @Override
         public void onDoubleTap(float screenX, float screenY) {
-            if (screenX > 0 && screenY > 0 && mAmbientIndicationContainer != null 
+            if (screenX > 0 && screenY > 0 && mAmbientIndicationContainer != null
                 && mAmbientIndicationContainer.getVisibility() == View.VISIBLE) {
                 mAmbientIndicationContainer.getLocationOnScreen(mTmpInt2);
                 float viewX = screenX - mTmpInt2[0];
@@ -6128,16 +6138,27 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         void observe() {
             ContentResolver resolver = mContext.getContentResolver();
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_MUSIC_TICKER),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
         public void onChange(boolean selfChange, Uri uri) {
-
+            if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_MUSIC_TICKER))) {
+            updateMusicTickerSettings();
+            }
         }
 
         public void update() {
-
+            updateMusicTickerSettings();
         }
+    }
+
+    private void updateMusicTickerSettings() {
+        boolean mMusicTickerEnabled = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_MUSIC_TICKER, 0, UserHandle.USER_CURRENT) == 1;
     }
 
     private RemoteViews.OnClickHandler mOnClickHandler = new RemoteViews.OnClickHandler() {
@@ -7893,3 +7914,4 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
     };
 }
+
