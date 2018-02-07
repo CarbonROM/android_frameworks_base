@@ -3976,12 +3976,6 @@ public final class Settings {
         public static final String DOUBLE_TAP_SLEEP_ANYWHERE = "double_tap_sleep_anywhere";
 
         /**
-         * whether to enable torch on lockscreen
-         * @hide
-         */
-        public static final String KEYGUARD_TOGGLE_TORCH = "keyguard_toggle_torch";
-
-        /**
          * Screenshod sound enable, This is the noise made when taeking a screesnhot
          * Defaults to 1 - sounds enabled
          * @hide
