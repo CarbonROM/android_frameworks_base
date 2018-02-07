@@ -3,6 +3,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "7336d876_6523b220",
+        "filename": "packages/SystemUI/src/com/android/systemui/statusbar/phone/StatusBar.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1647,
+      "author": {
+        "id": 4
+      },
+      "writtenOn": "2018-02-07T20:43:28Z",
+      "side": 1,
+      "message": "shouldnt this be \u003e\u003d 2?",
+      "revId": "7bc4df97e68c9dd6ccdfa8baa1c56139e18f1c87",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "82e6649f_015cf87e",
         "filename": "packages/SystemUI/src/com/android/systemui/statusbar/phone/StatusBar.java",
         "patchSetId": 4
