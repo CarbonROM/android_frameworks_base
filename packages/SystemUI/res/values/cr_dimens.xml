@@ -31,4 +31,6 @@
     <!-- Battery Stuff -->
     <dimen name="battery_level_padding_start_no_icon">0dp</dimen>
 
+    <!-- Clock Customization -->
+    <dimen name="status_bar_left_clock_end_padding">5dp</dimen>
 </resources>
