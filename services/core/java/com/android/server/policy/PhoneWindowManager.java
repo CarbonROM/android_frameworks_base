@@ -805,6 +805,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
     private int mCurrentUserId;
     private boolean haveEnableGesture = false;
+    private int[] haveEnabledCarbonGestures = new int[4];
 
     // Maps global key codes to the components that will handle them.
     private GlobalKeyManager mGlobalKeyManager;
@@ -1093,6 +1094,21 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.TORCH_POWER_BUTTON_GESTURE), false, this,
                     UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.CARBON_CUSTOM_GESTURE_FINGERS), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.CARBON_CUSTOM_GESTURE_RIGHT), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.CARBON_CUSTOM_GESTURE_LEFT), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.CARBON_CUSTOM_GESTURE_UP), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.CARBON_CUSTOM_GESTURE_DOWN), false, this,
+                    UserHandle.USER_ALL);
             updateSettings();
         }
 
@@ -1187,6 +1203,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
     private SystemGesturesPointerEventListener mSystemGestures;
     private OPGesturesListener mOPGestures;
+    private CarbonGesturesListener mCarbonGesturesRight;
+    private CarbonGesturesListener mCarbonGesturesLeft;
+    private CarbonGesturesListener mCarbonGesturesUp;
+    private CarbonGesturesListener mCarbonGesturesDown;
 
     IStatusBarService getStatusBarService() {
         synchronized (mServiceAquireLock) {
@@ -2013,6 +2033,44 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         return mContext.getResources().getConfiguration().isScreenRound();
     }
 
+    private static void triggerVirtualKeypress(Context context, final int keyCode) {
+        final InputManager im = InputManager.getInstance();
+        final long now = SystemClock.uptimeMillis();
+        int downflags = 0;
+
+        if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT
+                || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT
+                || keyCode == KeyEvent.KEYCODE_DPAD_UP
+                || keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+            downflags = KeyEvent.FLAG_SOFT_KEYBOARD | KeyEvent.FLAG_KEEP_TOUCH_MODE;
+        } else {
+            downflags = KeyEvent.FLAG_FROM_SYSTEM;
+        }
+
+        final KeyEvent downEvent = new KeyEvent(now, now, KeyEvent.ACTION_DOWN,
+                keyCode, 0, 0, KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
+                downflags, InputDevice.SOURCE_KEYBOARD);
+        final KeyEvent upEvent = KeyEvent.changeAction(downEvent, KeyEvent.ACTION_UP);
+        final Handler handler = new Handler(Looper.getMainLooper());
+
+        final Runnable downRunnable = new Runnable() {
+            @Override
+            public void run() {
+                im.injectInputEvent(downEvent, InputManager.INJECT_INPUT_EVENT_MODE_ASYNC);
+            }
+        };
+
+        final Runnable upRunnable = new Runnable() {
+            @Override
+            public void run() {
+                im.injectInputEvent(upEvent, InputManager.INJECT_INPUT_EVENT_MODE_ASYNC);
+            }
+        };
+
+        handler.post(downRunnable);
+        handler.postDelayed(upRunnable, 10);
+    }
+
     /** {@inheritDoc} */
     @Override
     public void init(Context context, IWindowManager windowManager,
@@ -2370,6 +2428,46 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
     }
 
+    private CarbonGesturesListener initCarbonGesture(int fingers, int keycode, CarbonGesturesListener.Directions direction) {
+        return new CarbonGesturesListener(mContext, fingers, direction, new CarbonGesturesListener.Callbacks() {
+            @Override
+            public void onSwipeGesture() {
+                triggerVirtualKeypress(mContext, keycode);
+            }
+        });
+    }
+
+    private CarbonGesturesListener initCarbonScreenshotGesture(int fingers, CarbonGesturesListener.Directions direction) {
+        return new CarbonGesturesListener(mContext, fingers, direction, new CarbonGesturesListener.Callbacks() {
+            @Override
+            public void onSwipeGesture() {
+                mHandler.post(mScreenshotRunnable);
+            }
+        });
+    }
+
+    private CarbonGesturesListener handleCarbonGesture(CarbonGesturesListener gesture, int fingers, int value, CarbonGesturesListener.Directions direction) {
+        if (haveEnabledCarbonGestures[direction.ordinal()] == value) return gesture;
+        if (value != 0) {
+            haveEnabledCarbonGestures[direction.ordinal()] = value;
+            switch (value) {
+                case 1000:
+                    gesture = initCarbonScreenshotGesture(fingers, direction);
+                    break;
+                default:
+                    // substract finger that was previously added to cover changes
+                    gesture = initCarbonGesture(fingers, value - fingers, direction);
+                    break;
+            }
+            mWindowManagerFuncs.registerPointerEventListener(gesture);
+            return gesture;
+        } else {
+            haveEnabledCarbonGestures[direction.ordinal()] = value;
+            mWindowManagerFuncs.unregisterPointerEventListener(gesture);
+        }
+        return null;
+    }
+
     @Override
     public void setInitialDisplaySize(Display display, int width, int height, int density) {
         // This method might be called before the policy has been fully initialized
@@ -2509,6 +2607,33 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             boolean threeFingerGesture = Settings.System.getIntForUser(resolver,
                     Settings.System.THREE_FINGER_GESTURE, 0, UserHandle.USER_CURRENT) == 1;
             enableSwipeThreeFingerGesture(threeFingerGesture);
+
+        // Carbon Navigaton Gestures
+            int carbonCustomGestureFingers = Settings.System.getIntForUser(resolver,
+                    Settings.System.CARBON_CUSTOM_GESTURE_FINGERS, 2, UserHandle.USER_CURRENT);
+            int carbonCustomGestureRight = Settings.System.getIntForUser(resolver,
+                    Settings.System.CARBON_CUSTOM_GESTURE_RIGHT, 0, UserHandle.USER_CURRENT);
+            mCarbonGesturesRight = handleCarbonGesture(mCarbonGesturesRight, 
+                carbonCustomGestureFingers, carbonCustomGestureRight + carbonCustomGestureFingers, 
+                CarbonGesturesListener.Directions.RIGHT);
+
+            int carbonCustomGestureLeft = Settings.System.getIntForUser(resolver,
+                    Settings.System.CARBON_CUSTOM_GESTURE_LEFT, 0, UserHandle.USER_CURRENT);
+            mCarbonGesturesLeft = handleCarbonGesture(mCarbonGesturesLeft, 
+                carbonCustomGestureFingers, carbonCustomGestureLeft + carbonCustomGestureFingers, 
+                CarbonGesturesListener.Directions.LEFT);
+
+            int carbonCustomGestureUp = Settings.System.getIntForUser(resolver,
+                    Settings.System.CARBON_CUSTOM_GESTURE_UP, 0, UserHandle.USER_CURRENT);
+            mCarbonGesturesUp = handleCarbonGesture(mCarbonGesturesUp, 
+                carbonCustomGestureFingers, carbonCustomGestureUp + carbonCustomGestureFingers, 
+                CarbonGesturesListener.Directions.UP);
+
+            int carbonCustomGestureDown = Settings.System.getIntForUser(resolver,
+                    Settings.System.CARBON_CUSTOM_GESTURE_DOWN, 0, UserHandle.USER_CURRENT);
+            mCarbonGesturesDown = handleCarbonGesture(mCarbonGesturesDown, 
+                carbonCustomGestureFingers, carbonCustomGestureDown + carbonCustomGestureFingers, 
+                CarbonGesturesListener.Directions.DOWN);
 
             // Configure rotation lock.
             int userRotation = Settings.System.getIntForUser(resolver,
