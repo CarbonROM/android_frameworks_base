@@ -257,6 +257,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.Runtime;
 import java.util.List;
 
 /**
@@ -805,6 +806,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
     private int mCurrentUserId;
     private boolean haveEnableGesture = false;
+    private boolean haveEnableNavGesture = false;
 
     // Maps global key codes to the components that will handle them.
     private GlobalKeyManager mGlobalKeyManager;
@@ -1093,6 +1095,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.TORCH_POWER_BUTTON_GESTURE), false, this,
                     UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.TWO_FINGER_NAV_GESTURE), false, this,
+                    UserHandle.USER_ALL);
             updateSettings();
         }
 
@@ -1187,6 +1192,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
     private SystemGesturesPointerEventListener mSystemGestures;
     private OPGesturesListener mOPGestures;
+    private CarbonGesturesListener mCarbonGestures;
 
     IStatusBarService getStatusBarService() {
         synchronized (mServiceAquireLock) {
@@ -2073,6 +2079,25 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         });
 
+        mCarbonGestures = new CarbonGesturesListener(context, new CarbonGesturesListener.Callbacks() {
+            @Override
+            public void onSwipeRightTwoFinger() {
+                String keyBack = "input keyevent " + KeyEvent.KEYCODE_BACK;
+                Runtime runtime = Runtime.getRuntime();
+                Process proc = runtime.exec(keyBack);
+            }
+
+            @Override
+            public void onSwipeLeftTwoFinger() {
+                showRecentApps(false);
+            }
+
+            @Override
+            public void onSwipeUpTwoFinger() {
+                launchHomeFromHotKey();
+            }
+        });
+
         mHandler = new PolicyHandler();
         mWakeGestureListener = new MyWakeGestureListener(mContext, mHandler);
         mOrientationListener = new MyOrientationListener(mContext, mHandler);
@@ -2370,6 +2395,18 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
     }
 
+     private void enableCarbonNavGestures(boolean enable){
+        if (enable) {
+            if (haveEnableNavGesture) return;
+            haveEnableNavGesture = true;
+            mWindowManagerFuncs.registerPointerEventListener(mCarbonGestures);
+        } else {
+            if (!haveEnableNavGesture) return;
+            haveEnableNavGesture = false;
+            mWindowManagerFuncs.unregisterPointerEventListener(mCarbonGestures);
+        }
+    }
+
     @Override
     public void setInitialDisplaySize(Display display, int width, int height, int density) {
         // This method might be called before the policy has been fully initialized
@@ -2509,6 +2546,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             boolean threeFingerGesture = Settings.System.getIntForUser(resolver,
                     Settings.System.THREE_FINGER_GESTURE, 0, UserHandle.USER_CURRENT) == 1;
             enableSwipeThreeFingerGesture(threeFingerGesture);
+
+        // Carbon Navigaton Gestures
+            boolean carbonNavGesture = Settings.System.getIntForUser(resolver,
+                    Settings.System.TWO_FINGER_NAV_GESTURE, 0, UserHandle.USER_CURRENT) == 1;
+            enableCarbonNavGestures(carbonNavGesture);
 
             // Configure rotation lock.
             int userRotation = Settings.System.getIntForUser(resolver,
