@@ -16,6 +16,8 @@
 
 package com.android.systemui.statusbar;
 
+import static android.provider.Settings.Secure.STATUS_BAR_BATTERY_STYLE;
+
 import android.annotation.DrawableRes;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -35,6 +37,7 @@ import android.view.accessibility.AccessibilityEvent;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.android.settingslib.graph.BatteryMeterDrawableBase;
 import com.android.systemui.Dependency;
 import com.android.systemui.R;
 import com.android.systemui.statusbar.phone.SignalDrawable;
@@ -118,6 +121,7 @@ public class SignalClusterView extends LinearLayout implements NetworkController
     private boolean mBlockEthernet;
     private boolean mActivityEnabled;
     private boolean mForceBlockWifi;
+    private boolean mNoBattery;
 
     private final IconLogger mIconLogger = Dependency.get(IconLogger.class);
 
@@ -181,6 +185,11 @@ public class SignalClusterView extends LinearLayout implements NetworkController
             // Re-register to get new callbacks.
             mNetworkController.removeCallback(this);
             mNetworkController.addCallback(this);
+    } else if (STATUS_BAR_BATTERY_STYLE.equals(key)) {
+            final int style = newValue == null ?
+                BatteryMeterDrawableBase.BATTERY_STYLE_PORTRAIT : Integer.parseInt(newValue);
+            mNoBattery = style == BatteryMeterDrawableBase.BATTERY_STYLE_HIDDEN;
+            apply();
         }
     }
 
@@ -573,7 +582,8 @@ public class SignalClusterView extends LinearLayout implements NetworkController
 
         boolean anythingVisible = mNoSimsVisible || mWifiVisible || mIsAirplaneMode
                 || anyMobileVisible || mVpnVisible || mEthernetVisible;
-        setPaddingRelative(0, 0, anythingVisible ? mEndPadding : mEndPaddingNothingVisible, 0);
+        setPaddingRelative(0, 0, mNoBattery ? 0 : (
+                anythingVisible ? mEndPadding : mEndPaddingNothingVisible), 0);
     }
 
     /**
