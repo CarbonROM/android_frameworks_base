@@ -4061,6 +4061,36 @@ public final class Settings {
          */
         public static final String THREE_FINGER_GESTURE = "three_finger_gesture";
 
+        /**
+         * Fingeramount for CarbonGestures
+         * @hide
+         */
+        public static final String CARBON_CUSTOM_GESTURE_FINGERS = "carbon_custom_gesture_fingers";
+
+        /**
+         * right gesture for CarbonGestures
+         * @hide
+         */
+        public static final String CARBON_CUSTOM_GESTURE_RIGHT = "carbon_custom_gesture_right";
+
+        /**
+         * left gesture for CarbonGestures
+         * @hide
+         */
+        public static final String CARBON_CUSTOM_GESTURE_LEFT = "carbon_custom_gesture_left";
+
+        /**
+         * up gesture for CarbonGestures
+         * @hide
+         */
+        public static final String CARBON_CUSTOM_GESTURE_UP = "carbon_custom_gesture_up";
+
+        /**
+         * down gesture for CarbonGestures
+         * @hide
+         */
+        public static final String CARBON_CUSTOM_GESTURE_DOWN = "carbon_custom_gesture_down";
+
         /*
          * 0 - fullscreen
          * 1 - partial
