@@ -4061,6 +4061,12 @@ public final class Settings {
          */
         public static final String THREE_FINGER_GESTURE = "three_finger_gesture";
 
+        /**
+         * Two Finger Gesture for Carbon
+         * @hide
+         */
+        public static final String CARBON_CUSTOM_GESTURE = "carbon_custom_gesture";
+
         /*
          * 0 - fullscreen
          * 1 - partial
