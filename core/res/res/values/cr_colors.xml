@@ -18,4 +18,13 @@
 <resources>
     <color name="toast_bg">@color/white</color>
     <color name="toast_text">@color/black</color>
+
+    <!-- Notification sender text color -->
+    <color name="sender_text_color">@android:color/black</color>
+
+    <!-- Ambient Notification icon/text dynamic tint -->
+    <color name="notification_text_default_color">@android:color/notification_text_default_color</color>
+
+    <!-- Resolver -->
+    <color name="resolver_list_bg">@android:color/white</color>
 </resources>
