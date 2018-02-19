@@ -17,11 +17,6 @@
     xmlns:sysui="http://schemas.android.com/apk/res-auto"
     android:title="@string/statusbar_icons_blacklist">
   
-    <com.android.systemui.tuner.BatteryPreference
-        android:title="@string/battery"
-        android:summary="%s"
-        android:entries="@array/battery_options" />
-
     <com.android.systemui.tuner.ClockPreference
         android:title="@string/tuner_time"
         android:summary="%s"
