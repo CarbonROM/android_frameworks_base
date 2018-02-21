@@ -96,6 +96,9 @@
   <!-- Whether device has dash charging support -->
   <bool name="config_hasDashCharger">false</bool>
 
+    <!-- Whether device has turbo power charging support -->
+    <bool name="config_hasTurboPowerCharger">false</bool>
+
   <!-- Boolean indicating whether we want button brightness support -->
   <bool name="config_button_brightness_support">false</bool>
   <integer name="config_button_brightness_default">128</integer>
