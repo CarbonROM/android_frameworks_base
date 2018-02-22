@@ -19,9 +19,6 @@
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-  <!-- Package Manager -->
-  <java-symbol type="array" name="config_disabledComponents" />
-
   <!-- Any package that has one of the package names defined below will be prevented
          from using specific sensors in order to stop battery drain -->
   <string-array name="config_blockPackagesSensorDrain">
