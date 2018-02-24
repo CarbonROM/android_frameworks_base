@@ -1,0 +1,4 @@
+{
+  "pushCert": "certificate version 0.1\npusher Adin Kwok \u003cadin.kwok@carbonrom.org\u003e 1519457085 +0000\npushee ssh://review.carbonrom.org:29418/CarbonROM/android_frameworks_base\nnonce 1519457091-6FBCBFC100DCC28A794B434D8AEEBAA386D8DF91\n\n0000000000000000000000000000000000000000 edb34b08be4b956a4eae2093e713ba6d385f3327 refs/for/cr-6.1\n-----BEGIN PGP SIGNATURE-----\nVersion: GnuPG v1\n\niJwEAAECAAYFAlqREz0ACgkQZ9dXR3SZl5hvdwP+Mcqk6q7k+tSDt2cMBjIV1D5x\nSSKCE9uLahxyvEjRDHyf2j3WGINIbwSgIJvqbln8dVUam+P5EtoMC877GPSJf1z0\nAmzZ8DDOwiJzGj487Xgoqkq4AfyEHJXFmcCTJmBKOaVWvkRgvWY4gr7QdqIL1pQh\nOHQe7cTqSO/U//uuqtw\u003d\n\u003d6eUS\n-----END PGP SIGNATURE-----\n",
+  "comments": []
+}
