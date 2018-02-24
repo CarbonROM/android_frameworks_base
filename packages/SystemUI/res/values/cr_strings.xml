@@ -84,4 +84,11 @@
 
     <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
     <string name="custom_hint">Swipe from icon to launch</string>
+
+    <!-- Notification QS Tile -->
+    <string name="quick_settings_notification_style">Notification</string>
+    <string name="quick_settings_notify_disabled">Do not notify</string>
+    <string name="quick_settings_headsup_enabled">Heads up</string>
+    <string name="quick_settings_ticker_enabled">Ticker</string>
+    <string name="quick_settings_headsup_ticker_enabled">Heads up and ticker</string>
 </resources>
