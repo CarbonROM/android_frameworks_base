@@ -4140,6 +4140,12 @@ public final class Settings {
         public static final String STATUS_BAR_SHOW_TICKER = "status_bar_show_ticker";
 
         /**
+         * Storage for STATUS_BAR_SHOW_TICKER when enabling/disabling via tile
+         * @hide
+         */
+        public static final String STATUS_BAR_OLD_SHOW_TICKER = "status_bar_old_show_ticker";
+
+        /**
          * Whether to show the music info on the status bar with ticker
          * @hide
          */
