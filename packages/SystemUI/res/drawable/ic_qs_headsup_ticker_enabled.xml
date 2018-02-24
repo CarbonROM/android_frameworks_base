@@ -1,0 +1,45 @@
+<!--
+Copyright (C) 2014 The Android Open Source Project
+Copyright (C) 2018 CarbonROM
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportHeight="64"
+    android:viewportWidth="64">
+ <path android:fillColor="#FFFFFFFF"
+       android:pathData="M 13.69,40.00
+          C 15.29,33.41 11.22,24.38 18.39,16.10
+            20.48,13.68 21.58,13.41 23.87,11.69
+            27.76,8.78 28.73,4.28 32.87,5.65
+            35.36,6.48 35.79,8.92 38.30,11.05
+            40.55,12.97 42.32,13.46 44.79,16.10
+            50.01,21.70 48.95,27.02 49.00,34.00
+            49.08,45.77 53.45,41.42 55.00,51.00
+            55.00,51.00 9.00,51.00 9.00,51.00
+            10.10,44.13 12.52,44.81 13.69,40.00 Z
+          M 22.00,21.00
+          C 22.00,21.00 22.00,25.00 22.00,25.00
+            22.00,25.00 29.00,25.00 29.00,25.00
+            29.00,25.00 29.00,43.00 29.00,43.00
+            29.00,43.00 34.00,43.00 34.00,43.00
+            34.00,43.00 34.00,25.00 34.00,25.00
+            34.00,25.00 41.00,25.00 41.00,25.00
+            41.00,25.00 41.00,21.00 41.00,21.00
+            41.00,21.00 22.00,21.00 22.00,21.00 Z
+          M 37.00,53.00
+          C 35.63,60.98 28.28,60.49 26.00,53.00
+            26.00,53.00 37.00,53.00 37.00,53.00 Z" />
+</vector>
