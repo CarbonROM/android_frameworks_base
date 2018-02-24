@@ -4142,6 +4142,12 @@ public final class Settings {
         public static final String STATUS_BAR_NOTIFICATION_STYLE = "status_bar_notification_style";
 
         /**
+         * Storage for STATUS_BAR_NOTIFICATION_STYLE when enabling/disabling via tile
+         * @hide
+         */
+        public static final String STATUS_BAR_LAST_NOTIFICATION_STYLE = "status_bar_last_notification_style";
+
+        /**
          * Whether to show the music info on the status bar with ticker
          * @hide
          */
