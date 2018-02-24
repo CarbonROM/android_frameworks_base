@@ -1,0 +1,55 @@
+<!--
+Copyright (C) 2014 The Android Open Source Project
+Copyright (C) 2018 CarbonROM
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportHeight="256"
+    android:viewportWidth="256">
+  <path android:fillColor="#FFFFFFFF"
+        android:pathData="M 110.98,36.00
+           C 113.02,18.26 131.60,17.36 139.81,24.53
+             144.92,28.99 146.51,38.68 145.00,45.00
+             153.82,45.20 160.74,48.54 168.00,53.36
+             185.42,64.91 197.97,84.74 198.00,106.00
+             198.00,106.00 198.00,154.00 198.00,154.00
+             198.01,158.85 198.27,165.72 200.65,170.00
+             204.86,177.59 213.60,182.76 217.30,189.00
+             219.73,193.10 219.96,198.36 220.00,203.00
+             220.00,203.00 36.00,203.00 36.00,203.00
+             36.04,198.36 36.27,193.10 38.70,189.00
+             42.42,182.73 51.19,177.55 55.35,170.00
+             57.60,165.93 57.99,157.70 58.00,153.00
+             58.00,153.00 58.00,106.00 58.00,106.00
+             58.03,84.74 70.58,64.91 88.00,53.36
+             95.26,48.54 102.18,45.20 110.98,45.00
+             110.05,41.00 110.49,39.96 110.98,36.00 Z
+           M 92.00,103.00
+           C 92.00,103.00 119.00,103.00 119.00,103.00
+             119.00,103.00 119.00,169.00 119.00,169.00
+             119.00,169.00 137.00,169.00 137.00,169.00
+             137.00,169.00 137.00,103.00 137.00,103.00
+             137.00,103.00 164.00,103.00 164.00,103.00
+             164.00,103.00 164.00,88.00 164.00,88.00
+             164.00,88.00 118.00,88.00 118.00,88.00
+             118.00,88.00 93.00,87.00 93.00,87.00
+             93.00,87.00 92.00,103.00 92.00,103.00 Z
+           M 150.00,213.00
+           C 149.98,219.59 149.61,223.76 144.79,228.90
+             135.37,238.93 116.45,237.87 108.99,226.00
+             106.23,221.59 106.05,217.99 106.00,213.00
+             106.00,213.00 150.00,213.00 150.00,213.00 Z" />
+</vector>
