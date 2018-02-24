@@ -1,0 +1,48 @@
+<!--
+Copyright (C) 2014 The Android Open Source Project
+Copyright (C) 2018 CarbonROM
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportHeight="256"
+    android:viewportWidth="256">
+  <path android:fillColor="#FFFFFFFF"
+        android:pathData="M 113.41,29.01
+           C 118.43,20.02 131.43,18.29 138.89,25.22
+             141.82,27.94 143.31,31.07 143.82,35.00
+             144.24,38.34 143.38,41.73 146.31,44.16
+             146.31,44.16 160.00,49.97 160.00,49.97
+             168.14,54.04 176.86,60.86 182.48,68.00
+             198.31,88.09 197.00,102.33 197.00,126.00
+             197.00,126.00 197.00,161.00 197.00,161.00
+             197.00,163.09 196.88,166.06 197.60,168.00
+             199.59,173.42 213.97,184.57 217.40,190.00
+             219.62,193.52 219.00,198.92 219.00,203.00
+             219.00,203.00 37.00,203.00 37.00,203.00
+             37.00,198.92 36.38,193.52 38.60,190.00
+             41.96,184.68 55.43,174.36 57.40,169.00
+             58.12,167.06 58.00,164.09 58.00,162.00
+             58.00,162.00 58.00,127.00 58.00,127.00
+             58.00,127.00 58.00,110.00 58.00,110.00
+             58.03,92.92 64.82,76.65 76.29,64.04
+             79.76,60.22 85.59,55.81 90.00,53.06
+             96.37,49.11 103.47,45.68 111.00,45.00
+             111.00,39.33 110.53,34.19 113.41,29.01 Z
+           M 149.00,213.00
+           C 148.96,217.16 149.00,220.17 146.95,223.99
+             137.68,241.21 106.59,239.01 106.00,213.00
+             106.00,213.00 149.00,213.00 149.00,213.00 Z" />
+</vector>
