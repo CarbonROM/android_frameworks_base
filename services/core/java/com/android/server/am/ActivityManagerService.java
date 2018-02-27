@@ -606,7 +606,7 @@ public class ActivityManagerService extends IActivityManager.Stub
     private static final int NATIVE_DUMP_TIMEOUT_MS = 2000; // 2 seconds;
 
     // System prop for refreshing font
-    private static final String PROP_REFRESH_FONT = "sys.refresh_font";
+    private static final String PROP_REFRESH_FONT = "sys.refresh_theme";
 
     /** All system services */
     SystemServiceManager mSystemServiceManager;
