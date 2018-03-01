@@ -487,6 +487,7 @@ public class RecentsView extends FrameLayout {
 
     @Override
     protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
         EventBus.getDefault().register(this, RecentsActivity.EVENT_BUS_PRIORITY + 1);
         EventBus.getDefault().register(mTouchHandler, RecentsActivity.EVENT_BUS_PRIORITY + 2);
         mMemText = (TextView) ((View)getParent()).findViewById(R.id.recents_memory_text);
@@ -498,7 +499,6 @@ public class RecentsView extends FrameLayout {
             EventBus.getDefault().send(new DismissAllTaskViewsEvent());
             }
         });
-        super.onAttachedToWindow();
     }
 
     @Override
@@ -575,9 +575,11 @@ public class RecentsView extends FrameLayout {
                     params.gravity = Gravity.BOTTOM | Gravity.CENTER;
                     break;
             }
+            mStackActionButton.setVisibility(View.GONE);
             mFloatingButton.setLayoutParams(params);
         } else {
             mFloatingButton.setVisibility(View.GONE);
+            mStackActionButton.setVisibility(View.VISIBLE);
         }
         LayoutInflater inflater = LayoutInflater.from(mContext);
         float cornerRadius = mContext.getResources().getDimensionPixelSize(
