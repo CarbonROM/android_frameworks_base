@@ -28,4 +28,5 @@ public interface DeviceKeyHandler {
      * @return null if event is consumed, KeyEvent to be handled otherwise
      */
     public KeyEvent handleKeyEvent(KeyEvent event);
+    public void handleNavbarToggle(boolean enabled);
 }

@@ -2685,6 +2685,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             IStatusBarService sbar = getStatusBarService();
             if (sbar != null) {
                 try {
+                    dispatchNavbarToggleToKeyHandler(mHasNavigationBar);
                     sbar.toggleNavigationBar(mHasNavigationBar);
                 } catch (RemoteException e1) {}
             }
@@ -4283,6 +4284,19 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
         return false;
+    }
+
+    private void dispatchNavbarToggleToKeyHandler(boolean enabled) {
+        for (DeviceKeyHandler handler : mDeviceKeyHandlers) {
+            try {
+                if (DEBUG_INPUT) {
+                    Log.d(TAG, "Dispatching navbar toogle " + enabled + " to handler " + handler);
+                }
+                handler.handleNavbarToggle(enabled);
+            } catch (Exception e) {
+                Slog.w(TAG, "Could not dispatch navbar toggle to device key handler", e);
+            }
+        }
     }
 
     /** {@inheritDoc} */
