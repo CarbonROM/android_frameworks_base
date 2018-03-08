@@ -29,7 +29,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-package com.android.systemui.benzo.screenrecord;
+package com.android.systemui.carbon.screenrecord;
 
 import android.app.ActivityManager;
 import android.app.ActivityOptions;
