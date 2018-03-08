@@ -6313,7 +6313,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 return;
             }
             ComponentName cn = new ComponentName("com.android.systemui",
-                    "com.android.systemui.benzo.screenrecord.TakeScreenrecordService");
+                    "com.android.systemui.carbon.screenrecord.TakeScreenrecordService");
             Intent intent = new Intent();
             intent.setComponent(cn);
             ServiceConnection conn = new ServiceConnection() {
