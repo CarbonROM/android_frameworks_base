@@ -32,8 +32,6 @@ import com.android.systemui.R;
 
 public class NotificationTile extends QSTileImpl<BooleanState> {
 
-    private final Icon mIcon = ResourceIcon.get(R.drawable.ic_qs_headsup_enabled);
-
     public NotificationTile(QSHost host) {
         super(host);
     }
@@ -78,23 +76,29 @@ public class NotificationTile extends QSTileImpl<BooleanState> {
     protected void handleUpdateState(BooleanState state, Object arg) {
         int mNotificationStyle = Settings.System.getInt(mContext.getContentResolver(),
                  Settings.System.STATUS_BAR_NOTIFICATION_STYLE, 1);
+        if (state.slash == null) {
+            state.slash = new SlashState();
+        }
         switch (mNotificationStyle) {
             case 0:  state.label = mContext.getString(R.string.quick_settings_notify_disabled);
-                     state.icon  = ResourceIcon.get(R.drawable.ic_qs_notify_disabled);
+                     state.icon  = ResourceIcon.get(R.drawable.ic_qs_headsup_enabled);
+                     state.value = false;
                      break;
             case 1:  state.label = mContext.getString(R.string.quick_settings_headsup_enabled);
                      state.icon  = ResourceIcon.get(R.drawable.ic_qs_headsup_enabled);
+                     state.value = true;
                      break;
             case 2:  state.label = mContext.getString(R.string.quick_settings_ticker_enabled);
                      state.icon  = ResourceIcon.get(R.drawable.ic_qs_ticker_enabled);
+                     state.value = true;
                      break;
             case 3:  state.label = mContext.getString(R.string.quick_settings_headsup_ticker_enabled);
                      state.icon  = ResourceIcon.get(R.drawable.ic_qs_headsup_ticker_enabled);
-                     break;
-            default: state.label = mContext.getString(R.string.quick_settings_notification_style);
-                     state.icon  = ResourceIcon.get(R.drawable.ic_qs_headsup_enabled);
+                     state.value = true;
                      break;
         }
+        state.slash.isSlashed = !state.value;
+        state.state = state.value ? Tile.STATE_ACTIVE: Tile.STATE_INACTIVE;
     }
 
     @Override
@@ -125,4 +129,3 @@ public class NotificationTile extends QSTileImpl<BooleanState> {
         }
     }
 }
-
