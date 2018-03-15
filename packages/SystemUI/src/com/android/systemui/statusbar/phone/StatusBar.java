@@ -153,6 +153,7 @@ import com.android.internal.colorextraction.ColorExtractor;
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 import com.android.internal.messages.nano.SystemMessageProto.SystemMessage;
+import com.android.internal.notification.SystemNotificationChannels;
 import com.android.internal.statusbar.IStatusBarService;
 import com.android.internal.statusbar.NotificationVisibility;
 import com.android.internal.statusbar.StatusBarIcon;
@@ -226,6 +227,7 @@ import com.android.systemui.statusbar.NotificationGuts;
 import com.android.systemui.statusbar.NotificationInfo;
 import com.android.systemui.statusbar.NotificationShelf;
 import com.android.systemui.statusbar.NotificationSnooze;
+import com.android.systemui.statusbar.policy.BatteryController;
 import com.android.systemui.statusbar.RemoteInputController;
 import com.android.systemui.statusbar.ScrimView;
 import com.android.systemui.statusbar.SignalClusterView;
@@ -3509,10 +3511,8 @@ public class StatusBar extends SystemUI implements DemoMode,
         final boolean powerSave = mBatteryController.isPowerSave();
         final boolean anim = !mNoAnimationOnNextBarModeChange && mDeviceInteractive
                 && windowState != WINDOW_STATE_HIDDEN && !powerSave;
-        if (powerSave && getBarState() == StatusBarState.SHADE) {
-            mode = MODE_WARNING;
-        }
         transitions.transitionTo(mode, anim);
+        createBSNotif();
     }
 
     private void finishBarAnimations() {
@@ -3530,6 +3530,15 @@ public class StatusBar extends SystemUI implements DemoMode,
             checkBarModes();
         }
     };
+    public void createBSNotif() {
+        if (mBatteryController.isPowerSave()) {
+             Notification powerSave = new Notification.Builder(mContext,SystemNotificationChannels.ALERTS)
+                 .setContentTitle("Battery Saver is enabled")
+                 .setContentText("Your device's performance may be reduced in order to save battery.")
+                 .setSmallIcon(R.drawable.ic_qs_battery_saver)
+                 .build();
+        }
+    }
 
     public void setInteracting(int barWindow, boolean interacting) {
         final boolean changing = ((mInteractingWindows & barWindow) != 0) != interacting;
