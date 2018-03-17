@@ -7621,6 +7621,13 @@ public final class Settings {
         public static final String FACE_AUTO_UNLOCK = "face_auto_unlock";
 
         /**
+         * Boolean value whether to allow insecure overlays to be installed
+         *
+         * @hide
+         */
+        public static final String INSECURE_OVERLAY_TOGGLE = "insecure_overlay_toggle";
+
+        /**
          * This are the settings to be backed up.
          *
          * NOTE: Settings are backed up and restored in the order they appear
