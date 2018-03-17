@@ -29,6 +29,7 @@ import android.annotation.Nullable;
 import android.app.ActivityManager;
 import android.app.IActivityManager;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -48,6 +49,8 @@ import android.os.ShellCallback;
 import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.os.UserManager;
+import android.provider.Settings;
+import android.provider.Settings.Secure;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.ArraySet;
@@ -59,6 +62,7 @@ import com.android.internal.util.ConcurrentUtils;
 import com.android.server.FgThread;
 import com.android.server.IoThread;
 import com.android.server.LocalServices;
+import com.android.server.SystemServer;
 import com.android.server.SystemServerInitThreadPool;
 import com.android.server.SystemService;
 import com.android.server.pm.Installer;
@@ -668,9 +672,18 @@ public final class OverlayManagerService extends SystemService {
         }
     };
 
+    private boolean isInsecureOverlayAllowed() {
+        return Settings.Secure.getInt(mContext.getContentResolver(),
+                Settings.Secure.INSECURE_OVERLAY_TOGGLE, 0) == 1;
+    }
+
     private boolean isOverlayPackage(@NonNull final PackageInfo pi) {
-        return pi != null && pi.overlayTarget != null
-                && (pi.overlayFlags & PackageInfo.FLAG_OVERLAY_TRUSTED) != 0;
+        if (!isInsecureOverlayAllowed) {
+            return pi != null && pi.overlayTarget != null
+                   && (pi.overlayFlags & PackageInfo.FLAG_OVERLAY_TRUSTED) != 0;
+        } else {
+            return pi != null && pi.overlayTarget != null;
+        }
     }
 
     private final class OverlayChangeListener
