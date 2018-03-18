@@ -70,7 +70,7 @@ final class ActivityManagerConstants extends ContentObserver {
     static final String KEY_BOUND_SERVICE_CRASH_MAX_RETRY = "service_crash_max_retry";
 
     private static final int DEFAULT_MAX_CACHED_PROCESSES =
-            SystemProperties.getInt("ro.vendor.qti.sys.fw.bg_apps_limit",32);
+            SystemProperties.getInt("ro.vendor.qti.sys.fw.bg_apps_limit", 60);
     private static final long DEFAULT_BACKGROUND_SETTLE_TIME = 60*1000;
     private static final long DEFAULT_FGSERVICE_MIN_SHOWN_TIME = 2*1000;
     private static final long DEFAULT_FGSERVICE_MIN_REPORT_TIME = 3*1000;
