@@ -848,7 +848,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private SensorEventListener mProximityListener;
     private android.os.PowerManager.WakeLock mProximityWakeLock;
 
-    private final List<DeviceKeyHandler> mDeviceKeyHandlers = new ArrayList<>();
+    private DeviceKeyHandler mDeviceKeyHandler;
 
     private static final int MSG_ENABLE_POINTER_LOCATION = 1;
     private static final int MSG_DISABLE_POINTER_LOCATION = 2;
@@ -2410,26 +2410,23 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 .newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ProximityWakeLock");
 
         final Resources res = mContext.getResources();
-        final String[] deviceKeyHandlerLibs = res.getStringArray(
-                com.android.internal.R.array.config_deviceKeyHandlerLibs);
-        final String[] deviceKeyHandlerClasses = res.getStringArray(
-                com.android.internal.R.array.config_deviceKeyHandlerClasses);
+        final String deviceKeyHandlerLib = res.getString(
+                com.android.internal.R.string.config_deviceKeyHandlerLib);
+        final String deviceKeyHandlerClass = res.getString(
+                com.android.internal.R.string.config_deviceKeyHandlerClass);
 
-        for (int i = 0;
-                i < deviceKeyHandlerLibs.length && i < deviceKeyHandlerClasses.length; i++) {
             try {
                 PathClassLoader loader = new PathClassLoader(
-                        deviceKeyHandlerLibs[i], getClass().getClassLoader());
-                Class<?> klass = loader.loadClass(deviceKeyHandlerClasses[i]);
+                        deviceKeyHandlerLib, getClass().getClassLoader());
+                Class<?> klass = loader.loadClass(deviceKeyHandlerClass);
                 Constructor<?> constructor = klass.getConstructor(Context.class);
-                mDeviceKeyHandlers.add((DeviceKeyHandler) constructor.newInstance(mContext));
+                mDeviceKeyHandler = (DeviceKeyHandler) constructor.newInstance(mContext);
             } catch (Exception e) {
                 Slog.w(TAG, "Could not instantiate device key handler "
-                        + deviceKeyHandlerLibs[i] + " from class "
-                        + deviceKeyHandlerClasses[i], e);
+                        + deviceKeyHandlerLib + " from class "
+                        + deviceKeyHandlerClass, e);
             }
-        }
-        if (DEBUG) Slog.d(TAG, "" + mDeviceKeyHandlers.size() + " device key handlers loaded");
+        if (DEBUG) Slog.d(TAG, "" + mDeviceKeyHandler + " device key handlers loaded");
     }
 
     /**
@@ -4241,24 +4238,21 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     }
 
     private boolean dispatchKeyToKeyHandlers(KeyEvent event) {
-        for (DeviceKeyHandler handler : mDeviceKeyHandlers) {
             try {
                 if (DEBUG_INPUT) {
-                    Log.d(TAG, "Dispatching key event " + event + " to handler " + handler);
+                    Log.d(TAG, "Dispatching key event " + event + " to handler " + mDeviceKeyHandler);
                 }
-                event = handler.handleKeyEvent(event);
+                event = mDeviceKeyHandler.handleKeyEvent(event);
                 if (event == null) {
                     return true;
                 }
             } catch (Exception e) {
                 Slog.w(TAG, "Could not dispatch event to device key handler", e);
             }
-        }
         return false;
     }
 
     private void dispatchNavbarToggleToKeyHandler(boolean enabled) {
-        for (DeviceKeyHandler handler : mDeviceKeyHandlers) {
             try {
                 if (DEBUG_INPUT) {
                     Log.d(TAG, "Dispatching navbar toogle " + enabled + " to handler " + handler);
@@ -4267,7 +4261,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             } catch (Exception e) {
                 Slog.w(TAG, "Could not dispatch navbar toggle to device key handler", e);
             }
-        }
     }
 
     /** {@inheritDoc} */
@@ -6443,7 +6436,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         if (isValidGlobalKey(keyCode)
                 && mGlobalKeyManager.shouldHandleGlobalKey(keyCode, event)) {
             if (isWakeKey) {
-                wakeUp(event.getEventTime(), mAllowTheaterModeWakeFromKey, "android.policy:KEY");
+                wakeUp(event.getEventTime(), mAllowTheaterModeWakeFromKey,
+                       "android.policy:KEY", true);
             }
             return result;
         }
@@ -6795,7 +6789,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
 
         if (isWakeKey) {
-            wakeUp(event.getEventTime(), mAllowTheaterModeWakeFromKey, "android.policy:KEY");
+            wakeUp(event.getEventTime(), mAllowTheaterModeWakeFromKey, "android.policy:KEY",
+                    event.getKeyCode() == KeyEvent.KEYCODE_WAKEUP); // Check prox only on wake key
         }
 
         return result;
@@ -7242,6 +7237,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     }
 
     private boolean wakeUp(long wakeTime, boolean wakeInTheaterMode, String reason) {
+        return wakeUp(wakeTime, wakeInTheaterMode, reason, false);
+    }
+
+    private boolean wakeUp(long wakeTime, boolean wakeInTheaterMode, String reason,
+            final boolean withProximityCheck) {
         final boolean theaterModeEnabled = isTheaterModeEnabled();
         if (!wakeInTheaterMode && theaterModeEnabled) {
             return false;
@@ -7252,7 +7252,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     Settings.Global.THEATER_MODE_ON, 0);
         }
 
-        mPowerManager.wakeUp(wakeTime, reason);
+        if (withProximityCheck) {
+            mPowerManager.wakeUpWithProximityCheck(wakeTime, reason);
+        } else {
+            mPowerManager.wakeUp(wakeTime, reason);
+        }
         return true;
     }
 
