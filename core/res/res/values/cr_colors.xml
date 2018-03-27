@@ -19,6 +19,9 @@
     <color name="toast_bg">@color/white</color>
     <color name="toast_text">@color/black</color>
 
+    <!-- Settings icon tint color -->
+    <color name="settings_icon_tint_color">#737373</color>
+
     <!-- Updater snackbar text color -->
     <color name="updater_snackbar_text_color">@android:color/white</color>
 
