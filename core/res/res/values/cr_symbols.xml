@@ -105,4 +105,7 @@
 
   <!-- Forcefully tint notification icon text -->
   <java-symbol type="bool" name="config_useDarkBgNotificationIconTextTinting" />
+
+  <!-- Settings icon tint color -->
+  <java-symbol type="color" name="settings_icon_tint_color" />
 </resources>
