@@ -95,4 +95,16 @@
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
     <string name="keyguard_indication_dash_charging_time">Dash Charging (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> until full)</string>
     <string name="keyguard_plugged_in_dash_charging">Dash Charging</string>
+
+    <!-- Power QS Tile -->
+    <string name="quick_settings_power_title">Power</string>
+    <string name="quick_settings_power_details_title">Reboot modes</string>
+    <string name="quick_settings_power_off">Power off</string>
+    <string name="quick_settings_reboot">Reboot</string>
+    <string name="quick_settings_button_system">System</string>
+    <string name="quick_settings_button_recovery">Recovery</string>
+    <string name="quick_settings_button_bootloader">Bootloader</string>
+    <string name="quick_settings_confirm_dialog_config">Confirm dialog before reboot</string>
+    <string name="quick_settings_radio_button_on">On</string>
+    <string name="quick_settings_radio_button_off">Off</string>
 </resources>
