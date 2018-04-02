@@ -216,6 +216,10 @@
     <!-- Screenshots -->
     <uses-permission android:name="android.permission.ACCESS_SURFACE_FLINGER" />
 
+    <!-- Power tile -->
+    <uses-permission android:name="android.permission.REBOOT" />
+    <uses-permission android:name="android.permission.SHUTDOWN" />
+
     <application
         android:name=".SystemUIApplication"
         android:persistent="true"
