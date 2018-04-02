@@ -104,4 +104,9 @@
     <string name="quick_settings_smart_pixels">Smart Pixels</string>
     <string name="quick_settings_smart_pixels_on_power_save">Auto-enabled Smart Pixels</string>
 
+    <!-- Power QS Tile -->
+    <string name="quick_settings_power_title">Power</string>
+    <string name="quick_settings_power_details_title">Reboot modes</string>
+    <string name="quick_settings_power_off">Power off</string>
+    <string name="quick_settings_preferences">Preferences</string>
 </resources>

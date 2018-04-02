@@ -4209,7 +4209,7 @@ public final class Settings {
          */
         public static final String QS_LAYOUT_ROWS = "qs_layout_rows";
 
-        /** Whether to skip music track with volume rocker 
+        /** Whether to skip music track with volume rocker
         /**
          * @hide
          */
@@ -4446,6 +4446,13 @@ public final class Settings {
          * @hide
          */
         public static final String FONT_PACKAGES = "font_packages";
+
+        /**
+         * Storage for the reboot option selected in Power tile
+         *
+         * @hide
+         */
+        public static final String QUICK_SETTINGS_REBOOT_OPTIONS = "quick_settings_reboot_options";
 
         /**
          * Wheter to show network traffic indicator in statusbar
