@@ -153,4 +153,8 @@
 
     <color name="zen_introduction">#ffffffff</color>
 
+    <!-- Power tile colors -->
+    <color name="qs_power_tile_text">#2196F3</color>
+    <color name="qs_power_tile_background">#E0E0E0</color>
+
 </resources>
