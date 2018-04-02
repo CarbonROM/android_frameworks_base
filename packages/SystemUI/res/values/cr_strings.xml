@@ -100,4 +100,15 @@
     <string name="quick_settings_smart_pixels">Smart Pixels</string>
     <string name="quick_settings_smart_pixels_on_power_save">Auto-enabled Smart Pixels</string>
 
+    <!-- Power QS Tile -->
+    <string name="quick_settings_power_title">Power</string>
+    <string name="quick_settings_power_details_title">Reboot modes</string>
+    <string name="quick_settings_power_off">Power off</string>
+    <string name="quick_settings_reboot">Reboot</string>
+    <string name="quick_settings_button_system">System</string>
+    <string name="quick_settings_button_recovery">Recovery</string>
+    <string name="quick_settings_button_bootloader">Bootloader</string>
+    <string name="quick_settings_confirm_dialog_config">Confirm dialog before reboot</string>
+    <string name="quick_settings_radio_button_on">On</string>
+    <string name="quick_settings_radio_button_off">Off</string>
 </resources>
