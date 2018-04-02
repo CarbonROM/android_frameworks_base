@@ -38,6 +38,7 @@ import com.android.systemui.qs.tiles.LocationTile;
 import com.android.systemui.qs.tiles.NfcTile;
 import com.android.systemui.qs.tiles.NightDisplayTile;
 import com.android.systemui.qs.tiles.NotificationTile;
+import com.android.systemui.qs.tiles.PowerTile;
 import com.android.systemui.qs.tiles.RotationLockTile;
 import com.android.systemui.qs.tiles.ScreenrecordTile;
 import com.android.systemui.qs.tiles.ScreenshotTile;
@@ -79,6 +80,7 @@ public class QSFactoryImpl implements QSFactory {
         else if (tileSpec.equals("screenrecord")) return new ScreenrecordTile(mHost);
         else if (tileSpec.equals("notification")) return new NotificationTile(mHost);
         else if (tileSpec.equals("smartpixels")) return new SmartPixelsTile(mHost);
+        else if (tileSpec.equals("power")) return new PowerTile(mHost);
         // Intent tiles.
         else if (tileSpec.startsWith(IntentTile.PREFIX)) return IntentTile.create(mHost, tileSpec);
         else if (tileSpec.startsWith(CustomTile.PREFIX)) return CustomTile.create(mHost, tileSpec);
