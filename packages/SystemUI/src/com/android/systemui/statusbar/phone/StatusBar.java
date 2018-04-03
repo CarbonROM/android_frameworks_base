@@ -2166,6 +2166,11 @@ public class StatusBar extends SystemUI implements DemoMode,
         return ThemeAccentUtils.isUsingDarkTheme(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
     }
 
+    // Check for the black system theme
+    public boolean isUsingBlackTheme() {
+        return ThemeAccentUtils.isUsingBlackTheme(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
+    }
+
     // Unloads the stock dark theme
     public void unloadStockDarkTheme() {
         ThemeAccentUtils.unloadStockDarkTheme(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
@@ -2918,6 +2923,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             pw.println("    overlay manager not initialized!");
         } else {
             pw.println("    dark overlay on: " + isUsingDarkTheme());
+            pw.println("    black overlay on: " + isUsingBlackTheme());
         }
         final boolean lightWpTheme = mContext.getThemeResId() == R.style.Theme_SystemUI_Light;
         pw.println("    light wallpaper theme: " + lightWpTheme);
@@ -4005,11 +4011,19 @@ public class StatusBar extends SystemUI implements DemoMode,
         final boolean nightModeWantsDarkTheme = DARK_THEME_IN_NIGHT_MODE
                 && (config.uiMode & Configuration.UI_MODE_NIGHT_MASK)
                     == Configuration.UI_MODE_NIGHT_YES;
-        final boolean useDarkTheme = nightModeWantsDarkTheme;
+        final boolean useBlackTheme = nightModeWantsDarkTheme && (Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.USE_BLACK_THEME, 0, UserHandle.USER_CURRENT) == 1);
+        final boolean useDarkTheme = nightModeWantsDarkTheme && !useBlackTheme;
         if (isUsingDarkTheme() != useDarkTheme) {
             mUiOffloadThread.submit(() -> {
                 unfuckBlackWhiteAccent();
                 ThemeAccentUtils.setLightDarkTheme(mOverlayManager, mLockscreenUserManager.getCurrentUserId(), useDarkTheme);
+            });
+        }
+        if (isUsingBlackTheme() != useBlackTheme) {
+            mUiOffloadThread.submit(() -> {
+                unfuckBlackWhiteAccent();
+                ThemeAccentUtils.setLightBlackTheme(mOverlayManager, mLockscreenUserManager.getCurrentUserId(), useBlackTheme);
             });
         }
 
@@ -5220,6 +5234,10 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.ACCENT_PICKER),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.USE_BLACK_THEME),
+                    false, this, UserHandle.USER_ALL);
+            update();
         }
 
         @Override
@@ -5228,10 +5246,14 @@ public class StatusBar extends SystemUI implements DemoMode,
                     Settings.System.ACCENT_PICKER))) {
                 unloadAccents();
                 updateAccents();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.USE_BLACK_THEME))) {
+                updateTheme();
             }
         }
 
         public void update() {
+            updateTheme();
         }
     }
 
