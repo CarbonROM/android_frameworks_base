@@ -4419,6 +4419,13 @@ public final class Settings {
         public static final String ACCENT_PICKER = "accent_picker";
 
         /**
+         * Whether to use black themes in place of dark
+         *
+         * @hide
+         */
+        public static final String USE_BLACK_THEME = "use_black_theme";
+
+        /**
          * Whether to use icon pack for Recents
          * @hide
          */
