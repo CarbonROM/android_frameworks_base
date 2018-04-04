@@ -96,4 +96,7 @@
   <!-- Updater snackbar text color -->
   <java-symbol type="color" name="updater_snackbar_text_color" />
 
+  <!-- Auto fill -->
+  <java-symbol type="color" name="autofill_save_title_color" />
+  <java-symbol type="color" name="autofill_autofill_save_custom_subtitle_color" />
 </resources>
