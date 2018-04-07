@@ -1,0 +1,4 @@
+{
+  "pushCert": "certificate version 0.1\npusher RJ Trujillo \u003ccertifiedblyndguy@gmail.com\u003e 1523063106 -0700\npushee ssh://review.carbonrom.org:29418/CarbonROM/android_frameworks_base\nnonce 1523063119-7A70D540455419C9043D4540804A1A261066BF91\n\n0000000000000000000000000000000000000000 04dbeea94d99d8775963510f63ffd470c8791081 refs/for/cr-6.1\n-----BEGIN PGP SIGNATURE-----\n\niQEcBAABAgAGBQJayBlCAAoJEPmgJR/9oEk/aMsH/1B3RSjkln1kKjfz2BLukCPA\ns0bF37SDtQIVnVAN/er5iU1Dd/v92ok3pUcorAuCALd8uU/I7pqZ7IYGCB66MQX0\ntgUKzii50q/Cg6Dcl6VcctRJr0k6Iut4FOCVcpNmHUF/Tpx3vRQ6sY4dfqD5pEPG\nebbC4ZZksnJ5amoGpf7H3Y98NuDV8juA7N+LVmchSGmauPYdQC31ueep117HYbV2\nuhJHA7w3dL26ZwN2OCU6ZJCC23Q0Z+y7ISVJ24cknHXUT4D40dblJ0VdobooYRj+\nTR7GdZaCRxiIhtfqy0c9Zh5z8mLLpFGD/5RnhOlILpc/cNIsks2W1V13xGXPiJ8\u003d\n\u003dZNCM\n-----END PGP SIGNATURE-----\n",
+  "comments": []
+}
