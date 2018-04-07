@@ -243,11 +243,13 @@ public class BatteryMeterView extends LinearLayout implements
                 mDrawable.setShowPercent(true);
                 removeView(mBatteryPercentView);
                 mBatteryPercentView = null;
+                return;
             }
-            if (hideText && !showingText && !mForceShowPercent) {
+            if (hideText) {
                 mDrawable.setShowPercent(false);
                 removeView(mBatteryPercentView);
                 mBatteryPercentView = null;
+                return;
             }
         } else {
             if (showingOutside || !showingInside) {
