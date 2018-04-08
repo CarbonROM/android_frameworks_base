@@ -54,6 +54,7 @@ import com.android.systemui.qs.tiles.ReduceBrightColorsTile;
 import com.android.systemui.qs.tiles.RotationLockTile;
 import com.android.systemui.qs.tiles.ScreenRecordTile;
 import com.android.systemui.qs.tiles.UiModeNightTile;
+import com.android.systemui.qs.tiles.SmartPixelsTile;
 import com.android.systemui.qs.tiles.WifiTile;
 import com.android.systemui.qs.tiles.WorkModeTile;
 import com.android.systemui.util.leak.GarbageMonitor;
@@ -98,6 +99,7 @@ public class QSFactoryImpl implements QSFactory {
     private final Provider<QRCodeScannerTile> mQRCodeScannerTileProvider;
     private final Provider<OneHandedModeTile> mOneHandedModeTileProvider;
     private final Provider<DreamTile> mDreamTileProvider;
+    private final Provider<SmartPixelsTile> mSmartPixelsTileProvider;
 
     private final Lazy<QSHost> mQsHostLazy;
     private final Provider<CustomTile.Builder> mCustomTileBuilderProvider;
@@ -135,7 +137,8 @@ public class QSFactoryImpl implements QSFactory {
             Provider<QRCodeScannerTile> qrCodeScannerTileProvider,
             Provider<OneHandedModeTile> oneHandedModeTileProvider,
             Provider<ColorCorrectionTile> colorCorrectionTileProvider,
-            Provider<DreamTile> dreamTileProvider) {
+            Provider<DreamTile> dreamTileProvider,
+            Provider<SmartPixelsTile> smartPixelsTileProvider) {
         mQsHostLazy = qsHostLazy;
         mCustomTileBuilderProvider = customTileBuilderProvider;
 
@@ -169,6 +172,7 @@ public class QSFactoryImpl implements QSFactory {
         mOneHandedModeTileProvider = oneHandedModeTileProvider;
         mColorCorrectionTileProvider = colorCorrectionTileProvider;
         mDreamTileProvider = dreamTileProvider;
+        mSmartPixelsTileProvider = smartPixelsTileProvider;
     }
 
     /** Creates a tile with a type based on {@code tileSpec} */
@@ -244,6 +248,8 @@ public class QSFactoryImpl implements QSFactory {
                 return mColorCorrectionTileProvider.get();
             case "dream":
                 return mDreamTileProvider.get();
+            case "smartpixels":
+                return mSmartPixelsTileProvider.get();
         }
 
         // Custom tiles
