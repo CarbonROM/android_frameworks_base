@@ -48,4 +48,9 @@
     <string name="navbar_tuner_activity">Navigation bar buttons</string>
     <string name="lockscreen_tuner_activity">Lock screen shortcuts</string>
     <string name="powernotif_tuner_activity">Power notifications</string>
+
+    <!-- Smart Pixels QS Tile -->
+    <string name="quick_settings_smart_pixels">Smart Pixels</string>
+    <string name="quick_settings_smart_pixels_on_power_save">Auto-enabled Smart Pixels</string>
+
 </resources>
