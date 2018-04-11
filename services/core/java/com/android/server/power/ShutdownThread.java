@@ -80,7 +80,7 @@ public final class ShutdownThread extends Thread {
     private static final int MOUNT_SERVICE_STOP_PERCENT = 20;
 
     // length of vibration before shutting down
-    private static final int SHUTDOWN_VIBRATE_MS = 500;
+    private static final int SHUTDOWN_VIBRATE_MS = 200;
 
     // state tracking
     private static final Object sIsStartedGuard = new Object();
@@ -765,7 +765,7 @@ public final class ShutdownThread extends Thread {
 
             // vibrator is asynchronous so we need to wait to avoid shutting down too soon.
             try {
-                Thread.sleep(SHUTDOWN_VIBRATE_MS);
+                Thread.sleep(50);
             } catch (InterruptedException unused) {
             }
         }
