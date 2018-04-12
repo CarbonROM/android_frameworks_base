@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2015, Sergii Pylypenko
  *           (c) 2018, Joe Maples
+ *           (c) 2018, Adin Kwok
  *           (c) 2018, CarbonROM
  * All rights reserved.
  *
@@ -166,7 +167,7 @@ public class SmartPixelsService extends Service {
 
         intentProcessed = true;
         Log.d(LOG, "Service got intent " + intent.getAction());
-        return START_STICKY;
+        return START_REDELIVER_INTENT;
     }
 
     @Override
