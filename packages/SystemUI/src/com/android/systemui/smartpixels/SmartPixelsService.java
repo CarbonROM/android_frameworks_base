@@ -69,7 +69,6 @@ public class SmartPixelsService extends Service {
     private Bitmap bmp;
 
     private boolean destroyed = false;
-    private boolean intentProcessed = false;
     public static boolean running = false;
 
     private int startCounter = 0;
@@ -156,17 +155,7 @@ public class SmartPixelsService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (Intent.ACTION_DELETE.equals(intent.getAction()) ||
-                (intentProcessed && Intent.ACTION_INSERT.equals(intent.getAction()))) {
-            Log.d(LOG, "Service got shutdown intent");
-            stopSelf();
-            intentProcessed = true;
-            return START_NOT_STICKY;
-        }
-
-        intentProcessed = true;
-        Log.d(LOG, "Service got intent " + intent.getAction());
-        return START_STICKY;
+        return START_NOT_STICKY;
     }
 
     @Override

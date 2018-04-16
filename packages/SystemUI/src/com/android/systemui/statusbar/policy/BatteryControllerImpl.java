@@ -26,6 +26,7 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.util.Log;
 import com.android.systemui.DemoMode;
+import com.android.systemui.smartpixels.SmartPixelsReceiver;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -43,6 +44,7 @@ public class BatteryControllerImpl extends BroadcastReceiver implements BatteryC
     private static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
 
     private final ArrayList<BatteryController.BatteryStateChangeCallback> mChangeCallbacks = new ArrayList<>();
+    private final SmartPixelsReceiver mSmartPixelsReceiver;
     private final PowerManager mPowerManager;
     private final Handler mHandler;
     private final Context mContext;
@@ -62,6 +64,8 @@ public class BatteryControllerImpl extends BroadcastReceiver implements BatteryC
 
         registerReceiver();
         updatePowerSave();
+
+        mSmartPixelsReceiver = new SmartPixelsReceiver(mContext, mPowerSave);
     }
 
     private void registerReceiver() {
@@ -86,6 +90,7 @@ public class BatteryControllerImpl extends BroadcastReceiver implements BatteryC
     @Override
     public void setPowerSaveMode(boolean powerSave) {
         mPowerManager.setPowerSaveMode(powerSave);
+        mSmartPixelsReceiver.powerSaveChanged(powerSave);
     }
 
     @Override
