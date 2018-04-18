@@ -18,13 +18,18 @@ package com.android.systemui;
 
 import android.content.Context;
 
+import com.android.systemui.smartpixels.SmartPixelsReceiver;
+
 /**
  * Placeholder for any vendor-specific services.
  */
 public class VendorServices extends SystemUI {
 
+    private SmartPixelsReceiver mSmartPixelsReceiver;
+
     public VendorServices(Context context) {
         super(context);
+        smartPixelsReceiver = new SmartPixelsReceiver(context);
     }
 
     @Override
