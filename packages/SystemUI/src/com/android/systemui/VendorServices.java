@@ -29,7 +29,7 @@ public class VendorServices extends SystemUI {
 
     public VendorServices(Context context) {
         super(context);
-        smartPixelsReceiver = new SmartPixelsReceiver(context);
+        mSmartPixelsReceiver = new SmartPixelsReceiver(context);
     }
 
     @Override
