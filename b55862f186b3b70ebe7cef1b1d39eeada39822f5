@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6daf434_f15bd904",
+        "filename": "services/core/java/com/android/server/power/ShutdownThread.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 190
+      },
+      "writtenOn": "2018-04-23T00:19:09Z",
+      "side": 1,
+      "message": "We can set this equal to the time polled for all services as well",
+      "range": {
+        "startLine": 83,
+        "startChar": 29,
+        "endLine": 83,
+        "endChar": 48
+      },
+      "revId": "b55862f186b3b70ebe7cef1b1d39eeada39822f5",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081",
+      "unresolved": false
+    }
+  ]
+}
