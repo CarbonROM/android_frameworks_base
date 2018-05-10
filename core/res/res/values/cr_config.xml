@@ -104,9 +104,6 @@
   <!-- Default value for led color when battery is low on charge -->
   <integer name="config_notificationsFastBatteryARGB">0xFF0000FF</integer>
 
-  <!-- Whether device has dash charging support -->
-  <bool name="config_hasDashCharger">false</bool>
-
   <!-- Whether the device supports Smart Pixels -->
   <bool name="config_enableSmartPixels">false</bool>
 
