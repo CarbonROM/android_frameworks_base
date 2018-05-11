@@ -53,6 +53,7 @@
     <string name="navbar_tuner_activity">Navigation bar buttons</string>
     <string name="lockscreen_tuner_activity">Lock screen shortcuts</string>
     <string name="powernotif_tuner_activity">Power notifications</string>
+    <string name="quick_settings_roaming_title">Roaming indicator</string>
 
     <!-- QS Config -->
     <string name="qs_menu_item_columns">Columns</string>
