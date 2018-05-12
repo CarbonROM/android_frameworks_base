@@ -1863,14 +1863,19 @@ public class ActivityManagerService extends IActivityManager.Stub
             } break;
             case SHOW_FINGERPRINT_ERROR_UI_MSG: {
                 if (mShowDialogs) {
-                    String buildfingerprint = SystemProperties.get("ro.build.fingerprint");
-                    String[] splitfingerprint = buildfingerprint.split("/");
-                    String vendorid = splitfingerprint[3];
+                    String odm_version = SystemProperties.get("ro.odm.expect.version");
+                    Boolean is_odm_missmatch = !TextUtils.isEmpty(odm_version);
+                    String vendorid;
+                    if (!is_odm_missmatch) {
+                        String buildfingerprint = SystemProperties.get("ro.build.fingerprint");
+                        String[] splitfingerprint = buildfingerprint.split("/");
+                        vendorid = splitfingerprint[3];
+                    }
                     AlertDialog d = new BaseErrorDialog(mUiContext);
                     d.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ERROR);
                     d.setCancelable(false);
                     d.setTitle(mUiContext.getText(R.string.android_system_label));
-                    d.setMessage(mUiContext.getString(R.string.system_error_vendorprint, vendorid));
+                    d.setMessage(mUiContext.getString(R.string.system_error_vendorprint, is_odm_missmatch ? odm_version : vendorid));
                     d.setButton(DialogInterface.BUTTON_POSITIVE, mUiContext.getText(R.string.ok),
                             obtainMessage(DISMISS_DIALOG_UI_MSG, d));
                     d.show();
