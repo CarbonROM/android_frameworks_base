@@ -67,4 +67,12 @@
   <!-- Whether to post reset runnable for all clients. Needed for some older
          vendor fingerprint HAL implementations. -->
   <bool name="config_fingerprintPostResetRunnableForAllClients">false</bool>
+
+
+  <!-- Whether device has screen with higher aspect ratio -->
+  <bool name="config_haveHigherAspectRatioScreen">false</bool>
+
+  <!-- Aspect ratio of screen -->
+  <item name="config_screenAspectRatio" format="float" type="dimen">2.1</item>
+
 </resources>
