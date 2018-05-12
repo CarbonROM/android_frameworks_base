@@ -4535,6 +4535,16 @@ public final class Settings {
         };
 
         /**
+         * @hide
+         */
+        public static final String ASPECT_RATIO_APPS_LIST = "aspect_ratio_apps_list";
+
+        /**
+         * @hide
+         */
+        public static final String ASPECT_RATIO_APPS_ENABLED = "aspect_ratio_apps_enabled";
+
+        /**
          * These are all public system settings
          *
          * @hide
@@ -4657,6 +4667,8 @@ public final class Settings {
             PRIVATE_SETTINGS.add(BATTERY_LIGHT_REALLY_FULL_COLOR);
             PRIVATE_SETTINGS.add(FAST_BATTERY_LIGHT_COLOR);
             PRIVATE_SETTINGS.add(FAST_CHARGING_LED_ENABLED);
+            PRIVATE_SETTINGS.add(ASPECT_RATIO_APPS_LIST);
+            PRIVATE_SETTINGS.add(ASPECT_RATIO_APPS_ENABLED);
         }
 
         /**
