@@ -4616,6 +4616,16 @@ public final class Settings {
         };
 
         /**
+         * @hide
+         */
+        public static final String ASPECT_RATIO_APPS_LIST = "aspect_ratio_apps_list";
+
+        /**
+         * @hide
+         */
+        public static final String ASPECT_RATIO_APPS_ENABLED = "aspect_ratio_apps_enabled";
+
+        /**
          * These are all public system settings
          *
          * @hide
@@ -4725,6 +4735,8 @@ public final class Settings {
             PRIVATE_SETTINGS.add(BUTTON_BACKLIGHT_ON_TOUCH_ONLY);
             PRIVATE_SETTINGS.add(FACE_AUTO_UNLOCK);
             PRIVATE_SETTINGS.add(SHOW_FOURG);
+            PRIVATE_SETTINGS.add(ASPECT_RATIO_APPS_LIST);
+            PRIVATE_SETTINGS.add(ASPECT_RATIO_APPS_ENABLED);
         }
 
         /**
