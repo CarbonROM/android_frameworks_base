@@ -5624,6 +5624,16 @@ public final class Settings {
          */
 
         /**
+         * @hide
+         */
+        public static final String ASPECT_RATIO_APPS_LIST = "aspect_ratio_apps_list";
+
+        /**
+         * @hide
+         */
+        public static final String ASPECT_RATIO_APPS_ENABLED = "aspect_ratio_apps_enabled";
+
+        /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
          *
@@ -6095,6 +6105,8 @@ public final class Settings {
             DOUBLE_TAP_SLEEP_LOCKSCREEN,
             DOUBLE_TAP_SLEEP_GESTURE,
             HIDE_FROM_RECENTS_LIST,
+            ASPECT_RATIO_APPS_LIST,
+            ASPECT_RATIO_APPS_ENABLED,
         };
 
         /**
@@ -6121,6 +6133,8 @@ public final class Settings {
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(DOUBLE_TAP_SLEEP_LOCKSCREEN, 0);
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(DOUBLE_TAP_SLEEP_GESTURE, 0);
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(HIDE_FROM_RECENTS_LIST, 2);
+            CARBON_SYSTEM_SETTINGS_VALIDATORS.put(ASPECT_RATIO_APPS_LIST, 2);
+            CARBON_SYSTEM_SETTINGS_VALIDATORS.put(ASPECT_RATIO_APPS_ENABLED, 0);
         }
     }
 
