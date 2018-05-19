@@ -209,7 +209,7 @@ public class Build {
          * The user-visible security patch level.
          */
         public static final String SECURITY_PATCH = SystemProperties.get(
-                "ro.build.version.security_patch", "");
+                "ro.build.version.security_patch_sys", "");
 
         /**
          * The user-visible SDK version of the framework in its raw String
