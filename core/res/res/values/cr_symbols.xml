@@ -41,9 +41,6 @@
 
   <java-symbol type="integer" name="config_flashlightProximityTimeout" />
 
-  <!-- Usb drive persistent notification -->
-  <java-symbol type="bool" name="config_persistUsbDriveNotification" />
-
   <!-- Package Manager -->
   <java-symbol type="array" name="config_disabledComponents" />
   <java-symbol type="array" name="config_forceEnabledComponents" />
