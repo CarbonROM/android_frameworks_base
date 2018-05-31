@@ -47,7 +47,8 @@
   <!-- Whether the device supports Smart Pixels -->
   <bool name="config_enableSmartPixels">false</bool>
 
-  <!-- Flashlight proximity check -->
+  <!-- Time to give to the proximity sensor before toggling the flashlight with the Power button.
+  Set to -1 to disable the proximity sensor check at all-->
   <integer name="config_flashlightProximityTimeout">300</integer>
 
 </resources>
