@@ -683,5 +683,19 @@ public class ImsCallSessionListener {
             e.rethrowFromSystemServer();
         }
     }
+
+    /**
+     * While in call, there has been a change in the call session
+     * property.
+     * @param property - an integer containing masks for different properties
+     * {e.g. @see Connection#PROPERTY_RTT_AUDIO_SPEECH}
+     */
+    public void callSessionPropertyChanged(int property) {
+        try {
+            mListener.callSessionPropertyChanged(property);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 
