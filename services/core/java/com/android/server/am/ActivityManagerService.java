@@ -24768,8 +24768,8 @@ public class ActivityManagerService extends IActivityManager.Stub
         }
     }
 
-    // omni additions start
-    public static final boolean DEBUG_ASPECT_RATIO = DEBUG_ALL || false;
+    // carbon additions start
+    public static final boolean DEBUG_ASPECT_RATIO = true;
     public static final String TAG_DEBUG_ASPECT_RATIO = TAG + "_MaxAspectRatio";
 
     private Set<String> mAspectRatioApps = new HashSet<String>();
@@ -24788,6 +24788,7 @@ public class ActivityManagerService extends IActivityManager.Stub
             updateAppList();
             mAspectRatioEnabled = Settings.System.getIntForUser(mContext.getContentResolver(),
                     Settings.System.ASPECT_RATIO_APPS_ENABLED, 0, UserHandle.USER_CURRENT) == 1;
+            Log.e(TAG_DEBUG_ASPECT_RATIO, "mAspectRatioEnabled: " + mAspectRatioEnabled); 
         }
 
         @Override
@@ -24805,13 +24806,17 @@ public class ActivityManagerService extends IActivityManager.Stub
             String apps = Settings.System.getStringForUser(mContext.getContentResolver(),
                     Settings.System.ASPECT_RATIO_APPS_LIST, UserHandle.USER_CURRENT);
             mAspectRatioApps.clear();
+             Log.e(TAG_DEBUG_ASPECT_RATIO, "Apps: " + apps);
+
             if (!TextUtils.isEmpty(apps)) {
                 // we only want package names here
                 for (String componentNameString : Arrays.asList(apps.split("\\|"))) {
+                    Log.e(TAG_DEBUG_ASPECT_RATIO, "component: " + componentNameString);
                     ComponentName componentName = ComponentName.unflattenFromString(componentNameString);
                     if (componentName != null) {
                         // filter out those that have been uninstalled
                         String packageName = componentName.getPackageName();
+                        Log.e(TAG_DEBUG_ASPECT_RATIO, "package: " + packageName);
                         try {
                             mContext.getPackageManager().getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
                             mAspectRatioApps.add(packageName);
@@ -24819,7 +24824,7 @@ public class ActivityManagerService extends IActivityManager.Stub
                         }
                     }
                 }
-                if (DEBUG_ASPECT_RATIO) Log.d(TAG_DEBUG_ASPECT_RATIO, "Set aspect ratio list " + mAspectRatioApps);
+                Log.e(TAG_DEBUG_ASPECT_RATIO, "Set aspect ratio list " + mAspectRatioApps);
             }
         }
     }

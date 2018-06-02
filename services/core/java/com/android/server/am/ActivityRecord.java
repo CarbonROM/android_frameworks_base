@@ -2316,12 +2316,12 @@ final class ActivityRecord extends ConfigurationContainer implements AppWindowCo
     private void computeBounds(Rect outBounds) {
         outBounds.setEmpty();
         float maxAspectRatio = info.maxAspectRatio;
+        Log.e(ActivityManagerService.TAG_DEBUG_ASPECT_RATIO, "before if");
         if (maxAspectRatio != 0.0f && higherAspectRatio && service.getAspectRatioApps() != null) {
+            Log.e(ActivityManagerService.TAG_DEBUG_ASPECT_RATIO, "after if");
             if (service.getAspectRatioApps().contains(packageName)) {
-                if (ActivityManagerService.DEBUG_ASPECT_RATIO) {
-                    Log.d(ActivityManagerService.TAG_DEBUG_ASPECT_RATIO,
+                    Log.e(ActivityManagerService.TAG_DEBUG_ASPECT_RATIO,
                             "Force aspect ratio for " + packageName + " " + maxAspectRatio);
-                }
                 maxAspectRatio = mFullScreenAspectRatio;
             }
         }
