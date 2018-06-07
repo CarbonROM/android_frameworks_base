@@ -8259,4 +8259,13 @@ public class ConnectivityService extends IConnectivityManager.Stub
 
         notifyDataStallSuspected(p, network.netId);
     }
+
+    private void handleUpdateTCPBuffersfor5G() {
+        Network network = getActiveNetwork();
+        NetworkAgentInfo ntwAgent = getNetworkAgentInfoForNetwork(network);
+        if (DBG)
+            log("handleUpdateTCPBuffersfor5G nai " + ntwAgent);
+        if (ntwAgent != null)
+            updateTcpBufferSizes(ntwAgent);
+    }
 }
