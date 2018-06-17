@@ -4209,7 +4209,7 @@ public final class Settings {
          */
         public static final String QS_LAYOUT_ROWS = "qs_layout_rows";
 
-        /** Whether to skip music track with volume rocker 
+        /** Whether to skip music track with volume rocker
         /**
          * @hide
          */
@@ -8508,6 +8508,11 @@ public final class Settings {
         * Whether user has enabled development settings.
         */
        public static final String DEVELOPMENT_SETTINGS_ENABLED = "development_settings_enabled";
+
+       /**
+        * Wheter set qs background alpha.
+        */
+       public static final String QS_BACKGROUND_ALPHA = "qs_background_alpha";
 
        /**
         * Whether the device has been provisioned (0 = false, 1 = true).

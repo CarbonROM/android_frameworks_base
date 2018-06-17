@@ -21,6 +21,7 @@ import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.provider.Settings;
 
 import com.android.systemui.R;
 import com.android.systemui.qs.customize.QSCustomizer;
@@ -54,6 +55,11 @@ public class QSContainerImpl extends FrameLayout {
         mQSCustomizer = findViewById(R.id.qs_customize);
         mQSFooter = findViewById(R.id.qs_footer);
         mFullElevation = mQSPanel.getElevation();
+
+        if (isQSBackgroundAlphaEnabled()) {
+            //mQSPanel.setBackground(getDrawable(context, R.drawable.ready));
+            mQSPanel = findViewById(R.id.quick_settings_panel_2);
+        }
 
         setClickable(true);
         setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_NO);
@@ -122,5 +128,10 @@ public class QSContainerImpl extends FrameLayout {
     public void setExpansion(float expansion) {
         mQsExpansion = expansion;
         updateExpansion();
+    }
+
+    private boolean isQSBackgroundAlphaEnabled() {
+        return Settings.System.getIntForUser(getContext().getContentResolver(),
+                Settings.System.QS_BACKGROUND_ALPHA, 0, UserHandle.USER_CURRENT) == 1;
     }
 }
