@@ -677,7 +677,7 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
             v.setHideExpand(mTileLayout.getNumColumns() > 4);
             v.setHideLabel(!mTileLayout.isShowTitles());
             if (t.isDualTarget()) {
-                if (!mTileLayout.isShowTitles()) {
+                if (mTileLayout.isShowTitles()) {
                     v.setOnLongClickListener(view -> {
                         t.secondaryClick();
                         return true;
