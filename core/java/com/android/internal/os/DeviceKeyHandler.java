@@ -28,5 +28,16 @@ public interface DeviceKeyHandler {
      * @return null if event is consumed, KeyEvent to be handled otherwise
      */
     public KeyEvent handleKeyEvent(KeyEvent event);
+
     public void handleNavbarToggle(boolean enabled);
+
+      /**
+     * Invoked when an unknown key was detected by the system,
+     * this should NOT handle the key just return if it WOULD be handled
+     *
+     * @param event The key event to be handled
+     * @return If the event will be consumed
+     */
+    public boolean canHandleKeyEvent(KeyEvent event);
+
 }
