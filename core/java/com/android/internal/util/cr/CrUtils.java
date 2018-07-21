@@ -27,6 +27,8 @@ import android.hardware.camera2.CameraManager;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.net.ConnectivityManager;
+import android.view.IWindowManager;
+import android.view.WindowManagerGlobal;
 
 import com.android.internal.statusbar.IStatusBarService;
 
@@ -111,6 +113,13 @@ public class CrUtils {
 
     public static void toggleCameraFlash() {
         FireActions.toggleCameraFlash();
+    }
+
+    public static void goToSleep(Context context) {
+        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        if(pm != null) {
+            pm.goToSleep(SystemClock.uptimeMillis());
+        }
     }
 
     private static final class FireActions {
