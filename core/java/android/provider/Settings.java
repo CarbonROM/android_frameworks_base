@@ -4406,6 +4406,16 @@ public final class Settings {
         public static final String LOCKSCREEN_MEDIA_METADATA = "lockscreen_media_metadata";
 
         /**
+          * @hide
+         */
+        public static final String USE_BOTTOM_GESTURE_NAVIGATION =
+                "use_bottom_gesture_navigation";
+
+        /** @hide */
+        private static final Validator USE_BOTTOM_GESTURE_NAVIGATION_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
+        /**
          * volume answer
          * @hide
          */
@@ -4593,7 +4603,8 @@ public final class Settings {
             BUTTON_BACKLIGHT_ENABLE,
             BUTTON_BACKLIGHT_TIMEOUT,
             BUTTON_BACKLIGHT_ON_TOUCH_ONLY,
-            SHOW_FOURG
+            SHOW_FOURG,
+            USE_BOTTOM_GESTURE_NAVIGATION,
         };
 
         /**
@@ -4718,6 +4729,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(BUTTON_BACKLIGHT_ON_TOUCH_ONLY);
             PRIVATE_SETTINGS.add(FACE_AUTO_UNLOCK);
             PRIVATE_SETTINGS.add(SHOW_FOURG);
+            PRIVATE_SETTINGS.add(USE_BOTTOM_GESTURE_NAVIGATION);
         }
 
         /**
@@ -4819,6 +4831,8 @@ public final class Settings {
                     BUTTON_BACKLIGHT_ON_TOUCH_ONLY_VALIDATOR);
             VALIDATORS.put(FACE_AUTO_UNLOCK, FACE_AUTO_UNLOCK_VALIDATOR);
             VALIDATORS.put(SHOW_FOURG, SHOW_FOURG_VALIDATOR);
+            VALIDATORS.put(USE_BOTTOM_GESTURE_NAVIGATION,
+                    USE_BOTTOM_GESTURE_NAVIGATION_VALIDATOR);
         }
 
         /**

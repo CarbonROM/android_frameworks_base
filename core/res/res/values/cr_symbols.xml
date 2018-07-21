@@ -149,4 +149,9 @@
   <java-symbol type="drawable" name="weather_sunny" />
   <java-symbol type="drawable" name="weather_thunderstorms" />
   <java-symbol type="drawable" name="weather_windy" />
+  
+  <!-- OpGestures -->
+  <java-symbol type="dimen" name="nav_gesture_swipe_min_length" />
+  <java-symbol type="dimen" name="nav_gesture_long_press_max_length" />
+
 </resources>

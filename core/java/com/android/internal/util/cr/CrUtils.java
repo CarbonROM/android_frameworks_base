@@ -187,6 +187,13 @@ public class CrUtils {
         }
     }
 
+    public static void goToSleep(Context context) {
+        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        if(pm != null) {
+            pm.goToSleep(SystemClock.uptimeMillis());
+        }
+    }
+
     public static void toggleNotifications() {
         IStatusBarService service = getStatusBarService();
         if (service != null) {
