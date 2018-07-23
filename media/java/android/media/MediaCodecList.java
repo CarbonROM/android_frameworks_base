@@ -23,6 +23,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
+import android.app.ActivityThread;
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  * Allows you to enumerate available codecs, each specified as a {@link MediaCodecInfo} object,
  * find a codec supporting a given format and query the capabilities
@@ -85,10 +91,10 @@ final public class MediaCodecList {
                 for (int index = 0; index < count; index++) {
                     try {
                         MediaCodecInfo info = getNewCodecInfoAt(index);
-                        all.add(info);
+                        if (!ignoreThisCodec(info)) all.add(info);
                         info = info.makeRegular();
                         if (info != null) {
-                            regulars.add(info);
+                            if (!ignoreThisCodec(info)) regulars.add(info);
                         }
                     } catch (Exception e) {
                         Log.e(TAG, "Could not get codec capabilities", e);
@@ -99,6 +105,29 @@ final public class MediaCodecList {
                 sAllCodecInfos =
                     all.toArray(new MediaCodecInfo[all.size()]);
             }
+        }
+    }
+    
+    private static boolean ignoreThisCodec(MediaCodecInfo codec) {
+        try {
+            File configFile = new File("/system/etc/media-codec-blacklist");
+            if (!configFile.exists()) return false;
+
+            BufferedReader fs = new BufferedReader(new FileReader(configFile));
+            String line;
+            String packageName = ActivityThread.currentPackageName();
+            String codecLine = packageName + ":" + codec.getName();
+
+            while ((line = fs.readLine()) != null) {
+                if (line.equals(codecLine)) {
+                    fs.close();
+                    return true;
+                }
+            }
+            fs.close();
+            return false;
+        } catch (IOException ignored) {
+            return false;
         }
     }
 
