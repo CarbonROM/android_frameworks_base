@@ -156,6 +156,24 @@ public class DeviceInfoUtils {
         }
         return null;
     }
+    
+    public static String getVendorSecurityPatch() {
+		String patch = Build.VERSION.VENDOR_SECURITY_PATCH;
+
+        if (!"".equals(patch)) {
+            try {
+                SimpleDateFormat template = new SimpleDateFormat("yyyy-MM-dd");
+                Date patchDate = template.parse(patch);
+                String format = DateFormat.getBestDateTimePattern(Locale.getDefault(), "dMMMMyyyy");
+                patch = DateFormat.format(format, patchDate).toString();
+            } catch (ParseException e) {
+                // broken parse; fall through and use the raw string
+            }
+            return patch;
+        } else {
+            return null;
+        }
+	}
 
     public static String getSecurityPatch() {
         String patch = Build.VERSION.SECURITY_PATCH;
