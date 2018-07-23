@@ -1,4 +1,74 @@
 {
   "pushCert": "certificate version 0.1\npusher darjwx \u003cdarjwx@gmail.com\u003e 1531822429 +0200\npushee ssh://review.carbonrom.org:29418/CarbonROM/android_frameworks_base\nnonce 1531822430-3FD3F19BA9E859416553D0A9EB69EDD5C1EFB88F\n\n0000000000000000000000000000000000000000 e879a721a671c04daef9dfeac451dec64c09e8b5 refs/for/cr-6.1\n-----BEGIN PGP SIGNATURE-----\nVersion: GnuPG v1\n\niQEcBAABAgAGBQJbTcFdAAoJEIntozCEZ3N8NoUH/0uK8MGgc7Xc3MOMgxUb9/DG\nX8Ao4YiLip1WXTcCQGDo8qYWsHkswp5o815h6LcYEmJ7pqRos/Xmv6dn9s2VHmcP\nss0KvX3bveRCDpkWWXs5hJNZmqg1zDY1Ow59ZAAEs7MooniStTf1Y4G6AQgyM7Kb\nLwvgEU+kx1rBGmXAFRl4iehaIuKDmrOCiS9Sf2YkKqGF39Q4/aZo+anhC3wMpciN\nuG7xxNPjrbU/xk/CP243XnEDMPm1nl/56D0rdB68N4lwO11EB7TeR2U3QtSU11j/\nPIj9QsQ3JGN30fY0IYtJjqzkV4swS0Nu54OFTuKVCjTQhEaHqaEPuVewuxD1KxQ\u003d\n\u003dCY63\n-----END PGP SIGNATURE-----\n",
-  "comments": []
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e31dfdb_4529999b",
+        "filename": "packages/SystemUI/src/com/android/systemui/qs/tiles/PowerTile.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 51
+      },
+      "writtenOn": "2018-07-23T09:38:02Z",
+      "side": 1,
+      "message": "You could remove these imports.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 42
+      },
+      "revId": "e879a721a671c04daef9dfeac451dec64c09e8b5",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "044da5ee_fa906d5a",
+        "filename": "packages/SystemUI/src/com/android/systemui/qs/tiles/PowerTile.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 51
+      },
+      "writtenOn": "2018-07-23T09:38:02Z",
+      "side": 1,
+      "message": "These don\u0027t have to be final",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 54
+      },
+      "revId": "e879a721a671c04daef9dfeac451dec64c09e8b5",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f379877a_dfb43290",
+        "filename": "packages/SystemUI/src/com/android/systemui/qs/tiles/PowerTile.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 51
+      },
+      "writtenOn": "2018-07-23T09:38:02Z",
+      "side": 1,
+      "message": "This is not being called/used at all.",
+      "range": {
+        "startLine": 221,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 95
+      },
+      "revId": "e879a721a671c04daef9dfeac451dec64c09e8b5",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081",
+      "unresolved": false
+    }
+  ]
 }
