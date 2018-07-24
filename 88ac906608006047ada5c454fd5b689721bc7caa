@@ -1,4 +1,97 @@
 {
   "pushCert": "certificate version 0.1\npusher darjwx \u003cdarjwx@gmail.com\u003e 1532425933 +0200\npushee ssh://review.carbonrom.org:29418/CarbonROM/android_frameworks_base\nnonce 1532425934-9AB0D79AE33C049BDD3A8C3C93C3F92407E85DA2\n\n0000000000000000000000000000000000000000 88ac906608006047ada5c454fd5b689721bc7caa refs/for/cr-6.1\n-----BEGIN PGP SIGNATURE-----\nVersion: GnuPG v1\n\niQEcBAABAgAGBQJbVvbNAAoJEIntozCEZ3N8ia8H/iwlH9K97uwh+voRTMTQ4NDf\nQRSkxaIf9QLcSLxndjKAbnXfCjM2SZpcXV2ammWAuV7pUpjF5dS78v6Bzd9SqobC\n4iPZ4fcWPFOlqylJCskKjlHq6ZZaxKoGuFzpc6YmCgiVXjeJkH5j+1gniCyOHc7T\nhREhe8fLwzzR0OFQPoRBKTzlZ4pe3Y2l/oRtCY1YJu/MIrY2vX+kZlpcOCAAa0Sf\nrPG8OiOV8Dto6XNGW1LteoxgOD8hFcmX5yxuBgaSZ/lxHJEon2NoGKN8INqGwPeX\n8Dkb4JN+7+iVqoSh8qP0g0pIJUGTuEY3BRzuN0x4sVl3DVa245XFm/mmEou/pIs\u003d\n\u003d2hY8\n-----END PGP SIGNATURE-----\n",
-  "comments": []
+  "comments": [
+    {
+      "key": {
+        "uuid": "be7bcdb7_80f30d43",
+        "filename": "packages/SystemUI/src/com/android/systemui/qs/tiles/PowerTile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 51
+      },
+      "writtenOn": "2018-07-24T18:44:06Z",
+      "side": 1,
+      "message": "Remove this",
+      "range": {
+        "startLine": 225,
+        "startChar": 0,
+        "endLine": 225,
+        "endChar": 35
+      },
+      "revId": "88ac906608006047ada5c454fd5b689721bc7caa",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ebba226_0fe12ae3",
+        "filename": "packages/SystemUI/src/com/android/systemui/qs/tiles/PowerTile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 51
+      },
+      "writtenOn": "2018-07-24T18:44:06Z",
+      "side": 1,
+      "message": "Remove this",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 232,
+        "endChar": 35
+      },
+      "revId": "88ac906608006047ada5c454fd5b689721bc7caa",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7d65fef2_6c9a803a",
+        "filename": "packages/SystemUI/src/com/android/systemui/qs/tiles/PowerTile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 51
+      },
+      "writtenOn": "2018-07-24T18:44:06Z",
+      "side": 1,
+      "message": "Remove this",
+      "range": {
+        "startLine": 239,
+        "startChar": 0,
+        "endLine": 239,
+        "endChar": 35
+      },
+      "revId": "88ac906608006047ada5c454fd5b689721bc7caa",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "580f9737_05eeb79c",
+        "filename": "packages/SystemUI/src/com/android/systemui/qs/tiles/PowerTile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 51
+      },
+      "writtenOn": "2018-07-24T18:44:06Z",
+      "side": 1,
+      "message": "Underneath his line, please the refreshState call like is done in handleLongClick. This will help avoid repetitive calls",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 13
+      },
+      "revId": "88ac906608006047ada5c454fd5b689721bc7caa",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081",
+      "unresolved": false
+    }
+  ]
 }
