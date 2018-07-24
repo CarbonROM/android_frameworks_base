@@ -92,6 +92,30 @@
       "revId": "88ac906608006047ada5c454fd5b689721bc7caa",
       "serverId": "4c0b52a2-b090-4331-a190-b288d812d081",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bfb14e0c_2ab1318c",
+        "filename": "packages/SystemUI/src/com/android/systemui/qs/tiles/PowerTile.java",
+        "patchSetId": 24
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 51
+      },
+      "writtenOn": "2018-07-24T18:44:54Z",
+      "side": 1,
+      "message": "I mean place, not please lol",
+      "parentUuid": "580f9737_05eeb79c",
+      "range": {
+        "startLine": 243,
+        "startChar": 0,
+        "endLine": 243,
+        "endChar": 13
+      },
+      "revId": "88ac906608006047ada5c454fd5b689721bc7caa",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081",
+      "unresolved": false
     }
   ]
 }
