@@ -1,4 +1,51 @@
 {
   "pushCert": "certificate version 0.1\npusher darjwx \u003cdarjwx@gmail.com\u003e 1532458677 +0200\npushee ssh://review.carbonrom.org:29418/CarbonROM/android_frameworks_base\nnonce 1532458679-50B14CF45318CB07CBA93C14C0721D2D885C07B2\n\n0000000000000000000000000000000000000000 c8e326ef5311a8e4bebbf648be27a6b3e014a3ba refs/for/cr-6.1\n-----BEGIN PGP SIGNATURE-----\nVersion: GnuPG v1\n\niQEcBAABAgAGBQJbV3a1AAoJEIntozCEZ3N8QCIH/iZrD7S0E28gHLOBNeK2g8Ke\ncRGx6ZPMntD5tR5Rc7gX/HI9WhYW4RWOjr1oxYZxvLX5tx4WjdH2BdVGypdBCoGT\nW4wKocqZUe0FfY+E7GFXsSPzrErZxMvwot4mKRdmSwt2It6X5GuEXhjMonUTOaIc\n8+U1ctj/XKHDtw9UICRsWwVpR8PM0GvwLNuO8DOK7zPN9Fq12LoAV/svbHWQ1O2J\nP45TG/NDoEdmeoeYJcL23xHl6rjFwE7oVO1S0PQ2ziLxgcpeVmLIH+YEr6wLyjNz\n+KyA5CyFvhXpa/7kosbZK8gFO4S5D2YQ7XldJ7Uj8slL4krHEgiM5S835lSNm2M\u003d\n\u003dgEZh\n-----END PGP SIGNATURE-----\n",
-  "comments": []
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7c848d4_6b8193b9",
+        "filename": "packages/SystemUI/res/values/cr_strings.xml",
+        "patchSetId": 25
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 51
+      },
+      "writtenOn": "2018-07-25T23:41:23Z",
+      "side": 1,
+      "message": "Consider changing this to \u0027Restart\u0027 like you have in your power menu for uniformity\n\n\u003cstring name\u003d\"global_action_reboot\"\u003eRestart\u003c/string\u003e",
+      "range": {
+        "startLine": 111,
+        "startChar": 4,
+        "endLine": 111,
+        "endChar": 56
+      },
+      "revId": "c8e326ef5311a8e4bebbf648be27a6b3e014a3ba",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e7814651_e394d6e5",
+        "filename": "packages/SystemUI/res/values/cr_strings.xml",
+        "patchSetId": 25
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 51
+      },
+      "writtenOn": "2018-07-25T23:41:23Z",
+      "side": 1,
+      "message": "These could just be removed and you could use the strings you already have\n\n\u003cstring name\u003d\"global_action_reboot_sub\"\u003eSystem\u003c/string\u003e\n\u003cstring name\u003d\"global_action_reboot_recovery\"\u003eRecovery\u003c/string\u003e\n\u003cstring name\u003d\"global_action_reboot_bootloader\"\u003eBootloader\u003c/string\u003e\n\nNo need to add stuff you already have :-)",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 70
+      },
+      "revId": "c8e326ef5311a8e4bebbf648be27a6b3e014a3ba",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081",
+      "unresolved": false
+    }
+  ]
 }
