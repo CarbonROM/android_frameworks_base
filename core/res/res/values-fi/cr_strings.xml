@@ -17,28 +17,26 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-  <string name="system_error_vendorprint">Twój obraz vendor nie pasuje do systemu. Proszę zainstaluj obraz vendor <xliff:g id="string">%s</xliff:g> dla twojego urządzenia</string>
   <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_fakePackageSignature">Nadpisz podpis pakietu</string>
+  <string name="permlab_fakePackageSignature">Huijaa paketin allekirjoitusta</string>
   <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_fakePackageSignature">Pozwala aplikacji na udawanie innej. Złośliwa aplikacja może mieć dostęp do prywatnych danych aplikacji. Udzielaj tego uprawnienia uważnie!</string>
+  <string name="permdesc_fakePackageSignature">Sallii sovelluksen esittää olevansa eri sovellus. Haitalliset sovellukset saattavat käyttää tätä päästäkseen käsiksi yksityisiin sovellustietoihin. Anna tämä oikeus vain harkitusti!</string>
   <!-- advanced reboot to bootloader. -->
-  <string name="reboot_to_bootloader_title">Uruchom w tryb bootloader</string>
-  <string name="reboot_to_bootloader_message">Uruchamianie w trybie bootloader\u2026</string>
+  <string name="reboot_to_bootloader_title">Käynnistä Bootloader-tilaan</string>
+  <string name="reboot_to_bootloader_message">Käynnistetään Bootloader-tilaan\u2026</string>
   <!-- advanced reboot to recovery. -->
-  <string name="reboot_to_recovery_title">Uruchom w tryb recovery</string>
-  <string name="reboot_to_recovery_message">Uruchamianie w trybie recovery\u2026</string>
+  <string name="reboot_to_recovery_title">Käynnistä recovery-tilaan</string>
+  <string name="reboot_to_recovery_message">Käynnistetään recovery-tilaan\u2026</string>
   <!-- advanced reboot system -->
-  <string name="reboot_system_title">Zrestartuj system</string>
-  <string name="reboot_system_message">Restartowanie systemu\u2026</string>
+  <string name="reboot_system_title">Käynnistä uudelleen</string>
+  <string name="reboot_system_message">Käynnistetään uudelleen\u2026</string>
   <!-- QS Tiles -->
-  <string name="quick_settings_screenshot_label">Zrzut ekranu</string>
+  <string name="quick_settings_screenshot_label">Kuvakaappaus</string>
   <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_preventpower">nadpisz przycisk zasilania</string>
+  <string name="permlab_preventpower">ohita virtanäppäin</string>
   <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_preventpower">Pozwala aplikacji na nadpisanie przycisku zasilania.</string>
+  <string name="permdesc_preventpower">Sallii sovelluksen ohittaa virtanäppäin.</string>
   <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_accessFontManager">dostęp do menedżera czcionek</string>
   <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_accessFontManager">Zezwala aplikacji na dostęp do menedżera czcionek.</string>
+  <string name="permdesc_accessFontManager">Sallii sovellukselle pääsyn fontinhallintaan.</string>
 </resources>
