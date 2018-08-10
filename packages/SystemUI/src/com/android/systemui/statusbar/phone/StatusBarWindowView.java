@@ -123,7 +123,7 @@ public class StatusBarWindowView extends FrameLayout {
             return true;
         }, null, null);
         mStatusBarHeaderHeight = context
-                .getResources().getDimensionPixelSize(R.dimen.status_bar_header_height);
+                .getResources().getDimensionPixelSize(R.dimen.status_bar_height);
         mSettingsObserver = new SettingsObserver(mHandler);
     }
 

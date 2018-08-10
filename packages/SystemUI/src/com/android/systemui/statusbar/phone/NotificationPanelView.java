@@ -377,7 +377,7 @@ public class NotificationPanelView extends PanelView implements
                 R.dimen.keyguard_indication_bottom_padding);
         mQsNotificationTopPadding = getResources().getDimensionPixelSize(
                 R.dimen.qs_notification_padding);
-        mStatusBarHeaderHeight = getResources().getDimensionPixelSize(R.dimen.status_bar_header_height);
+        mStatusBarHeaderHeight = getResources().getDimensionPixelSize(R.dimen.status_bar_height);
     }
 
     public void updateResources() {
