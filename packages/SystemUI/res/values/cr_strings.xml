@@ -50,4 +50,10 @@
     <string name="screenrecord_notif_error">Unable to record screen</string>
     <string name="notification_channel_screenrecord">Screenrecords</string>
 
+    <!-- Power QS Tile -->
+    <string name="quick_settings_power_title">Power</string>
+    <string name="quick_settings_power_details_title">Reboot modes</string>
+    <string name="quick_settings_power_off">Power off</string>
+    <string name="quick_settings_preferences">Preferences</string>
+
 </resources>
