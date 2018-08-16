@@ -117,10 +117,10 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
             mColumnsLandscapeSubMenu = menuItemLand.getSubMenu();
         }
         int qsTitlesValue = Settings.System.getIntForUser(mContext.getContentResolver(),
-                Settings.System.QS_TILE_TITLE_VISIBILITY, 1,
+                Settings.System.QS_TILE_HIDE_TITLE, 1,
                 UserHandle.USER_CURRENT);
         MenuItem qsTitlesMenuItem = mToolbar.getMenu().findItem(R.id.menu_item_titles);
-        qsTitlesMenuItem.setChecked(qsTitlesValue == 1);
+        qsTitlesMenuItem.setChecked(qsTitlesValue != 1);
         int accentColor = Utils.getColorAttr(context, android.R.attr.colorAccent);
         mToolbar.setTitleTextColor(accentColor);
         mToolbar.getNavigationIcon().setTint(accentColor);
@@ -299,7 +299,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
             case R.id.menu_item_titles:
                 item.setChecked(!item.isChecked());
                 Settings.System.putIntForUser(mContext.getContentResolver(),
-                        Settings.System.QS_TILE_TITLE_VISIBILITY, item.isChecked() ? 1 : 0,
+                        Settings.System.QS_TILE_HIDE_TITLE, item.isChecked() ? 0 : 1,
                         UserHandle.USER_CURRENT);
                 break;
         }
@@ -414,7 +414,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
                 mContext.getContentResolver(), Settings.System.QS_LAYOUT_COLUMNS_LANDSCAPE, 4,
                 UserHandle.USER_CURRENT);
         boolean showTitles = Settings.System.getIntForUser(
-                mContext.getContentResolver(), Settings.System.QS_TILE_TITLE_VISIBILITY, 1,
+                mContext.getContentResolver(), Settings.System.QS_TILE_HIDE_TITLE, 1,
                 UserHandle.USER_CURRENT) == 1;
         mTileAdapter.setColumnCount(isPortrait ? columns : columnsLandscape);
         mTileAdapter.setHideLabel(!showTitles);
