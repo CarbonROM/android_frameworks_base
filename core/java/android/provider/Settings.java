@@ -5110,6 +5110,11 @@ public final class Settings {
                 "button_backlight_only_when_pressed";
 
         /**
+         * @hide
+         */
+        public static final String FORCE_SHOW_NAVBAR = "navbar_visibility";
+
+        /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
          *
