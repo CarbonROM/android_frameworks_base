@@ -690,6 +690,9 @@ public class Tethering extends BaseNetworkObserver {
                     "error", TextUtils.join(",", erroredList)));
         }
 
+        bluetoothTethered = bluetoothTethered 
+                && Settings.Secure.getInt(mContext.getContentResolver(), Settings.Secure.WEAR_BLUETOOTH_TETHERING, 0) == 0;
+
         if (usbTethered) {
             if (wifiTethered || bluetoothTethered) {
                 showTetheredNotification(SystemMessage.NOTE_TETHER_GENERAL);
