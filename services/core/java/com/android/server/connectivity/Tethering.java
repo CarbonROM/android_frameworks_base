@@ -767,8 +767,10 @@ public class Tethering extends BaseNetworkObserver {
                 .setContentIntent(pi);
         mLastNotificationId = id;
 
-        notificationManager.notifyAsUser(null, mLastNotificationId,
-                mTetheredNotificationBuilder.buildInto(new Notification()), UserHandle.ALL);
+        if (Settings.Secure.getInt(mContext.getContentResolver(), Settings.Secure.WEAR_BLUETOOTH_TETHERING, 0) == 0) {
+            notificationManager.notifyAsUser(null, mLastNotificationId,
+                    mTetheredNotificationBuilder.buildInto(new Notification()), UserHandle.ALL);
+        }
     }
 
     private void clearTetheredNotification() {
