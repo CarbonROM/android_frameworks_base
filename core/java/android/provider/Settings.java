@@ -6487,6 +6487,12 @@ public final class Settings {
                 "accessibility_large_pointer_icon";
 
         /**
+         * Int to determine if Wear Bluetooth Tethering is enabled
+         * @hide
+         */
+        public static final String WEAR_BLUETOOTH_TETHERING = "wear_bluetooth_tethering";
+
+        /**
          * The timeout for considering a press to be a long press in milliseconds.
          * @hide
          */
