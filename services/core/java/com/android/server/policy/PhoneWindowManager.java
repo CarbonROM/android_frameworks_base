@@ -4413,7 +4413,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         boolean isDozing = isDozeMode();
 
         if (isDozing) {
-            if (event != null && isVolumeKey(event)) {
+            if (isVolumeKey(keyCode)) {
                 return false;
             }
         }
@@ -4448,9 +4448,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         return false;
     }
 
-    private boolean isVolumeKey(KeyEvent event) {
-        return event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN
-                || event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_UP;
+    private boolean isVolumeKey(int keyCode) {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN ||
+                keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+            return true;
+        }
+        return false;
     }
 
     // pre-condition: event.getKeyCode() is one of KeyEvent.KEYCODE_VOLUME_UP,
