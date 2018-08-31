@@ -49,7 +49,7 @@ public class SystemProperties {
     public static final int PROP_NAME_MAX = Integer.MAX_VALUE;
 
     /** @hide */
-    public static final int PROP_VALUE_MAX = 91;
+    public static final int PROP_VALUE_MAX = 161;
 
     @GuardedBy("sChangeCallbacks")
     private static final ArrayList<Runnable> sChangeCallbacks = new ArrayList<Runnable>();
