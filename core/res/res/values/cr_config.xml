@@ -71,4 +71,6 @@
   -->
   <integer name="config_LTE_RSRP_threshold_type">0</integer>
 
+  <!-- Whether to allow process with media UID to access CameraServiceProxy -->
+  <bool name="config_allowMediaUidForCameraServiceProxy">false</bool>
 </resources>
