@@ -29,7 +29,7 @@ import android.os.ServiceManager;
 import android.net.ConnectivityManager;
 
 import com.android.internal.statusbar.IStatusBarService;
-
+import com.android.internal.R;
 import java.util.Locale;
 
 public class CrUtils {
@@ -107,6 +107,13 @@ public class CrUtils {
         ConnectivityManager cm = (ConnectivityManager)context.getSystemService(
                 Context.CONNECTIVITY_SERVICE);
         return (cm.isNetworkSupported(ConnectivityManager.TYPE_MOBILE) == false);
+    }
+    
+    public static void switchScreenOff(Context context) {
+        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        if (pm!= null) {
+            pm.goToSleep(SystemClock.uptimeMillis());
+        }
     }
 
     public static void toggleCameraFlash() {
