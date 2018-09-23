@@ -2160,20 +2160,65 @@ public class StatusBar extends SystemUI implements DemoMode,
     }
 
     public boolean isUsingDarkTheme() {
+        boolean usingDarkTheme = false;
+        final String darkTheme = "org.lineageos.overlay.dark";
+        final String blackTheme = "org.lineageos.overlay.black";
         OverlayInfo systemuiThemeInfo = null;
+
+        // Check if dark theme is enabled
         try {
-            String darkTheme = getDarkOverlay();
             systemuiThemeInfo = mOverlayManager.getOverlayInfo(darkTheme,
                     mLockscreenUserManager.getCurrentUserId());
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        return systemuiThemeInfo != null && systemuiThemeInfo.isEnabled();
+        usingDarkTheme = systemuiThemeInfo != null && systemuiThemeInfo.isEnabled();
+
+        // Check if black theme is enabled
+        try {
+            systemuiThemeInfo = mOverlayManager.getOverlayInfo(blackTheme,
+                    mLockscreenUserManager.getCurrentUserId());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        usingDarkTheme = usingDarkTheme && systemuiThemeInfo != null
+                && systemuiThemeInfo.isEnabled();
+
+        return usingDarkTheme;
     }
 
-    private String getDarkOverlay() {
+    private String getSelectedDarkOverlay() {
         return Settings.System.getString(mContext.getContentResolver(),
                 Settings.System.THEME_DARK_OVERLAY);
+    }
+
+    private String getCurrentDarkOverlay() {
+        String currentDarkOverlay = "none";
+        final String darkTheme = "org.lineageos.overlay.dark";
+        final String blackTheme = "org.lineageos.overlay.black";
+        OverlayInfo systemuiThemeInfo = null;
+
+        // Check if dark theme is enabled
+        try {
+            systemuiThemeInfo = mOverlayManager.getOverlayInfo(darkTheme,
+                    mLockscreenUserManager.getCurrentUserId());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        if (systemuiThemeInfo != null && systemuiThemeInfo.isEnabled())
+            currentDarkOverlay = darkTheme;
+
+        // Check if black theme is enabled
+        try {
+            systemuiThemeInfo = mOverlayManager.getOverlayInfo(blackTheme,
+                    mLockscreenUserManager.getCurrentUserId());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        if (systemuiThemeInfo != null && systemuiThemeInfo.isEnabled())
+            currentDarkOverlay = blackTheme;
+
+        return currentDarkOverlay;
     }
 
     @Nullable
@@ -4041,12 +4086,21 @@ public class StatusBar extends SystemUI implements DemoMode,
                 break;
         }
 
-        if (isUsingDarkTheme() != useDarkTheme) {
+        final String currentDarkTheme = getCurrentDarkOverlay();
+        final String selectedDarkTheme = getSelectedDarkOverlay();
+        if ((isUsingDarkTheme() != useDarkTheme) || (isUsingDarkTheme()
+                && (currentDarkTheme != selectedDarkTheme))) {
             mUiOffloadThread.submit(() -> {
                 try {
-                    String darkOverlay = getDarkOverlay();
-                    mOverlayManager.setEnabled(darkOverlay,
+                    // Toggle selected dark overlay
+                    mOverlayManager.setEnabled(selectedDarkTheme,
                             useDarkTheme, mLockscreenUserManager.getCurrentUserId());
+
+                    // Disable current dark theme if one is enabled
+                    if (!currentDarkTheme.equals("none"))
+                        mOverlayManager.setEnabled(currentDarkTheme,
+                                false, mLockscreenUserManager.getCurrentUserId());
+
                 } catch (RemoteException e) {
                     Log.w(TAG, "Can't change theme", e);
                 }
