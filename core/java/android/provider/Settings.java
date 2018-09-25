@@ -4406,6 +4406,13 @@ public final class Settings {
         public static final String FONT_PACKAGES = "font_packages";
 
         /**
+         * Select various accents to go along with system themes
+         *
+         * @hide
+         */
+        public static final String ACCENT_PICKER = "accent_picker";
+
+        /**
          * Whether to use icon pack for Recents
          * @hide
          */
