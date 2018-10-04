@@ -56,9 +56,18 @@
   <string name="screenrecord_notif_ticker">Enregistrement de l\'écran en cours</string>
   <string name="screenrecord_notif_final_ticker">Capture vidéo enregistré avec succès</string>
   <!-- Screenrecord notification title -->
+  <string name="screenrecord_notif_title">Enregistrement de votre écran</string>
   <!-- Screenrecord notification action: Stop -->
+  <string name="screenrecord_notif_stop">Arrêt</string>
+  <string name="screenrecord_notif_completed">Écran enregistré avec succès</string>
   <!-- Screenrecord notification action: show/hide pointer -->
+  <string name="screenrecord_notif_pointer_on">Afficher le pointeur</string>
+  <string name="screenrecord_notif_pointer_off">Masquer le pointeur</string>
   <!-- Screen record notification error title -->
+  <string name="screenrecord_notif_error">Impossible d\'enregistrer l\'écran</string>
+  <string name="notification_channel_screenrecord">Enregistrement d\'écran</string>
+  <string name="screenrecord_hide_hint">Cacher l\'indication</string>
+  <string name="screenrecord_show_hint">Montrer l\'indication</string>
   <!-- SysUI Tuner -->
   <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
   <!-- Notification QS Tile -->

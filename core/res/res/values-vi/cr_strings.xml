@@ -17,28 +17,28 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-  <string name="system_error_vendorprint">ベンダーのイメージがシステムと一致しません。 お使いの端末の<xliff:g id="string">%s</xliff:g>ベンダーイメージをフラッシュしてください。</string>
+  <string name="system_error_vendorprint">Hình ảnh nhà cung cấp của bạn không phù hợp với hệ thống. Xin vui lòng flash <xliff:g id="string">%s</xliff:g> nhà cung cấp hình ảnh cho thiết bị của bạn</string>
   <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_fakePackageSignature">パッケージ署名の偽装</string>
+  <string name="permlab_fakePackageSignature">Giả mạo chữ ký gói</string>
   <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_fakePackageSignature">アプリが別のアプリに偽装することを許可します。悪意のあるアプリがこれを使用してプライベートなアプリデータにアクセスする可能性があります。注意してこの許可を与えてください！</string>
+  <string name="permdesc_fakePackageSignature">Cho phép ứng dụng giả vờ là một ứng dụng khác. Ứng dụng độc hại có thể sử dụng để truy cập vào dữ liệu ứng dụng riêng. Thận trọng khi cho phép quyền này!</string>
   <!-- advanced reboot to bootloader. -->
-  <string name="reboot_to_bootloader_title">ブートローダーへ再起動</string>
-  <string name="reboot_to_bootloader_message">ブートローダーへ再起動中\u2026</string>
+  <string name="reboot_to_bootloader_title">Khởi động vào bootloader</string>
+  <string name="reboot_to_bootloader_message">Đang khởi động vào bootloader\u2026</string>
   <!-- advanced reboot to recovery. -->
-  <string name="reboot_to_recovery_title">リカバリーモードへ再起動</string>
-  <string name="reboot_to_recovery_message">リカバリーモードへ再起動中\u2026</string>
+  <string name="reboot_to_recovery_title">Khởi động vào recovery</string>
+  <string name="reboot_to_recovery_message">Đang khởi động vào bootloader\u2026</string>
   <!-- advanced reboot system -->
-  <string name="reboot_system_title">再起動</string>
-  <string name="reboot_system_message">システム再起動中\u2026</string>
+  <string name="reboot_system_title">Khởi động lại hệ thống</string>
+  <string name="reboot_system_message">Đang khởi động lại hệ thống\u2026</string>
   <!-- QS Tiles -->
-  <string name="quick_settings_screenshot_label">スクリーンショット</string>
+  <string name="quick_settings_screenshot_label">Chụp ảnh màn hình</string>
   <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_preventpower">電源キーの置き換え</string>
+  <string name="permlab_preventpower">ghi đè phím nguồn</string>
   <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_preventpower">アプリケーションが電源キーを置き換えるのを許可する</string>
+  <string name="permdesc_preventpower">Cho phép một ứng dụng được ghi đè lên phím nguồn.</string>
   <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_accessFontManager">フォントマネージャーにアクセス</string>
+  <string name="permlab_accessFontManager">truy cập trình quản lý font chữ</string>
   <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_accessFontManager">アプリのフォントマネージャーへのアクセスを許可する</string>
+  <string name="permdesc_accessFontManager">Cho phép một ứng dụng để truy cập vào các font quản lý.</string>
 </resources>
