@@ -50,4 +50,7 @@
   <!-- If this is true, key chords can be used to take a screen record on the device. -->
   <bool name="config_enableScreenrecordChord">true</bool>
 
+  <!-- Screen off delay -->
+  <integer name="config_screen_off_delay">1000</integer>
+
 </resources>
