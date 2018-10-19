@@ -126,14 +126,12 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         mToolbar.getNavigationIcon().setTint(accentColor);
         mToolbar.getOverflowIcon().setTint(accentColor);
         mToolbar.setTitle(R.string.qs_edit);
-        int defaultColumns = Math.max(1,
-                    mContext.getResources().getInteger(R.integer.quick_settings_num_columns));
         mRecyclerView = (RecyclerView) findViewById(android.R.id.list);
         mTileAdapter = new TileAdapter(getContext());
         mTileQueryHelper = new TileQueryHelper(context, mTileAdapter);
         mRecyclerView.setAdapter(mTileAdapter);
         mTileAdapter.getItemTouchHelper().attachToRecyclerView(mRecyclerView);
-        mLayout = new GridLayoutManager(getContext(), defaultColumns);
+        mLayout = new GridLayoutManager(getContext(), 3);
         mLayout.setSpanSizeLookup(mTileAdapter.getSizeLookup());
         mRecyclerView.setLayoutManager(mLayout);
         mRecyclerView.addItemDecoration(mTileAdapter.getItemDecoration());
@@ -409,12 +407,11 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         final Resources res = mContext.getResources();
         boolean isPortrait = res.getConfiguration().orientation
                 == Configuration.ORIENTATION_PORTRAIT;
-        int defaultColumns = Math.max(1, mContext.getResources().getInteger(R.integer.quick_settings_num_columns));
         int columns = Settings.System.getIntForUser(
-                mContext.getContentResolver(), Settings.System.QS_LAYOUT_COLUMNS, defaultColumns,
+                mContext.getContentResolver(), Settings.System.QS_LAYOUT_COLUMNS, 3,
                 UserHandle.USER_CURRENT);
         int columnsLandscape = Settings.System.getIntForUser(
-                mContext.getContentResolver(), Settings.System.QS_LAYOUT_COLUMNS_LANDSCAPE, defaultColumns,
+                mContext.getContentResolver(), Settings.System.QS_LAYOUT_COLUMNS_LANDSCAPE, 4,
                 UserHandle.USER_CURRENT);
         boolean showTitles = Settings.System.getIntForUser(
                 mContext.getContentResolver(), Settings.System.QS_TILE_TITLE_VISIBILITY, 1,
@@ -422,12 +419,12 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         mTileAdapter.setColumnCount(isPortrait ? columns : columnsLandscape);
         mTileAdapter.setHideLabel(!showTitles);
         mLayout.setSpanCount(isPortrait ? columns : columnsLandscape);
-        updateColumnsMenu(defaultColumns);
+        updateColumnsMenu();
     }
 
-    private void updateColumnsMenu(int defaultColumns) {
+    private void updateColumnsMenu() {
         int columns = Settings.System.getIntForUser(
-                mContext.getContentResolver(), Settings.System.QS_LAYOUT_COLUMNS, defaultColumns,
+                mContext.getContentResolver(), Settings.System.QS_LAYOUT_COLUMNS, 3,
                 UserHandle.USER_CURRENT);
         MenuItem menuItemThree = mToolbar.getMenu().findItem(R.id.menu_item_columns_three);
         menuItemThree.setChecked(columns == 3);
@@ -439,7 +436,7 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
         menuItemSix.setChecked(columns == 6);
 
         int columnsLandscape = Settings.System.getIntForUser(
-                mContext.getContentResolver(), Settings.System.QS_LAYOUT_COLUMNS_LANDSCAPE, defaultColumns,
+                mContext.getContentResolver(), Settings.System.QS_LAYOUT_COLUMNS_LANDSCAPE, 4,
                 UserHandle.USER_CURRENT);
         menuItemThree = mToolbar.getMenu().findItem(R.id.menu_item_columns_landscape_three);
         menuItemThree.setChecked(columnsLandscape == 3);
