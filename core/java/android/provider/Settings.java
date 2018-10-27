@@ -4336,6 +4336,40 @@ public final class Settings {
         public static final String ANSWER_VOLUME_BUTTON_BEHAVIOR_ANSWER = "call_volume_answer";
 
         /**
+         * Position of the status bar clock
+         * 0 - Hide clock
+         * 1 - Left clock (default)
+         * 2 - Center clock
+         * 3 - Right clock
+         * @hide
+         */
+        public static final String STATUS_BAR_CLOCK = "status_bar_clock";
+
+        /**
+         * Show seconds in the status bar clock
+         * 0 - Hide seconds (default)
+         * 1 - Show seconds
+         * @hide
+         */
+        public static final String STATUS_BAR_CLOCK_SHOW_SECONDS = "status_bar_clock_show_seconds";
+
+        /**
+         * Show AM/PM to the right of the status bar clock
+         * 0 - Hide AM/PM (default)
+         * 1 - Show AM/PM
+         * @hide
+         */
+        public static final String STATUS_BAR_CLOCK_SHOW_AM_PM = "status_bar_clock_show_am_pm";
+
+        /**
+         * Show day of the week to the left of the status bar clock
+         * 0 - Hide day of the week (default)
+         * 1 - Show day of the week
+         * @hide
+         */
+        public static final String STATUS_BAR_CLOCK_SHOW_DAY = "status_bar_clock_show_day";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
