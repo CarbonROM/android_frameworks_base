@@ -63,4 +63,8 @@
 
   <!-- Whether to allow process with media UID to access CameraServiceProxy -->
   <java-symbol type="bool" name="config_allowMediaUidForCameraServiceProxy" />
+
+  <!-- Icon packs -->
+  <java-symbol type="drawable" name="adaptive_icon_drawable_wrapper" />
+
 </resources>
