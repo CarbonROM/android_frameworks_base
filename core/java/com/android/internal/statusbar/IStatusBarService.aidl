@@ -102,4 +102,6 @@ interface IStatusBarService
     void hideFingerprintDialog();
 
     void toggleCameraFlash();
+
+    void toggleNavigationBar(boolean enable);
 }
