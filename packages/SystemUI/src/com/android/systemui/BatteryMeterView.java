@@ -32,6 +32,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.ContentObserver;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.UserHandle;
@@ -93,7 +94,7 @@ public class BatteryMeterView extends LinearLayout implements
     private final ImageView mBatteryIconView;
     private final CurrentUserTracker mUserTracker;
     private TextView mBatteryPercentView;
-
+    private static final String FONT_FAMILY = "sans-serif";
     private BatteryController mBatteryController;
     private SettingObserver mSettingObserver;
     private final @StyleRes int mPercentageStyleId;
@@ -366,8 +367,10 @@ public class BatteryMeterView extends LinearLayout implements
             String bolt = "\u26A1\uFE0E";
             CharSequence mChargeIndicator = mCharging && (mBatteryStyle == BATTERY_STYLE_HIDDEN)
                 ? (bolt + " ") : "";
+            Typeface tf = Typeface.create(FONT_FAMILY, Typeface.NORMAL);
             mBatteryPercentView.setText(mChargeIndicator +
                 NumberFormat.getPercentInstance().format(mLevel / 100f));
+            mBatteryPercentView.setTypeface(tf);
             setContentDescription(
                     getContext().getString(mCharging ? R.string.accessibility_battery_level_charging
                             : R.string.accessibility_battery_level, mLevel));
