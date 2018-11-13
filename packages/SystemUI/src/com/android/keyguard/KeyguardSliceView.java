@@ -28,6 +28,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.InsetDrawable;
 import android.graphics.text.LineBreaker;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Trace;
 import android.text.TextUtils;
@@ -65,6 +66,7 @@ public class KeyguardSliceView extends LinearLayout {
 
     private static final String TAG = "KeyguardSliceView";
     public static final int DEFAULT_ANIM_DURATION = 550;
+    private static final String FONT_FAMILY = "sans-serif";
 
     private final LayoutTransition mLayoutTransition;
     @VisibleForTesting
@@ -164,6 +166,7 @@ public class KeyguardSliceView extends LinearLayout {
             final Uri itemTag = item.getSlice().getUri();
             // Try to reuse the view if already exists in the layout
             KeyguardSliceTextView button = mRow.findViewWithTag(itemTag);
+            Typeface tf = Typeface.create(FONT_FAMILY, Typeface.NORMAL);
             if (button == null) {
                 button = new KeyguardSliceTextView(mContext);
                 button.setTextColor(blendedColor);
@@ -181,6 +184,7 @@ public class KeyguardSliceView extends LinearLayout {
             final SliceItem titleItem = rc.getTitleItem();
             button.setText(titleItem == null ? null : titleItem.getText());
             button.setContentDescription(rc.getContentDescription());
+            button.setTypeface(tf);
 
             Drawable iconDrawable = null;
             SliceItem icon = SliceQuery.find(item.getSlice(),
