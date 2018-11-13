@@ -5,8 +5,10 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -36,6 +38,8 @@ public class KeyguardClockSwitch extends RelativeLayout {
     private static final long CLOCK_OUT_MILLIS = 150;
     private static final long CLOCK_IN_MILLIS = 200;
     private static final long SMARTSPACE_MOVE_MILLIS = 350;
+
+    private static final String FONT_FAMILY = "sans-serif";
 
     /**
      * Optional/alternative clock injected via plugin.
@@ -120,6 +124,16 @@ public class KeyguardClockSwitch extends RelativeLayout {
         mKeyguardStatusArea = findViewById(R.id.keyguard_status_area);
 
         onDensityOrFontScaleChanged();
+    }
+
+    @Override
+    protected void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Typeface tf = Typeface.create(FONT_FAMILY, Typeface.NORMAL);
+        mClockView.setTypeface(tf);
+        if (mClockPlugin != null) {
+            mClockPlugin.setTypeface(tf);
+        }
     }
 
     void setClockPlugin(ClockPlugin plugin, int statusBarState) {
