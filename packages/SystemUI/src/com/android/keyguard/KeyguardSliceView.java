@@ -31,6 +31,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Trace;
 import android.provider.Settings;
@@ -85,6 +86,7 @@ public class KeyguardSliceView extends LinearLayout implements View.OnClickListe
 
     private static final String TAG = "KeyguardSliceView";
     public static final int DEFAULT_ANIM_DURATION = 550;
+    private static final String FONT_FAMILY = "sans-serif";
 
     private final HashMap<View, PendingIntent> mClickActions;
     private final ActivityStarter mActivityStarter;
@@ -251,6 +253,7 @@ public class KeyguardSliceView extends LinearLayout implements View.OnClickListe
             final Uri itemTag = item.getSlice().getUri();
             // Try to reuse the view if already exists in the layout
             KeyguardSliceButton button = mRow.findViewWithTag(itemTag);
+            Typeface tf = Typeface.create(FONT_FAMILY, Typeface.NORMAL);
             if (button == null) {
                 button = new KeyguardSliceButton(mContext);
                 button.setTextColor(blendedColor);
@@ -270,6 +273,7 @@ public class KeyguardSliceView extends LinearLayout implements View.OnClickListe
             button.setContentDescription(rc.getContentDescription());
             button.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                     mHasHeader ? mRowWithHeaderTextSize : mRowTextSize);
+            button.setTypeface(tf);
 
             Drawable iconDrawable = null;
             SliceItem icon = SliceQuery.find(item.getSlice(),

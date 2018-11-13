@@ -8,6 +8,7 @@ import android.app.WallpaperManager;
 import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.transition.Fade;
 import android.transition.Transition;
@@ -353,6 +354,14 @@ public class KeyguardClockSwitch extends RelativeLayout {
                             mBigClockContainer));
         }
         updateBigClockAlpha();
+    }
+
+    public void setTypeface(Typeface tf) {
+        mClockView.setTypeface(tf);
+        mClockViewBold.setTypeface(tf);
+        if (mClockPlugin != null) {
+            mClockPlugin.setTypeface(tf);
+        }
     }
 
     public Paint getPaint() {
