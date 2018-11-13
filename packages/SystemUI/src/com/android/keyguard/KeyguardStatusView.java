@@ -21,6 +21,7 @@ import android.app.IActivityManager;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.RemoteException;
@@ -53,6 +54,8 @@ public class KeyguardStatusView extends GridLayout implements
     private static final boolean DEBUG = KeyguardConstants.DEBUG;
     private static final String TAG = "KeyguardStatusView";
     private static final int MARQUEE_DELAY_MS = 2000;
+
+    private static final String FONT_FAMILY = "sans-serif-light";
 
     private final LockPatternUtils mLockPatternUtils;
     private final IActivityManager mIActivityManager;
@@ -210,7 +213,9 @@ public class KeyguardStatusView extends GridLayout implements
      */
     private void onSliceContentChanged() {
         final boolean hasHeader = mKeyguardSlice.hasHeader();
+        Typeface tf = Typeface.create(FONT_FAMILY, Typeface.NORMAL);
         mClockView.setKeyguardShowingHeader(hasHeader);
+        mClockView.setTypeface(tf);
         if (mShowingHeader == hasHeader) {
             return;
         }
