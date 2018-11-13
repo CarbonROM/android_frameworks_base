@@ -16,6 +16,7 @@ package com.android.systemui.plugins
 import android.content.res.Resources
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
+import android.graphics.Typeface
 import android.view.View
 import com.android.internal.annotations.Keep
 import com.android.systemui.plugins.annotations.ProvidesInterface
@@ -84,6 +85,9 @@ interface ClockController {
 
     /** Optional method for dumping debug information */
     fun dump(pw: PrintWriter) {}
+
+    /** Handle Typeface changes */
+    fun setTypeface(tf: Typeface) {}
 }
 
 /** Interface for a specific clock face version rendered by the clock */
