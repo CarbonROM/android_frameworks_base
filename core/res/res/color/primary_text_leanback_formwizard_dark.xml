@@ -13,10 +13,10 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_enabled="false"
         android:alpha="@dimen/disabled_alpha_leanback_formwizard"
-        android:color="@color/primary_text_leanback_formwizard_default_dark"/>
-    <item android:color="@color/primary_text_leanback_formwizard_default_dark"/>
+        android:drawable="@drawable/leanback_selector"/>
+    <item android:drawable="@drawable/leanback_selector"/>
 </selector>
+
