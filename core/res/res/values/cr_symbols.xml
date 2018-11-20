@@ -66,4 +66,8 @@
 
   <!-- Post reset runnable for all clients -->
   <java-symbol type="bool" name="config_fingerprintPostResetRunnableForAllClients" />
+
+  <!-- System fonts -->
+  <java-symbol type="array" name="config_fontPackages" />
+
 </resources>
