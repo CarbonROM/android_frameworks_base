@@ -40,4 +40,11 @@
         <item>restart</item>
     </string-array>
 
+    <!-- Custom Analog clocks -->
+    <color name="analog_clock_hand_hour_color">@*android:color/accent_device_default_light</color>
+
+    <!-- System font packages (overlay in vendor) -->
+    <string-array name="config_fontPackages" translatable="false">
+    </string-array>
+
 </resources>
