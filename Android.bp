@@ -346,6 +346,13 @@ java_defaults {
     ],
 }
 
+filegroup {
+    name: "fontservice_aidl",
+    srcs: ["core/java/android/content/IFontService.aidl"],
+    path: "core/java",
+
+}
+
 java_library {
     name: "framework-minus-apex",
     defaults: ["framework-minus-apex-defaults"],

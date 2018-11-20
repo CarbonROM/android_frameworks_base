@@ -23,11 +23,14 @@ import android.annotation.NonNull;
 import android.annotation.Nullable;
 import android.content.ComponentCallbacks2;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.content.res.CompatibilityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.HardwareRenderer;
+import android.graphics.Typeface;
 import android.os.LocaleList;
 import android.os.Trace;
 import android.util.DisplayMetrics;
@@ -308,4 +311,20 @@ class ConfigurationController {
         return newConfig;
     }
 
+    /** Ask test layout engine to free its caches if there is a locale change. */
+    static void freeTextLayoutCachesIfNeeded(int configDiff) {
+        if (configDiff != 0) {
+            boolean hasLocaleConfigChange = ((configDiff & ActivityInfo.CONFIG_LOCALE) != 0);
+            boolean hasFontConfigChange = ((configDiff & ActivityInfo.CONFIG_THEME_FONT) != 0);
+            if (hasLocaleConfigChange || hasFontConfigChange) {
+                Canvas.freeTextLayoutCaches();
+                if (hasFontConfigChange) {
+                    Typeface.recreateDefaults();
+                }
+                if (DEBUG_CONFIGURATION) {
+                    Slog.v(TAG, "Cleared TextLayout Caches");
+                }
+            }
+        }
+    }
 }
