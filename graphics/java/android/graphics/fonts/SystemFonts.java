@@ -31,6 +31,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
@@ -244,11 +245,11 @@ public final class SystemFonts {
             @NonNull ArrayMap<String, FontFamily[]> fallbackMap,
             @NonNull ArrayList<Font> availableFonts) {
         try {
-            final FileInputStream fontsIn = new FileInputStream(xmlPath);
-            final FontConfig fontConfig = FontListParser.parse(fontsIn, fontDir);
+            final InputStream xmlFile = new FileInputStream(xmlPath);
+            final FontConfig fontConfig = FontListParser.parse(xmlFile, fontDir);
 
             final HashMap<String, ByteBuffer> bufferCache = new HashMap<String, ByteBuffer>();
-            final FontConfig.Family[] xmlFamilies = fontConfig.getFamilies();
+            final List<FontConfig.Family> xmlFamilies = fontConfig.getFamilies();
 
             final ArrayMap<String, ArrayList<FontFamily>> fallbackListMap = new ArrayMap<>();
             // First traverse families which have a 'name' attribute to create fallback map.
@@ -266,8 +267,8 @@ public final class SystemFonts {
             }
 
             // Then, add fallback fonts to the each fallback map.
-            for (int i = 0; i < xmlFamilies.length; i++) {
-                final FontConfig.Family xmlFamily = xmlFamilies[i];
+            for (int i = 0; i < xmlFamilies.size(); i++) {
+                final FontConfig.Family xmlFamily = xmlFamilies.get(i);
                 // The first family (usually the sans-serif family) is always placed immediately
                 // after the primary family in the fallback.
                 if (i == 0 || xmlFamily.getName() == null) {
