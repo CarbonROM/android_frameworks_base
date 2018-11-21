@@ -27,6 +27,7 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.os.IBinder;
 import android.view.Display;
 import android.view.WindowManager;
@@ -42,8 +43,13 @@ public class ConfigurationHelper {
 
     /** Ask text layout engine to free its caches if there is a locale change. */
     public static void freeTextLayoutCachesIfNeeded(int configDiff) {
-        if ((configDiff & ActivityInfo.CONFIG_LOCALE) != 0) {
+        boolean hasLocaleConfigChange = ((configDiff & ActivityInfo.CONFIG_LOCALE) != 0);
+        boolean hasFontConfigChange = ((configDiff & ActivityInfo.CONFIG_THEME_FONT) != 0);
+        if (hasLocaleConfigChange || hasFontConfigChange) {
             Canvas.freeTextLayoutCaches();
+           if (hasFontConfigChange) {
+               Typeface.recreateDefaults();
+           }
         }
     }
 
