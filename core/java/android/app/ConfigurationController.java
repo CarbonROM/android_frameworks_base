@@ -29,6 +29,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.HardwareRenderer;
+import android.graphics.Typeface;
 import android.inputmethodservice.InputMethodService;
 import android.os.Build;
 import android.os.LocaleList;
@@ -330,8 +331,12 @@ class ConfigurationController {
     static void freeTextLayoutCachesIfNeeded(int configDiff) {
         if (configDiff != 0) {
             boolean hasLocaleConfigChange = ((configDiff & ActivityInfo.CONFIG_LOCALE) != 0);
-            if (hasLocaleConfigChange) {
+            boolean hasFontConfigChange = ((configDiff & ActivityInfo.CONFIG_THEME_FONT) != 0);
+            if (hasLocaleConfigChange || hasFontConfigChange) {
                 Canvas.freeTextLayoutCaches();
+                if (hasFontConfigChange) {
+                    Typeface.recreateDefaults();
+                }
                 if (DEBUG_CONFIGURATION) {
                     Slog.v(TAG, "Cleared TextLayout Caches");
                 }
