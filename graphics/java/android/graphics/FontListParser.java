@@ -77,6 +77,10 @@ public class FontListParser {
                 0, 0, true);
     }
 
+    public static FontConfig parse(File configFilename, String fontDir) throws XmlPullParserException, IOException {
+        return FontListParser.parse(configFilename.getPath(), fontDir, null, null, null, 0, 0);
+    }
+
     /**
      * Parses system font config XMLs
      *
