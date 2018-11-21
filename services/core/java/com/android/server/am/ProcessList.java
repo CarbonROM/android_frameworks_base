@@ -1641,7 +1641,7 @@ public final class ProcessList {
             String entryPoint,
             ProcessRecord app, int uid, int[] gids, int runtimeFlags, int mountExternal,
             String seInfo, String requiredAbi, String instructionSet, String invokeWith,
-            long startTime) {
+            boolean refreshTheme, long startTime) {
         app.pendingStart = true;
         app.killedByAm = false;
         app.removed = false;
@@ -1667,7 +1667,7 @@ public final class ProcessList {
                 try {
                     final Process.ProcessStartResult startResult = startProcess(app.hostingRecord,
                             entryPoint, app, app.startUid, gids, runtimeFlags, mountExternal,
-                            app.seInfo, requiredAbi, instructionSet, invokeWith, app.startTime);
+                            app.seInfo, requiredAbi, instructionSet, invokeWith, refreshTheme, app.startTime);
                     synchronized (mService) {
                         handleProcessStartedLocked(app, startResult, startSeq);
                     }
@@ -1689,7 +1689,7 @@ public final class ProcessList {
                 final Process.ProcessStartResult startResult = startProcess(hostingRecord,
                         entryPoint, app,
                         uid, gids, runtimeFlags, mountExternal, seInfo, requiredAbi, instructionSet,
-                        invokeWith, startTime);
+                        invokeWith, refreshTheme, startTime);
                 handleProcessStartedLocked(app, startResult.pid, startResult.usingWrapper,
                         startSeq, false);
             } catch (RuntimeException e) {
