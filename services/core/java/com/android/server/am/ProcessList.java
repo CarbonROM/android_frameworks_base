@@ -326,6 +326,8 @@ public final class ProcessList {
     // Must keep sync with com_android_internal_os_Zygote.cpp.
     private static final String UNSOL_ZYGOTE_MSG_SOCKET_PATH = "/data/system/unsolzygotesocket";
 
+    private static final String PROP_REFRESH_THEME = "sys.refresh_theme";
+
     // Low Memory Killer Daemon command codes.
     // These must be kept in sync with lmk_cmd definitions in lmkd.h
     //
@@ -1982,6 +1984,13 @@ public final class ProcessList {
 
             runtimeFlags |= decideGwpAsanLevel(app);
 
+            // Check if zygote should refresh its fonts
+            boolean refreshTheme = false;
+            if (SystemProperties.getBoolean(PROP_REFRESH_THEME, false)) {
+                SystemProperties.set(PROP_REFRESH_THEME, "false");
+                refreshTheme = true;
+            }
+
             String invokeWith = null;
             if ((app.info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
                 // Debuggable apps may include a wrapper script with their library directory.
@@ -2044,7 +2053,7 @@ public final class ProcessList {
 
             return startProcessLocked(hostingRecord, entryPoint, app, uid, gids,
                     runtimeFlags, zygotePolicyFlags, mountExternal, seInfo, requiredAbi,
-                    instructionSet, invokeWith, startTime);
+                    instructionSet, invokeWith, refreshTheme, startTime);
         } catch (RuntimeException e) {
             Slog.e(ActivityManagerService.TAG, "Failure starting process " + app.processName, e);
 
@@ -2064,7 +2073,7 @@ public final class ProcessList {
     boolean startProcessLocked(HostingRecord hostingRecord, String entryPoint, ProcessRecord app,
             int uid, int[] gids, int runtimeFlags, int zygotePolicyFlags, int mountExternal,
             String seInfo, String requiredAbi, String instructionSet, String invokeWith,
-            long startTime) {
+            boolean refreshTheme, long startTime) {
         app.setPendingStart(true);
         app.setRemoved(false);
         synchronized (mProcLock) {
@@ -2095,14 +2104,14 @@ public final class ProcessList {
                     "Posting procStart msg for " + app.toShortString());
             mService.mProcStartHandler.post(() -> handleProcessStart(
                     app, entryPoint, gids, runtimeFlags, zygotePolicyFlags, mountExternal,
-                    requiredAbi, instructionSet, invokeWith, startSeq));
+                    requiredAbi, instructionSet, invokeWith, refreshTheme, startSeq));
             return true;
         } else {
             try {
                 final Process.ProcessStartResult startResult = startProcess(hostingRecord,
                         entryPoint, app,
                         uid, gids, runtimeFlags, zygotePolicyFlags, mountExternal, seInfo,
-                        requiredAbi, instructionSet, invokeWith, startTime);
+                        requiredAbi, instructionSet, invokeWith, refreshTheme, startTime);
                 handleProcessStartedLocked(app, startResult.pid, startResult.usingWrapper,
                         startSeq, false);
             } catch (RuntimeException e) {
@@ -2318,7 +2327,7 @@ public final class ProcessList {
     private Process.ProcessStartResult startProcess(HostingRecord hostingRecord, String entryPoint,
             ProcessRecord app, int uid, int[] gids, int runtimeFlags, int zygotePolicyFlags,
             int mountExternal, String seInfo, String requiredAbi, String instructionSet,
-            String invokeWith, long startTime) {
+            String invokeWith, boolean refreshTheme, long startTime) {
         try {
             Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, "Start proc: " +
                     app.processName);
