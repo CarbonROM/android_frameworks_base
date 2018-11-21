@@ -25,6 +25,7 @@ import static com.android.internal.os.ZygoteConnectionConstants.WRAPPED_PID_TIME
 
 import android.compat.annotation.UnsupportedAppUsage;
 import android.content.pm.ApplicationInfo;
+import android.graphics.Typeface;
 import android.net.Credentials;
 import android.net.LocalSocket;
 import android.os.Parcel;
@@ -316,7 +317,13 @@ class ZygoteConnection {
                     parsedArgs.mHiddenApiAccessLogSampleRate,
                     parsedArgs.mHiddenApiAccessStatslogSampleRate);
         }
+
+        if (parsedArgs.refreshTheme) {
+            Typeface.recreateDefaults();
+        }
+
         throw new AssertionError("Shouldn't get here");
+
     }
 
     private void handleAbiListQuery() {
