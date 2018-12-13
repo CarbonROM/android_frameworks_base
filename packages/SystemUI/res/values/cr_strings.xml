@@ -77,6 +77,7 @@
     <string name="lockscreen_tuner_activity">Lock screen shortcuts</string>
     <string name="powernotif_tuner_activity">Power notifications</string>
     <string name="tuner_cellular_title">Mobile</string>
+    <string name="tuner_hide_disabled_sim">Hide disabled SIM cards</string>
 
     <!-- Advance location quick setting tile -->
     <string name="quick_settings_secondary_location_off"></string>
