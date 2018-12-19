@@ -5047,6 +5047,12 @@ public final class Settings {
                 "status_bar_locked_on_secure_keyguard";
 
         /**
+	 * Volume panel on left
+	 * @hide
+	 */
+	public static final String VOLUME_PANEL_ON_LEFT = "volume_panel_on_left";	
+	
+	/**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
          *
@@ -5177,6 +5183,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_POSITION);
             PRIVATE_SETTINGS.add(ASPECT_RATIO_APPS_ENABLED);
             PRIVATE_SETTINGS.add(ASPECT_RATIO_APPS_LIST);
+            PRIVATE_SETTINGS.add(VOLUME_PANEL_ON_LEFT);
         }
 
         /**
