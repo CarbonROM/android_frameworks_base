@@ -5617,6 +5617,12 @@ public final class Settings {
         public static final String DOUBLE_TAP_SLEEP_GESTURE = "double_tap_sleep_gesture";
 
         /**
+         * Volume panel on left
+         * @hide
+         */
+        public static final String VOLUME_PANEL_ON_LEFT = "volume_panel_on_left";
+
+        /**
          * IMPORTANT: If you add a new public settings you also have to add it to
          * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
          * it to PRIVATE_SETTINGS below. Also add a validator that can validate
@@ -6107,6 +6113,7 @@ public final class Settings {
             HIDE_FROM_RECENTS_LIST,
             ASPECT_RATIO_APPS_LIST,
             ASPECT_RATIO_APPS_ENABLED,
+            VOLUME_PANEL_ON_LEFT,
         };
 
         /**
@@ -6135,6 +6142,7 @@ public final class Settings {
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(HIDE_FROM_RECENTS_LIST, 2);
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(ASPECT_RATIO_APPS_LIST, 2);
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(ASPECT_RATIO_APPS_ENABLED, 0);
+            CARBON_SYSTEM_SETTINGS_VALIDATORS.put(VOLUME_PANEL_ON_LEFT, 0);
         }
     }
 
