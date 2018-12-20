@@ -250,4 +250,9 @@ public class CrUtils {
         return !TextUtils.isEmpty(networkOperator) && Arrays.asList(mcc).contains(
                 networkOperator.substring(0, /*Filter only 3 digits*/ 3));
     }
+
+    public static void toggleVolumePanel(Context context) {
+        AudioManager am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        am.adjustVolume(AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI);
+    }
 }
