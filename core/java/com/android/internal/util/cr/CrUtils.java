@@ -16,6 +16,7 @@
 
 package com.android.internal.util.cr;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -149,6 +150,9 @@ public class CrUtils {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+
+    public static void clearAllNotifications() {
+        FireActions.clearAllNotifications();
     }
 
     private static final class FireActions {
@@ -168,6 +172,17 @@ public class CrUtils {
             if (service != null) {
                 try {
                     service.toggleCameraFlash();
+                } catch (RemoteException e) {
+                    // do nothing.
+                }
+            }
+        }
+
+        public static void clearAllNotifications() {
+            IStatusBarService service = getStatusBarService();
+            if (service != null) {
+                try {
+                    service.onClearAllNotifications(ActivityManager.getCurrentUser());
                 } catch (RemoteException e) {
                     // do nothing.
                 }
