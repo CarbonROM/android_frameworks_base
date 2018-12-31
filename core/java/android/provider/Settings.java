@@ -4177,7 +4177,14 @@ public final class Settings {
         private static final Validator WEATHER_LOCKSCREEN_UNIT_VALIDATOR =
                BOOLEAN_VALIDATOR;
 
-         /**
+        /**
+         * Whether to show weather on lockscreen
+         * @hide
+         */
+        public static final String WEATHER_LOCKSCREEN_ENABLED = "weather_lockscreen_enabled"; 
+	
+	
+	/**
          * Timeout value for button lights. 0 = disabled
          * @hide
          */
