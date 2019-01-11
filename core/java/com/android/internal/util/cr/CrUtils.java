@@ -159,6 +159,10 @@ public class CrUtils {
         FireActions.toggleNotifications();
     }
 
+    public static void toggleQsPanel() {
+        FireActions.toggleQsPanel();
+    }
+
     private static final class FireActions {
         private static IStatusBarService mStatusBarService = null;
         private static IStatusBarService getStatusBarService() {
@@ -198,6 +202,18 @@ public class CrUtils {
             if (service != null) {
                 try {
                     service.expandNotificationsPanel();
+                } catch (RemoteException e) {
+                    // do nothing.
+                }
+            }
+        }
+
+        // Toggle qs panel
+        static void toggleQsPanel() {
+            IStatusBarService service = getStatusBarService();
+            if (service != null) {
+                try {
+                    service.expandSettingsPanel(null);
                 } catch (RemoteException e) {
                     // do nothing.
                 }
