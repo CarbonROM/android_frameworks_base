@@ -4407,6 +4407,8 @@
         <service android:name="com.android.server.smartpixels.SmartPixelsService"
                  android:exported="true" />
 
+        <service android:name="com.android.server.displayfingerprint.DisplayFingerprintService"
+                android:exported="true" />
 </application>
 
 </manifest>

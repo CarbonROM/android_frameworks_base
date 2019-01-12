@@ -35,6 +35,9 @@
   <!-- Whether the device supports Smart Pixels -->
   <java-symbol type="bool" name="config_enableSmartPixels" />
 
+  <!-- Whether the device displays in-display fingerprint sensor -->
+  <java-symbol type="bool" name="config_enableFingerprintOnScreenOverlay"/>
+
   <!-- Screenrecord -->
   <java-symbol type="bool" name="config_enableScreenrecordChord" />
 
