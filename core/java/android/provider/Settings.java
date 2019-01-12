@@ -3868,6 +3868,14 @@ public final class Settings {
         public static final String SMART_PIXELS_ON_POWER_SAVE = "smart_pixels_on_power_save";
 
         /**
+         * Whether to enable display fingerprint overlay for devices with fingerprint sensors
+         * built into the display.
+         * @hide
+         */
+        public static final String DISPLAY_FINGERPRINT_SENSOR_OVERLAY_ENABLE =
+                "display_fingerprint_sensor_overlay_enable";
+
+        /**
          * Whether the notification LED should repeatedly flash when a notification is
          * pending. The value is boolean (1 or 0).
          * @hide

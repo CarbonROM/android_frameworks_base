@@ -42,6 +42,9 @@
     <!-- Whether the device supports Smart Pixels -->
     <bool name="config_enableSmartPixels">false</bool>
 
+    <!-- Whether to display a fingerprint icon on screen (for fingerprint embedded in display)-->
+    <bool name="config_enableFingerprintOnScreenOverlay">false</bool>
+
     <!-- If this is true, key chords can be used to take a screen record on the device. -->
     <bool name="config_enableScreenrecordChord">true</bool>
 

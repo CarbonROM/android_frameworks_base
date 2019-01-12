@@ -109,6 +109,8 @@ public class BiometricPrompt implements BiometricAuthenticator, BiometricConstan
         public Builder(Context context) {
             mBundle = new Bundle();
             mContext = context;
+            //if(front_display_sensor)
+            
         }
 
         /**
