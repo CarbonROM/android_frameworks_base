@@ -1,4 +1,39 @@
 {
   "pushCert": "certificate version 0.1\npusher E41DE2CB 1547427743 -0500\npushee ssh://review.carbonrom.org:29418/CarbonROM/android_frameworks_base\nnonce 1547427743-0CB1A8444BA3A5BAA36A102136E7EA63287CF529\n\n0000000000000000000000000000000000000000 f91afa9b4847ce39fd8450ec4c0f5aed68b87f73 refs/for/cr-7.0%topic\u003dthemes\n-----BEGIN PGP SIGNATURE-----\n\niQGzBAABCgAdFiEEsCVXsPtgWqYG51H6H3GWBOQd4ssFAlw7358ACgkQH3GWBOQd\n4stH7wwAtYlV7uIthZLDsKDcE/eM4Uq+QeA4ptRNwFKm19xQtrRANM1+T4NjD44S\nN6XbAyT+1N45mUpV4KOR4SoyudQ/kcsEehFyIfuOPiBt0V4FEYOntWudEonyDRbi\n404Olm+ewi8DwNKf1tEKrlUkEFoZwFZkE6nVve9t6PCAErT2OuUR4utZ67UW4Foq\n9sA5d7NJ3sXpbDoFpFzO41CKKGVvgmEbiM0qPTgLImcV3KKE5y7W3+6ZbNpJIFkd\nanpctTg8EVtJ6vSWgwkkA7nca40MZdQqKZSa57jRZf1P+5TPI2tPw4MX9oFsxR9y\n0cUmRr8W/Yh9+pV9f4AIKZa/NBxAzkqTa/YaV02JITKPgAzZE0/b8++gb54DIdlJ\nRqQPXuyvJyNsuWozcO27CWqzPg/2cDsIzcx65deAfHRvtfdExwqS27+QjubqTZCn\nFSseGHWWPw9ASKjB6A0FOgb8YXs2rvTMrBjvmHcq/EhLUr/BuaY+eMwczEEo7Rfi\nS2fZFNEb\n\u003dQCy8\n-----END PGP SIGNATURE-----\n",
-  "comments": []
+  "comments": [
+    {
+      "key": {
+        "uuid": "6df37347_97d9831c",
+        "filename": "packages/SystemUI/src/com/android/systemui/statusbar/phone/StatusBar.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2164,
+      "author": {
+        "id": 134
+      },
+      "writtenOn": "2019-01-15T02:38:16Z",
+      "side": 1,
+      "message": "You should be able to use StyleInterface.OVERLAY_DARK_DEFAULT and StyleInterface.OVERLAY_DARK_BLACK instead",
+      "revId": "f91afa9b4847ce39fd8450ec4c0f5aed68b87f73",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb06b8b4_f4cc3239",
+        "filename": "packages/SystemUI/src/com/android/systemui/statusbar/phone/StatusBar.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 2197,
+      "author": {
+        "id": 134
+      },
+      "writtenOn": "2019-01-15T02:38:16Z",
+      "side": 1,
+      "message": "See previous comment",
+      "revId": "f91afa9b4847ce39fd8450ec4c0f5aed68b87f73",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081",
+      "unresolved": false
+    }
+  ]
 }
