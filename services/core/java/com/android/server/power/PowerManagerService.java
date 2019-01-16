@@ -118,6 +118,7 @@ import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.Thread;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -251,6 +252,7 @@ public final class PowerManagerService extends SystemService
     private final Context mContext;
     private final ServiceThread mHandlerThread;
     private final Handler mHandler;
+    private final Thread mWaitMpctlThread;
     private final AmbientDisplayConfiguration mAmbientDisplayConfiguration;
     private final BatterySaverController mBatterySaverController;
     private final BatterySaverPolicy mBatterySaverPolicy;
@@ -372,6 +374,8 @@ public final class PowerManagerService extends SystemService
     // True if boot completed occurred. We keep the screen on until this happens.
     // The screen will be off if we are in quiescent mode.
     private boolean mBootCompleted;
+
+    private boolean mMpctlReady = true;
 
     // True if auto-suspend mode is enabled.
     // Refer to autosuspend.h.
@@ -900,6 +904,49 @@ public final class PowerManagerService extends SystemService
         mHandlerThread.start();
         mHandler = injector.createHandler(mHandlerThread.getLooper(),
                 new PowerManagerHandlerCallback());
+
+        if (mContext.getResources().getBoolean(com.android.internal.R.bool.config_waitForMpctlOnBoot)) {
+            mMpctlReady = false;
+            mWaitMpctlThread = new Thread(() -> {
+                int retries = 20;
+                while (retries-- > 0) {
+                    if (!SystemProperties.getBoolean("sys.post_boot.parsed", false) &&
+                            !SystemProperties.getBoolean("vendor.post_boot.parsed", false)) {
+                        continue;
+                    }
+
+                    if (SystemProperties.get("init.svc.perfd").equals("running") ||
+                            SystemProperties.get("init.svc.vendor.perfd").equals("running") ||
+                            SystemProperties.get("init.svc.perf-hal-1-0").equals("running") ||
+                            SystemProperties.get("init.svc.mpdecision").equals("running")) {
+                        break;
+                    }
+
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        Slog.w(TAG, "Interrupted:", e);
+                    }
+                }
+
+                // Give mp-ctl enough time to initialize
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Slog.w(TAG, "Interrupted:", e);
+                }
+
+                synchronized (mLock) {
+                    mMpctlReady = true;
+                    // trigger the bootphase and its corresponding power handling again now that mpctl is ready
+                    onBootPhase(PHASE_BOOT_COMPLETED);
+                }
+            });
+            mWaitMpctlThread.setDaemon(true);
+        } else {
+            mWaitMpctlThread = null;
+        }
+
         mConstants = new Constants(mHandler);
         mAmbientDisplayConfiguration = mInjector.createAmbientDisplayConfiguration(context);
         mAmbientDisplaySuppressionController =
@@ -1041,8 +1088,9 @@ public final class PowerManagerService extends SystemService
         synchronized (mLock) {
             if (phase == PHASE_THIRD_PARTY_APPS_CAN_START) {
                 incrementBootCount();
-
-            } else if (phase == PHASE_BOOT_COMPLETED) {
+            } else if ((phase == PHASE_BOOT_COMPLETED && !mMpctlReady)) {
+                mWaitMpctlThread.start();
+            } else if ((phase == PHASE_BOOT_COMPLETED && mMpctlReady)) {
                 final long now = mClock.uptimeMillis();
                 mBootCompleted = true;
                 mDirty |= DIRTY_BOOT_COMPLETED;
@@ -4759,7 +4807,7 @@ public final class PowerManagerService extends SystemService
 
         @Override // Binder call
         public void powerHint(int hintId, int data) {
-            if (!mSystemReady) {
+            if (!mSystemReady || !mMpctlReady) {
                 // Service not ready yet, so who the heck cares about power hints, bah.
                 return;
             }
@@ -4769,7 +4817,7 @@ public final class PowerManagerService extends SystemService
 
         @Override // Binder call
         public void setPowerBoost(int boost, int durationMs) {
-            if (!mSystemReady) {
+            if (!mSystemReady || !mMpctlReady) {
                 // Service not ready yet, so who the heck cares about power hints, bah.
                 return;
             }
@@ -4779,7 +4827,7 @@ public final class PowerManagerService extends SystemService
 
         @Override // Binder call
         public void setPowerMode(int mode, boolean enabled) {
-            if (!mSystemReady) {
+            if (!mSystemReady || !mMpctlReady) {
                 // Service not ready yet, so who the heck cares about power hints, bah.
                 return;
             }
@@ -4789,7 +4837,7 @@ public final class PowerManagerService extends SystemService
 
         @Override // Binder call
         public boolean setPowerModeChecked(int mode, boolean enabled) {
-            if (!mSystemReady) {
+            if (!mSystemReady || !mMpctlReady) {
                 // Service not ready yet, so who the heck cares about power hints, bah.
                 return false;
             }
