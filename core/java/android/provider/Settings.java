@@ -11443,6 +11443,14 @@ public final class Settings {
         public static final String KEEP_PROFILE_IN_BACKGROUND = "keep_profile_in_background";
 
         /**
+         * Whether or not to use aggressive idle constants and ignore motion.
+         * Type: int (0 for false, 1 for true)
+         * Default: 0
+         * @hide
+         */
+        public static final String AGGRESSIVE_IDLE_ENABLED = "aggressive_idle_enabled";
+
+        /**
          * Get the key that retrieves a bluetooth headset's priority.
          * @hide
          */

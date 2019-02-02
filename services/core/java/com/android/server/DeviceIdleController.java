@@ -111,7 +111,7 @@ public class DeviceIdleController extends SystemService
 
     private static final boolean DEBUG = false;
 
-    private static final boolean COMPRESS_TIME = false;
+    private static boolean AGGRESSIVE_IDLE = false;
 
     private static final int EVENT_BUFFER_SIZE = 100;
 
@@ -791,11 +791,22 @@ public class DeviceIdleController extends SystemService
             mResolver.registerContentObserver(
                     Settings.Global.getUriFor(Settings.Global.DEVICE_IDLE_CONSTANTS),
                     false, this);
+            mResolver.registerContentObserver(
+                    Settings.Global.getUriFor(Settings.Global.AGGRESSIVE_IDLE_ENABLED),
+                    false, this);
             updateConstants();
         }
 
         @Override
         public void onChange(boolean selfChange, Uri uri) {
+            try {
+                AGGRESSIVE_IDLE = Settings.Global.getInt(mResolver,
+                        Settings.Global.AGGRESSIVE_IDLE_ENABLED) == 1;
+            } catch (Exception e) {
+                // Couldn't get setting, default to false
+                AGGRESSIVE_IDLE = false;
+            }
+
             updateConstants();
         }
 
@@ -812,56 +823,58 @@ public class DeviceIdleController extends SystemService
 
                 LIGHT_IDLE_AFTER_INACTIVE_TIMEOUT = mParser.getDurationMillis(
                         KEY_LIGHT_IDLE_AFTER_INACTIVE_TIMEOUT,
-                        !COMPRESS_TIME ? 3 * 60 * 1000L : 15 * 1000L);
+                        !AGGRESSIVE_IDLE ? 3 * 60 * 1000L : 15 * 1000L);
                 LIGHT_PRE_IDLE_TIMEOUT = mParser.getDurationMillis(KEY_LIGHT_PRE_IDLE_TIMEOUT,
-                        !COMPRESS_TIME ? 3 * 60 * 1000L : 30 * 1000L);
+                        !AGGRESSIVE_IDLE ? 3 * 60 * 1000L : 30 * 1000L);
                 LIGHT_IDLE_TIMEOUT = mParser.getDurationMillis(KEY_LIGHT_IDLE_TIMEOUT,
-                        !COMPRESS_TIME ? 5 * 60 * 1000L : 15 * 1000L);
+                        !AGGRESSIVE_IDLE ? 5 * 60 * 1000L : 15 * 1000L);
                 LIGHT_IDLE_FACTOR = mParser.getFloat(KEY_LIGHT_IDLE_FACTOR,
                         2f);
                 LIGHT_MAX_IDLE_TIMEOUT = mParser.getDurationMillis(KEY_LIGHT_MAX_IDLE_TIMEOUT,
-                        !COMPRESS_TIME ? 15 * 60 * 1000L : 60 * 1000L);
+                        !AGGRESSIVE_IDLE ? 15 * 60 * 1000L : 60 * 1000L);
                 LIGHT_IDLE_MAINTENANCE_MIN_BUDGET = mParser.getDurationMillis(
                         KEY_LIGHT_IDLE_MAINTENANCE_MIN_BUDGET,
-                        !COMPRESS_TIME ? 1 * 60 * 1000L : 15 * 1000L);
+                        !AGGRESSIVE_IDLE ? 1 * 60 * 1000L : 15 * 1000L);
                 LIGHT_IDLE_MAINTENANCE_MAX_BUDGET = mParser.getDurationMillis(
                         KEY_LIGHT_IDLE_MAINTENANCE_MAX_BUDGET,
-                        !COMPRESS_TIME ? 5 * 60 * 1000L : 30 * 1000L);
+                        !AGGRESSIVE_IDLE ? 5 * 60 * 1000L : 30 * 1000L);
                 MIN_LIGHT_MAINTENANCE_TIME = mParser.getDurationMillis(
                         KEY_MIN_LIGHT_MAINTENANCE_TIME,
-                        !COMPRESS_TIME ? 5 * 1000L : 1 * 1000L);
+                        !AGGRESSIVE_IDLE ? 5 * 1000L : 1 * 1000L);
                 MIN_DEEP_MAINTENANCE_TIME = mParser.getDurationMillis(
                         KEY_MIN_DEEP_MAINTENANCE_TIME,
-                        !COMPRESS_TIME ? 30 * 1000L : 5 * 1000L);
-                long inactiveTimeoutDefault = (mSmallBatteryDevice ? 15 : 30) * 60 * 1000L;
+                        !AGGRESSIVE_IDLE ? 30 * 1000L : 5 * 1000L);
+                long inactiveTimeoutDefault = ((mSmallBatteryDevice ||
+                        AGGRESSIVE_IDLE) ? 15 : 30) * 60 * 1000L;
                 INACTIVE_TIMEOUT = mParser.getDurationMillis(KEY_INACTIVE_TIMEOUT,
-                        !COMPRESS_TIME ? inactiveTimeoutDefault : (inactiveTimeoutDefault / 10));
+                        !AGGRESSIVE_IDLE ? inactiveTimeoutDefault : (inactiveTimeoutDefault / 10));
                 SENSING_TIMEOUT = mParser.getDurationMillis(KEY_SENSING_TIMEOUT,
                         !DEBUG ? 4 * 60 * 1000L : 60 * 1000L);
                 LOCATING_TIMEOUT = mParser.getDurationMillis(KEY_LOCATING_TIMEOUT,
                         !DEBUG ? 30 * 1000L : 15 * 1000L);
                 LOCATION_ACCURACY = mParser.getFloat(KEY_LOCATION_ACCURACY, 20);
                 MOTION_INACTIVE_TIMEOUT = mParser.getDurationMillis(KEY_MOTION_INACTIVE_TIMEOUT,
-                        !COMPRESS_TIME ? 10 * 60 * 1000L : 60 * 1000L);
-                long idleAfterInactiveTimeout = (mSmallBatteryDevice ? 15 : 30) * 60 * 1000L;
+                        !AGGRESSIVE_IDLE ? 10 * 60 * 1000L : 60 * 1000L);
+                long idleAfterInactiveTimeout = ((mSmallBatteryDevice ||
+                        AGGRESSIVE_IDLE) ? 15 : 30) * 60 * 1000L;
                 IDLE_AFTER_INACTIVE_TIMEOUT = mParser.getDurationMillis(
                         KEY_IDLE_AFTER_INACTIVE_TIMEOUT,
-                        !COMPRESS_TIME ? idleAfterInactiveTimeout
+                        !AGGRESSIVE_IDLE ? idleAfterInactiveTimeout
                                        : (idleAfterInactiveTimeout / 10));
                 IDLE_PENDING_TIMEOUT = mParser.getDurationMillis(KEY_IDLE_PENDING_TIMEOUT,
-                        !COMPRESS_TIME ? 5 * 60 * 1000L : 30 * 1000L);
+                        !AGGRESSIVE_IDLE ? 5 * 60 * 1000L : 30 * 1000L);
                 MAX_IDLE_PENDING_TIMEOUT = mParser.getDurationMillis(KEY_MAX_IDLE_PENDING_TIMEOUT,
-                        !COMPRESS_TIME ? 10 * 60 * 1000L : 60 * 1000L);
+                        !AGGRESSIVE_IDLE ? 10 * 60 * 1000L : 60 * 1000L);
                 IDLE_PENDING_FACTOR = mParser.getFloat(KEY_IDLE_PENDING_FACTOR,
                         2f);
                 IDLE_TIMEOUT = mParser.getDurationMillis(KEY_IDLE_TIMEOUT,
-                        !COMPRESS_TIME ? 60 * 60 * 1000L : 6 * 60 * 1000L);
+                        !AGGRESSIVE_IDLE ? 60 * 60 * 1000L : 6 * 60 * 1000L);
                 MAX_IDLE_TIMEOUT = mParser.getDurationMillis(KEY_MAX_IDLE_TIMEOUT,
-                        !COMPRESS_TIME ? 6 * 60 * 60 * 1000L : 30 * 60 * 1000L);
+                        !AGGRESSIVE_IDLE ? 6 * 60 * 60 * 1000L : 30 * 60 * 1000L);
                 IDLE_FACTOR = mParser.getFloat(KEY_IDLE_FACTOR,
                         2f);
                 MIN_TIME_TO_ALARM = mParser.getDurationMillis(KEY_MIN_TIME_TO_ALARM,
-                        !COMPRESS_TIME ? 60 * 60 * 1000L : 6 * 60 * 1000L);
+                        !AGGRESSIVE_IDLE ? 60 * 60 * 1000L : 6 * 60 * 1000L);
                 MAX_TEMP_APP_WHITELIST_DURATION = mParser.getDurationMillis(
                         KEY_MAX_TEMP_APP_WHITELIST_DURATION, 5 * 60 * 1000L);
                 MMS_TEMP_APP_WHITELIST_DURATION = mParser.getDurationMillis(
@@ -994,12 +1007,13 @@ public class DeviceIdleController extends SystemService
                 cancelSensingTimeoutAlarmLocked();
             }
         }
-        if ((result == AnyMotionDetector.RESULT_MOVED) ||
-            (result == AnyMotionDetector.RESULT_UNKNOWN)) {
+        if (((result == AnyMotionDetector.RESULT_MOVED) ||
+            (result == AnyMotionDetector.RESULT_UNKNOWN)) && !AGGRESSIVE_IDLE) {
             synchronized (this) {
                 handleMotionDetectedLocked(mConstants.INACTIVE_TIMEOUT, "non_stationary");
             }
-        } else if (result == AnyMotionDetector.RESULT_STATIONARY) {
+        } else if ((result == AnyMotionDetector.RESULT_STATIONARY) ||
+                   AGGRESSIVE_IDLE) {
             if (mState == STATE_SENSING) {
                 // If we are currently sensing, it is time to move to locating.
                 synchronized (this) {
