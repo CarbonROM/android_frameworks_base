@@ -8380,6 +8380,13 @@ public final class Settings {
                 "packages_to_clear_data_before_full_restore";
 
         /**
+         * Select various actions for squeeze gesture
+         *
+         * @hide
+         */
+        public static final String SQUEEZE_SELECTION = "squeeze_selection";
+
+        /**
          * Whether user is allowed to pull down quick settings on secure keyguard.
          * @hide
          */
