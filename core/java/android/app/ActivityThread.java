@@ -165,6 +165,8 @@ import libcore.net.event.NetworkEventDispatcher;
 
 import org.apache.harmony.dalvik.ddmc.DdmVmInternal;
 
+import com.tct.internal.TCTLongScreenshotUtils;
+
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileOutputStream;
@@ -763,6 +765,68 @@ public final class ActivityThread extends ClientTransactionHandler {
         private static final String DB_INFO_FORMAT = "  %8s %8s %14s %14s  %s";
 
         private int mLastProcessState = -1;
+
+        final TCTLongScreenshotUtils tu=new TCTLongScreenshotUtils();
+        private Handler mHd=new Handler();
+
+        public int TCTScrollForSShot(final boolean bForward,final int nDistance) {
+            android.util.Log.i("sshot","==>activityThread TCTScrollForSShot : bForward = "+bForward+"/nD$
+            Activity act=TCTGetTopActivity();
+            if(act==null)
+            {
+                android.util.Log.i("sshot","==>activityThread TCTScrollForSShot act: Didn't find act");
+                return -1;
+            }
+            android.util.Log.i("sshot","==>activityThread TCTScrollForSShot act:"+act.getLocalClassName($
+
+            tu.mScreenRect.set(0, 0, act.getResources().getDisplayMetrics().widthPixels, act.getResource$
+            tu.mMainScrollView=null;
+            tu.TCTfindScrollView(act.getWindow().getDecorView());
+            if(tu.mMainScrollView==null)
+            {
+                android.util.Log.i("sshot","==>activityThread TCTScrollForSShot : Didn't find ScrollView$
+                return -2;
+            }
+
+            android.util.Log.i("sshot","==>activityThread TCTScrollForSShot ScrollView = "+tu.mMainScrol$
+            if(nDistance == 0){
+                android.util.Log.i("sshot","==>findScrollView: canscrollscreen");
+                return 1;
+            }
+            tu.bMoving=true;
+            mHd.post(new Runnable() {
+
+                @Override
+                public void run() {
+                    tu.TCTScrollView(bForward,nDistance);
+                    tu.bMoving=false;;
+                }
+            });
+
+            while (tu.bMoving){
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+            return  999;
+        }
+
+        public  Activity TCTGetTopActivity() {
+            int nSize=mActivities.size();
+            for (ActivityClientRecord acr : mActivities.values())
+            {
+                android.util.Log.i("sshot","==>activityThread TCTGetTopActivity:" + acr.activity + "/mRe$
+                if(acr.activity.mResumed)
+                {
+                    return acr.activity;
+                }
+            }
+            return null;
+        }
 
         private void updatePendingConfiguration(Configuration config) {
             synchronized (mResourcesManager) {
