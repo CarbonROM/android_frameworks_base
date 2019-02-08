@@ -295,27 +295,17 @@ public class Camera {
         /* Force to expose only two cameras
          * if the package name does not falls in this bucket
          */
-        String packageList = SystemProperties.get("vendor.camera.aux.packagelist");
-        String packageBlacklist = SystemProperties.get("vendor.camera.aux.packageblacklist");
-        if (packageList.length() > 0) {
-            TextUtils.StringSplitter splitter = new TextUtils.SimpleStringSplitter(',');
-            splitter.setString(packageList);
+        String packageList = SystemProperties.get("vendor.camera.aux.packagelist", "");
+        String packageBlacklist = SystemProperties.get("vendor.camera.aux.packageblacklist", "");
+        if (!packageList.isEmpty()) {
             exposeAuxCamera = false;
-            for (String str : splitter) {
-                if (packageName.equals(str)) {
-                    exposeAuxCamera = true;
-                    break;
-                }
+            if (Arrays.asList(packageList.split(",")).contains(packageName)) {
+                exposeAuxCamera = true;
             }
-        } else if (packageBlacklist.length() > 0) {
-            TextUtils.StringSplitter splitter = new TextUtils.SimpleStringSplitter(',');
-            splitter.setString(packageBlacklist);
+        } else if (!packageBlacklist.isEmpty()) {
             exposeAuxCamera = true;
-            for (String str : splitter) {
-                if (packageName.equals(str)) {
-                    exposeAuxCamera = false;
-                    break;
-                }
+            if (Arrays.asList(packageBlacklist.split(",")).contains(packageName)) {
+                exposeAuxCamera = false;
             }
         }
         int numberOfCameras = _getNumberOfCameras();
@@ -4688,7 +4678,6 @@ public class Camera {
             splitter.setString(str);
             int index = 0;
             for (String s : splitter) {
-                s = s.replaceAll("\\s","");
                 output[index++] = Integer.parseInt(s);
             }
         }
@@ -4759,7 +4748,7 @@ public class Camera {
         // Example string: "(10000,26623),(10000,30000)". Return null if the
         // passing string is null or the size is 0.
         private ArrayList<int[]> splitRange(String str) {
-            if (str == null || str.isEmpty() || str.charAt(0) != '('
+            if (str == null || str.charAt(0) != '('
                     || str.charAt(str.length() - 1) != ')') {
                 Log.e(TAG, "Invalid range list string=" + str);
                 return null;
@@ -4784,7 +4773,7 @@ public class Camera {
         // Example string: "(-10,-10,0,0,300),(0,0,10,10,700)". Return null if
         // the passing string is null or the size is 0 or (0,0,0,0,0).
         private ArrayList<Area> splitArea(String str) {
-            if (str == null || str.isEmpty() || str.charAt(0) != '('
+            if (str == null || str.charAt(0) != '('
                     || str.charAt(str.length() - 1) != ')') {
                 Log.e(TAG, "Invalid area string=" + str);
                 return null;
