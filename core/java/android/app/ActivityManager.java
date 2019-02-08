@@ -4385,4 +4385,14 @@ public class ActivityManager {
             }
         }
     }
+
+    /** @hide */
+    public int TCTScrollForSShot(boolean bForward,int nDistance) throws SecurityException {
+        try {
+            return ActivityManagerNative.getDefault().TCTScrollForSShot(bForward,nDistance);
+        } catch (RemoteException e) {
+            throw e.rethrowFromSystemServer();
+        }
+    }
+
 }

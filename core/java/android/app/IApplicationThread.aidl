@@ -52,7 +52,7 @@ import java.util.Map;
  *
  * {@hide}
  */
-oneway interface IApplicationThread {
+interface IApplicationThread {
     void scheduleReceiver(in Intent intent, in ActivityInfo info,
             in CompatibilityInfo compatInfo,
             int resultCode, in String data, in Bundle extras, boolean sync,
@@ -132,4 +132,5 @@ oneway interface IApplicationThread {
     void scheduleApplicationInfoChanged(in ApplicationInfo ai);
     void setNetworkBlockSeq(long procStateSeq);
     void scheduleTransaction(in ClientTransaction transaction);
+    int TCTScrollForSShot(boolean bForward,int nDistance);
 }

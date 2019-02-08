@@ -714,4 +714,7 @@ interface IActivityManager {
 
     /** @see android.app.ActivityManager#alwaysShowUnsupportedCompileSdkWarning */
     void alwaysShowUnsupportedCompileSdkWarning(in ComponentName activity);
+
+    /** @throws RemoteException */
+    int TCTScrollForSShot(boolean bForward,int nDistance);
 }

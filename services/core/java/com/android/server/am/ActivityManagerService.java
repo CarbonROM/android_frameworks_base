@@ -27390,4 +27390,36 @@ public class ActivityManagerService extends IActivityManager.Stub
             }
         }
     }
+
+    @Override
+    public int TCTScrollForSShot(boolean bForward,int nDistance) throws RemoteException
+    {
+        IApplicationThread iat=null;
+        synchronized (this)
+        {
+            // Iterate across all processes
+            for (int i = mLruProcesses.size() - 1; i >= 0; i--)
+            //for (int i = 0; i < mLruProcesses.size(); i++)
+            {
+                android.util.Log.i("sshot","==>ActivityManagerService TCTScrollForSShot: find Process num = " + i);
+                //List<RunningTaskInfo> lst=getTasks(1,0);
+                ProcessRecord app = mLruProcesses.get(i);
+                if(/*app.activities.get(0).task.taskId == lst.get(0).id && */ app.foregroundActivities)
+                { 
+                    android.util.Log.i("sshot","==>ActivityManagerService TCTScrollForSShot common taskid:"/*+app.activities.get(0).task.taskId+"/"+lst.get(0).id*/);
+                    iat=app.thread;
+                    break;
+                }
+                else
+                {
+                    android.util.Log.i("sshot","==>ActivityManagerService TCTScrollForSShot different taskid:"/*+app.activities.get(0).task.taskId+"/"+lst.get(0).id*/);
+                }
+            }
+        }
+        if(iat!=null)
+        {
+            return iat.TCTScrollForSShot(bForward,nDistance);
+        }
+        return -1;
+    }
 }

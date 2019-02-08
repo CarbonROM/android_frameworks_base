@@ -1955,7 +1955,18 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 mScreenshotChordVolumeDownKeyConsumed = true;
                 cancelPendingPowerKeyAction();
                 mScreenshotRunnable.setScreenshotType(TAKE_SCREENSHOT_FULLSCREEN);
-                mHandler.postDelayed(mScreenshotRunnable, getScreenshotChordLongPressDelay());
+                boolean screenshotEditEnable = true;
+                if (screenshotEditEnable) {
+                    Log.i(TAG,"Start ScreenshotEditService");
+                    Intent intent = new Intent("com.intent.action.tct.screenshot");
+                    intent.setPackage("com.tct.screenshotedit");
+                    mContext.startService(intent);
+                } else {
+                    //[TASK]-Add-by TCTNB cheng.liu,09/21/2016,2987612
+                    mHandler.postDelayed(mScreenshotRunnable, getScreenshotChordLongPressDelay());
+                }
+                //[TASK]-Mod-END by TCTNB.wen.zhuang
+
             }
         }
     }
