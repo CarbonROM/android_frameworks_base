@@ -38,15 +38,15 @@ public class ThemeAccentUtils {
     private static final String STOCK_DARK_THEME = "com.android.systemui.theme.dark";
 
     // Dark themes
-    private static final String[] DARK_THEMES = {
+   private static final String[] DARK_THEMES = {
         "com.android.system.theme.dark", // 0
-        "com.android.settings.theme.dark", // 1
-        "com.android.settings.intelligence.theme.dark", // 2
-        "com.android.gboard.theme.dark", // 3
-        "com.google.intelligence.sense.theme.dark", // 4
-        "com.android.wellbeing.theme.dark", // 5
+        "com.android.systemui.theme.custom.dark", // 1
+        "com.android.settings.theme.dark", // 2
+        "com.android.settings.intelligence.theme.dark", // 3
+        "com.android.gboard.theme.dark", // 4
+        "com.google.intelligence.sense.theme.dark", // 5
+        "com.android.wellbeing.theme.dark", // 6
     };
-
     // Black themes
     private static final String[] BLACK_THEMES = {
         "com.android.system.theme.black", // 0
