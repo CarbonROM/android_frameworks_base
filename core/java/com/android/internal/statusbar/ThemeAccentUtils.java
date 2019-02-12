@@ -50,9 +50,10 @@ public class ThemeAccentUtils {
     // Black themes
     private static final String[] BLACK_THEMES = {
         "com.android.system.theme.black", // 0
-        "com.android.settings.theme.black", // 1
-        "com.android.settings.intelligence.theme.black", // 2
-        "com.android.gboard.theme.black", // 3
+        "com.android.systemui.theme.custom.black", // 1
+        "com.android.settings.theme.black", // 2
+        "com.android.settings.intelligence.theme.black", // 3
+        "com.android.gboard.theme.black", // 4
     };
 
     private static final String[] LIGHT_THEMES = {
