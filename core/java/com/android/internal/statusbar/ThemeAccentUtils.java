@@ -54,6 +54,7 @@ public class ThemeAccentUtils {
         "com.android.settings.theme.black", // 2
         "com.android.settings.intelligence.theme.black", // 3
         "com.android.gboard.theme.black", // 4
+        "com.android.wellbeing.theme.black", // 5
     };
 
     private static final String[] LIGHT_THEMES = {
