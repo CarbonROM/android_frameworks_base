@@ -129,7 +129,7 @@ public class SystemUIApplication extends Application implements SysUiServiceProv
         String[] elmyra =
                   getResources().getStringArray(R.array.config_systemUIServiceComponents_elmyra);
         startServicesIfNeeded(!getResources().getBoolean(
-                  R.bool.has_elmyra_service) ? names : elmyra);
+                  com.android.internal.R.bool.config_has_elmyra_service) ? names : elmyra);
     }
 
     /**

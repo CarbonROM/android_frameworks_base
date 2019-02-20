@@ -93,4 +93,5 @@
   <integer name="config_proximityCheckTimeout">250</integer>
   <bool name="config_proximityCheckOnWakeEnabledByDefault">false</bool>
 
+  <bool name="config_has_elmyra_service">false</bool>
 </resources>
