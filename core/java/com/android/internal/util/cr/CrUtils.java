@@ -50,6 +50,17 @@ public class CrUtils {
     public static final String INTENT_SCREENSHOT = "action_take_screenshot";
     public static final String INTENT_REGION_SCREENSHOT = "action_take_region_screenshot";
 
+    private static IStatusBarService mStatusBarService = null;
+    private static IStatusBarService getStatusBarService() {
+        synchronized (CrUtils.class) {
+            if (mStatusBarService == null) {
+                mStatusBarService = IStatusBarService.Stub.asInterface(
+                        ServiceManager.getService("statusbar"));
+            }
+            return mStatusBarService;
+        }
+    }
+
     public static boolean isChineseLanguage() {
        return Resources.getSystem().getConfiguration().locale.getLanguage().startsWith(
                Locale.CHINESE.getLanguage());
@@ -140,75 +151,46 @@ public class CrUtils {
     }
 
     public static void toggleCameraFlash() {
-        FireActions.toggleCameraFlash();
+        IStatusBarService service = getStatusBarService();
+        if (service != null) {
+            try {
+                service.toggleCameraFlash();
+            } catch (RemoteException e) {
+                // do nothing.
+            }
+        }
     }
 
     public static void clearAllNotifications() {
-        FireActions.clearAllNotifications();
+        IStatusBarService service = getStatusBarService();
+        if (service != null) {
+            try {
+                service.onClearAllNotifications(ActivityManager.getCurrentUser());
+            } catch (RemoteException e) {
+                // do nothing.
+            }
+        }
     }
 
     public static void toggleNotifications() {
-        FireActions.toggleNotifications();
+        IStatusBarService service = getStatusBarService();
+        if (service != null) {
+            try {
+                service.expandNotificationsPanel();
+            } catch (RemoteException e) {
+                // do nothing.
+            }
+        }
     }
 
+    // Toggle qs panel
     public static void toggleQsPanel() {
-        FireActions.toggleQsPanel();
-    }
-
-    private static final class FireActions {
-        private static IStatusBarService mStatusBarService = null;
-        private static IStatusBarService getStatusBarService() {
-            synchronized (FireActions.class) {
-                if (mStatusBarService == null) {
-                    mStatusBarService = IStatusBarService.Stub.asInterface(
-                            ServiceManager.getService("statusbar"));
-                }
-                return mStatusBarService;
-            }
-        }
-
-        public static void toggleCameraFlash() {
-            IStatusBarService service = getStatusBarService();
-            if (service != null) {
-                try {
-                    service.toggleCameraFlash();
-                } catch (RemoteException e) {
-                    // do nothing.
-                }
-            }
-        }
-
-        public static void clearAllNotifications() {
-            IStatusBarService service = getStatusBarService();
-            if (service != null) {
-                try {
-                    service.onClearAllNotifications(ActivityManager.getCurrentUser());
-                } catch (RemoteException e) {
-                    // do nothing.
-                }
-            }
-        }
-
-        public static void toggleNotifications() {
-            IStatusBarService service = getStatusBarService();
-            if (service != null) {
-                try {
-                    service.expandNotificationsPanel();
-                } catch (RemoteException e) {
-                    // do nothing.
-                }
-            }
-        }
-
-        // Toggle qs panel
-        static void toggleQsPanel() {
-            IStatusBarService service = getStatusBarService();
-            if (service != null) {
-                try {
-                    service.expandSettingsPanel(null);
-                } catch (RemoteException e) {
-                    // do nothing.
-                }
+        IStatusBarService service = getStatusBarService();
+        if (service != null) {
+            try {
+                service.expandSettingsPanel(null);
+            } catch (RemoteException e) {
+                // do nothing.
             }
         }
     }
