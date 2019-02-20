@@ -18,6 +18,7 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:androidprv="http://schemas.android.com/apk/prv/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         package="com.android.systemui"
         android:sharedUserId="android.uid.systemui"
         coreApp="true">
@@ -655,11 +656,12 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
+        <!-- Disabled for SmartScreen
         <provider android:name=".keyguard.KeyguardSliceProvider"
                   android:authorities="com.android.systemui.keyguard"
                   android:grantUriPermissions="true"
                   android:exported="true">
-        </provider>
+        </provider> -->
 
         <receiver
             android:name=".statusbar.KeyboardShortcutsReceiver">
