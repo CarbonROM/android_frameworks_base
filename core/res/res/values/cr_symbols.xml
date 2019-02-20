@@ -103,4 +103,5 @@
   <!-- Proximity check on screen on default -->
   <java-symbol type="bool" name="config_proximityCheckOnWakeEnabledByDefault" />
 
+  <java-symbol type="bool" name="config_has_elmyra_service" />
 </resources>
