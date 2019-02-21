@@ -1,13 +1,19 @@
 LOCAL_PATH:= $(call my-dir)
 
+EXTERNAL_GOOGLE_PATH := ../../../../external/google
+
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := SystemUI-proto
 
-LOCAL_SRC_FILES := $(call all-proto-files-under,src)
+LOCAL_SRC_FILES := \
+    $(call all-proto-files-under, $(LOCAL_PATH)/$(EXTERNAL_GOOGLE_PATH)/src) \
+    $(call all-proto-files-under,src)
 
 LOCAL_PROTOC_OPTIMIZE_TYPE := nano
 LOCAL_PROTO_JAVA_OUTPUT_PARAMS := optional_field_style=accessors
+
+LOCAL_PROTOC_FLAGS := --proto_path=$(LOCAL_PATH)/$(EXTERNAL_GOOGLE_PATH)/src
 
 include $(BUILD_STATIC_JAVA_LIBRARY)
 
@@ -34,7 +40,7 @@ LOCAL_SRC_FILES := \
     $(call all-Iaidl-files-under, src) \
     $(call all-Iaidl-files-under, $(RELATIVE_FINGERPRINT_PATH))
 
-LOCAL_SRC_FILES += $(call all-java-files-under, ../../../../external/google/src)
+LOCAL_SRC_FILES += $(call all-java-files-under, $(EXTERNAL_GOOGLE_PATH)/src)
 
 LOCAL_STATIC_ANDROID_LIBRARIES := \
     SystemUIPluginLib \
