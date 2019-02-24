@@ -4502,8 +4502,9 @@ public final class Settings {
                 BOOLEAN_VALIDATOR;
 
         /**
-         * 0 - fullscreen
-         * 1 - partial
+         * 1 - fullscreen
+         * 2 - partial
+         * 3 - extended
          * @hide
          */
         public static final String SCREENSHOT_DEFAULT_MODE = "screenshot_default_mode";
