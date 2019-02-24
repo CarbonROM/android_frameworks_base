@@ -16,8 +16,10 @@
 package com.android.systemui.qs.tiles;
 
 import android.content.Context;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.os.UserHandle;
+import android.util.Log;
 import android.provider.Settings;
 import android.service.quicksettings.Tile;
 
@@ -31,12 +33,14 @@ import com.android.systemui.R;
 /** Quick settings tile: Screenshot **/
 public class ScreenshotTile extends QSTileImpl<BooleanState> {
 
-    private boolean mRegion;
+    private static final String TAG = "ScreenshotTile";
+    private int currTileSelection;
+
 
     public ScreenshotTile(QSHost host) {
         super(host);
-        mRegion = Settings.System.getIntForUser(mContext.getContentResolver(),
-                Settings.System.SCREENSHOT_DEFAULT_MODE, 0, UserHandle.USER_CURRENT) == 1;
+        currTileSelection = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.SCREENSHOT_DEFAULT_MODE, 0, UserHandle.USER_CURRENT);
     }
 
     @Override
@@ -53,29 +57,37 @@ public class ScreenshotTile extends QSTileImpl<BooleanState> {
     public void handleSetListening(boolean listening) {}
 
     @Override
-    public void handleClick() {
-        mRegion = !mRegion;
+    protected void handleClick() {
+        currTileSelection++;
+        if(currTileSelection > 3)
+            currTileSelection = 1;
+
         Settings.System.putIntForUser(mContext.getContentResolver(),
-                Settings.System.SCREENSHOT_DEFAULT_MODE, mRegion ? 1 : 0,
+                Settings.System.SCREENSHOT_DEFAULT_MODE, currTileSelection,
                 UserHandle.USER_CURRENT);
+
         refreshState();
     }
 
     @Override
     public void handleLongClick() {
+        Log.w("SystemUI", "Long click on # " + currTileSelection);
         mHost.collapsePanels();
 
         //finish collapsing the panel
         try {
-            Thread.sleep(1000); //1s
-        } catch (InterruptedException ie) {}
-        CrUtils.takeScreenshot(mRegion ? false : true);
+             Thread.sleep(1500);
+        } catch (InterruptedException ie) {
+             // Do nothing
+        }
+        CrUtils.takeScreenshot(currTileSelection);
     }
 
     @Override
     public Intent getLongClickIntent() {
         return null;
     }
+
 
     @Override
     protected void handleUserSwitch(int newUserId) {
@@ -88,16 +100,23 @@ public class ScreenshotTile extends QSTileImpl<BooleanState> {
 
     @Override
     protected void handleUpdateState(BooleanState state, Object arg) {
-        if (mRegion) {
-            state.label = mContext.getString(R.string.quick_settings_region_screenshot_label);
-            state.icon = ResourceIcon.get(R.drawable.ic_qs_region_screenshot);
-            state.contentDescription =  mContext.getString(
-                    R.string.quick_settings_region_screenshot_label);
-        } else {
+        if (currTileSelection == 1) {
             state.label = mContext.getString(R.string.quick_settings_screenshot_label);
             state.icon = ResourceIcon.get(R.drawable.ic_qs_screenshot);
-            state.contentDescription =  mContext.getString(
+            state.contentDescription = mContext.getString(
                     R.string.quick_settings_screenshot_label);
+        } else if (currTileSelection == 2) {
+            state.label = mContext.getString(R.string.quick_settings_region_screenshot_label);
+            state.icon = ResourceIcon.get(R.drawable.ic_qs_region_screenshot);
+            state.contentDescription = mContext.getString(
+                    R.string.quick_settings_region_screenshot_label);
+
+        } else if (currTileSelection == 3) {
+            Log.w("System UI", "extended screenshot tile shown");
+            state.label = mContext.getString(R.string.quick_settings_extended_screenshot_label);
+            state.icon = ResourceIcon.get(R.drawable.ic_qs_extended_screenshot);
+            state.contentDescription = mContext.getString(
+                    R.string.quick_settings_extended_screenshot_label);
         }
     }
 }
