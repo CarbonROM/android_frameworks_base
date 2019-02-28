@@ -75,6 +75,9 @@ import android.view.WindowManager;
 import android.view.animation.Interpolator;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.util.Log;
+import android.os.Handler;
+import android.icu.util.Calendar;
 
 import com.android.internal.messages.nano.SystemMessageProto.SystemMessage;
 import com.android.systemui.R;
@@ -88,6 +91,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
 
 /**
  * POD used in the AsyncTask which saves an image in the background.
@@ -152,7 +160,7 @@ class SaveImageInBackgroundTask extends AsyncTask<Void, Void, Void> {
     }
 
     SaveImageInBackgroundTask(Context context, SaveImageInBackgroundData data,
-            NotificationManager nManager) {
+                              NotificationManager nManager) {
         Resources r = context.getResources();
 
         // Prepare all the output metadata
@@ -221,13 +229,13 @@ class SaveImageInBackgroundTask extends AsyncTask<Void, Void, Void> {
 
         mNotificationBuilder = new Notification.Builder(context,
                 NotificationChannels.SCREENSHOTS_HEADSUP)
-            .setContentTitle(r.getString(R.string.screenshot_saving_title))
-            .setSmallIcon(R.drawable.stat_notify_image)
-            .setWhen(now)
-            .setShowWhen(true)
-            .setColor(r.getColor(com.android.internal.R.color.system_notification_accent_color))
-            .setStyle(mNotificationStyle)
-            .setPublicVersion(mPublicNotificationBuilder.build());
+                .setContentTitle(r.getString(R.string.screenshot_saving_title))
+                .setSmallIcon(R.drawable.stat_notify_image)
+                .setWhen(now)
+                .setShowWhen(true)
+                .setColor(r.getColor(com.android.internal.R.color.system_notification_accent_color))
+                .setStyle(mNotificationStyle)
+                .setPublicVersion(mPublicNotificationBuilder.build());
         mNotificationBuilder.setFlag(Notification.FLAG_NO_CLEAR, true);
         SystemUI.overrideNotificationAppName(context, mNotificationBuilder, true);
 
@@ -252,7 +260,7 @@ class SaveImageInBackgroundTask extends AsyncTask<Void, Void, Void> {
      * in bitmap.
      */
     private Bitmap generateAdjustedHwBitmap(Bitmap bitmap, int width, int height, Matrix matrix,
-            Paint paint, int color) {
+                                            Paint paint, int color) {
         Picture picture = new Picture();
         Canvas canvas = picture.beginRecording(width, height);
         canvas.drawColor(color);
@@ -402,15 +410,15 @@ class SaveImageInBackgroundTask extends AsyncTask<Void, Void, Void> {
                     .setColor(context.getColor(
                             com.android.internal.R.color.system_notification_accent_color));
             mNotificationBuilder
-                .setContentTitle(r.getString(R.string.screenshot_saved_title))
-                .setContentText(r.getString(R.string.screenshot_saved_text))
-                .setContentIntent(PendingIntent.getActivity(mParams.context, 0, launchIntent, 0))
-                .setWhen(now)
-                .setAutoCancel(true)
-                .setColor(context.getColor(
-                        com.android.internal.R.color.system_notification_accent_color))
-                .setPublicVersion(mPublicNotificationBuilder.build())
-                .setFlag(Notification.FLAG_NO_CLEAR, false);
+                    .setContentTitle(r.getString(R.string.screenshot_saved_title))
+                    .setContentText(r.getString(R.string.screenshot_saved_text))
+                    .setContentIntent(PendingIntent.getActivity(mParams.context, 0, launchIntent, 0))
+                    .setWhen(now)
+                    .setAutoCancel(true)
+                    .setColor(context.getColor(
+                            com.android.internal.R.color.system_notification_accent_color))
+                    .setPublicVersion(mPublicNotificationBuilder.build())
+                    .setFlag(Notification.FLAG_NO_CLEAR, false);
 
             mNotificationManager.notify(SystemMessage.NOTE_GLOBAL_SCREENSHOT,
                     mNotificationBuilder.build());
@@ -519,34 +527,34 @@ class GlobalScreenshot {
         mScreenshotLayout.setFocusable(true);
         mScreenshotSelectorView.setFocusable(true);
         mScreenshotSelectorView.setFocusableInTouchMode(true);
-        mScreenshotLayout.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                // Intercept and ignore all touch events
-                return true;
-            }
-        });
+        //mScreenshotLayout.setOnTouchListener(new View.OnTouchListener() {
+        //    @Override
+        //    public boolean onTouch(View v, MotionEvent event) {
+        //        // Intercept and ignore all touch events
+        //        return true;
+        //    }
+        //});
 
         // Setup the window that we are going to use
         mWindowLayoutParams = new WindowManager.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 0, 0,
                 WindowManager.LayoutParams.TYPE_SCREENSHOT,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
-                    | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-                    | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED,
+                        | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                        | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED,
                 PixelFormat.TRANSLUCENT);
         mWindowLayoutParams.setTitle("ScreenshotAnimation");
         mWindowLayoutParams.layoutInDisplayCutoutMode = LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS;
         mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         mNotificationManager =
-            (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         mDisplay = mWindowManager.getDefaultDisplay();
         mDisplayMetrics = new DisplayMetrics();
         mDisplay.getRealMetrics(mDisplayMetrics);
 
         // Get the various target sizes
         mNotificationIconSize =
-            r.getDimensionPixelSize(android.R.dimen.notification_large_icon_height);
+                r.getDimensionPixelSize(android.R.dimen.notification_large_icon_height);
 
         // Scale has to account for both sides of the bg
         mBgPadding = (float) r.getDimensionPixelSize(R.dimen.global_screenshot_bg_padding);
@@ -593,12 +601,12 @@ class GlobalScreenshot {
      */
     private float getDegreesForRotation(int value) {
         switch (value) {
-        case Surface.ROTATION_90:
-            return 360f - 90f;
-        case Surface.ROTATION_180:
-            return 360f - 180f;
-        case Surface.ROTATION_270:
-            return 360f - 270f;
+            case Surface.ROTATION_90:
+                return 360f - 90f;
+            case Surface.ROTATION_180:
+                return 360f - 180f;
+            case Surface.ROTATION_270:
+                return 360f - 270f;
         }
         return 0f;
     }
@@ -607,7 +615,7 @@ class GlobalScreenshot {
      * Takes a screenshot of the current display and shows an animation.
      */
     private void takeScreenshot(Runnable finisher, boolean statusBarVisible, boolean navBarVisible,
-            Rect crop) {
+                                Rect crop) {
 
         mDisplay.getRealMetrics(mDisplayMetrics);
         int displayHeight = mDisplayMetrics.heightPixels;
@@ -653,7 +661,7 @@ class GlobalScreenshot {
      * Displays a screenshot selector
      */
     void takeScreenshotPartial(final Runnable finisher, final boolean statusBarVisible,
-            final boolean navBarVisible) {
+                               final boolean navBarVisible) {
         mWindowManager.addView(mScreenshotLayout, mWindowLayoutParams);
         mScreenshotSelectorView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -696,6 +704,333 @@ class GlobalScreenshot {
         });
     }
 
+
+    void takeScreenshotExtended(final Runnable finisher, final boolean statusBarVisible,
+                                final boolean navBarVisible) {
+
+        mDisplay.getRealMetrics(mDisplayMetrics);
+        int displayHeight = mDisplayMetrics.heightPixels;
+        int displayWidth = mDisplayMetrics.widthPixels;
+        Rect displayRect = new Rect(0, 0, displayWidth, displayHeight);
+        int rot = mDisplay.getRotation();
+
+        // Take the extended screenshot
+        ArrayList<Bitmap> imagesToStitch = new ArrayList<Bitmap>();
+
+        mScreenshotSelectorView.setOnTouchListener(new View.OnTouchListener() {
+            private static final int MAX_CLICK_DURATION = 200;
+            private long startClickTime;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        startClickTime = Calendar.getInstance().getTimeInMillis();
+                        break;
+
+                    case MotionEvent.ACTION_UP: {
+                        long clickDuration = Calendar.getInstance().getTimeInMillis() -
+                                startClickTime;
+                        if (clickDuration < MAX_CLICK_DURATION) {
+                            mScreenBitmap = mergeBitmapVertical(imagesToStitch);
+                            performFinisher(finisher, statusBarVisible, navBarVisible,
+                                    mScreenBitmap);
+                        }
+                        break;
+                    }
+                }
+                return true;
+            }
+        });
+
+        for (int i = 0; ; i++) {
+            try {
+                Thread.sleep(1500);
+                imagesToStitch.add(SurfaceControl.screenshot(displayRect, displayWidth, displayHeight, rot));
+
+                if (imagesToStitch.get(i) == null) {
+                    notifyScreenshotError(mContext, mNotificationManager,
+                            R.string.screenshot_failed_to_capture_text);
+                    finisher.run();
+                    return;
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
+            //move the screen, then sleep.
+            try {
+                Log.w("System UI", "Moving Screen!");
+                if(i == 0)      //screnshot is not taken fast enough initially before movement.
+                    Thread.sleep(500);
+                java.lang.Process process = Runtime.getRuntime().exec(
+                        "input swipe " + Float.toString((int) (displayWidth / 2)) + " " +
+                                Integer.toString((int) (5 * displayHeight / 6)) + " " +
+                                Integer.toString((int) (displayWidth / 2)) + " " +
+                                Integer.toString((int) (displayHeight / 6)) + " 2100");
+                //height / 6 is slightly larger than nav bar
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(
+                        process.getInputStream()));
+                if(i != 0) {
+                    Bitmap former = Bitmap.createBitmap(imagesToStitch.get(i - 1), 0, 2 *(int) displayHeight / 6,
+                            (int) displayWidth, (int) displayHeight / 6);
+                    Bitmap latter = Bitmap.createBitmap(imagesToStitch.get(i), 0, 2 *(int) displayHeight / 6,
+                            (int) displayWidth, (int) displayHeight / 6);
+                    Thread.sleep(500);
+                    Log.w("System UI", "Sleep for 500ms");
+                    //if (former.sameAs(latter)) {//if match, we are done
+                    if(imagesToStitch.size() > 3)
+                        Log.w("System UI", "Images are same");
+                        imagesToStitch.remove(i);   //remove duplicate screenshot
+                        break;
+                    }
+                    former.recycle();
+                    latter.recycle();
+                }
+                Thread.sleep(2100);
+            } catch (InterruptedException e){
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        Log.w("System UI", "Starting to merge vertical images");
+        mScreenBitmap = mergeBitmapVertical(imagesToStitch);
+        performFinisher(finisher, statusBarVisible,
+                navBarVisible, mScreenBitmap);
+    }
+
+    /**
+     *  Merges two bitmaps together vertically.
+     */
+    Bitmap mergeBitmapVertical(ArrayList<Bitmap> imagesToStitch){
+        int vertHeight = 0;
+        int runningHeight = 0;
+
+        Bitmap tempStitch = null;
+        int statHeightResource = mContext.getResources()
+                .getIdentifier("status_bar_height", "dimen", "android");
+        int navHeightResource = mContext.getResources()
+                .getIdentifier("navigation_bar_height", "dimen", "android");
+
+
+        int statHeight = mContext.getResources().getDimensionPixelSize(statHeightResource);
+        int navHeight  = mContext.getResources().getDimensionPixelSize(navHeightResource);
+
+
+        Log.w("System UI","Navbar height of " + navHeight + " statbar of " + statHeight + " = " +
+                (navHeight + statHeight) );
+
+        if(imagesToStitch.size() == 1)
+            return imagesToStitch.get(0);
+        else {
+            Log.w("System UI","Entering else statement");
+            Log.w("System UI","We have " + imagesToStitch.size() + " images!");
+
+            for (int i = 0; i < imagesToStitch.size(); i++) {
+
+                Log.w("System UI", "Inputting image " + i + " of " + imagesToStitch.get(i).getHeight()
+                        + "x" + imagesToStitch.get(i).getWidth());
+
+                if (i == 0) {
+                    tempStitch = stripNavStatBar(imagesToStitch.get(i), true,
+                            false, navHeight, statHeight);
+                    imagesToStitch.get(i).recycle();
+                    imagesToStitch.set(i, tempStitch);
+                } else if (i == imagesToStitch.size() - 1) {
+                    tempStitch = stripNavStatBar(imagesToStitch.get(i), false,
+                            true, navHeight, statHeight);
+//                    tempStitch = removeOverlap(imagesToStitch.get(i - 1),
+//                            tempStitch);
+                    imagesToStitch.get(i).recycle();
+                    imagesToStitch.set(i, tempStitch);
+                } else {
+                    // Log.w(|)
+                    tempStitch = stripNavStatBar(imagesToStitch.get(i), true,
+                            true, navHeight, statHeight);
+                    imagesToStitch.get(i).recycle();
+                    imagesToStitch.set(i, tempStitch);
+                }
+
+                Log.w("System UI", "Created img " + i + " of " + imagesToStitch.get(i).getHeight() +
+                        "x" + imagesToStitch.get(i).getWidth());
+            }
+
+            for(int i = 0; i < imagesToStitch.size(); i++)
+                vertHeight +=  imagesToStitch.get(i).getHeight();
+
+            int rescaledWidth = mDisplayMetrics.widthPixels;
+            double ratio = vertHeight / rescaledWidth;
+
+            Log.w("System UI","We start creating  the merge size");
+            Bitmap merge = Bitmap.createBitmap(rescaledWidth, vertHeight,
+                    Bitmap.Config.ARGB_8888);
+            Canvas c = new Canvas(merge);
+
+            while(vertHeight * rescaledWidth >=
+                    (c.getMaximumBitmapWidth() * c.getMaximumBitmapHeight())) {
+                Log.w("System UI", "Image needs to be rescaled! c.MaxWidth is " + c.getMaximumBitmapWidth() + "x" + c.getMaximumBitmapHeight());
+                Log.w("System UI", "Current dimensions are " + rescaledWidth + "x" + vertHeight);
+                rescaledWidth = (int) (rescaledWidth *  .97);   //shrink 3%
+                vertHeight = (int) (rescaledWidth * ratio); //remove
+                Log.w("System UI", "Scaled dimensions are " + rescaledWidth + "x" + vertHeight);
+            }
+
+            if(rescaledWidth < mDisplayMetrics.widthPixels) {
+                Log.w("System UI", "Rescaling with a factor of " + ratio);
+                for (int i = 0; i < imagesToStitch.size(); i++) {
+                    Log.w("System UI", "Rescaling image " + i + " of dimensions: " + rescaledWidth +
+                            "x" + imagesToStitch.get(i).getHeight() + "*" + ratio);
+                    Matrix m = new Matrix();
+                    m.setScale(rescaledWidth,
+                            (imagesToStitch.get(i).getHeight()) *
+                                    (rescaledWidth/ imagesToStitch.get(i).getWidth()));
+
+                    tempStitch = Bitmap.createBitmap(
+                            imagesToStitch.get(i), 0, 0, imagesToStitch.get(i).getWidth(),
+                            imagesToStitch.get(i).getHeight(), m, false);
+                    //imagesToStitch.get(i).recycle();
+                    imagesToStitch.set(i, tempStitch);
+                }
+            }
+
+            for (int i = 0; i < imagesToStitch.size(); i++) {
+                c.drawBitmap(imagesToStitch.get(i), 0f, runningHeight, null);
+                runningHeight += imagesToStitch.get(i).getHeight();
+                //imagesToStitch.get(i).recycle();
+            }   //vertHeight should be equal to runningHeight at this point.
+            Log.w("System UI","We finished merging! running height is " + runningHeight +
+                    " and vertHeight is " + vertHeight);
+            Log.w("System UI", "Final image is of dimensions " + merge.getWidth() +
+                    "x" + merge.getHeight());
+            return merge;
+        }
+    }
+
+    Bitmap stripNavStatBar(Bitmap bm, boolean navBar, boolean statBar,
+                           int navHeight, int statHeight) {
+        Bitmap tempStitch = null;
+
+        if(navBar && statBar) {
+            tempStitch = Bitmap
+                    .createBitmap(bm, 0,
+                            bm.getHeight() / 6, mDisplayMetrics.widthPixels,
+                            4 * bm.getHeight() / 6);
+            bm.recycle();
+            Log.w("System UI","We removed the status bar & nav bar this image");
+            return tempStitch;
+        } else if (!navBar && statBar) {            //removes statusbar from last image
+            tempStitch = Bitmap.createBitmap(bm, 0, statHeight * 2, bm.getWidth(),
+                    bm.getHeight() - (statHeight * 2));
+            bm.recycle();
+            Log.w("System UI","We removed the status bar of last image");
+            return tempStitch;
+        } else if (navBar && !statBar) {
+            tempStitch = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), (5 * bm.getHeight()) / 6);
+            bm.recycle();
+            Log.w("System UI","We removed the nav bar of image 0");
+            return tempStitch;  //return removeImageOverlap ( end - 1, end)
+
+        } else
+            return null;
+
+    }
+
+
+    Bitmap removeOverlap(Bitmap top, Bitmap bot) {
+        //grab bottom 6th
+        Log.w("System UI", "Removing overlap");
+
+        int intersectStart = 0;
+        ByteBuffer topBuffer = ByteBuffer.allocate(top.getByteCount());
+        top.copyPixelsToBuffer(topBuffer);
+        byte[] topBuffArray = topBuffer.array();
+
+        ByteBuffer botBuffer = ByteBuffer.allocate(bot.getByteCount());
+        bot.copyPixelsToBuffer(botBuffer);
+        byte[] botBuffArray = botBuffer.array();
+
+        Log.w("System UI", "Buffers initialized");
+
+        int topWidth = 0;
+
+        for(int i = 0; i < botBuffArray.length; i++) {
+
+            if(topBuffArray[topWidth] == botBuffArray[i]) {
+                if(topWidth == 0)
+                    intersectStart = i;
+                topWidth++;
+            }
+            else {
+                i += topBuffArray.length - topWidth;
+                topWidth = 0;
+                intersectStart = 0;
+            }
+            if(topWidth == topBuffArray.length) {
+                Log.w("System UI", "found match at " + i);
+                break;
+            }
+        }
+
+        intersectStart /= bot.getWidth();   //starts with first pixel, should divide w/o remainder.
+
+        Log.w("System UI", "Removing finished image");
+        if(intersectStart > 0)
+            return Bitmap.createBitmap(bot, 0, intersectStart, bot.getWidth(),
+                    top.getHeight() - intersectStart);
+        else
+            return bot;
+
+    }
+
+    void performFinisher(final Runnable finisher, final boolean statusBarVisible,
+                         final boolean navBarVisible, Bitmap mScreenBitmap) {
+
+
+        int displayHeight = mDisplayMetrics.heightPixels;
+        int displayWidth = mDisplayMetrics.widthPixels;
+        Rect displayRect = new Rect(0, 0, displayWidth, displayHeight);
+        int rot = mDisplay.getRotation();
+
+        boolean requiresRotation = (rot > 0);
+
+        /*if (requiresRotation) {
+            // Get the dimensions of the device in its native orientation
+            mDisplayMatrix.reset();
+            mDisplayMatrix.preRotate(-degrees);
+            mDisplayMatrix.mapPoints(dims);
+            displayWidth = Math.abs(displayWidth);
+            displayHeight = Math.abs(displayHeight);
+        } */
+
+
+        if (requiresRotation) {
+            // Rotate the screenshot to the current orientation
+            Bitmap ss = Bitmap.createBitmap(mDisplayMetrics.widthPixels,
+                    mDisplayMetrics.heightPixels, Bitmap.Config.ARGB_8888);
+            Canvas c = new Canvas(ss);
+            c.translate(ss.getWidth() / 2, ss.getHeight() / 2);
+            c.rotate(rot);
+            c.translate(-displayWidth / 2, -displayHeight / 2);
+            c.drawBitmap(mScreenBitmap, 0, 0, null);
+            c.setBitmap(null);
+            // Recycle the previous bitmap
+            mScreenBitmap.recycle();
+            mScreenBitmap = ss;
+        }
+
+        // Optimizations
+        mScreenBitmap.setHasAlpha(false);
+        mScreenBitmap.prepareToDraw();
+
+        // Start the post-screenshot animation
+        startAnimation(finisher, mDisplayMetrics.widthPixels, mDisplayMetrics.heightPixels,
+                statusBarVisible, navBarVisible);
+
+    }
+
     /**
      * Cancels screenshot request
      */
@@ -714,7 +1049,7 @@ class GlobalScreenshot {
      * Starts the animation after taking the screenshot
      */
     private void startAnimation(final Runnable finisher, int w, int h, boolean statusBarVisible,
-            boolean navBarVisible) {
+                                boolean navBarVisible) {
         // If power save is on, show a toast so there is some visual indication that a screenshot
         // has been taken.
         PowerManager powerManager = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
@@ -814,7 +1149,7 @@ class GlobalScreenshot {
             public void onAnimationUpdate(ValueAnimator animation) {
                 float t = (Float) animation.getAnimatedValue();
                 float scaleT = (SCREENSHOT_SCALE + mBgPaddingScale)
-                    - scaleInterpolator.getInterpolation(t)
+                        - scaleInterpolator.getInterpolation(t)
                         * (SCREENSHOT_SCALE - SCREENSHOT_DROP_IN_MIN_SCALE);
                 mBackgroundView.setAlpha(scaleInterpolator.getInterpolation(t) * BACKGROUND_ALPHA);
                 mScreenshotView.setAlpha(t);
@@ -826,7 +1161,7 @@ class GlobalScreenshot {
         return anim;
     }
     private ValueAnimator createScreenshotDropOutAnimation(int w, int h, boolean statusBarVisible,
-            boolean navBarVisible) {
+                                                           boolean navBarVisible) {
         ValueAnimator anim = ValueAnimator.ofFloat(0f, 1f);
         anim.setStartDelay(SCREENSHOT_DROP_OUT_DELAY);
         anim.addListener(new AnimatorListenerAdapter() {
@@ -873,8 +1208,8 @@ class GlobalScreenshot {
             float halfScreenHeight = (h - 2f * mBgPadding) / 2f;
             final float offsetPct = SCREENSHOT_DROP_OUT_MIN_SCALE_OFFSET;
             final PointF finalPos = new PointF(
-                -halfScreenWidth + (SCREENSHOT_DROP_OUT_MIN_SCALE + offsetPct) * halfScreenWidth,
-                -halfScreenHeight + (SCREENSHOT_DROP_OUT_MIN_SCALE + offsetPct) * halfScreenHeight);
+                    -halfScreenWidth + (SCREENSHOT_DROP_OUT_MIN_SCALE + offsetPct) * halfScreenWidth,
+                    -halfScreenHeight + (SCREENSHOT_DROP_OUT_MIN_SCALE + offsetPct) * halfScreenHeight);
 
             // Animate the screenshot to the status bar
             anim.setDuration(SCREENSHOT_DROP_OUT_DURATION);
@@ -883,7 +1218,7 @@ class GlobalScreenshot {
                 public void onAnimationUpdate(ValueAnimator animation) {
                     float t = (Float) animation.getAnimatedValue();
                     float scaleT = (SCREENSHOT_DROP_IN_MIN_SCALE + mBgPaddingScale)
-                        - scaleInterpolator.getInterpolation(t)
+                            - scaleInterpolator.getInterpolation(t)
                             * (SCREENSHOT_DROP_IN_MIN_SCALE - SCREENSHOT_DROP_OUT_MIN_SCALE);
                     mBackgroundView.setAlpha((1f - t) * BACKGROUND_ALPHA);
                     mScreenshotView.setAlpha(1f - scaleInterpolator.getInterpolation(t));
@@ -903,15 +1238,15 @@ class GlobalScreenshot {
 
         // Repurpose the existing notification to notify the user of the error
         Notification.Builder b = new Notification.Builder(context, NotificationChannels.ALERTS)
-            .setTicker(r.getString(R.string.screenshot_abort_title))
-            .setContentTitle(r.getString(R.string.screenshot_abort_title))
-            .setContentText(errorMsg)
-            .setSmallIcon(R.drawable.stat_notify_image_error)
-            .setWhen(System.currentTimeMillis())
-            .setVisibility(Notification.VISIBILITY_PUBLIC) // ok to show outside lockscreen
-            .setCategory(Notification.CATEGORY_ERROR)
-            .setAutoCancel(true)
-            .setColor(context.getColor(
+                .setTicker(r.getString(R.string.screenshot_abort_title))
+                .setContentTitle(r.getString(R.string.screenshot_abort_title))
+                .setContentText(errorMsg)
+                .setSmallIcon(R.drawable.stat_notify_image_error)
+                .setWhen(System.currentTimeMillis())
+                .setVisibility(Notification.VISIBILITY_PUBLIC) // ok to show outside lockscreen
+                .setCategory(Notification.CATEGORY_ERROR)
+                .setAutoCancel(true)
+                .setColor(context.getColor(
                         com.android.internal.R.color.system_notification_accent_color));
         final DevicePolicyManager dpm = (DevicePolicyManager) context.getSystemService(
                 Context.DEVICE_POLICY_SERVICE);

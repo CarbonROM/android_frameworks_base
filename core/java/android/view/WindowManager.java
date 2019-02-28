@@ -396,6 +396,12 @@ public interface WindowManager extends ViewManager {
     final int TAKE_SCREENSHOT_SELECTED_REGION = 2;
 
     /**
+     * Message for taking extended screenshot.
+     * @hide
+     */
+    final int TAKE_SCREENSHOT_EXTENDED = 3;
+
+    /**
      * @hide
      */
     public static final String PARCEL_KEY_SHORTCUTS_ARRAY = "shortcuts_array";

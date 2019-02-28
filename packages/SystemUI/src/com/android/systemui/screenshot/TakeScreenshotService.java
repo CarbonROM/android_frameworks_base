@@ -60,12 +60,16 @@ public class TakeScreenshotService extends Service {
                 mScreenshot = new GlobalScreenshot(TakeScreenshotService.this);
             }
 
+            Log.w("SystemUI", msg.what + " is the message");
             switch (msg.what) {
                 case WindowManager.TAKE_SCREENSHOT_FULLSCREEN:
                     mScreenshot.takeScreenshot(finisher, msg.arg1 > 0, msg.arg2 > 0);
                     break;
                 case WindowManager.TAKE_SCREENSHOT_SELECTED_REGION:
                     mScreenshot.takeScreenshotPartial(finisher, msg.arg1 > 0, msg.arg2 > 0);
+                    break;
+                case WindowManager.TAKE_SCREENSHOT_EXTENDED:
+                    mScreenshot.takeScreenshotExtended(finisher, msg.arg1 > 0, msg.arg2 > 0);
                     break;
                 default:
                     Log.d(TAG, "Invalid screenshot option: " + msg.what);
