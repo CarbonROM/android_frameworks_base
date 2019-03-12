@@ -1955,7 +1955,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 mScreenshotChordVolumeDownKeyConsumed = true;
                 cancelPendingPowerKeyAction();
                 mScreenshotRunnable.setScreenshotType(TAKE_SCREENSHOT_FULLSCREEN);
-                mHandler.postDelayed(mScreenshotRunnable, getScreenshotChordLongPressDelay());
+                // eventually make this an advanced screenshot toggle
+                boolean screenshotEditEnable = true;
+                if (screenshotEditEnable) {
+                    Intent screenshotUi = new Intent("org.carbonrom.screenshot");
+                    screenshotUi.setPackage("org.carbonrom.screenshotui");
+                    mContext.startService(screenshotUi);
+                } else {
+                    mHandler.postDelayed(mScreenshotRunnable, getScreenshotChordLongPressDelay());
+		}
             }
         }
     }
