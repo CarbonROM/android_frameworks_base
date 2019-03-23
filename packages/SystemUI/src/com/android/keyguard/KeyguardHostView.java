@@ -101,11 +101,8 @@ public class KeyguardHostView extends FrameLayout implements SecurityCallback {
 
         @Override
         public void onTrustChanged(int userId) {
-            boolean faceAutoUnlockEnabledByDefault = getResources().getBoolean(
-                    com.android.internal.R.bool.config_autoFaceUnlockEnabledByDefault);
             boolean faceAutoUnlock = Settings.System.getIntForUser(getContext().getContentResolver(),
-                    Settings.System.FACE_AUTO_UNLOCK, faceAutoUnlockEnabledByDefault ? 1 : 0,
-                    UserHandle.USER_CURRENT) == 1;
+                    Settings.System.FACE_AUTO_UNLOCK, 0, UserHandle.USER_CURRENT) == 1;
             if (userId != KeyguardUpdateMonitor.getCurrentUser()) return;
             if (mKeyguardUpdateMonitor.getUserCanSkipBouncer(userId) &&
                     mKeyguardUpdateMonitor.getUserHasTrust(userId) &&
