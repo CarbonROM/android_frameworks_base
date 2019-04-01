@@ -16,29 +16,29 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-  <string name="system_error_vendorprint">Vendor imajınız sistem ile eşleşmiyor. Cihazınız için lütfen <xliff:g id="string">%s</xliff:g> vendor imajını yükleyin</string>
-  <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_fakePackageSignature">Sahte paket imzası</string>
-  <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_fakePackageSignature">Uygulamanın farklı bir uygulama gibi davranmasına izin verir. Zararlı uygulamalar bu özelliği kullanarak özel içerikli bilgilere ulaşabilir. Bu izni verirken dikkatli olun!</string>
-  <!-- advanced reboot to bootloader. -->
-  <string name="reboot_to_bootloader_title">Ön yükleyici</string>
-  <string name="reboot_to_bootloader_message">Ön yükleyici modunda başlatılıyor\u2026</string>
-  <!-- advanced reboot to recovery. -->
-  <string name="reboot_to_recovery_title">Kurtarma</string>
-  <string name="reboot_to_recovery_message">Kurtarma modunda başlatılıyor\u2026</string>
-  <!-- advanced reboot system -->
-  <string name="reboot_system_title">Sistem</string>
-  <string name="reboot_system_message">Sistem yeniden başlatılıyor\u2026</string>
-  <!-- QS Tiles -->
-  <string name="quick_settings_screenshot_label">Ekran görüntüsü</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_preventpower">güç tuşunu geçersiz kıl</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_preventpower">Uygulamaya güç tuşunu geçersiz kılma izni verir.</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_accessFontManager">yazı tipi yöneticisine erişim</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_accessFontManager">Bir uygulamanın yazı tipi yöneticisine erişmesine izin verir.</string>
+    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
+    <string name="system_error_vendorprint">Vendor imajınız sistem ile eşleşmiyor. Cihazınız için lütfen <xliff:g id="string">%s</xliff:g> vendor imajını yükleyin</string>
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_fakePackageSignature">Sahte paket imzası</string>
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_fakePackageSignature">Uygulamanın farklı bir uygulama gibi davranmasına izin verir. Zararlı uygulamalar bu özelliği kullanarak özel içerikli bilgilere ulaşabilir. Bu izni verirken dikkatli olun!</string>
+    <!-- advanced reboot to bootloader. -->
+    <string name="reboot_to_bootloader_title">Ön yükleyici</string>
+    <string name="reboot_to_bootloader_message">Ön yükleyici modunda başlatılıyor\u2026</string>
+    <!-- advanced reboot to recovery. -->
+    <string name="reboot_to_recovery_title">Kurtarma</string>
+    <string name="reboot_to_recovery_message">Kurtarma modunda başlatılıyor\u2026</string>
+    <!-- advanced reboot system -->
+    <string name="reboot_system_title">Sistem</string>
+    <string name="reboot_system_message">Sistem yeniden başlatılıyor\u2026</string>
+    <!-- QS Tiles -->
+    <string name="quick_settings_screenshot_label">Ekran görüntüsü</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_preventpower">güç tuşunu geçersiz kıl</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_preventpower">Uygulamaya güç tuşunu geçersiz kılma izni verir.</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">yazı tipi yöneticisine erişim</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">Bir uygulamanın yazı tipi yöneticisine erişmesine izin verir.</string>
 </resources>

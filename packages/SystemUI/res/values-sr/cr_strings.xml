@@ -13,69 +13,69 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Power Menu -->
-  <string name="global_action_reboot">Поново покрени</string>
-  <string name="global_action_reboot_sub">Систем</string>
-  <string name="global_action_reboot_recovery">Опоравак</string>
-  <string name="global_action_reboot_bootloader">Подизни учитавач</string>
-  <string name="global_action_dismissable_dialog_text">Напредни рестарт је онемогућен.\nДа ли желите да поново покренете\u003f</string>
-  <string name="global_action_dnaa">Не приказуј поново</string>
-  <string name="global_action_settings">Подешавања</string>
-  <string name="global_action_screenshot">Снимак екрана</string>
-  <string name="global_action_flashlight">Лампа</string>
-  <!-- Caffeine QS Tile -->
-  <string name="quick_settings_caffeine_label">Кофеин</string>
-  <string name="accessibility_quick_settings_caffeine_off">Кофеин искључен</string>
-  <string name="accessibility_quick_settings_caffeine_on">Кофеин укључен</string>
-  <!-- QS Layout -->
-  <string name="qs_menu_item_columns">Колоне</string>
-  <string name="qs_menu_item_columns_landscape">Колоне положено</string>
-  <string name="qs_menu_item_columns_three">3</string>
-  <string name="qs_menu_item_columns_four">4</string>
-  <string name="qs_menu_item_columns_five">5</string>
-  <string name="qs_menu_item_columns_six">6</string>
-  <string name="qs_menu_item_columns_seven">7</string>
-  <string name="qs_menu_item_columns_eight">8</string>
-  <string name="qs_menu_item_columns_nine">9</string>
-  <string name="qs_menu_item_reset">Врати</string>
-  <string name="qs_menu_item_titles">Прикажи ознаке</string>
-  <string name="qs_menu_item_rows">Редови</string>
-  <string name="qs_menu_item_rows_one">1</string>
-  <string name="qs_menu_item_rows_two">2</string>
-  <string name="qs_menu_item_rows_three">3</string>
-  <string name="qs_menu_item_rows_four">4</string>
-  <!-- Screenshot QS Tile -->
-  <string name="quick_settings_screenshot_label">Сликај екран</string>
-  <string name="quick_settings_region_screenshot_label">Делимичан снимак слике екрана</string>
-  <!-- Screenrecord QS tile -->
-  <string name="quick_settings_screenrecord_label">Снимак екрана</string>
-  <string name="quick_settings_screenrecord_lq_label">Снимак екрана НК</string>
-  <string name="quick_settings_screenrecord_mq_label">Снимак екрана СК</string>
-  <string name="quick_settings_screenrecord_hq_label">Снимак екрана ВК</string>
-  <!-- Screenrecord Notification Ticker -->
-  <string name="screenrecord_notif_ticker">Екран ће бити снимљен</string>
-  <string name="screenrecord_notif_final_ticker">Екран је успешно снимљен</string>
-  <!-- Screenrecord notification title -->
-  <string name="screenrecord_notif_title">Снимање екрана</string>
-  <!-- Screenrecord notification action: Stop -->
-  <string name="screenrecord_notif_stop">Заустави</string>
-  <string name="screenrecord_notif_completed">Екран је успешно снимљен</string>
-  <!-- Screenrecord notification action: show/hide pointer -->
-  <string name="screenrecord_notif_pointer_on">Прикажи показивач</string>
-  <string name="screenrecord_notif_pointer_off">Сакриј показивач</string>
-  <!-- Screen record notification error title -->
-  <string name="screenrecord_notif_error">Није могуће снимити екран</string>
-  <string name="notification_channel_screenrecord">Снимци екрана</string>
-  <string name="screenrecord_hide_hint">Сакриј савете</string>
-  <string name="screenrecord_show_hint">Прикажи савете</string>
-  <!-- SysUI Tuner -->
-  <string name="statusbar_icons_blacklist">Иконе траке статуса</string>
-  <string name="navbar_tuner_activity">Дугмићи навигационе траке</string>
-  <string name="lockscreen_tuner_activity">Пречице на закључаном екрану</string>
-  <string name="lockscreen_default">Подразумевано</string>
-  <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
-  <!-- Notification QS Tile -->
-  <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
-  <!-- Indication on the keyguard that is shown when the device is charging with a turbo power charger. Should match keyguard_plugged_in_turbo_power_charging [CHAR LIMIT=40]-->
-  <!-- Notification QS Tile -->
+    <!-- Power Menu -->
+    <string name="global_action_reboot">Поново покрени</string>
+    <string name="global_action_reboot_sub">Систем</string>
+    <string name="global_action_reboot_recovery">Опоравак</string>
+    <string name="global_action_reboot_bootloader">Подизни учитавач</string>
+    <string name="global_action_dismissable_dialog_text">Напредни рестарт је онемогућен.\nДа ли желите да поново покренете\u003f</string>
+    <string name="global_action_dnaa">Не приказуј поново</string>
+    <string name="global_action_settings">Подешавања</string>
+    <string name="global_action_screenshot">Снимак екрана</string>
+    <string name="global_action_flashlight">Лампа</string>
+    <!-- Caffeine QS Tile -->
+    <string name="quick_settings_caffeine_label">Кофеин</string>
+    <string name="accessibility_quick_settings_caffeine_off">Кофеин искључен</string>
+    <string name="accessibility_quick_settings_caffeine_on">Кофеин укључен</string>
+    <!-- QS Layout -->
+    <string name="qs_menu_item_columns">Колоне</string>
+    <string name="qs_menu_item_columns_landscape">Колоне положено</string>
+    <string name="qs_menu_item_columns_three">3</string>
+    <string name="qs_menu_item_columns_four">4</string>
+    <string name="qs_menu_item_columns_five">5</string>
+    <string name="qs_menu_item_columns_six">6</string>
+    <string name="qs_menu_item_columns_seven">7</string>
+    <string name="qs_menu_item_columns_eight">8</string>
+    <string name="qs_menu_item_columns_nine">9</string>
+    <string name="qs_menu_item_reset">Врати</string>
+    <string name="qs_menu_item_titles">Прикажи ознаке</string>
+    <string name="qs_menu_item_rows">Редови</string>
+    <string name="qs_menu_item_rows_one">1</string>
+    <string name="qs_menu_item_rows_two">2</string>
+    <string name="qs_menu_item_rows_three">3</string>
+    <string name="qs_menu_item_rows_four">4</string>
+    <!-- Screenshot QS Tile -->
+    <string name="quick_settings_screenshot_label">Сликај екран</string>
+    <string name="quick_settings_region_screenshot_label">Делимичан снимак слике екрана</string>
+    <!-- Screenrecord QS tile -->
+    <string name="quick_settings_screenrecord_label">Снимак екрана</string>
+    <string name="quick_settings_screenrecord_lq_label">Снимак екрана НК</string>
+    <string name="quick_settings_screenrecord_mq_label">Снимак екрана СК</string>
+    <string name="quick_settings_screenrecord_hq_label">Снимак екрана ВК</string>
+    <!-- Screenrecord Notification Ticker -->
+    <string name="screenrecord_notif_ticker">Екран ће бити снимљен</string>
+    <string name="screenrecord_notif_final_ticker">Екран је успешно снимљен</string>
+    <!-- Screenrecord notification title -->
+    <string name="screenrecord_notif_title">Снимање екрана</string>
+    <!-- Screenrecord notification action: Stop -->
+    <string name="screenrecord_notif_stop">Заустави</string>
+    <string name="screenrecord_notif_completed">Екран је успешно снимљен</string>
+    <!-- Screenrecord notification action: show/hide pointer -->
+    <string name="screenrecord_notif_pointer_on">Прикажи показивач</string>
+    <string name="screenrecord_notif_pointer_off">Сакриј показивач</string>
+    <!-- Screen record notification error title -->
+    <string name="screenrecord_notif_error">Није могуће снимити екран</string>
+    <string name="notification_channel_screenrecord">Снимци екрана</string>
+    <string name="screenrecord_hide_hint">Сакриј савете</string>
+    <string name="screenrecord_show_hint">Прикажи савете</string>
+    <!-- SysUI Tuner -->
+    <string name="statusbar_icons_blacklist">Иконе траке статуса</string>
+    <string name="navbar_tuner_activity">Дугмићи навигационе траке</string>
+    <string name="lockscreen_tuner_activity">Пречице на закључаном екрану</string>
+    <string name="lockscreen_default">Подразумевано</string>
+    <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
+    <!-- Notification QS Tile -->
+    <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <!-- Indication on the keyguard that is shown when the device is charging with a turbo power charger. Should match keyguard_plugged_in_turbo_power_charging [CHAR LIMIT=40]-->
+    <!-- Notification QS Tile -->
 </resources>

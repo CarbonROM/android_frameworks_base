@@ -13,83 +13,83 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Power Menu -->
-  <string name="global_action_reboot">Reiniciar</string>
-  <string name="global_action_reboot_sub">Sistema</string>
-  <string name="global_action_reboot_recovery">Recuperação</string>
-  <string name="global_action_reboot_bootloader">Bootloader</string>
-  <string name="global_action_dismissable_dialog_text">A reinicialização avançada está desativada. Deseja reinicializar?</string>
-  <string name="global_action_dnaa">Não mostrar novamente</string>
-  <string name="global_action_settings">Configurações</string>
-  <string name="global_action_screenshot">Captura de tela</string>
-  <string name="global_action_flashlight">Lanterna</string>
-  <!-- Caffeine QS Tile -->
-  <string name="quick_settings_caffeine_label">Cafeína</string>
-  <string name="accessibility_quick_settings_caffeine_off">Cafeína desligada</string>
-  <string name="accessibility_quick_settings_caffeine_on">Cafeína ligada</string>
-  <!-- QS Layout -->
-  <string name="qs_menu_item_columns">Colunas</string>
-  <string name="qs_menu_item_columns_landscape">Colunas em modo paisagem</string>
-  <string name="qs_menu_item_columns_three">3</string>
-  <string name="qs_menu_item_columns_four">4</string>
-  <string name="qs_menu_item_columns_five">5</string>
-  <string name="qs_menu_item_columns_six">6</string>
-  <string name="qs_menu_item_columns_seven">7</string>
-  <string name="qs_menu_item_columns_eight">8</string>
-  <string name="qs_menu_item_columns_nine">9</string>
-  <string name="qs_menu_item_reset">Redefinir</string>
-  <string name="qs_menu_item_titles">Mostrar títulos</string>
-  <string name="qs_menu_item_rows">Linhas</string>
-  <string name="qs_menu_item_rows_one">1</string>
-  <string name="qs_menu_item_rows_two">2</string>
-  <string name="qs_menu_item_rows_three">3</string>
-  <string name="qs_menu_item_rows_four">4</string>
-  <!-- Screenshot QS Tile -->
-  <string name="quick_settings_screenshot_label">Captura de tela</string>
-  <string name="quick_settings_region_screenshot_label">Captura de tela parcial</string>
-  <!-- Screenrecord QS tile -->
-  <string name="quick_settings_screenrecord_label">Gravação de tela</string>
-  <string name="quick_settings_screenrecord_lq_label">Gravar tela baixa qualidade</string>
-  <string name="quick_settings_screenrecord_mq_label">Gravar tela média qualidade</string>
-  <string name="quick_settings_screenrecord_hq_label">Gravar tela alta qualidade</string>
-  <!-- Screenrecord Notification Ticker -->
-  <string name="screenrecord_notif_ticker">A tela está sendo gravada</string>
-  <string name="screenrecord_notif_final_ticker">Tela gravada com sucesso</string>
-  <!-- Screenrecord notification title -->
-  <string name="screenrecord_notif_title">Gravando a tela</string>
-  <!-- Screenrecord notification action: Stop -->
-  <string name="screenrecord_notif_stop">Parar</string>
-  <string name="screenrecord_notif_completed">Tela gravada com sucesso</string>
-  <!-- Screenrecord notification action: show/hide pointer -->
-  <string name="screenrecord_notif_pointer_on">Exibir o ponteiro</string>
-  <string name="screenrecord_notif_pointer_off">Ocultar ponteiro</string>
-  <!-- Screen record notification error title -->
-  <string name="screenrecord_notif_error">Não é possível gravar a tela</string>
-  <string name="notification_channel_screenrecord">Gravações de tela</string>
-  <string name="screenrecord_hide_hint">Esconder dicas</string>
-  <string name="screenrecord_show_hint">Mostrar dicas</string>
-  <!-- SysUI Tuner -->
-  <string name="statusbar_icons_blacklist">Ícones da barra de status</string>
-  <string name="navbar_tuner_activity">Botões da barra de navegação</string>
-  <string name="lockscreen_tuner_activity">Atalhos da tela de bloqueio</string>
-  <string name="powernotif_tuner_activity">Notificações de liga/desliga</string>
-  <string name="lockscreen_default">Padrão</string>
-  <string name="lockscreen_hidden">Nenhum</string>
-  <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
-  <string name="custom_hint">Deslize o ícone para iniciar</string>
-  <!-- Notification QS Tile -->
-  <string name="quick_settings_notification_style">Notificação</string>
-  <string name="quick_settings_notify_disabled">Não notificar</string>
-  <string name="quick_settings_headsup_enabled">Notificações flutuantes</string>
-  <string name="quick_settings_ticker_enabled">Ticker de notificação</string>
-  <string name="quick_settings_headsup_ticker_enabled">Heads-up e ticker</string>
-  <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
-  <string name="keyguard_indication_dash_charging_time">Carregamento rápido (tempo de carregamento restante= 4 horas e 2 minutos até estar cheio)</string>
-  <string name="keyguard_plugged_in_dash_charging">Carregamento rápido</string>
-  <!-- Indication on the keyguard that is shown when the device is charging with a turbo power charger. Should match keyguard_plugged_in_turbo_power_charging [CHAR LIMIT=40]-->
-  <string name="keyguard_indication_turbo_power_time">Carregamento rápido ligado ( tempo de carregamento restante até completar)</string>
-  <string name="keyguard_plugged_in_turbo_power_charging">Carregamento rápido conectado</string>
-  <!-- Notification QS Tile -->
-  <string name="quick_settings_smart_pixels">Pixels Inteligentes</string>
-  <string name="quick_settings_smart_pixels_on_power_save">Pixels inteligentes habilitados automaticamente</string>
+    <!-- Power Menu -->
+    <string name="global_action_reboot">Reiniciar</string>
+    <string name="global_action_reboot_sub">Sistema</string>
+    <string name="global_action_reboot_recovery">Recuperação</string>
+    <string name="global_action_reboot_bootloader">Bootloader</string>
+    <string name="global_action_dismissable_dialog_text">A reinicialização avançada está desativada. Deseja reinicializar?</string>
+    <string name="global_action_dnaa">Não mostrar novamente</string>
+    <string name="global_action_settings">Configurações</string>
+    <string name="global_action_screenshot">Captura de tela</string>
+    <string name="global_action_flashlight">Lanterna</string>
+    <!-- Caffeine QS Tile -->
+    <string name="quick_settings_caffeine_label">Cafeína</string>
+    <string name="accessibility_quick_settings_caffeine_off">Cafeína desligada</string>
+    <string name="accessibility_quick_settings_caffeine_on">Cafeína ligada</string>
+    <!-- QS Layout -->
+    <string name="qs_menu_item_columns">Colunas</string>
+    <string name="qs_menu_item_columns_landscape">Colunas em modo paisagem</string>
+    <string name="qs_menu_item_columns_three">3</string>
+    <string name="qs_menu_item_columns_four">4</string>
+    <string name="qs_menu_item_columns_five">5</string>
+    <string name="qs_menu_item_columns_six">6</string>
+    <string name="qs_menu_item_columns_seven">7</string>
+    <string name="qs_menu_item_columns_eight">8</string>
+    <string name="qs_menu_item_columns_nine">9</string>
+    <string name="qs_menu_item_reset">Redefinir</string>
+    <string name="qs_menu_item_titles">Mostrar títulos</string>
+    <string name="qs_menu_item_rows">Linhas</string>
+    <string name="qs_menu_item_rows_one">1</string>
+    <string name="qs_menu_item_rows_two">2</string>
+    <string name="qs_menu_item_rows_three">3</string>
+    <string name="qs_menu_item_rows_four">4</string>
+    <!-- Screenshot QS Tile -->
+    <string name="quick_settings_screenshot_label">Captura de tela</string>
+    <string name="quick_settings_region_screenshot_label">Captura de tela parcial</string>
+    <!-- Screenrecord QS tile -->
+    <string name="quick_settings_screenrecord_label">Gravação de tela</string>
+    <string name="quick_settings_screenrecord_lq_label">Gravar tela baixa qualidade</string>
+    <string name="quick_settings_screenrecord_mq_label">Gravar tela média qualidade</string>
+    <string name="quick_settings_screenrecord_hq_label">Gravar tela alta qualidade</string>
+    <!-- Screenrecord Notification Ticker -->
+    <string name="screenrecord_notif_ticker">A tela está sendo gravada</string>
+    <string name="screenrecord_notif_final_ticker">Tela gravada com sucesso</string>
+    <!-- Screenrecord notification title -->
+    <string name="screenrecord_notif_title">Gravando a tela</string>
+    <!-- Screenrecord notification action: Stop -->
+    <string name="screenrecord_notif_stop">Parar</string>
+    <string name="screenrecord_notif_completed">Tela gravada com sucesso</string>
+    <!-- Screenrecord notification action: show/hide pointer -->
+    <string name="screenrecord_notif_pointer_on">Exibir o ponteiro</string>
+    <string name="screenrecord_notif_pointer_off">Ocultar ponteiro</string>
+    <!-- Screen record notification error title -->
+    <string name="screenrecord_notif_error">Não é possível gravar a tela</string>
+    <string name="notification_channel_screenrecord">Gravações de tela</string>
+    <string name="screenrecord_hide_hint">Esconder dicas</string>
+    <string name="screenrecord_show_hint">Mostrar dicas</string>
+    <!-- SysUI Tuner -->
+    <string name="statusbar_icons_blacklist">Ícones da barra de status</string>
+    <string name="navbar_tuner_activity">Botões da barra de navegação</string>
+    <string name="lockscreen_tuner_activity">Atalhos da tela de bloqueio</string>
+    <string name="powernotif_tuner_activity">Notificações de liga/desliga</string>
+    <string name="lockscreen_default">Padrão</string>
+    <string name="lockscreen_hidden">Nenhum</string>
+    <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
+    <string name="custom_hint">Deslize o ícone para iniciar</string>
+    <!-- Notification QS Tile -->
+    <string name="quick_settings_notification_style">Notificação</string>
+    <string name="quick_settings_notify_disabled">Não notificar</string>
+    <string name="quick_settings_headsup_enabled">Notificações flutuantes</string>
+    <string name="quick_settings_ticker_enabled">Ticker de notificação</string>
+    <string name="quick_settings_headsup_ticker_enabled">Heads-up e ticker</string>
+    <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_dash_charging_time">Carregamento rápido (tempo de carregamento restante= 4 horas e 2 minutos até estar cheio)</string>
+    <string name="keyguard_plugged_in_dash_charging">Carregamento rápido</string>
+    <!-- Indication on the keyguard that is shown when the device is charging with a turbo power charger. Should match keyguard_plugged_in_turbo_power_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_turbo_power_time">Carregamento rápido ligado ( tempo de carregamento restante até completar)</string>
+    <string name="keyguard_plugged_in_turbo_power_charging">Carregamento rápido conectado</string>
+    <!-- Notification QS Tile -->
+    <string name="quick_settings_smart_pixels">Pixels Inteligentes</string>
+    <string name="quick_settings_smart_pixels_on_power_save">Pixels inteligentes habilitados automaticamente</string>
 </resources>

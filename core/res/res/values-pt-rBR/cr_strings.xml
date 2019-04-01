@@ -16,29 +16,29 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-  <string name="system_error_vendorprint">Sua imagem do vendor não coincide com o sistema. Por favor atualize a imagem do vendor para a versão <xliff:g id="string">%s</xliff:g> do seu dispositivo</string>
-  <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_fakePackageSignature">Assinatura de pacote spoof</string>
-  <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_fakePackageSignature">Permite ao aplicativo fazer-se passar por outro aplicativo. Aplicativos mal-intencionados podem usar isto para acessar aos dados de outros aplicativos. Conceda essa permissão com cautela!</string>
-  <!-- advanced reboot to bootloader. -->
-  <string name="reboot_to_bootloader_title">Reinicie o Gerenciador de inicialização</string>
-  <string name="reboot_to_bootloader_message">A reiniciar para o bootloader\u2026</string>
-  <!-- advanced reboot to recovery. -->
-  <string name="reboot_to_recovery_title">Reiniciar a recuperação</string>
-  <string name="reboot_to_recovery_message">A reiniciar para o bootloader\u2026</string>
-  <!-- advanced reboot system -->
-  <string name="reboot_system_title">Reiniciar o sistema</string>
-  <string name="reboot_system_message">A reiniciar o sistema\u2026</string>
-  <!-- QS Tiles -->
-  <string name="quick_settings_screenshot_label">Captura de tela</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_preventpower">substituir a tecla de alimentação</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_preventpower">Permitir ao aplicativo substituir a tecla liga/desliga.</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_accessFontManager">acessar gerenciador de fontes</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_accessFontManager">Permite que um aplicativo acesse o gerenciador de fontes.</string>
+    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
+    <string name="system_error_vendorprint">Sua imagem do vendor não coincide com o sistema. Por favor atualize a imagem do vendor para a versão <xliff:g id="string">%s</xliff:g> do seu dispositivo</string>
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_fakePackageSignature">Assinatura de pacote spoof</string>
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_fakePackageSignature">Permite ao aplicativo fazer-se passar por outro aplicativo. Aplicativos mal-intencionados podem usar isto para acessar aos dados de outros aplicativos. Conceda essa permissão com cautela!</string>
+    <!-- advanced reboot to bootloader. -->
+    <string name="reboot_to_bootloader_title">Reinicie o Gerenciador de inicialização</string>
+    <string name="reboot_to_bootloader_message">A reiniciar para o bootloader\u2026</string>
+    <!-- advanced reboot to recovery. -->
+    <string name="reboot_to_recovery_title">Reiniciar a recuperação</string>
+    <string name="reboot_to_recovery_message">A reiniciar para o bootloader\u2026</string>
+    <!-- advanced reboot system -->
+    <string name="reboot_system_title">Reiniciar o sistema</string>
+    <string name="reboot_system_message">A reiniciar o sistema\u2026</string>
+    <!-- QS Tiles -->
+    <string name="quick_settings_screenshot_label">Captura de tela</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_preventpower">substituir a tecla de alimentação</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_preventpower">Permitir ao aplicativo substituir a tecla liga/desliga.</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">acessar gerenciador de fontes</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">Permite que um aplicativo acesse o gerenciador de fontes.</string>
 </resources>

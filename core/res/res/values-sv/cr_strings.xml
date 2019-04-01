@@ -16,24 +16,29 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-  <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <!-- advanced reboot to bootloader. -->
-  <string name="reboot_to_bootloader_title">Starta om bootloader</string>
-  <string name="reboot_to_bootloader_message">Startar om till bootloader\u2026</string>
-  <!-- advanced reboot to recovery. -->
-  <string name="reboot_to_recovery_title">Starta om recovery</string>
-  <string name="reboot_to_recovery_message">Startar om till recovery\u2026</string>
-  <!-- advanced reboot system -->
-  <string name="reboot_system_title">Starta om systemet</string>
-  <string name="reboot_system_message">Startar om systemet\u2026</string>
-  <!-- QS Tiles -->
-  <string name="quick_settings_screenshot_label">Skärmdump</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_preventpower">åsidosätt strömknappen</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_preventpower">Ger en app rättighet att åsidosätta strömknappen.</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
+    <string name="system_error_vendorprint">Tillverkarens avbild matchar inte systemet. Vänligen flasha <xliff:g id="string">%s</xliff:g> tillverkarens avbild för din enhet</string>
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_fakePackageSignature">Fejka paketsignatur</string>
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_fakePackageSignature">Tillåter appen att låtsas vara en annan app. Skadliga applikationer skulle kunna använda det här för att komma åt privat applikationsdata. Godkänn endast det här med försiktighet!</string>
+    <!-- advanced reboot to bootloader. -->
+    <string name="reboot_to_bootloader_title">Starta om bootloader</string>
+    <string name="reboot_to_bootloader_message">Startar om till bootloader\u2026</string>
+    <!-- advanced reboot to recovery. -->
+    <string name="reboot_to_recovery_title">Starta om recovery</string>
+    <string name="reboot_to_recovery_message">Startar om till recovery\u2026</string>
+    <!-- advanced reboot system -->
+    <string name="reboot_system_title">Starta om systemet</string>
+    <string name="reboot_system_message">Startar om systemet\u2026</string>
+    <!-- QS Tiles -->
+    <string name="quick_settings_screenshot_label">Skärmdump</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_preventpower">åsidosätt strömknappen</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_preventpower">Ger en app rättighet att åsidosätta strömknappen.</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">åtkomst till typsnittshanterare</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">Ger en app åtkomst till typsnittshanteraren.</string>
 </resources>

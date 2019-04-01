@@ -16,29 +16,29 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-  <string name="system_error_vendorprint">Vendor particija se ne ujema s sistemom. Prosim namestite <xliff:g id="string">%s</xliff:g> vendor particijo za vašo napravo</string>
-  <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_fakePackageSignature">Zaobidenje podpisa paketa</string>
-  <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_fakePackageSignature">Dovoli programu, da se pretvarja kot drug program. Zlonamerni programi lahko to uporabijo za dostop do zasebnih podatkov programa. Bodite pazljivi pri odobravanju tega dovoljenja!</string>
-  <!-- advanced reboot to bootloader. -->
-  <string name="reboot_to_bootloader_title">Ponovno zaženi v bootloader</string>
-  <string name="reboot_to_bootloader_message">Ponovno zaganjanje v bootloader</string>
-  <!-- advanced reboot to recovery. -->
-  <string name="reboot_to_recovery_title">Ponovno zaženi v recovery</string>
-  <string name="reboot_to_recovery_message">Ponovni zagon v recovery\u2026</string>
-  <!-- advanced reboot system -->
-  <string name="reboot_system_title">Ponovno zaženi sistem</string>
-  <string name="reboot_system_message">Ponovno zaganjanje sistema</string>
-  <!-- QS Tiles -->
-  <string name="quick_settings_screenshot_label">Posnetek zaslona</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_preventpower">preglasi gumb za vklop</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_preventpower">Dovoli programu da preglasi gumb za vklop.</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_accessFontManager">dostop do upravitelja pisav</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_accessFontManager">Dovoli aplikaciji dostop do upravitelja pisav.</string>
+    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
+    <string name="system_error_vendorprint">Vendor particija se ne ujema s sistemom. Prosim namestite <xliff:g id="string">%s</xliff:g> vendor particijo za vašo napravo</string>
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_fakePackageSignature">Zaobidenje podpisa paketa</string>
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_fakePackageSignature">Dovoli programu, da se pretvarja kot drug program. Zlonamerni programi lahko to uporabijo za dostop do zasebnih podatkov programa. Bodite pazljivi pri odobravanju tega dovoljenja!</string>
+    <!-- advanced reboot to bootloader. -->
+    <string name="reboot_to_bootloader_title">Ponovno zaženi v bootloader</string>
+    <string name="reboot_to_bootloader_message">Ponovno zaganjanje v bootloader</string>
+    <!-- advanced reboot to recovery. -->
+    <string name="reboot_to_recovery_title">Ponovno zaženi v recovery</string>
+    <string name="reboot_to_recovery_message">Ponovni zagon v recovery\u2026</string>
+    <!-- advanced reboot system -->
+    <string name="reboot_system_title">Ponovno zaženi sistem</string>
+    <string name="reboot_system_message">Ponovno zaganjanje sistema</string>
+    <!-- QS Tiles -->
+    <string name="quick_settings_screenshot_label">Posnetek zaslona</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_preventpower">preglasi gumb za vklop</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_preventpower">Dovoli programu da preglasi gumb za vklop.</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">dostop do upravitelja pisav</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">Dovoli aplikaciji dostop do upravitelja pisav.</string>
 </resources>

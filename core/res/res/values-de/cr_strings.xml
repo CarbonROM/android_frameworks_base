@@ -16,29 +16,29 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-  <string name="system_error_vendorprint">Ihr Vendor-Image entspricht nicht dem System. Bitte flashen sie das <xliff:g id="string">%s</xliff:g> Vendor-Image für ihr Gerät</string>
-  <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_fakePackageSignature">Paket Signatur vortäuschen</string>
-  <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_fakePackageSignature">Erlaubt der App vorzugeben sie sei eine andere App. Bösartige Software könnte hierdurch Zugriff auf persönliche Daten erlangen. Diese Berechtigung nur mit Vorsicht bewilligen!</string>
-  <!-- advanced reboot to bootloader. -->
-  <string name="reboot_to_bootloader_title">Neustart in Bootloader</string>
-  <string name="reboot_to_bootloader_message">Neustart in den Bootloader\u2026</string>
-  <!-- advanced reboot to recovery. -->
-  <string name="reboot_to_recovery_title">Neustart in Recovery</string>
-  <string name="reboot_to_recovery_message">Neustart in die Recovery\u2026</string>
-  <!-- advanced reboot system -->
-  <string name="reboot_system_title">System neu starten</string>
-  <string name="reboot_system_message">System wird neu gestartet\u2026</string>
-  <!-- QS Tiles -->
-  <string name="quick_settings_screenshot_label">Screenshot</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_preventpower">ein/Aus-Taste überschreiben</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_preventpower">Ermöglicht es einer App, die Funktion der Ein/Aus-Taste zu überschreiben.</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_accessFontManager">auf den Schriftart-Manager zugreifen</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_accessFontManager">Erlaubt einer Anwendung den Zugriff auf den Schriftart-Manager.</string>
+    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
+    <string name="system_error_vendorprint">Ihr Vendor-Image entspricht nicht dem System. Bitte flashen sie das <xliff:g id="string">%s</xliff:g> Vendor-Image für ihr Gerät</string>
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_fakePackageSignature">Paket Signatur vortäuschen</string>
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_fakePackageSignature">Erlaubt der App vorzugeben sie sei eine andere App. Bösartige Software könnte hierdurch Zugriff auf persönliche Daten erlangen. Diese Berechtigung nur mit Vorsicht bewilligen!</string>
+    <!-- advanced reboot to bootloader. -->
+    <string name="reboot_to_bootloader_title">Neustart in Bootloader</string>
+    <string name="reboot_to_bootloader_message">Neustart in den Bootloader\u2026</string>
+    <!-- advanced reboot to recovery. -->
+    <string name="reboot_to_recovery_title">Neustart in Recovery</string>
+    <string name="reboot_to_recovery_message">Neustart in die Recovery\u2026</string>
+    <!-- advanced reboot system -->
+    <string name="reboot_system_title">System neu starten</string>
+    <string name="reboot_system_message">System wird neu gestartet\u2026</string>
+    <!-- QS Tiles -->
+    <string name="quick_settings_screenshot_label">Screenshot</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_preventpower">ein/Aus-Taste überschreiben</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_preventpower">Ermöglicht es einer App, die Funktion der Ein/Aus-Taste zu überschreiben.</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">auf den Schriftart-Manager zugreifen</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">Erlaubt einer Anwendung den Zugriff auf den Schriftart-Manager.</string>
 </resources>

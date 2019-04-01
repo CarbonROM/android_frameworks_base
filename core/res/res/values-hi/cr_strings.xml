@@ -16,29 +16,29 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-  <string name="system_error_vendorprint">आपकी विक्रेता छवि सिस्टम से मेल नहीं खाती । कृपया आपके डिवाइस के लिए विक्रेता छवि <xliff:g id="string">%s</xliff:g> को फ़्लैश करे</string>
-  <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_fakePackageSignature">धोखा पैकेज हस्ताक्षर</string>
-  <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_fakePackageSignature">एप्लिकेशन को एक अलग एप्लिकेशन होने का नाटक करने की अनुमति देता है. दुर्भावनापूर्ण अनुप्रयोग निजी अनुप्रयोग डेटा तक पहुंचने के लिए इसका उपयोग करने में सक्षम हो सकता है । केवल सावधानी के साथ यह अनुमति दें!</string>
-  <!-- advanced reboot to bootloader. -->
-  <string name="reboot_to_bootloader_title">बूटलोडर रिबूट</string>
-  <string name="reboot_to_bootloader_message">बूटलोडर को रिबूट करना</string>
-  <!-- advanced reboot to recovery. -->
-  <string name="reboot_to_recovery_title">रिबूट रिकवरी</string>
-  <string name="reboot_to_recovery_message">रिकवरी को रिबूट करना</string>
-  <!-- advanced reboot system -->
-  <string name="reboot_system_title">सिस्टम पुनरारंभ करें</string>
-  <string name="reboot_system_message">सिस्टम पुनरारंभ करना</string>
-  <!-- QS Tiles -->
-  <string name="quick_settings_screenshot_label">स्क्रीनशॉट</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_preventpower">पावर कुंजी ओवरराइड</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_preventpower">किसी एप्लिकेशन को पावर कुंजी ओवरराइड करने देता है ।</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_accessFontManager">फ़ॉन्ट प्रबंधक का उपयोग करें</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_accessFontManager">किसी एप्लिकेशन को फ़ॉंट प्रबंधक तक पहुंचने की अनुमति देता है ।</string>
+    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
+    <string name="system_error_vendorprint">आपकी विक्रेता छवि सिस्टम से मेल नहीं खाती । कृपया आपके डिवाइस के लिए विक्रेता छवि <xliff:g id="string">%s</xliff:g> को फ़्लैश करे</string>
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_fakePackageSignature">धोखा पैकेज हस्ताक्षर</string>
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_fakePackageSignature">एप्लिकेशन को एक अलग एप्लिकेशन होने का नाटक करने की अनुमति देता है. दुर्भावनापूर्ण अनुप्रयोग निजी अनुप्रयोग डेटा तक पहुंचने के लिए इसका उपयोग करने में सक्षम हो सकता है । केवल सावधानी के साथ यह अनुमति दें!</string>
+    <!-- advanced reboot to bootloader. -->
+    <string name="reboot_to_bootloader_title">बूटलोडर रिबूट</string>
+    <string name="reboot_to_bootloader_message">बूटलोडर को रिबूट करना</string>
+    <!-- advanced reboot to recovery. -->
+    <string name="reboot_to_recovery_title">रिबूट रिकवरी</string>
+    <string name="reboot_to_recovery_message">रिकवरी को रिबूट करना</string>
+    <!-- advanced reboot system -->
+    <string name="reboot_system_title">सिस्टम पुनरारंभ करें</string>
+    <string name="reboot_system_message">सिस्टम पुनरारंभ करना</string>
+    <!-- QS Tiles -->
+    <string name="quick_settings_screenshot_label">स्क्रीनशॉट</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_preventpower">पावर कुंजी ओवरराइड</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_preventpower">किसी एप्लिकेशन को पावर कुंजी ओवरराइड करने देता है ।</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">फ़ॉन्ट प्रबंधक का उपयोग करें</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">किसी एप्लिकेशन को फ़ॉंट प्रबंधक तक पहुंचने की अनुमति देता है ।</string>
 </resources>

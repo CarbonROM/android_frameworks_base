@@ -16,29 +16,29 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-  <string name="system_error_vendorprint">Hình ảnh nhà cung cấp của bạn không phù hợp với hệ thống. Xin vui lòng flash <xliff:g id="string">%s</xliff:g> nhà cung cấp hình ảnh cho thiết bị của bạn</string>
-  <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_fakePackageSignature">Giả mạo chữ ký gói</string>
-  <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_fakePackageSignature">Cho phép ứng dụng giả vờ là một ứng dụng khác. Ứng dụng độc hại có thể sử dụng để truy cập vào dữ liệu ứng dụng riêng. Thận trọng khi cho phép quyền này!</string>
-  <!-- advanced reboot to bootloader. -->
-  <string name="reboot_to_bootloader_title">Khởi động vào bootloader</string>
-  <string name="reboot_to_bootloader_message">Đang khởi động vào bootloader\u2026</string>
-  <!-- advanced reboot to recovery. -->
-  <string name="reboot_to_recovery_title">Khởi động vào recovery</string>
-  <string name="reboot_to_recovery_message">Đang khởi động vào bootloader\u2026</string>
-  <!-- advanced reboot system -->
-  <string name="reboot_system_title">Khởi động lại hệ thống</string>
-  <string name="reboot_system_message">Đang khởi động lại hệ thống\u2026</string>
-  <!-- QS Tiles -->
-  <string name="quick_settings_screenshot_label">Chụp ảnh màn hình</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_preventpower">ghi đè phím nguồn</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_preventpower">Cho phép một ứng dụng được ghi đè lên phím nguồn.</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_accessFontManager">truy cập trình quản lý font chữ</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_accessFontManager">Cho phép một ứng dụng để truy cập vào các font quản lý.</string>
+    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
+    <string name="system_error_vendorprint">Hình ảnh nhà cung cấp của bạn không phù hợp với hệ thống. Xin vui lòng flash <xliff:g id="string">%s</xliff:g> nhà cung cấp hình ảnh cho thiết bị của bạn</string>
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_fakePackageSignature">Giả mạo chữ ký gói</string>
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_fakePackageSignature">Cho phép ứng dụng giả vờ là một ứng dụng khác. Ứng dụng độc hại có thể sử dụng để truy cập vào dữ liệu ứng dụng riêng. Thận trọng khi cho phép quyền này!</string>
+    <!-- advanced reboot to bootloader. -->
+    <string name="reboot_to_bootloader_title">Khởi động vào bootloader</string>
+    <string name="reboot_to_bootloader_message">Đang khởi động vào bootloader\u2026</string>
+    <!-- advanced reboot to recovery. -->
+    <string name="reboot_to_recovery_title">Khởi động vào recovery</string>
+    <string name="reboot_to_recovery_message">Đang khởi động vào bootloader\u2026</string>
+    <!-- advanced reboot system -->
+    <string name="reboot_system_title">Khởi động lại hệ thống</string>
+    <string name="reboot_system_message">Đang khởi động lại hệ thống\u2026</string>
+    <!-- QS Tiles -->
+    <string name="quick_settings_screenshot_label">Chụp ảnh màn hình</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_preventpower">ghi đè phím nguồn</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_preventpower">Cho phép một ứng dụng được ghi đè lên phím nguồn.</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">truy cập trình quản lý font chữ</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">Cho phép một ứng dụng để truy cập vào các font quản lý.</string>
 </resources>

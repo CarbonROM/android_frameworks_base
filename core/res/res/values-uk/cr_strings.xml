@@ -16,27 +16,27 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-  <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_fakePackageSignature">Імітувати підпис пакета</string>
-  <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_fakePackageSignature">Додаток може прикидатися іншими додатками. Шкідливі програми можуть мати можливість використати це, щоб отримати доступ до закритих даних додатку. Тільки обережно з наданням цього дозволу!</string>
-  <!-- advanced reboot to bootloader. -->
-  <string name="reboot_to_bootloader_title">В завантажувач</string>
-  <string name="reboot_to_bootloader_message">Перезавантаження до завантажувача</string>
-  <!-- advanced reboot to recovery. -->
-  <string name="reboot_to_recovery_title">Перезавантаження у рекавері</string>
-  <string name="reboot_to_recovery_message">Перезавантаження в рекавері</string>
-  <!-- advanced reboot system -->
-  <string name="reboot_system_title">Перезавантажити систему</string>
-  <string name="reboot_system_message">Перезавантаження системи</string>
-  <!-- QS Tiles -->
-  <string name="quick_settings_screenshot_label">Знімок екрану</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_preventpower">переназначити клавішу живлення</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_preventpower">Дозволити програмі нехтувати кнопкою ввімкнення.</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_accessFontManager">доступ менеджера шрифтів</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_fakePackageSignature">Імітувати підпис пакета</string>
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_fakePackageSignature">Додаток може прикидатися іншими додатками. Шкідливі програми можуть мати можливість використати це, щоб отримати доступ до закритих даних додатку. Тільки обережно з наданням цього дозволу!</string>
+    <!-- advanced reboot to bootloader. -->
+    <string name="reboot_to_bootloader_title">В завантажувач</string>
+    <string name="reboot_to_bootloader_message">Перезавантаження до завантажувача</string>
+    <!-- advanced reboot to recovery. -->
+    <string name="reboot_to_recovery_title">Перезавантаження у рекавері</string>
+    <string name="reboot_to_recovery_message">Перезавантаження в рекавері</string>
+    <!-- advanced reboot system -->
+    <string name="reboot_system_title">Перезавантажити систему</string>
+    <string name="reboot_system_message">Перезавантаження системи</string>
+    <!-- QS Tiles -->
+    <string name="quick_settings_screenshot_label">Знімок екрану</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_preventpower">переназначити клавішу живлення</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_preventpower">Дозволити програмі нехтувати кнопкою ввімкнення.</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">доступ менеджера шрифтів</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
 </resources>

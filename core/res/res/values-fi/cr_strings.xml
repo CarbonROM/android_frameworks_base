@@ -16,27 +16,27 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-  <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_fakePackageSignature">Huijaa paketin allekirjoitusta</string>
-  <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_fakePackageSignature">Sallii sovelluksen esittää olevansa eri sovellus. Haitalliset sovellukset saattavat käyttää tätä päästäkseen käsiksi yksityisiin sovellustietoihin. Anna tämä oikeus vain harkitusti!</string>
-  <!-- advanced reboot to bootloader. -->
-  <string name="reboot_to_bootloader_title">Käynnistä Bootloader-tilaan</string>
-  <string name="reboot_to_bootloader_message">Käynnistetään Bootloader-tilaan\u2026</string>
-  <!-- advanced reboot to recovery. -->
-  <string name="reboot_to_recovery_title">Käynnistä recovery-tilaan</string>
-  <string name="reboot_to_recovery_message">Käynnistetään recovery-tilaan\u2026</string>
-  <!-- advanced reboot system -->
-  <string name="reboot_system_title">Käynnistä uudelleen</string>
-  <string name="reboot_system_message">Käynnistetään uudelleen\u2026</string>
-  <!-- QS Tiles -->
-  <string name="quick_settings_screenshot_label">Kuvakaappaus</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_preventpower">ohita virtanäppäin</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_preventpower">Sallii sovelluksen ohittaa virtanäppäin.</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_accessFontManager">Sallii sovellukselle pääsyn fontinhallintaan.</string>
+    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_fakePackageSignature">Huijaa paketin allekirjoitusta</string>
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_fakePackageSignature">Sallii sovelluksen esittää olevansa eri sovellus. Haitalliset sovellukset saattavat käyttää tätä päästäkseen käsiksi yksityisiin sovellustietoihin. Anna tämä oikeus vain harkitusti!</string>
+    <!-- advanced reboot to bootloader. -->
+    <string name="reboot_to_bootloader_title">Käynnistä Bootloader-tilaan</string>
+    <string name="reboot_to_bootloader_message">Käynnistetään Bootloader-tilaan\u2026</string>
+    <!-- advanced reboot to recovery. -->
+    <string name="reboot_to_recovery_title">Käynnistä recovery-tilaan</string>
+    <string name="reboot_to_recovery_message">Käynnistetään recovery-tilaan\u2026</string>
+    <!-- advanced reboot system -->
+    <string name="reboot_system_title">Käynnistä uudelleen</string>
+    <string name="reboot_system_message">Käynnistetään uudelleen\u2026</string>
+    <!-- QS Tiles -->
+    <string name="quick_settings_screenshot_label">Kuvakaappaus</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_preventpower">ohita virtanäppäin</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_preventpower">Sallii sovelluksen ohittaa virtanäppäin.</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">Sallii sovellukselle pääsyn fontinhallintaan.</string>
 </resources>

@@ -17,28 +17,16 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-    <string name="system_error_vendorprint">您的供应商镜像与系统不匹配。请为你的设备刷入 <xliff:g id="string">%s </xliff:g> 供应商镜像。</string>
     <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-    <string name="permlab_fakePackageSignature">伪装软件包签名</string>
     <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-    <string name="permdesc_fakePackageSignature">允许应用程序假装成一个不同的程序。恶意程序可能利用此特性来访问私有程序数据。请一定谨慎授予此权限！!</string>
     <!-- advanced reboot to bootloader. -->
-    <string name="reboot_to_bootloader_title">重新启动引导程序</string>
-    <string name="reboot_to_bootloader_message">重新启动到引导模式\u2026</string>
     <!-- advanced reboot to recovery. -->
-    <string name="reboot_to_recovery_title">重新启动到恢复模式</string>
-    <string name="reboot_to_recovery_message">重新启动到恢复模式\u2026</string>
     <!-- advanced reboot system -->
-    <string name="reboot_system_title">重新启动</string>
-    <string name="reboot_system_message">正在重启\u2026</string>
     <!-- QS Tiles -->
-    <string name="quick_settings_screenshot_label">屏幕截图</string>
+    <string name="quick_settings_screenshot_label">صورة الشاشة</string>
     <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-    <string name="permlab_preventpower">覆盖电源键</string>
     <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-    <string name="permdesc_preventpower">允许应用程序重定义电源键的行为</string>
     <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-    <string name="permlab_accessFontManager">访问字体管理器</string>
+    <string name="permlab_accessFontManager">دخول مدير الخطوط</string>
     <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-    <string name="permdesc_accessFontManager">允许应用程序访问字体管理器。</string>
 </resources>

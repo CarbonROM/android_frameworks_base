@@ -16,29 +16,29 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-  <string name="system_error_vendorprint">Ваш образ производителя не соответствует системе. Пожалуйста, прошейте <xliff:g id="string">%s</xliff:g> образ производителя для вашего устройства</string>
-  <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_fakePackageSignature">Имитировать подпись пакета</string>
-  <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_fakePackageSignature">Разрешить приложению маскироваться под другое приложение. Вредоносные приложения могут использовать это для доступа к конфиденциальным данным приложений. Предоставляйте это разрешение с осторожностью!</string>
-  <!-- advanced reboot to bootloader. -->
-  <string name="reboot_to_bootloader_title">Перезапуск в загрузчик</string>
-  <string name="reboot_to_bootloader_message">Перезапуск в загрузчик\u2026</string>
-  <!-- advanced reboot to recovery. -->
-  <string name="reboot_to_recovery_title">Перезагрузка в рекавери</string>
-  <string name="reboot_to_recovery_message">Перезапуск в рекавери\u2026</string>
-  <!-- advanced reboot system -->
-  <string name="reboot_system_title">Перезагрука системы</string>
-  <string name="reboot_system_message">Перезапуск системы\u2026</string>
-  <!-- QS Tiles -->
-  <string name="quick_settings_screenshot_label">Снимок экрана</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_preventpower">переопределение клавиши питания</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_preventpower">Позволяет приложению переопределить клавишу питания.</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_accessFontManager">доступ к диспетчеру шрифтов</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_accessFontManager">Позволяет приложению обращаться к диспетчеру шрифтов.</string>
+    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
+    <string name="system_error_vendorprint">Ваш образ производителя не соответствует системе. Пожалуйста, прошейте <xliff:g id="string">%s</xliff:g> образ производителя для вашего устройства</string>
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_fakePackageSignature">Имитировать подпись пакета</string>
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_fakePackageSignature">Разрешить приложению маскироваться под другое приложение. Вредоносные приложения могут использовать это для доступа к конфиденциальным данным приложений. Предоставляйте это разрешение с осторожностью!</string>
+    <!-- advanced reboot to bootloader. -->
+    <string name="reboot_to_bootloader_title">Перезапуск в загрузчик</string>
+    <string name="reboot_to_bootloader_message">Перезапуск в загрузчик\u2026</string>
+    <!-- advanced reboot to recovery. -->
+    <string name="reboot_to_recovery_title">Перезагрузка в рекавери</string>
+    <string name="reboot_to_recovery_message">Перезапуск в рекавери\u2026</string>
+    <!-- advanced reboot system -->
+    <string name="reboot_system_title">Перезагрука системы</string>
+    <string name="reboot_system_message">Перезапуск системы\u2026</string>
+    <!-- QS Tiles -->
+    <string name="quick_settings_screenshot_label">Снимок экрана</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_preventpower">переопределение клавиши питания</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_preventpower">Позволяет приложению переопределить клавишу питания.</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">доступ к диспетчеру шрифтов</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">Позволяет приложению обращаться к диспетчеру шрифтов.</string>
 </resources>

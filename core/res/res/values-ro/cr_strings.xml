@@ -16,19 +16,19 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-  <string name="system_error_vendorprint">Imaginea dumneavostra de furnizor nu corespunde cu sistemul. Va rugam instalati imaginea de furnizor <xliff:g id="string">%s</xliff:g> pentru dispozitivul dumneavoastra</string>
-  <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_fakePackageSignature">Permiteti aplicatiei sa pretinda ca este o alta aplicatie. Aplicatiile daunatoare pot utiliza aceasta permisiune pentru a accesa datele private ale aplicatiilor. Acordati aceasta permisiune cu grija!</string>
-  <!-- advanced reboot to bootloader. -->
-  <!-- advanced reboot to recovery. -->
-  <!-- advanced reboot system -->
-  <!-- QS Tiles -->
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_accessFontManager">acceseaza managerul de fonturi</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_accessFontManager">Permite unei aplicatii sa acceseze managerul de fonturi.</string>
+    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
+    <string name="system_error_vendorprint">Imaginea dumneavostra de furnizor nu corespunde cu sistemul. Va rugam instalati imaginea de furnizor <xliff:g id="string">%s</xliff:g> pentru dispozitivul dumneavoastra</string>
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_fakePackageSignature">Permiteti aplicatiei sa pretinda ca este o alta aplicatie. Aplicatiile daunatoare pot utiliza aceasta permisiune pentru a accesa datele private ale aplicatiilor. Acordati aceasta permisiune cu grija!</string>
+    <!-- advanced reboot to bootloader. -->
+    <!-- advanced reboot to recovery. -->
+    <!-- advanced reboot system -->
+    <!-- QS Tiles -->
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">acceseaza managerul de fonturi</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">Permite unei aplicatii sa acceseze managerul de fonturi.</string>
 </resources>

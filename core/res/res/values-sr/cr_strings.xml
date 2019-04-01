@@ -16,26 +16,26 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-  <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <!-- advanced reboot to bootloader. -->
-  <string name="reboot_to_bootloader_title">Поново покрени у подизни учитавач</string>
-  <string name="reboot_to_bootloader_message">Поновно покретање у подизни учитавач\u2026</string>
-  <!-- advanced reboot to recovery. -->
-  <string name="reboot_to_recovery_title">Поново покрени у опоравак</string>
-  <string name="reboot_to_recovery_message">Поновно покретање у опоравак\u2026</string>
-  <!-- advanced reboot system -->
-  <string name="reboot_system_title">Поново покрени систем</string>
-  <string name="reboot_system_message">Поновно покретање система\u2026</string>
-  <!-- QS Tiles -->
-  <string name="quick_settings_screenshot_label">Снимак екрана</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_preventpower">преклапање тастера за напајање</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_preventpower">Допусти апликацији да замени тастер за паљење.</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_accessFontManager">приступ менаџеру фонтова</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_accessFontManager">Дозвољава некој апликацији приступ менаџеру фонтова.</string>
+    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <!-- advanced reboot to bootloader. -->
+    <string name="reboot_to_bootloader_title">Поново покрени у подизни учитавач</string>
+    <string name="reboot_to_bootloader_message">Поновно покретање у подизни учитавач\u2026</string>
+    <!-- advanced reboot to recovery. -->
+    <string name="reboot_to_recovery_title">Поново покрени у опоравак</string>
+    <string name="reboot_to_recovery_message">Поновно покретање у опоравак\u2026</string>
+    <!-- advanced reboot system -->
+    <string name="reboot_system_title">Поново покрени систем</string>
+    <string name="reboot_system_message">Поновно покретање система\u2026</string>
+    <!-- QS Tiles -->
+    <string name="quick_settings_screenshot_label">Снимак екрана</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_preventpower">преклапање тастера за напајање</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_preventpower">Допусти апликацији да замени тастер за паљење.</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">приступ менаџеру фонтова</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">Дозвољава некој апликацији приступ менаџеру фонтова.</string>
 </resources>

@@ -16,28 +16,29 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-  <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_fakePackageSignature">Simular firma de paquete</string>
-  <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_fakePackageSignature">Permite a la aplicación fingir ser otra. Aplicaciones maliciosas pueden ser capaces de usar esto para acceder a datos privados. Ten precaución!</string>
-  <!-- advanced reboot to bootloader. -->
-  <string name="reboot_to_bootloader_title">Reiniciar en modo bootloader</string>
-  <string name="reboot_to_bootloader_message">Reiniciando a bootloader</string>
-  <!-- advanced reboot to recovery. -->
-  <string name="reboot_to_recovery_title">Reiniciar recovery</string>
-  <string name="reboot_to_recovery_message">Reiniciar a recovery</string>
-  <!-- advanced reboot system -->
-  <string name="reboot_system_title">Reiniciar sistema</string>
-  <string name="reboot_system_message">Reiniciando sistema</string>
-  <!-- QS Tiles -->
-  <string name="quick_settings_screenshot_label">Captura de pantalla</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_preventpower">Desactivar botón de encendido</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_preventpower">Permite a una aplicación desactivar el botón de encendido.</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_accessFontManager">Acceder al administrador de fuentes</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_accessFontManager">Permite que una aplicación acceda al administrador de fuentes.</string>
+    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
+    <string name="system_error_vendorprint">Su imagen de proveedor no coincide con el sistema. Por favor, instale la imagen del proveedor <xliff:g id="string">%s </xliff:g> para su dispositivo</string>
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_fakePackageSignature">Simular firma de paquete</string>
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_fakePackageSignature">Permite a la aplicación fingir ser otra. Aplicaciones maliciosas pueden ser capaces de usar esto para acceder a datos privados. Ten precaución!</string>
+    <!-- advanced reboot to bootloader. -->
+    <string name="reboot_to_bootloader_title">Reiniciar en modo bootloader</string>
+    <string name="reboot_to_bootloader_message">Reiniciando a bootloader</string>
+    <!-- advanced reboot to recovery. -->
+    <string name="reboot_to_recovery_title">Reiniciar recovery</string>
+    <string name="reboot_to_recovery_message">Reiniciar a recovery</string>
+    <!-- advanced reboot system -->
+    <string name="reboot_system_title">Reiniciar sistema</string>
+    <string name="reboot_system_message">Reiniciando sistema</string>
+    <!-- QS Tiles -->
+    <string name="quick_settings_screenshot_label">Captura de pantalla</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_preventpower">Desactivar botón de encendido</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_preventpower">Permite a una aplicación desactivar el botón de encendido.</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">Acceder al administrador de fuentes</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">Permite que una aplicación acceda al administrador de fuentes.</string>
 </resources>

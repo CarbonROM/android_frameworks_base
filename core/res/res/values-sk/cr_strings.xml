@@ -16,29 +16,29 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-  <string name="system_error_vendorprint">Obraz výrobcu nie je vhodný pre tento systém. Prosím, nainštalujte obraz výrobcu <xliff:g id="string">%s</xliff:g> pre vaše zariadenie</string>
-  <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_fakePackageSignature">Sfalšovanie podpisu balíka</string>
-  <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_fakePackageSignature">Umožňuje aplikácií predstierať, že je iná app. Škodlivé aplikácie môžu byť schopné toto použiť pre prístup k súkromným dátam aplikácie. Udeliť toto oprávnenie len s opatrnosťou!</string>
-  <!-- advanced reboot to bootloader. -->
-  <string name="reboot_to_bootloader_title">Reštart do Bootloadera</string>
-  <string name="reboot_to_bootloader_message">Reštartovanie do bootloadera\u2026</string>
-  <!-- advanced reboot to recovery. -->
-  <string name="reboot_to_recovery_title">Reštart do Recovery</string>
-  <string name="reboot_to_recovery_message">Reštartovanie do Recovery\u2026</string>
-  <!-- advanced reboot system -->
-  <string name="reboot_system_title">Reštart Systému</string>
-  <string name="reboot_system_message">Reštartovanie systému\u2026</string>
-  <!-- QS Tiles -->
-  <string name="quick_settings_screenshot_label">Snímky obrazovky</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_preventpower">zmeniť funkciu tlačidla Napájanie</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_preventpower">Umožňuje aplikácii zmeniť funkciu tlačidla Napájanie.</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_accessFontManager">prístup k správe fontov písma</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_accessFontManager">Umožňuje aplikácii získať prístup k správcovi fontov písma.</string>
+    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
+    <string name="system_error_vendorprint">Obraz výrobcu nie je vhodný pre tento systém. Prosím, nainštalujte obraz výrobcu <xliff:g id="string">%s</xliff:g> pre vaše zariadenie</string>
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_fakePackageSignature">Sfalšovanie podpisu balíka</string>
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_fakePackageSignature">Umožňuje aplikácií predstierať, že je iná app. Škodlivé aplikácie môžu byť schopné toto použiť pre prístup k súkromným dátam aplikácie. Udeliť toto oprávnenie len s opatrnosťou!</string>
+    <!-- advanced reboot to bootloader. -->
+    <string name="reboot_to_bootloader_title">Reštart do Bootloadera</string>
+    <string name="reboot_to_bootloader_message">Reštartovanie do bootloadera\u2026</string>
+    <!-- advanced reboot to recovery. -->
+    <string name="reboot_to_recovery_title">Reštart do Recovery</string>
+    <string name="reboot_to_recovery_message">Reštartovanie do Recovery\u2026</string>
+    <!-- advanced reboot system -->
+    <string name="reboot_system_title">Reštart Systému</string>
+    <string name="reboot_system_message">Reštartovanie systému\u2026</string>
+    <!-- QS Tiles -->
+    <string name="quick_settings_screenshot_label">Snímky obrazovky</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_preventpower">zmeniť funkciu tlačidla Napájanie</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_preventpower">Umožňuje aplikácii zmeniť funkciu tlačidla Napájanie.</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">prístup k správe fontov písma</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">Umožňuje aplikácii získať prístup k správcovi fontov písma.</string>
 </resources>

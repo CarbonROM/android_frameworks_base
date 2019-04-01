@@ -13,83 +13,83 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Power Menu -->
-  <string name="global_action_reboot">重新启动</string>
-  <string name="global_action_reboot_sub">系统</string>
-  <string name="global_action_reboot_recovery">恢复模式</string>
-  <string name="global_action_reboot_bootloader">引导模式</string>
-  <string name="global_action_dismissable_dialog_text">未开启高级重启功能。确定重新启动？</string>
-  <string name="global_action_dnaa">不再显示</string>
-  <string name="global_action_settings">设置</string>
-  <string name="global_action_screenshot">屏幕截图</string>
-  <string name="global_action_flashlight">手电筒</string>
-  <!-- Caffeine QS Tile -->
-  <string name="quick_settings_caffeine_label">兴奋模式</string>
-  <string name="accessibility_quick_settings_caffeine_off">兴奋模式关闭.</string>
-  <string name="accessibility_quick_settings_caffeine_on">兴奋模式打开.</string>
-  <!-- QS Layout -->
-  <string name="qs_menu_item_columns">列数</string>
-  <string name="qs_menu_item_columns_landscape">行数</string>
-  <string name="qs_menu_item_columns_three">3</string>
-  <string name="qs_menu_item_columns_four">4</string>
-  <string name="qs_menu_item_columns_five">5</string>
-  <string name="qs_menu_item_columns_six">6</string>
-  <string name="qs_menu_item_columns_seven">7</string>
-  <string name="qs_menu_item_columns_eight">8</string>
-  <string name="qs_menu_item_columns_nine">9</string>
-  <string name="qs_menu_item_reset">重新设置</string>
-  <string name="qs_menu_item_titles">显示标签</string>
-  <string name="qs_menu_item_rows">行</string>
-  <string name="qs_menu_item_rows_one">1</string>
-  <string name="qs_menu_item_rows_two">2</string>
-  <string name="qs_menu_item_rows_three">3</string>
-  <string name="qs_menu_item_rows_four">4</string>
-  <!-- Screenshot QS Tile -->
-  <string name="quick_settings_screenshot_label">屏幕截图</string>
-  <string name="quick_settings_region_screenshot_label">部分截图</string>
-  <!-- Screenrecord QS tile -->
-  <string name="quick_settings_screenrecord_label">屏幕录像</string>
-  <string name="quick_settings_screenrecord_lq_label">屏幕录像 低画质</string>
-  <string name="quick_settings_screenrecord_mq_label">屏幕录像 中等画质</string>
-  <string name="quick_settings_screenrecord_hq_label">屏幕录像 高画质</string>
-  <!-- Screenrecord Notification Ticker -->
-  <string name="screenrecord_notif_ticker">屏幕正在被录制</string>
-  <string name="screenrecord_notif_final_ticker">已成功录制屏幕</string>
-  <!-- Screenrecord notification title -->
-  <string name="screenrecord_notif_title">正在录制屏幕</string>
-  <!-- Screenrecord notification action: Stop -->
-  <string name="screenrecord_notif_stop">停止录制</string>
-  <string name="screenrecord_notif_completed">已成功录制屏幕</string>
-  <!-- Screenrecord notification action: show/hide pointer -->
-  <string name="screenrecord_notif_pointer_on">显示屏幕指针</string>
-  <string name="screenrecord_notif_pointer_off">隐藏指针</string>
-  <!-- Screen record notification error title -->
-  <string name="screenrecord_notif_error">无法录制屏幕</string>
-  <string name="notification_channel_screenrecord">屏幕录像</string>
-  <string name="screenrecord_hide_hint">隐藏提示</string>
-  <string name="screenrecord_show_hint">显示提示</string>
-  <!-- SysUI Tuner -->
-  <string name="statusbar_icons_blacklist">状态栏图标</string>
-  <string name="navbar_tuner_activity">导航栏按钮</string>
-  <string name="lockscreen_tuner_activity">锁屏快捷方式</string>
-  <string name="powernotif_tuner_activity">电源通知</string>
-  <string name="lockscreen_default">默认​​​​​</string>
-  <string name="lockscreen_hidden">没有</string>
-  <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
-  <string name="custom_hint">从图标上滑动到启动</string>
-  <!-- Notification QS Tile -->
-  <string name="quick_settings_notification_style">通知</string>
-  <string name="quick_settings_notify_disabled">不通知</string>
-  <string name="quick_settings_headsup_enabled">浮动通知</string>
-  <string name="quick_settings_ticker_enabled">字符滚动</string>
-  <string name="quick_settings_headsup_ticker_enabled">浮动</string>
-  <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
-  <string name="keyguard_indication_dash_charging_time">Dash 闪充充电中 (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> 直到充满)</string>
-  <string name="keyguard_plugged_in_dash_charging">Dash 闪充</string>
-  <!-- Indication on the keyguard that is shown when the device is charging with a turbo power charger. Should match keyguard_plugged_in_turbo_power_charging [CHAR LIMIT=40]-->
-  <string name="keyguard_indication_turbo_power_time">TurboPower 已连接 (<xliff:g id="charging_time_left">%s</xliff:g> 直到充满)</string>
-  <string name="keyguard_plugged_in_turbo_power_charging">TurboPower 连接</string>
-  <!-- Notification QS Tile -->
-  <string name="quick_settings_smart_pixels">智能像素</string>
-  <string name="quick_settings_smart_pixels_on_power_save">自动启用的智能像素</string>
+    <!-- Power Menu -->
+    <string name="global_action_reboot">重新启动</string>
+    <string name="global_action_reboot_sub">系统</string>
+    <string name="global_action_reboot_recovery">恢复模式</string>
+    <string name="global_action_reboot_bootloader">引导模式</string>
+    <string name="global_action_dismissable_dialog_text">未开启高级重启功能。确定重新启动？</string>
+    <string name="global_action_dnaa">不再显示</string>
+    <string name="global_action_settings">设置</string>
+    <string name="global_action_screenshot">屏幕截图</string>
+    <string name="global_action_flashlight">手电筒</string>
+    <!-- Caffeine QS Tile -->
+    <string name="quick_settings_caffeine_label">兴奋模式</string>
+    <string name="accessibility_quick_settings_caffeine_off">兴奋模式关闭.</string>
+    <string name="accessibility_quick_settings_caffeine_on">兴奋模式打开.</string>
+    <!-- QS Layout -->
+    <string name="qs_menu_item_columns">列数</string>
+    <string name="qs_menu_item_columns_landscape">行数</string>
+    <string name="qs_menu_item_columns_three">3</string>
+    <string name="qs_menu_item_columns_four">4</string>
+    <string name="qs_menu_item_columns_five">5</string>
+    <string name="qs_menu_item_columns_six">6</string>
+    <string name="qs_menu_item_columns_seven">7</string>
+    <string name="qs_menu_item_columns_eight">8</string>
+    <string name="qs_menu_item_columns_nine">9</string>
+    <string name="qs_menu_item_reset">重新设置</string>
+    <string name="qs_menu_item_titles">显示标签</string>
+    <string name="qs_menu_item_rows">行</string>
+    <string name="qs_menu_item_rows_one">1</string>
+    <string name="qs_menu_item_rows_two">2</string>
+    <string name="qs_menu_item_rows_three">3</string>
+    <string name="qs_menu_item_rows_four">4</string>
+    <!-- Screenshot QS Tile -->
+    <string name="quick_settings_screenshot_label">屏幕截图</string>
+    <string name="quick_settings_region_screenshot_label">部分截图</string>
+    <!-- Screenrecord QS tile -->
+    <string name="quick_settings_screenrecord_label">屏幕录像</string>
+    <string name="quick_settings_screenrecord_lq_label">屏幕录像 低画质</string>
+    <string name="quick_settings_screenrecord_mq_label">屏幕录像 中等画质</string>
+    <string name="quick_settings_screenrecord_hq_label">屏幕录像 高画质</string>
+    <!-- Screenrecord Notification Ticker -->
+    <string name="screenrecord_notif_ticker">屏幕正在被录制</string>
+    <string name="screenrecord_notif_final_ticker">已成功录制屏幕</string>
+    <!-- Screenrecord notification title -->
+    <string name="screenrecord_notif_title">正在录制屏幕</string>
+    <!-- Screenrecord notification action: Stop -->
+    <string name="screenrecord_notif_stop">停止录制</string>
+    <string name="screenrecord_notif_completed">已成功录制屏幕</string>
+    <!-- Screenrecord notification action: show/hide pointer -->
+    <string name="screenrecord_notif_pointer_on">显示屏幕指针</string>
+    <string name="screenrecord_notif_pointer_off">隐藏指针</string>
+    <!-- Screen record notification error title -->
+    <string name="screenrecord_notif_error">无法录制屏幕</string>
+    <string name="notification_channel_screenrecord">屏幕录像</string>
+    <string name="screenrecord_hide_hint">隐藏提示</string>
+    <string name="screenrecord_show_hint">显示提示</string>
+    <!-- SysUI Tuner -->
+    <string name="statusbar_icons_blacklist">状态栏图标</string>
+    <string name="navbar_tuner_activity">导航栏按钮</string>
+    <string name="lockscreen_tuner_activity">锁屏快捷方式</string>
+    <string name="powernotif_tuner_activity">电源通知</string>
+    <string name="lockscreen_default">默认​​​​​</string>
+    <string name="lockscreen_hidden">没有</string>
+    <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
+    <string name="custom_hint">从图标上滑动到启动</string>
+    <!-- Notification QS Tile -->
+    <string name="quick_settings_notification_style">通知</string>
+    <string name="quick_settings_notify_disabled">不通知</string>
+    <string name="quick_settings_headsup_enabled">浮动通知</string>
+    <string name="quick_settings_ticker_enabled">字符滚动</string>
+    <string name="quick_settings_headsup_ticker_enabled">浮动</string>
+    <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_dash_charging_time">Dash 闪充充电中 (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> 直到充满)</string>
+    <string name="keyguard_plugged_in_dash_charging">Dash 闪充</string>
+    <!-- Indication on the keyguard that is shown when the device is charging with a turbo power charger. Should match keyguard_plugged_in_turbo_power_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_turbo_power_time">TurboPower 已连接 (<xliff:g id="charging_time_left">%s</xliff:g> 直到充满)</string>
+    <string name="keyguard_plugged_in_turbo_power_charging">TurboPower 连接</string>
+    <!-- Notification QS Tile -->
+    <string name="quick_settings_smart_pixels">智能像素</string>
+    <string name="quick_settings_smart_pixels_on_power_save">自动启用的智能像素</string>
 </resources>

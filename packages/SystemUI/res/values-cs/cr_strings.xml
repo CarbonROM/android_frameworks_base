@@ -13,83 +13,83 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Power Menu -->
-  <string name="global_action_reboot">Restart</string>
-  <string name="global_action_reboot_sub">Systém</string>
-  <string name="global_action_reboot_recovery">Recovery</string>
-  <string name="global_action_reboot_bootloader">Bootloader</string>
-  <string name="global_action_dismissable_dialog_text">Rozšířené restartování je zakázáno.\nChcete restartovat\u003f</string>
-  <string name="global_action_dnaa">Znovu nezobrazovat</string>
-  <string name="global_action_settings">Nastavení</string>
-  <string name="global_action_screenshot">Snímek obrazovky</string>
-  <string name="global_action_flashlight">Svítilna</string>
-  <!-- Caffeine QS Tile -->
-  <string name="quick_settings_caffeine_label">Caffeine</string>
-  <string name="accessibility_quick_settings_caffeine_off">Caffeine vypnuto</string>
-  <string name="accessibility_quick_settings_caffeine_on">Caffeine zapnuto</string>
-  <!-- QS Layout -->
-  <string name="qs_menu_item_columns">Sloupce</string>
-  <string name="qs_menu_item_columns_landscape">Sloupce na šířku</string>
-  <string name="qs_menu_item_columns_three">3</string>
-  <string name="qs_menu_item_columns_four">4</string>
-  <string name="qs_menu_item_columns_five">5</string>
-  <string name="qs_menu_item_columns_six">6</string>
-  <string name="qs_menu_item_columns_seven">7</string>
-  <string name="qs_menu_item_columns_eight">8</string>
-  <string name="qs_menu_item_columns_nine">9</string>
-  <string name="qs_menu_item_reset">Resetovat</string>
-  <string name="qs_menu_item_titles">Zobrazit popisky</string>
-  <string name="qs_menu_item_rows">Řádky</string>
-  <string name="qs_menu_item_rows_one">1</string>
-  <string name="qs_menu_item_rows_two">2</string>
-  <string name="qs_menu_item_rows_three">3</string>
-  <string name="qs_menu_item_rows_four">4</string>
-  <!-- Screenshot QS Tile -->
-  <string name="quick_settings_screenshot_label">Snímek obrazovky</string>
-  <string name="quick_settings_region_screenshot_label">Částečný snímek obrazovky</string>
-  <!-- Screenrecord QS tile -->
-  <string name="quick_settings_screenrecord_label">Záznam obrazovky</string>
-  <string name="quick_settings_screenrecord_lq_label">Nízká kvalita LQ</string>
-  <string name="quick_settings_screenrecord_mq_label">Střední kvalita MQ</string>
-  <string name="quick_settings_screenrecord_hq_label">Vysoká kvalita HQ</string>
-  <!-- Screenrecord Notification Ticker -->
-  <string name="screenrecord_notif_ticker">Obrazovka se zaznamenává</string>
-  <string name="screenrecord_notif_final_ticker">Obrazovka byla úspěšně zaznamenána</string>
-  <!-- Screenrecord notification title -->
-  <string name="screenrecord_notif_title">Zaznamenávání obrazovky</string>
-  <!-- Screenrecord notification action: Stop -->
-  <string name="screenrecord_notif_stop">Zastavit</string>
-  <string name="screenrecord_notif_completed">Obrazovka byla úspěšně zaznamenána</string>
-  <!-- Screenrecord notification action: show/hide pointer -->
-  <string name="screenrecord_notif_pointer_on">Zobrazit ukazatel</string>
-  <string name="screenrecord_notif_pointer_off">Skrýt ukazatel</string>
-  <!-- Screen record notification error title -->
-  <string name="screenrecord_notif_error">Nelze zaznamenat obrazovku</string>
-  <string name="notification_channel_screenrecord">Záznamy obrazovky</string>
-  <string name="screenrecord_hide_hint">Skrýt nápovědu</string>
-  <string name="screenrecord_show_hint">Zobrazit nápovědu</string>
-  <!-- SysUI Tuner -->
-  <string name="statusbar_icons_blacklist">Ikony stavové lišty</string>
-  <string name="navbar_tuner_activity">Tlačítka navigačního panelu</string>
-  <string name="lockscreen_tuner_activity">Zkratky zamykací obrazovky</string>
-  <string name="powernotif_tuner_activity">Rozšířené oznámení</string>
-  <string name="lockscreen_default">Výchozí</string>
-  <string name="lockscreen_hidden">Žádné</string>
-  <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
-  <string name="custom_hint">Přejeďte od ikony pro spuštění</string>
-  <!-- Notification QS Tile -->
-  <string name="quick_settings_notification_style">Oznámení</string>
-  <string name="quick_settings_notify_disabled">Neoznamovat</string>
-  <string name="quick_settings_headsup_enabled">Plovoucí oznámení</string>
-  <string name="quick_settings_ticker_enabled">Text oznámení</string>
-  <string name="quick_settings_headsup_ticker_enabled">Plovoucí oznámení a text oznámení</string>
-  <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
-  <string name="keyguard_indication_dash_charging_time">DASH nabíjení (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> do plného nabití)</string>
-  <string name="keyguard_plugged_in_dash_charging">DASH nabíjení</string>
-  <!-- Indication on the keyguard that is shown when the device is charging with a turbo power charger. Should match keyguard_plugged_in_turbo_power_charging [CHAR LIMIT=40]-->
-  <string name="keyguard_indication_turbo_power_time">TurboPower je připojen (<xliff:g id="charging_time_left">%s</xliff:g> do plného nabití)</string>
-  <string name="keyguard_plugged_in_turbo_power_charging">TurboPower je připojeno</string>
-  <!-- Notification QS Tile -->
-  <string name="quick_settings_smart_pixels">Smart Pixels</string>
-  <string name="quick_settings_smart_pixels_on_power_save">Automaticky povolit Smart Pixels</string>
+    <!-- Power Menu -->
+    <string name="global_action_reboot">Restart</string>
+    <string name="global_action_reboot_sub">Systém</string>
+    <string name="global_action_reboot_recovery">Recovery</string>
+    <string name="global_action_reboot_bootloader">Bootloader</string>
+    <string name="global_action_dismissable_dialog_text">Rozšířené restartování je zakázáno.\nChcete restartovat\u003f</string>
+    <string name="global_action_dnaa">Znovu nezobrazovat</string>
+    <string name="global_action_settings">Nastavení</string>
+    <string name="global_action_screenshot">Snímek obrazovky</string>
+    <string name="global_action_flashlight">Svítilna</string>
+    <!-- Caffeine QS Tile -->
+    <string name="quick_settings_caffeine_label">Caffeine</string>
+    <string name="accessibility_quick_settings_caffeine_off">Caffeine vypnuto</string>
+    <string name="accessibility_quick_settings_caffeine_on">Caffeine zapnuto</string>
+    <!-- QS Layout -->
+    <string name="qs_menu_item_columns">Sloupce</string>
+    <string name="qs_menu_item_columns_landscape">Sloupce na šířku</string>
+    <string name="qs_menu_item_columns_three">3</string>
+    <string name="qs_menu_item_columns_four">4</string>
+    <string name="qs_menu_item_columns_five">5</string>
+    <string name="qs_menu_item_columns_six">6</string>
+    <string name="qs_menu_item_columns_seven">7</string>
+    <string name="qs_menu_item_columns_eight">8</string>
+    <string name="qs_menu_item_columns_nine">9</string>
+    <string name="qs_menu_item_reset">Resetovat</string>
+    <string name="qs_menu_item_titles">Zobrazit popisky</string>
+    <string name="qs_menu_item_rows">Řádky</string>
+    <string name="qs_menu_item_rows_one">1</string>
+    <string name="qs_menu_item_rows_two">2</string>
+    <string name="qs_menu_item_rows_three">3</string>
+    <string name="qs_menu_item_rows_four">4</string>
+    <!-- Screenshot QS Tile -->
+    <string name="quick_settings_screenshot_label">Snímek obrazovky</string>
+    <string name="quick_settings_region_screenshot_label">Částečný snímek obrazovky</string>
+    <!-- Screenrecord QS tile -->
+    <string name="quick_settings_screenrecord_label">Záznam obrazovky</string>
+    <string name="quick_settings_screenrecord_lq_label">Nízká kvalita LQ</string>
+    <string name="quick_settings_screenrecord_mq_label">Střední kvalita MQ</string>
+    <string name="quick_settings_screenrecord_hq_label">Vysoká kvalita HQ</string>
+    <!-- Screenrecord Notification Ticker -->
+    <string name="screenrecord_notif_ticker">Obrazovka se zaznamenává</string>
+    <string name="screenrecord_notif_final_ticker">Obrazovka byla úspěšně zaznamenána</string>
+    <!-- Screenrecord notification title -->
+    <string name="screenrecord_notif_title">Zaznamenávání obrazovky</string>
+    <!-- Screenrecord notification action: Stop -->
+    <string name="screenrecord_notif_stop">Zastavit</string>
+    <string name="screenrecord_notif_completed">Obrazovka byla úspěšně zaznamenána</string>
+    <!-- Screenrecord notification action: show/hide pointer -->
+    <string name="screenrecord_notif_pointer_on">Zobrazit ukazatel</string>
+    <string name="screenrecord_notif_pointer_off">Skrýt ukazatel</string>
+    <!-- Screen record notification error title -->
+    <string name="screenrecord_notif_error">Nelze zaznamenat obrazovku</string>
+    <string name="notification_channel_screenrecord">Záznamy obrazovky</string>
+    <string name="screenrecord_hide_hint">Skrýt nápovědu</string>
+    <string name="screenrecord_show_hint">Zobrazit nápovědu</string>
+    <!-- SysUI Tuner -->
+    <string name="statusbar_icons_blacklist">Ikony stavové lišty</string>
+    <string name="navbar_tuner_activity">Tlačítka navigačního panelu</string>
+    <string name="lockscreen_tuner_activity">Zkratky zamykací obrazovky</string>
+    <string name="powernotif_tuner_activity">Rozšířené oznámení</string>
+    <string name="lockscreen_default">Výchozí</string>
+    <string name="lockscreen_hidden">Žádné</string>
+    <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
+    <string name="custom_hint">Přejeďte od ikony pro spuštění</string>
+    <!-- Notification QS Tile -->
+    <string name="quick_settings_notification_style">Oznámení</string>
+    <string name="quick_settings_notify_disabled">Neoznamovat</string>
+    <string name="quick_settings_headsup_enabled">Plovoucí oznámení</string>
+    <string name="quick_settings_ticker_enabled">Text oznámení</string>
+    <string name="quick_settings_headsup_ticker_enabled">Plovoucí oznámení a text oznámení</string>
+    <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_dash_charging_time">DASH nabíjení (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> do plného nabití)</string>
+    <string name="keyguard_plugged_in_dash_charging">DASH nabíjení</string>
+    <!-- Indication on the keyguard that is shown when the device is charging with a turbo power charger. Should match keyguard_plugged_in_turbo_power_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_turbo_power_time">TurboPower je připojen (<xliff:g id="charging_time_left">%s</xliff:g> do plného nabití)</string>
+    <string name="keyguard_plugged_in_turbo_power_charging">TurboPower je připojeno</string>
+    <!-- Notification QS Tile -->
+    <string name="quick_settings_smart_pixels">Smart Pixels</string>
+    <string name="quick_settings_smart_pixels_on_power_save">Automaticky povolit Smart Pixels</string>
 </resources>

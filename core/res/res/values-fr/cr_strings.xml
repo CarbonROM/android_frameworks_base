@@ -16,29 +16,29 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-  <string name="system_error_vendorprint">Votre image Vendor ne corresponde pas au système. S\'il vous plaît flasher l\'image Vendor <xliff:g id="string">%s</xliff:g> de votre téléphone</string>
-  <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_fakePackageSignature">Usurper la signature du paquet</string>
-  <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_fakePackageSignature">Permet à une application de se faire passer pour une autre. Des applications malveillantes peuvent utiliser cette permission et avoir accès aux données privées d\'autres applications. Accorder cette autorisation avec précaution !</string>
-  <!-- advanced reboot to bootloader. -->
-  <string name="reboot_to_bootloader_title">Redémarrer en mode Bootloader</string>
-  <string name="reboot_to_bootloader_message">Redémarrage en mode bootloader\u2026</string>
-  <!-- advanced reboot to recovery. -->
-  <string name="reboot_to_recovery_title">Redémarrer en mode Recovery</string>
-  <string name="reboot_to_recovery_message">Redémarrage en mode Recovery\u2026</string>
-  <!-- advanced reboot system -->
-  <string name="reboot_system_title">Redémarrer le système</string>
-  <string name="reboot_system_message">Redémarrage du système\u2026</string>
-  <!-- QS Tiles -->
-  <string name="quick_settings_screenshot_label">Capture d\'écran</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_preventpower">remplacer la touche power</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_preventpower">Autoriser une application de remplacer l\'action du bouton power.</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_accessFontManager">accéder au gestionnaire de polices</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_accessFontManager">Permettre à une application d’accéder au gestionnaire de polices.</string>
+    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
+    <string name="system_error_vendorprint">Votre image Vendor ne corresponde pas au système. S\'il vous plaît flasher l\'image Vendor <xliff:g id="string">%s</xliff:g> de votre téléphone</string>
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_fakePackageSignature">Usurper la signature du paquet</string>
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_fakePackageSignature">Permet à une application de se faire passer pour une autre. Des applications malveillantes peuvent utiliser cette permission et avoir accès aux données privées d\'autres applications. Accorder cette autorisation avec précaution !</string>
+    <!-- advanced reboot to bootloader. -->
+    <string name="reboot_to_bootloader_title">Redémarrer en mode Bootloader</string>
+    <string name="reboot_to_bootloader_message">Redémarrage en mode bootloader\u2026</string>
+    <!-- advanced reboot to recovery. -->
+    <string name="reboot_to_recovery_title">Redémarrer en mode Recovery</string>
+    <string name="reboot_to_recovery_message">Redémarrage en mode Recovery\u2026</string>
+    <!-- advanced reboot system -->
+    <string name="reboot_system_title">Redémarrer le système</string>
+    <string name="reboot_system_message">Redémarrage du système\u2026</string>
+    <!-- QS Tiles -->
+    <string name="quick_settings_screenshot_label">Capture d\'écran</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_preventpower">remplacer la touche power</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_preventpower">Autoriser une application de remplacer l\'action du bouton power.</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">accéder au gestionnaire de polices</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">Permettre à une application d’accéder au gestionnaire de polices.</string>
 </resources>

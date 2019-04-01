@@ -13,67 +13,81 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Power Menu -->
-  <string name="global_action_reboot">Starta om</string>
-  <string name="global_action_reboot_sub">System</string>
-  <string name="global_action_reboot_recovery">Återställning</string>
-  <string name="global_action_reboot_bootloader">Bootloader</string>
-  <string name="global_action_dismissable_dialog_text">Avancerad omstart är inaktiverat.\nVill du starta om\u003f</string>
-  <string name="global_action_dnaa">Visa inte igen</string>
-  <string name="global_action_settings">Inställningar</string>
-  <string name="global_action_screenshot">Skärmdump</string>
-  <string name="global_action_flashlight">Ficklampa</string>
-  <!-- Caffeine QS Tile -->
-  <string name="quick_settings_caffeine_label">Koffein</string>
-  <string name="accessibility_quick_settings_caffeine_off">Koffein av</string>
-  <string name="accessibility_quick_settings_caffeine_on">Koffein på</string>
-  <!-- QS Layout -->
-  <string name="qs_menu_item_columns">Kolumner</string>
-  <string name="qs_menu_item_columns_three">3</string>
-  <string name="qs_menu_item_columns_four">4</string>
-  <string name="qs_menu_item_columns_five">5</string>
-  <string name="qs_menu_item_columns_six">6</string>
-  <string name="qs_menu_item_columns_seven">7</string>
-  <string name="qs_menu_item_columns_eight">8</string>
-  <string name="qs_menu_item_columns_nine">9</string>
-  <string name="qs_menu_item_reset">Återställ</string>
-  <string name="qs_menu_item_titles">Visa ettiketter</string>
-  <string name="qs_menu_item_rows">Rader</string>
-  <string name="qs_menu_item_rows_one">1</string>
-  <string name="qs_menu_item_rows_two">2</string>
-  <string name="qs_menu_item_rows_three">3</string>
-  <string name="qs_menu_item_rows_four">4</string>
-  <!-- Screenshot QS Tile -->
-  <string name="quick_settings_screenshot_label">Skärmdump</string>
-  <!-- Screenrecord QS tile -->
-  <string name="quick_settings_screenrecord_label">Skärminspelning</string>
-  <!-- Screenrecord Notification Ticker -->
-  <string name="screenrecord_notif_ticker">Skärmen spelar in</string>
-  <!-- Screenrecord notification title -->
-  <string name="screenrecord_notif_title">Spelar in skärmen</string>
-  <!-- Screenrecord notification action: Stop -->
-  <string name="screenrecord_notif_stop">Stopp</string>
-  <!-- Screenrecord notification action: show/hide pointer -->
-  <string name="screenrecord_notif_pointer_on">Visa pekare</string>
-  <string name="screenrecord_notif_pointer_off">Göm pekaren</string>
-  <!-- Screen record notification error title -->
-  <string name="screenrecord_notif_error">Kan inte spela in skärmen</string>
-  <string name="notification_channel_screenrecord">Skärminspelningar</string>
-  <string name="screenrecord_hide_hint">Göm förslag</string>
-  <string name="screenrecord_show_hint">Visa förslag</string>
-  <!-- SysUI Tuner -->
-  <string name="statusbar_icons_blacklist">Statusfält-ikoner</string>
-  <string name="powernotif_tuner_activity">Ström-aviseringar</string>
-  <string name="lockscreen_default">Standard</string>
-  <string name="lockscreen_hidden">Inget</string>
-  <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
-  <string name="custom_hint">Svep från ikonen för att starta</string>
-  <!-- Notification QS Tile -->
-  <string name="quick_settings_notification_style">Avisering</string>
-  <string name="quick_settings_notify_disabled">Avisera inte</string>
-  <string name="quick_settings_headsup_enabled">Se upp</string>
-  <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
-  <!-- Indication on the keyguard that is shown when the device is charging with a turbo power charger. Should match keyguard_plugged_in_turbo_power_charging [CHAR LIMIT=40]-->
-  <!-- Notification QS Tile -->
-  <string name="quick_settings_smart_pixels">Smarta pixlar</string>
+    <!-- Power Menu -->
+    <string name="global_action_reboot">Starta om</string>
+    <string name="global_action_reboot_sub">System</string>
+    <string name="global_action_reboot_recovery">Återställning</string>
+    <string name="global_action_reboot_bootloader">Bootloader</string>
+    <string name="global_action_dismissable_dialog_text">Avancerad omstart är inaktiverat.\nVill du starta om\u003f</string>
+    <string name="global_action_dnaa">Visa inte igen</string>
+    <string name="global_action_settings">Inställningar</string>
+    <string name="global_action_screenshot">Skärmdump</string>
+    <string name="global_action_flashlight">Ficklampa</string>
+    <!-- Caffeine QS Tile -->
+    <string name="quick_settings_caffeine_label">Koffein</string>
+    <string name="accessibility_quick_settings_caffeine_off">Koffein av</string>
+    <string name="accessibility_quick_settings_caffeine_on">Koffein på</string>
+    <!-- QS Layout -->
+    <string name="qs_menu_item_columns">Kolumner</string>
+    <string name="qs_menu_item_columns_landscape">Kolumnernas landskap</string>
+    <string name="qs_menu_item_columns_three">3</string>
+    <string name="qs_menu_item_columns_four">4</string>
+    <string name="qs_menu_item_columns_five">5</string>
+    <string name="qs_menu_item_columns_six">6</string>
+    <string name="qs_menu_item_columns_seven">7</string>
+    <string name="qs_menu_item_columns_eight">8</string>
+    <string name="qs_menu_item_columns_nine">9</string>
+    <string name="qs_menu_item_reset">Återställ</string>
+    <string name="qs_menu_item_titles">Visa ettiketter</string>
+    <string name="qs_menu_item_rows">Rader</string>
+    <string name="qs_menu_item_rows_one">1</string>
+    <string name="qs_menu_item_rows_two">2</string>
+    <string name="qs_menu_item_rows_three">3</string>
+    <string name="qs_menu_item_rows_four">4</string>
+    <!-- Screenshot QS Tile -->
+    <string name="quick_settings_screenshot_label">Skärmdump</string>
+    <string name="quick_settings_region_screenshot_label">Delvis skärmdump</string>
+    <!-- Screenrecord QS tile -->
+    <string name="quick_settings_screenrecord_label">Skärminspelning</string>
+    <string name="quick_settings_screenrecord_lq_label">Skärminspelning LK</string>
+    <string name="quick_settings_screenrecord_mq_label">Skärminspelning MK</string>
+    <string name="quick_settings_screenrecord_hq_label">Skärminspelning HK</string>
+    <!-- Screenrecord Notification Ticker -->
+    <string name="screenrecord_notif_ticker">Skärmen spelar in</string>
+    <string name="screenrecord_notif_final_ticker">Skärmen spelades in framgångsrikt</string>
+    <!-- Screenrecord notification title -->
+    <string name="screenrecord_notif_title">Spelar in skärmen</string>
+    <!-- Screenrecord notification action: Stop -->
+    <string name="screenrecord_notif_stop">Stopp</string>
+    <string name="screenrecord_notif_completed">Skärmen spelades in framgångsrikt</string>
+    <!-- Screenrecord notification action: show/hide pointer -->
+    <string name="screenrecord_notif_pointer_on">Visa pekare</string>
+    <string name="screenrecord_notif_pointer_off">Göm pekaren</string>
+    <!-- Screen record notification error title -->
+    <string name="screenrecord_notif_error">Kan inte spela in skärmen</string>
+    <string name="notification_channel_screenrecord">Skärminspelningar</string>
+    <string name="screenrecord_hide_hint">Göm förslag</string>
+    <string name="screenrecord_show_hint">Visa förslag</string>
+    <!-- SysUI Tuner -->
+    <string name="statusbar_icons_blacklist">Statusfält-ikoner</string>
+    <string name="navbar_tuner_activity">Knappar för navigeringsfält</string>
+    <string name="lockscreen_tuner_activity">Genvägar på låsskärmen</string>
+    <string name="powernotif_tuner_activity">Ström-aviseringar</string>
+    <string name="lockscreen_default">Standard</string>
+    <string name="lockscreen_hidden">Inget</string>
+    <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
+    <string name="custom_hint">Svep från ikonen för att starta</string>
+    <!-- Notification QS Tile -->
+    <string name="quick_settings_notification_style">Avisering</string>
+    <string name="quick_settings_notify_disabled">Avisera inte</string>
+    <string name="quick_settings_headsup_enabled">Se upp</string>
+    <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_dash_charging_time">Dash laddar (<xliff:g id="charging_time_left" example="4 timmar och 2 minuter">%s</xliff:g> tills det är fullt)</string>
+    <string name="keyguard_plugged_in_dash_charging">Dash laddar</string>
+    <!-- Indication on the keyguard that is shown when the device is charging with a turbo power charger. Should match keyguard_plugged_in_turbo_power_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_turbo_power_time">TurboPower ansluten (<xliff:g id="charging_time_left">%s</xliff:g>tills det är fullt)</string>
+    <string name="keyguard_plugged_in_turbo_power_charging">TurboPower ansluten</string>
+    <!-- Notification QS Tile -->
+    <string name="quick_settings_smart_pixels">Smarta pixlar</string>
+    <string name="quick_settings_smart_pixels_on_power_save">Aktiverade automatiskt Smart Pixels</string>
 </resources>

@@ -16,29 +16,29 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-  <string name="system_error_vendorprint">ベンダーのイメージがシステムと一致しません。 お使いの端末の<xliff:g id="string">%s</xliff:g>ベンダーイメージをフラッシュしてください。</string>
-  <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_fakePackageSignature">パッケージ署名の偽装</string>
-  <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_fakePackageSignature">アプリが別のアプリに偽装することを許可します。悪意のあるアプリがこれを使用してプライベートなアプリデータにアクセスする可能性があります。注意してこの許可を与えてください！</string>
-  <!-- advanced reboot to bootloader. -->
-  <string name="reboot_to_bootloader_title">ブートローダーへ再起動</string>
-  <string name="reboot_to_bootloader_message">ブートローダーへ再起動中\u2026</string>
-  <!-- advanced reboot to recovery. -->
-  <string name="reboot_to_recovery_title">リカバリーモードへ再起動</string>
-  <string name="reboot_to_recovery_message">リカバリーモードへ再起動中\u2026</string>
-  <!-- advanced reboot system -->
-  <string name="reboot_system_title">再起動</string>
-  <string name="reboot_system_message">システム再起動中\u2026</string>
-  <!-- QS Tiles -->
-  <string name="quick_settings_screenshot_label">スクリーンショット</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_preventpower">電源キーの置き換え</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_preventpower">アプリケーションが電源キーを置き換えるのを許可する</string>
-  <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permlab_accessFontManager">フォントマネージャーにアクセス</string>
-  <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-  <string name="permdesc_accessFontManager">アプリのフォントマネージャーへのアクセスを許可する</string>
+    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
+    <string name="system_error_vendorprint">ベンダーのイメージがシステムと一致しません。 お使いの端末の<xliff:g id="string">%s</xliff:g>ベンダーイメージをフラッシュしてください。</string>
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_fakePackageSignature">パッケージ署名の偽装</string>
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_fakePackageSignature">アプリが別のアプリに偽装することを許可します。悪意のあるアプリがこれを使用してプライベートなアプリデータにアクセスする可能性があります。注意してこの許可を与えてください!</string>
+    <!-- advanced reboot to bootloader. -->
+    <string name="reboot_to_bootloader_title">ブートローダーへ再起動</string>
+    <string name="reboot_to_bootloader_message">ブートローダーへ再起動中\u2026</string>
+    <!-- advanced reboot to recovery. -->
+    <string name="reboot_to_recovery_title">リカバリーモードへ再起動</string>
+    <string name="reboot_to_recovery_message">リカバリーモードへ再起動中\u2026</string>
+    <!-- advanced reboot system -->
+    <string name="reboot_system_title">再起動</string>
+    <string name="reboot_system_message">システム再起動中\u2026</string>
+    <!-- QS Tiles -->
+    <string name="quick_settings_screenshot_label">スクリーンショット</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_preventpower">電源キーの置き換え</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_preventpower">アプリケーションが電源キーを置き換えるのを許可する</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">フォントマネージャーにアクセス</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">アプリのフォントマネージャーへのアクセスを許可する</string>
 </resources>
