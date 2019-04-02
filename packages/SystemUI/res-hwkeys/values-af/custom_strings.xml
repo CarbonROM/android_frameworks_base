@@ -16,10 +16,10 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-  <!-- Bindable action labels -->
-  <string name="label_action_screenshot">Skermfoto</string>
-  <string name="label_action_expanded_desktop">Uitgebreide werkskerm</string>
-  <string name="label_action_flashlight">Flitslig</string>
-  <string name="label_action_bluetooth">Bluetooth</string>
-  <!-- App killed message -->
+    <!-- Bindable action labels -->
+    <string name="label_action_screenshot">Skermfoto</string>
+    <string name="label_action_expanded_desktop">Uitgebreide werkskerm</string>
+    <string name="label_action_flashlight">Flitslig</string>
+    <string name="label_action_bluetooth">Bluetooth</string>
+    <!-- App killed message -->
 </resources>
