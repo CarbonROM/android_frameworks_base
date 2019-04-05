@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2018 CarbonROM
+     Copyright (C) 2018-2019 CarbonROM
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -56,4 +56,7 @@
     <!-- Screenshot action colors -->
     <color name="screenshot_flash_color">#b3adadad</color> <!-- light grey with some transparency -->
     <color name="screenshot_background_color">@android:color/black</color>
+
+    <!-- Color of the FOD view -->
+    <color name="config_fodColor">#00ff00</color>
 </resources>
