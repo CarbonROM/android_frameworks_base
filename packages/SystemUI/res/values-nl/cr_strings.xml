@@ -58,7 +58,10 @@
     <!-- Screenrecord notification title -->
     <string name="screenrecord_notif_title">Scherm aan het opnemen</string>
     <!-- Screenrecord notification action: Stop -->
+    <string name="screenrecord_notif_stop">Stop</string>
+    <string name="screenrecord_notif_completed">Scherm succesvol opgenomen</string>
     <!-- Screenrecord notification action: show/hide pointer -->
+    <string name="screenrecord_notif_pointer_on">Aanwijzer weergeven</string>
     <!-- Screen record notification error title -->
     <!-- SysUI Tuner -->
     <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
