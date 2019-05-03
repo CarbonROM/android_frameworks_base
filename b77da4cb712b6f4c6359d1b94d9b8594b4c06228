@@ -1,0 +1,4 @@
+{
+  "pushCert": "certificate version 0.1\npusher shagbag913 \u003csh4gbag913@gmail.com\u003e 1556894698 -0400\npushee ssh://review.carbonrom.org:29418/CarbonROM/android_frameworks_base\nnonce 1556894650-F832C8152D5C1CF5762DC03418805EBA0916B422\n\n0000000000000000000000000000000000000000 b77da4cb712b6f4c6359d1b94d9b8594b4c06228 refs/for/cr-7.0\n-----BEGIN PGP SIGNATURE-----\n\niQFJBAABCAAzFiEEMPGMarC/xEyL/se0RLbG76r6aA0FAlzMU+oVHHNoNGdiYWc5\nMTNAZ21haWwuY29tAAoJEES2xu+q+mgNB34H/3rlnpGw2A82n6leY8JcZPMzNZ+C\n5rrNOjzsKzOuh5c3YGedl9Bhbh5QQML7cumXFFyYeeawd7sDyAiGavwaLN0bSXX0\nyx+VmvVLsOtl+MUlnCI3mtVU8Qy5HgyJAN7x/UKzalQAF0DZJMxxP+of514Y+SGQ\ngcalRh5kdTeAWXcEF8pz7X0QABFrZJdbyamP0OKtLD7mt2G7kgU3BKc7uq+kZLMz\nrdpi84S2KLPRqa3j3PNRMg3/Qg+mWxXi7lowtOzn6zYSPmf/KuPqNOlLInboz1eD\n5pJxLx2siytPfjz5wDEygH3pQP611ep+B4/54jaZEicPDIpHjntkWYh8Jz4\u003d\n\u003dRGzx\n-----END PGP SIGNATURE-----\n",
+  "comments": []
+}
