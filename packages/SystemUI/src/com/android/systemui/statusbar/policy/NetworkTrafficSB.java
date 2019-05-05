@@ -171,7 +171,6 @@ public class NetworkTrafficSB extends TextView implements StatusIconDisplayable 
          */
         @Override
         public void onChange(boolean selfChange) {
-            setMode();
             updateSettings();
         }
     }
@@ -202,7 +201,6 @@ public class NetworkTrafficSB extends TextView implements StatusIconDisplayable 
         Handler mHandler = new Handler();
         SettingsObserver settingsObserver = new SettingsObserver(mHandler);
         settingsObserver.observe();
-        setMode();
         updateSettings();
     }
 
@@ -257,6 +255,7 @@ public class NetworkTrafficSB extends TextView implements StatusIconDisplayable 
     }
 
     private void updateSettings() {
+        setMode();
         updateVisibility();
         if (mIsEnabled) {
             if (mAttached) {
@@ -273,12 +272,29 @@ public class NetworkTrafficSB extends TextView implements StatusIconDisplayable 
 
     private void setMode() {
         ContentResolver resolver = mContext.getContentResolver();
-        mIsEnabled = Settings.System.getIntForUser(resolver,
+        if(hasNotch()){
+            mIsEnabled = false;
+        }else{
+            mIsEnabled = Settings.System.getIntForUser(resolver,
                 Settings.System.NETWORK_TRAFFIC_STATE, 0,
                 UserHandle.USER_CURRENT) == 1;
+        }
         mAutoHideThreshold = Settings.System.getIntForUser(resolver,
                 Settings.System.NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD, 0,
                 UserHandle.USER_CURRENT);
+    }
+
+    private boolean hasNotch(){
+        final Resources resources = getResources();
+        if(resources.getBoolean(com.android.internal.R.bool.config_physicalDisplayCutout)){
+            if (resources.getBoolean(com.android.internal.R.bool.config_maskMainBuiltInDisplayCutout)) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
     }
 
     private void clearHandlerCallbacks() {
@@ -356,7 +372,8 @@ public class NetworkTrafficSB extends TextView implements StatusIconDisplayable 
     }
 
     private void updateVisibility() {
-        if (mIsEnabled && mTrafficVisible && mSystemIconVisible) {
+        if (!hasNotch() && mIsEnabled &&
+                mTrafficVisible && mSystemIconVisible) {
             setVisibility(View.VISIBLE);
         } else {
             setVisibility(View.GONE);
