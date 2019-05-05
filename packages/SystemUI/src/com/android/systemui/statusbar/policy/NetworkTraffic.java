@@ -157,7 +157,6 @@ public class NetworkTraffic extends TextView {
          */
         @Override
         public void onChange(boolean selfChange) {
-            setMode();
             updateSettings();
         }
     }
@@ -188,7 +187,6 @@ public class NetworkTraffic extends TextView {
         Handler mHandler = new Handler();
         SettingsObserver settingsObserver = new SettingsObserver(mHandler);
         settingsObserver.observe();
-        setMode();
         updateSettings();
     }
 
@@ -241,6 +239,7 @@ public class NetworkTraffic extends TextView {
     }
 
     private void updateSettings() {
+        setMode();
         if (mIsEnabled) {
             if (mAttached) {
                 totalRxBytes = TrafficStats.getTotalRxBytes();
@@ -257,12 +256,29 @@ public class NetworkTraffic extends TextView {
 
     private void setMode() {
         ContentResolver resolver = mContext.getContentResolver();
-        mIsEnabled = Settings.System.getIntForUser(resolver,
+        if(!hasNotch()){
+            mIsEnabled = false;
+        }else{
+            mIsEnabled = Settings.System.getIntForUser(resolver,
                 Settings.System.NETWORK_TRAFFIC_STATE, 0,
                 UserHandle.USER_CURRENT) == 1;
+        }
         mAutoHideThreshold = Settings.System.getIntForUser(resolver,
                 Settings.System.NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD, 0,
                 UserHandle.USER_CURRENT);
+    }
+
+    private boolean hasNotch(){
+        final Resources resources = getResources();
+        if(resources.getBoolean(com.android.internal.R.bool.config_physicalDisplayCutout)){
+            if (resources.getBoolean(com.android.internal.R.bool.config_maskMainBuiltInDisplayCutout)) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
     }
 
     private void clearHandlerCallbacks() {
