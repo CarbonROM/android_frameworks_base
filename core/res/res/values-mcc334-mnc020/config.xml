@@ -21,4 +21,6 @@
 
     <bool name="config_pdp_reject_enable_retry">true</bool>
     <integer name="config_pdp_reject_retry_delay_ms">45000</integer>
+
+    <bool name="config_pdp_retry_for_29_33_55_enabled">true</bool>
 </resources>
