@@ -95,6 +95,7 @@ public class ThemeAccentUtils {
         "com.accents.userseven", // 28
 	"com.accents.usereight", // 29
 	"com.accents.netflix", //30
+	"com.accents.qpurple", //31
     };
 
     // Unloads the stock dark theme
