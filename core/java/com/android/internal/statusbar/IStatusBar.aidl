@@ -179,4 +179,5 @@ oneway interface IStatusBar
     void onRecentsAnimationStateChanged(boolean running);
 
     void toggleCameraFlash();
+    void toggleCameraFlashState(boolean enable);
 }
