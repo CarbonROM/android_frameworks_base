@@ -161,6 +161,17 @@ public class CrUtils {
         }
     }
 
+    public static void toggleCameraFlashState(boolean enable) {
+        IStatusBarService service = getStatusBarService();
+        if (service != null) {
+            try {
+                service.toggleCameraFlashState(enable);
+            } catch (RemoteException e) {
+                // do nothing.s
+            }
+        }
+    }
+
     public static void takeScreenshot(boolean full) {
         IWindowManager wm = WindowManagerGlobal.getWindowManagerService();
         try {

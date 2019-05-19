@@ -103,6 +103,7 @@ interface IStatusBarService
     void handleInDisplayFingerprintView(boolean show, boolean isEnrolling);
 
     void toggleCameraFlash();
+    void toggleCameraFlashState(boolean enable);
 
     void toggleNavigationBar(boolean enable);
 

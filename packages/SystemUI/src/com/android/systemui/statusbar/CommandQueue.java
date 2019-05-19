@@ -96,6 +96,7 @@ public class CommandQueue extends IStatusBar.Stub {
     private static final int MSG_TOGGLE_CAMERA_FLASH           = 47 << MSG_SHIFT;
     private static final int MSG_TOGGLE_NAVIGATION_BAR         = 48 << MSG_SHIFT;
     private static final int MSG_IN_DISPLAY_FINGERPRINT        = 49 << MSG_SHIFT;
+    private static final int MSG_TOGGLE_CAMERA_FLASH_STATE     = 50 << MSG_SHIFT;
 
     public static final int FLAG_EXCLUDE_NONE = 0;
     public static final int FLAG_EXCLUDE_SEARCH_PANEL = 1 << 0;
@@ -171,6 +172,7 @@ public class CommandQueue extends IStatusBar.Stub {
         default void handleInDisplayFingerprintView(boolean show, boolean isEnrolling) { }
 
         default void toggleCameraFlash() { }
+        default void toggleCameraFlashState(boolean enable) { }
 	default void toggleNavigationBar(boolean enable) { }
     }
 
@@ -576,6 +578,13 @@ public class CommandQueue extends IStatusBar.Stub {
         }
     }
 
+    public void toggleCameraFlashState(boolean enable) {
+        synchronized (mLock) {
+            mHandler.removeMessages(MSG_TOGGLE_CAMERA_FLASH_STATE);
+            mHandler.obtainMessage(MSG_TOGGLE_CAMERA_FLASH_STATE,enable ? 1 : 0, 0, null).sendToTarget();
+        }
+    }
+
     public void toggleNavigationBar(boolean enable) {
         synchronized (mLock) {
             mHandler.removeMessages(MSG_TOGGLE_NAVIGATION_BAR);
@@ -840,6 +849,11 @@ public class CommandQueue extends IStatusBar.Stub {
                 case MSG_TOGGLE_CAMERA_FLASH:
                     for (int i = 0; i < mCallbacks.size(); i++) {
                         mCallbacks.get(i).toggleCameraFlash();
+                    }
+                    break;
+                case MSG_TOGGLE_CAMERA_FLASH_STATE:
+                    for (int i = 0; i < mCallbacks.size(); i++) {
+                        mCallbacks.get(i).toggleCameraFlashState(msg.arg1 != 0);
                     }
                     break;
 		case MSG_TOGGLE_NAVIGATION_BAR:
