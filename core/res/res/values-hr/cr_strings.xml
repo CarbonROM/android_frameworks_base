@@ -19,9 +19,13 @@
     <!-- Global actions -->
     <string name="reboot_to_recovery_title">Ponovno pokreni u Recovery modu</string>
     <string name="reboot_system_title">Ponovno pokreni sustav</string>
+    <string name="reboot_system_message">Ponovno pokretanje sustava\u2026</string>
     <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
     <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">Omogućava aplikaciji pristup do font managera.</string>
     <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_fakePackageSignature">Dozvoljava aplikaciji da se pretvara da je druga aplikacija. Zlonamjene aplikacije mogu ovo koristiti za dobijanje pristupa privatnim podacima iz aplikacije. Budite jako oprezni kad dodjeljujete ovo dopuštenje!</string>
+    <!-- [CHAR LIMIT=NONE] Error when a package is installed but got the missing fonts.xml file, notifying the user why it isn't showing up. -->
 </resources>

@@ -15,9 +15,11 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Power Menu -->
     <string name="global_action_reboot">Reiniciar</string>
+    <string name="global_action_reboot_more">Reiniciar\u2026</string>
     <string name="global_action_reboot_sub">Sistema</string>
     <string name="global_action_reboot_recovery">Recuperação</string>
     <string name="global_action_reboot_bootloader">Bootloader</string>
+    <string name="global_action_dismissable_dialog_text">A reinicialização avançada está desativada. Deseja reinicializar</string>
     <string name="global_action_dnaa">Não mostrar novamente</string>
     <string name="global_action_settings">Configurações</string>
     <string name="global_action_screenrecord">Gravação de tela</string>
@@ -45,7 +47,13 @@
     <string name="screenrecord_notif_error">Não é possível gravar a tela</string>
     <string name="notification_channel_screenrecord">Gravações de tela</string>
     <!-- Power QS Tile -->
+    <string name="quick_settings_power_title">Energia</string>
+    <string name="quick_settings_power_details_title">Modos de reinicialização</string>
+    <string name="quick_settings_power_off">Desligar</string>
+    <string name="quick_settings_preferences">Preferências</string>
     <!-- QS Colums -->
+    <string name="qs_menu_item_columns">Colunas em retrato</string>
+    <string name="qs_menu_item_columns_landscape">Colunas na horizontal</string>
     <string name="qs_menu_item_columns_three">3</string>
     <string name="qs_menu_item_columns_four">4</string>
     <string name="qs_menu_item_columns_five">5</string>
@@ -54,16 +62,80 @@
     <string name="qs_menu_item_columns_eight">8</string>
     <string name="qs_menu_item_columns_nine">9</string>
     <string name="qs_menu_item_reset">Redefinir</string>
+    <string name="qs_menu_item_titles">Ocultar os rótulos</string>
     <!-- SysUI Tuner -->
     <string name="statusbar_icons_blacklist">Ícones da barra de status</string>
     <string name="navbar_tuner_activity">Botões da barra de navegação</string>
     <string name="lockscreen_tuner_activity">Atalhos da tela de bloqueio</string>
     <string name="powernotif_tuner_activity">Notificações de liga/desliga</string>
+    <string name="tuner_cellular_title">Celular</string>
+    <string name="tuner_hide_disabled_sim">Ocultar cartões SIM não ativados</string>
     <!-- Advance location quick setting tile -->
+    <string name="quick_settings_location_secondary_battery_saving">Economia de bateria</string>
+    <string name="accessibility_quick_settings_location_battery_saving">Relatório de localização: modo de economia de bateria.</string>
+    <string name="quick_settings_location_secondary_gps_only">Apenas Sensores</string>
+    <string name="accessibility_quick_settings_location_gps_only">Relatório de localização: modo somente sensores.</string>
+    <string name="quick_settings_location_secondary_high_accuracy">Alta precisão</string>
+    <string name="accessibility_quick_settings_location_high_accuracy">Relatório de localização: modo de alta precisão.</string>
+    <string name="preview">Prévia</string>
+    <string name="keycode">Código-chave</string>
+    <string name="no_home_title">Nenhum botão de Início encontrado</string>
+    <string name="no_home_message">É necessário ter um botão Início para conseguir navegar neste dispositivo. Por favor, adicione um botão Início antes de salvar.</string>
+    <string name="clipboard_description">O Clipboard permite arrastar itens diretamente para a área de transferência. Os itens poderão igualmente ser arrastados diretamente a partir da área de transferência, quando presentes.</string>
+    <string name="start">Iniciar</string>
+    <string name="center">Centralizar</string>
+    <string name="end">Fim</string>
+    <string name="space">Espaçador</string>
+    <string name="select_button">Selecione o botão para adicionar</string>
+    <string name="add_button">Adicionar botão</string>
+    <string name="save">Salvar</string>
     <string name="reset">Redefinir</string>
+    <string name="select_keycode">Selecione a tecla do teclado</string>
+    <string name="left">Esquerda</string>
+    <string name="right">Direita</string>
+    <string name="navbar_editor_title">Editor</string>
+    <string name="navbar_editor_summary">Configurar a barra de navegação</string>
     <!-- NavBar Tuner -->
+    <string name="search">Busca</string>
     <!-- Theme tile -->
+    <string name="system_theme_style_title">Estilo</string>
+    <string name="system_theme_style_auto">Automático</string>
+    <string name="system_theme_style_light">Claro</string>
+    <string name="system_theme_style_dark">Escuro</string>
+    <string name="quick_settings_theme_tile_title">Realce</string>
+    <string name="quick_settings_theme_tile_accent_detail_title">Escolha uma cor</string>
+    <string name="quick_settings_theme_tile_style_detail_title">Escolha o estilo</string>
     <string name="quick_settings_theme_tile_color_default">Padrão</string>
+    <string name="quick_settings_theme_tile_color_red">Vermelho</string>
+    <string name="quick_settings_theme_tile_color_pink">Rosa</string>
+    <string name="quick_settings_theme_tile_color_purple">Roxo</string>
+    <string name="quick_settings_theme_tile_color_deep_purple">Roxo escuro</string>
+    <string name="quick_settings_theme_tile_color_indigo">Índigo</string>
+    <string name="quick_settings_theme_tile_color_blue">Azul</string>
+    <string name="quick_settings_theme_tile_color_light_blue">Azul claro</string>
+    <string name="quick_settings_theme_tile_color_cyan">Ciano</string>
+    <string name="quick_settings_theme_tile_color_teal">Verde-azulado</string>
+    <string name="quick_settings_theme_tile_color_green">Verde</string>
+    <string name="quick_settings_theme_tile_color_light_green">Verde claro</string>
+    <string name="quick_settings_theme_tile_color_lime">Lima</string>
+    <string name="quick_settings_theme_tile_color_yellow">Amarelo</string>
+    <string name="quick_settings_theme_tile_color_amber">Âmbar</string>
+    <string name="quick_settings_theme_tile_color_orange">Laranja</string>
+    <string name="quick_settings_theme_tile_color_deep_orange">Laranja escuro</string>
+    <string name="quick_settings_theme_tile_color_brown">Marrom</string>
+    <string name="quick_settings_theme_tile_color_grey">Cinza</string>
+    <string name="quick_settings_theme_tile_color_blue_grey">Azul acinzentado</string>
+    <string name="quick_settings_theme_tile_color_black">Preto</string>
+    <string name="quick_settings_theme_tile_color_white">Branco</string>
+    <string name="quick_settings_theme_tile_color_user_one">#StayDirty</string>
+    <string name="quick_settings_theme_tile_color_user_two">Uvas</string>
+    <string name="quick_settings_theme_tile_color_user_four">Hortelã</string>
+    <string name="quick_settings_theme_tile_color_user_five">Dinheiro</string>
+    <string name="quick_settings_theme_tile_color_user_six">Areia</string>
+    <string name="theme_info_title">O que é isto?</string>
+    <string name="theme_info_message">O bloco Temas é a única e a mais fácil maneira que permite o usuário mudar o estilo do sistema.\n\nPara alternar entre detalhes e estilos, basta pressionar o bloco e selecionar para escolher as opções oferecidas.</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Traço de carregamento (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> até estar cheio)</string>
     <string name="keyguard_plugged_in_dash_charging">Carregamento rápido</string>
+    <!-- Sync QS tile -->
 </resources>

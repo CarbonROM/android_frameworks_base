@@ -66,4 +66,5 @@
     <string name="quick_settings_theme_tile_color_default">Mặc định</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
     <string name="keyguard_plugged_in_dash_charging">Sạc nhanh</string>
+    <!-- Sync QS tile -->
 </resources>

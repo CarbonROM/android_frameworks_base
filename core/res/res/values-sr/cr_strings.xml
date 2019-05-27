@@ -30,4 +30,5 @@
     <string name="permdesc_accessFontManager">Дозвољава некој апликацији приступ менаџеру фонтова.</string>
     <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <!-- [CHAR LIMIT=NONE] Error when a package is installed but got the missing fonts.xml file, notifying the user why it isn't showing up. -->
 </resources>

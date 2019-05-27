@@ -52,6 +52,8 @@
     <string name="quick_settings_power_off">Vypnout</string>
     <string name="quick_settings_preferences">Předvolby</string>
     <!-- QS Colums -->
+    <string name="qs_menu_item_columns">Sloupce na výšku</string>
+    <string name="qs_menu_item_columns_landscape">Sloupce na šířku</string>
     <string name="qs_menu_item_columns_three">3</string>
     <string name="qs_menu_item_columns_four">4</string>
     <string name="qs_menu_item_columns_five">5</string>
@@ -60,16 +62,90 @@
     <string name="qs_menu_item_columns_eight">8</string>
     <string name="qs_menu_item_columns_nine">9</string>
     <string name="qs_menu_item_reset">Resetovat</string>
+    <string name="qs_menu_item_titles">Skrýt popisky</string>
     <!-- SysUI Tuner -->
     <string name="statusbar_icons_blacklist">Ikony stavové lišty</string>
     <string name="navbar_tuner_activity">Tlačítka navigačního panelu</string>
     <string name="lockscreen_tuner_activity">Zkratky zamykací obrazovky</string>
     <string name="powernotif_tuner_activity">Rozšířené oznámení</string>
+    <string name="tuner_cellular_title">Mobilní</string>
+    <string name="tuner_hide_disabled_sim">Skrýt odpojené SIM karty</string>
     <!-- Advance location quick setting tile -->
+    <string name="quick_settings_location_secondary_battery_saving">Úspora baterie</string>
+    <string name="accessibility_quick_settings_location_battery_saving">Hlášení polohy: úspora baterie.</string>
+    <string name="quick_settings_location_secondary_gps_only">Pouze GPS</string>
+    <string name="accessibility_quick_settings_location_gps_only">Hlášení polohy: pouze GPS.</string>
+    <string name="quick_settings_location_secondary_high_accuracy">Vysoká přesnost</string>
+    <string name="accessibility_quick_settings_location_high_accuracy">Hlášení polohy: vysoká přesnost.</string>
+    <string name="preview">Náhled</string>
+    <string name="keycode">Klávesa</string>
+    <string name="no_home_title">Tlačítko Domů nebylo nalezeno</string>
+    <string name="no_home_message">K ovládání tohoto zařízení je zapotřebí tlačítko Domů. Před uložením přidejte tlačítko Domů.</string>
+    <string name="clipboard_description">Schránka umožňuje přetažení položek přímo do schránky. Položky lze také přetáhnout přímo ze schránky, pokud jsou k dispozici.</string>
+    <string name="keycode_description">Tlačítka Klávesa umožňují přidat na navigační panel klávesy z klávesnice. Když na ně klepnete, budou emulovat vybranou klávesu. K tlačítku je nejprve nutné přiřadit klávesu a poté přidat obrázek tlačítka.</string>
+    <string name="start">Začátek</string>
+    <string name="center">Uprostřed</string>
+    <string name="end">Konec</string>
+    <string name="space">Mezerník</string>
+    <string name="menu_ime">Přepínač menu/klávesnice</string>
+    <string name="select_button">Vyberte tlačítko pro přidání</string>
+    <string name="add_button">Přidat tlačítko</string>
+    <string name="save">Uložit</string>
     <string name="reset">Resetovat</string>
+    <string name="select_keycode">Vyberte tlačítko klávesnice</string>
+    <string name="left">Levé</string>
+    <string name="right">Pravé</string>
+    <string name="navbar_editor_title">Editor</string>
+    <string name="navbar_editor_summary">Konfigurace navigačního panelu</string>
     <!-- NavBar Tuner -->
+    <string name="menu_ime_always_show">Přepínač menu/klávesnice (vždy zobrazovat)</string>
+    <string name="search">Hledat</string>
     <!-- Theme tile -->
+    <string name="system_theme_style_title">Styl</string>
+    <string name="system_theme_style_auto">Automatický</string>
+    <string name="system_theme_style_light">Světlý</string>
+    <string name="system_theme_style_dark">Tmavý</string>
+    <string name="quick_settings_theme_tile_title">Zvýraznění</string>
+    <string name="quick_settings_theme_tile_accent_detail_title">Vybrat barvu</string>
+    <string name="quick_settings_theme_tile_style_detail_title">Vybrat styl</string>
     <string name="quick_settings_theme_tile_color_default">Výchozí</string>
+    <string name="quick_settings_theme_tile_color_red">Červená</string>
+    <string name="quick_settings_theme_tile_color_pink">Růžová</string>
+    <string name="quick_settings_theme_tile_color_purple">Fialová</string>
+    <string name="quick_settings_theme_tile_color_deep_purple">Tmavě fialová</string>
+    <string name="quick_settings_theme_tile_color_indigo">Tmavě modrá</string>
+    <string name="quick_settings_theme_tile_color_blue">Modrá</string>
+    <string name="quick_settings_theme_tile_color_light_blue">Světle modrá</string>
+    <string name="quick_settings_theme_tile_color_cyan">Tyrkysová</string>
+    <string name="quick_settings_theme_tile_color_teal">Modro zelená</string>
+    <string name="quick_settings_theme_tile_color_green">Zelená</string>
+    <string name="quick_settings_theme_tile_color_light_green">Světle zelená</string>
+    <string name="quick_settings_theme_tile_color_lime">Limetková</string>
+    <string name="quick_settings_theme_tile_color_yellow">Žlutá</string>
+    <string name="quick_settings_theme_tile_color_amber">Jantarová</string>
+    <string name="quick_settings_theme_tile_color_orange">Oranžová</string>
+    <string name="quick_settings_theme_tile_color_deep_orange">Tmavě oranžová</string>
+    <string name="quick_settings_theme_tile_color_brown">Hnědá</string>
+    <string name="quick_settings_theme_tile_color_grey">Šedá</string>
+    <string name="quick_settings_theme_tile_color_blue_grey">Modro šedá</string>
+    <string name="quick_settings_theme_tile_color_black">Černá</string>
+    <string name="quick_settings_theme_tile_color_white">Bílá</string>
+    <string name="quick_settings_theme_tile_color_user_one">#StayDirty</string>
+    <string name="quick_settings_theme_tile_color_user_two">Grapes</string>
+    <string name="quick_settings_theme_tile_color_user_three">Blu</string>
+    <string name="quick_settings_theme_tile_color_user_four">Mint</string>
+    <string name="quick_settings_theme_tile_color_user_five">Money</string>
+    <string name="quick_settings_theme_tile_color_user_six">Sandy</string>
+    <string name="quick_settings_theme_tile_color_user_seven">Rams</string>
+    <string name="theme_info_title">Co to je?</string>
+    <string name="theme_info_message">Dlaždice motivů je unikátní, ale snadno použitelná dlaždice, která umožňuje uživateli změnit vedlejší barvu nebo styl systému.\n\nPro změnu vedlejší barvy a stylu dlouze stiskněte dlaždici a potom ji opět stiskněte pro výběr nabízených možností.</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • DASH nabíjení (zbývá <xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g>)</string>
     <string name="keyguard_plugged_in_dash_charging">DASH nabíjení</string>
+    <!-- Sync QS tile -->
+    <string name="quick_settings_sync_label">Synchr.</string>
+    <string name="accessibility_quick_settings_sync_off">Synchronizace vyp.</string>
+    <string name="accessibility_quick_settings_sync_on">Synchronizace zap.</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Synchronizace vypnuta.</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Synchronizace zapnuta.</string>
 </resources>
