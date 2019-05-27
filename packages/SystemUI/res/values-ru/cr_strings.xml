@@ -52,6 +52,8 @@
     <string name="quick_settings_power_off">Выключить</string>
     <string name="quick_settings_preferences">Параметры</string>
     <!-- QS Colums -->
+    <string name="qs_menu_item_columns">Количество столбцов портретной ориентации</string>
+    <string name="qs_menu_item_columns_landscape">Количество столбцов ландшафтной ориентации</string>
     <string name="qs_menu_item_columns_three">3</string>
     <string name="qs_menu_item_columns_four">4</string>
     <string name="qs_menu_item_columns_five">5</string>
@@ -80,6 +82,7 @@
     <string name="no_home_title">Не найдена кнопка \"Домой\"</string>
     <string name="no_home_message">Для навигации по этому устройству требуется кнопка \"Домой\". Перед сохранением добавьте кнопку \"Домой\".</string>
     <string name="clipboard_description">Буфер обмена позволяет перемещать элементы непосредственно в буфер обмена. Элементы также можно перетаскивать непосредственно из буфера обмена, когда они присутствуют.</string>
+    <string name="keycode_description">Кнопки клавиш позволяют добавлять клавиши клавиатуры в панель навигации. При нажатии они эмулируют выбранную клавишу клавиатуры. Сначала необходимо выбрать клавишу, затем изображение будет показано на кнопке.</string>
     <string name="start">Старт</string>
     <string name="center">Центр</string>
     <string name="end">Конец</string>
@@ -128,9 +131,16 @@
     <string name="quick_settings_theme_tile_color_black">Черный</string>
     <string name="quick_settings_theme_tile_color_white">Белый</string>
     <string name="quick_settings_theme_tile_color_user_one">#StayDirty</string>
+    <string name="quick_settings_theme_tile_color_user_two">Grapes</string>
+    <string name="quick_settings_theme_tile_color_user_three">Blu</string>
+    <string name="quick_settings_theme_tile_color_user_four">Mint</string>
+    <string name="quick_settings_theme_tile_color_user_five">Деньги</string>
+    <string name="quick_settings_theme_tile_color_user_six">Sandy</string>
+    <string name="quick_settings_theme_tile_color_user_seven">Rams</string>
     <string name="theme_info_title">Что это?</string>
     <string name="theme_info_message">Плитка тем уникальная, но легкая в использовании плитка которая дает возможность пользователю менять системный акцент или стиль.\n\nМенять акценты и стили можно длинным нажатием на плитку и выбором одной из предоставленных опций.</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
     <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g>• Быстрая зарядка (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> до полной зарядки)</string>
     <string name="keyguard_plugged_in_dash_charging">Dash Charging</string>
+    <!-- Sync QS tile -->
 </resources>

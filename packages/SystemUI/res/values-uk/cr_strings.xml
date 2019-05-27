@@ -56,4 +56,5 @@
     <!-- NavBar Tuner -->
     <!-- Theme tile -->
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <!-- Sync QS tile -->
 </resources>

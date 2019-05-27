@@ -26,4 +26,5 @@
     <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permdesc_fakePackageSignature">Permiteti aplicatiei sa pretinda ca este o alta aplicatie. Aplicatiile daunatoare pot utiliza aceasta permisiune pentru a accesa datele private ale aplicatiilor. Acordati aceasta permisiune cu grija!</string>
+    <!-- [CHAR LIMIT=NONE] Error when a package is installed but got the missing fonts.xml file, notifying the user why it isn't showing up. -->
 </resources>

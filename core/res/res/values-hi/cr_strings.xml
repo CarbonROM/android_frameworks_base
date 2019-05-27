@@ -33,4 +33,5 @@
     <string name="permlab_fakePackageSignature">धोखा पैकेज हस्ताक्षर</string>
     <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permdesc_fakePackageSignature">एप्लिकेशन को एक अलग एप्लिकेशन होने का नाटक करने की अनुमति देता है. दुर्भावनापूर्ण अनुप्रयोग निजी अनुप्रयोग डेटा तक पहुंचने के लिए इसका उपयोग करने में सक्षम हो सकता है । केवल सावधानी के साथ यह अनुमति दें!</string>
+    <!-- [CHAR LIMIT=NONE] Error when a package is installed but got the missing fonts.xml file, notifying the user why it isn't showing up. -->
 </resources>

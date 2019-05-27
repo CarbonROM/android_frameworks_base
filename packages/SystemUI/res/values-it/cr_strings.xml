@@ -15,9 +15,11 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Power Menu -->
     <string name="global_action_reboot">Riavvia</string>
+    <string name="global_action_reboot_more">Riavvio\u2026</string>
     <string name="global_action_reboot_sub">Sistema</string>
     <string name="global_action_reboot_recovery">Recovery</string>
     <string name="global_action_reboot_bootloader">Bootloader</string>
+    <string name="global_action_dismissable_dialog_text">Il riavvio avanzato è disabilitato.\nVuoi riavviare\u003f</string>
     <string name="global_action_dnaa">Non mostrare di nuovo</string>
     <string name="global_action_settings">Impostazioni</string>
     <string name="global_action_screenrecord">Registra schermo</string>
@@ -45,7 +47,13 @@
     <string name="screenrecord_notif_error">Impossibile registrare lo schermo</string>
     <string name="notification_channel_screenrecord">Registrazione dello schermo</string>
     <!-- Power QS Tile -->
+    <string name="quick_settings_power_title">Spegni</string>
+    <string name="quick_settings_power_details_title">Riavvia</string>
+    <string name="quick_settings_power_off">Spegni</string>
+    <string name="quick_settings_preferences">Preferenze</string>
     <!-- QS Colums -->
+    <string name="qs_menu_item_columns">Orientamento verticale</string>
+    <string name="qs_menu_item_columns_landscape">Orientamento orizzontale</string>
     <string name="qs_menu_item_columns_three">3</string>
     <string name="qs_menu_item_columns_four">4</string>
     <string name="qs_menu_item_columns_five">5</string>
@@ -54,16 +62,85 @@
     <string name="qs_menu_item_columns_eight">8</string>
     <string name="qs_menu_item_columns_nine">9</string>
     <string name="qs_menu_item_reset">Reimpostare</string>
+    <string name="qs_menu_item_titles">Nascondi etichette</string>
     <!-- SysUI Tuner -->
     <string name="statusbar_icons_blacklist">Icone barra di stato</string>
     <string name="navbar_tuner_activity">Pulsanti della barra di navigazione</string>
     <string name="lockscreen_tuner_activity">Scorciatoie schermata di sblocco</string>
     <string name="powernotif_tuner_activity">Mostra notifiche</string>
+    <string name="tuner_cellular_title">Cellulare</string>
+    <string name="tuner_hide_disabled_sim">Nascondi schede SIM disabilitate</string>
     <!-- Advance location quick setting tile -->
+    <string name="quick_settings_location_secondary_battery_saving">Risparmio energetico</string>
+    <string name="accessibility_quick_settings_location_battery_saving">Geolocalizzazione: modalità risparmio energetico.</string>
+    <string name="quick_settings_location_secondary_gps_only">Solo sensori</string>
+    <string name="accessibility_quick_settings_location_gps_only">Geolocalizzazione: modalità solo GPS.</string>
+    <string name="quick_settings_location_secondary_high_accuracy">Alta precisione</string>
+    <string name="accessibility_quick_settings_location_high_accuracy">Geolocalizzazione: modalità alta precisione.</string>
+    <string name="preview">Anteprima</string>
+    <string name="keycode">Keycode</string>
+    <string name="no_home_title">Nessun tasto home trovato</string>
+    <string name="no_home_message">Un tasto home è necessario per utilizzare questo dispositivo. Aggiungi un tasto home prima di salvare.</string>
+    <string name="clipboard_description">Gli appunti permettono di trascinare gli elementi direttamente negli appunti. Gli elementi possono anche essere trascinati fuori dagli appunti quando presenti.</string>
+    <string name="keycode_description">I pulsanti keycode permettono di aggiungere tasti della tastiera alla barra di navigazione. Quando premuti, emulano il tasto selezionato. Va prima selezionato il tasto desiderato, seguito dall\'immagine da mostrare sul pulsante.</string>
+    <string name="start">Inizio</string>
+    <string name="center">Centro</string>
+    <string name="end">Fine</string>
+    <string name="space">Distanziatore</string>
+    <string name="menu_ime">Inverti Menù / Tastiera</string>
+    <string name="select_button">Seleziona pulsate da aggiungere</string>
+    <string name="add_button">Aggiungi pulsante</string>
+    <string name="save">Salva</string>
     <string name="reset">Reimpostare</string>
+    <string name="select_keycode">Seleziona pulsante tastiera</string>
+    <string name="left">Sinistra</string>
+    <string name="right">Destra</string>
+    <string name="navbar_editor_title">Editor</string>
+    <string name="navbar_editor_summary">Configura la barra di navigazione</string>
     <!-- NavBar Tuner -->
+    <string name="menu_ime_always_show">Menu / selettore tastiera (mostra sempre)</string>
+    <string name="search">Cerca</string>
     <!-- Theme tile -->
+    <string name="system_theme_style_title">Stile</string>
+    <string name="system_theme_style_auto">Automatico</string>
+    <string name="system_theme_style_light">Chiaro</string>
+    <string name="system_theme_style_dark">Scuro</string>
+    <string name="quick_settings_theme_tile_title">In evidenza</string>
+    <string name="quick_settings_theme_tile_accent_detail_title">Seleziona il colore</string>
+    <string name="quick_settings_theme_tile_style_detail_title">Seleziona lo stile</string>
     <string name="quick_settings_theme_tile_color_default">Predefinito</string>
+    <string name="quick_settings_theme_tile_color_red">Rosso</string>
+    <string name="quick_settings_theme_tile_color_pink">Rosa</string>
+    <string name="quick_settings_theme_tile_color_purple">Viola</string>
+    <string name="quick_settings_theme_tile_color_deep_purple">Viola intenso</string>
+    <string name="quick_settings_theme_tile_color_indigo">Indaco</string>
+    <string name="quick_settings_theme_tile_color_blue">Blu</string>
+    <string name="quick_settings_theme_tile_color_light_blue">Azzurro</string>
+    <string name="quick_settings_theme_tile_color_cyan">Ciano</string>
+    <string name="quick_settings_theme_tile_color_teal">Verde acqua</string>
+    <string name="quick_settings_theme_tile_color_green">Verde</string>
+    <string name="quick_settings_theme_tile_color_light_green">Verde chiaro</string>
+    <string name="quick_settings_theme_tile_color_lime">Lime</string>
+    <string name="quick_settings_theme_tile_color_yellow">Giallo</string>
+    <string name="quick_settings_theme_tile_color_amber">Ambra</string>
+    <string name="quick_settings_theme_tile_color_orange">Arancione</string>
+    <string name="quick_settings_theme_tile_color_deep_orange">Arancione intenso</string>
+    <string name="quick_settings_theme_tile_color_brown">Marrone</string>
+    <string name="quick_settings_theme_tile_color_grey">Grigio</string>
+    <string name="quick_settings_theme_tile_color_blue_grey">Grigio blu</string>
+    <string name="quick_settings_theme_tile_color_black">Nero</string>
+    <string name="quick_settings_theme_tile_color_white">Bianco</string>
+    <string name="quick_settings_theme_tile_color_user_one">#StayDirty</string>
+    <string name="quick_settings_theme_tile_color_user_two">Uva</string>
+    <string name="quick_settings_theme_tile_color_user_three">Blu</string>
+    <string name="quick_settings_theme_tile_color_user_four">Menta</string>
+    <string name="quick_settings_theme_tile_color_user_five">Denaro</string>
+    <string name="quick_settings_theme_tile_color_user_six">Sabbia</string>
+    <string name="quick_settings_theme_tile_color_user_seven">Rams</string>
+    <string name="theme_info_title">Questo cos\'è?</string>
+    <string name="theme_info_message">Il tema dei tile è un sistema tematico unico ma di facile utilizzo che consente all\'utente di modificare lo stile del sistema.\n\nPer cambiare lo stile e il colore principale, basta una pressione prolungata sul tile e poi premere di nuovo per scegliere tra le opzioni presenti.</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Carica Dash (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> fino al completo)</string>
     <string name="keyguard_plugged_in_dash_charging">Ricarica rapida</string>
+    <!-- Sync QS tile -->
 </resources>
