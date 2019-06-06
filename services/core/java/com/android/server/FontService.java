@@ -268,6 +268,9 @@ public class FontService extends IFontService.Stub {
     private void processFontPackage(String packageName) {
         List<FontInfo> infoList = new ArrayList<FontInfo>();
         Context appContext = getAppContext(packageName);
+        if(appContext == null) {
+            removeFontPackage(packageName);
+        }
         AssetManager am = appContext.getAssets();
         List<String> fontZips = getFontsFromPackage(packageName);
         File packageFontPreviewDir = new File(SYSTEM_THEME_PREVIEW_CACHE_DIR, packageName);
