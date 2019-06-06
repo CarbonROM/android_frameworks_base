@@ -1110,11 +1110,10 @@ public class DeviceIdleController extends SystemService
         }
 
         private long getDurationWeighted(String key, long defaultValue) {
-            long duration = mParser.getDurationMillis(key, defaultValue);
-
             if (mAggressiveIdle)
                 return aggressiveConstants.get(key);
 
+            long duration = mParser.getDurationMillis(key, defaultValue);
             return duration;
         }
 
