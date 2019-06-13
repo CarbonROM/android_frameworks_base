@@ -4560,7 +4560,7 @@ public final class Settings {
         * @hide
         */
        public static final String STATUS_BAR_QUICK_QS_PULLDOWN = "status_bar_quick_qs_pulldown";
-       
+
         /**
          * @hide
          */
@@ -4715,6 +4715,15 @@ public final class Settings {
          * @hide
          */
         public static final String SHOW_FOURG_ICON = "show_fourg_icon";
+
+        /**
+         * Whether to show VoLTE icon or not
+         * @hide
+         */
+        public static final String SHOW_VOLTE_ICON = "show_volte_icon";
+
+        /** @hide */
+        public static final Validator SHOW_VOLTE_ICON_VALIDATOR = BOOLEAN_VALIDATOR;
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
@@ -4908,6 +4917,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(PROXIMITY_ON_WAKE);
             PRIVATE_SETTINGS.add(BACK_GESTURE_HEIGHT);
             PRIVATE_SETTINGS.add(GESTURE_PILL_TOGGLE);
+            PRIVATE_SETTINGS.add(SHOW_VOLTE_ICON);
         }
 
         /**
@@ -5004,6 +5014,7 @@ public final class Settings {
             VALIDATORS.put(PROXIMITY_ON_WAKE, PROXIMITY_ON_WAKE_VALIDATOR);
             VALIDATORS.put(BACK_GESTURE_HEIGHT, BACK_GESTURE_HEIGHT_VALIDATOR);
             VALIDATORS.put(GESTURE_PILL_TOGGLE, GESTURE_PILL_TOGGLE_VALIDATOR);
+            VALIDATORS.put(SHOW_VOLTE_ICON, SHOW_VOLTE_ICON_VALIDATOR);
         }
 
         /**
