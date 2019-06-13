@@ -20,7 +20,7 @@
     <color name="status_bar_carrier_color">#FFFFFFFF</color>
 
     <!-- Theme tile -->
-    <color name="quick_settings_theme_tile_default">#4285F4</color>
+    <color name="quick_settings_theme_tile_default">#008577</color>
     <color name="quick_settings_theme_tile_red">#FF5252</color>
     <color name="quick_settings_theme_tile_pink">#FF4081</color>
     <color name="quick_settings_theme_tile_purple">#E040FB</color>
