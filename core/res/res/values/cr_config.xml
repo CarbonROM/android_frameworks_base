@@ -120,7 +120,6 @@
 
   <!-- Show a custom view for FOD -->
   <bool name="config_needCustomFODView">false</bool>
-  <bool name="config_usesOnePlusFOD">false</bool>
 
   <!-- Screen off delay -->
   <integer name="config_screen_off_delay">1000</integer>
