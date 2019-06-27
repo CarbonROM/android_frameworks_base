@@ -301,7 +301,8 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
     }
 
     protected void updateClockVisibility() {
-        boolean visible = mClockVisibleByPolicy && mClockVisibleByUser;
+        boolean visible = mClockConfig == STATUS_BAR_CLOCK_LEFT
+                && mClockVisibleByPolicy && mClockVisibleByUser;
         Dependency.get(IconLogger.class).onIconVisibility("clock", visible);
         int visibility = visible ? View.VISIBLE : View.GONE;
         setVisibility(visibility);
