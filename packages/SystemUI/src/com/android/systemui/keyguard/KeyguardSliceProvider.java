@@ -55,6 +55,7 @@ import androidx.slice.builders.ListBuilder.RowBuilder;
 import androidx.slice.builders.SliceAction;
 
 import com.android.internal.util.custom.weather.WeatherClient;
+import com.android.internal.util.cr.CrUtils;
 
 /**
  * Simple Slice provider that shows the current date.
@@ -195,7 +196,7 @@ public class KeyguardSliceProvider extends SliceProvider implements
 
     private WeatherClient mWeatherClient;
     private WeatherClient.WeatherInfo mWeatherInfo;
-    private boolean mWeatherEnabled, mUseMetricUnit;
+    private boolean mWeatherEnabled;
     private boolean mWeatherDataAvailable;
     private int mTemperatureMetric, mTemperatureImperial;
     private Icon mConditionIcon;
@@ -204,10 +205,12 @@ public class KeyguardSliceProvider extends SliceProvider implements
         if (!mWeatherDataAvailable || !mWeatherEnabled) {
             return;
         }
-        String temperatureText = mUseMetricUnit ?
-                                 Integer.toString(mTemperatureMetric) + "°C" :
-                                 Integer.toString(mTemperatureImperial) + "°F";
-        RowBuilder weatherRowBuilder = new RowBuilder(builder, mWeatherUri)
+        final boolean fahrenheit = CrUtils.mccCheck(getContext());
+        int temperature = mWeatherInfo.getTemperature(!fahrenheit);
+        String temperatureText = fahrenheit ?
+                Integer.toString(temperature) + "°F" :
+                Integer.toString(temperature) + "°C";
+	RowBuilder weatherRowBuilder = new RowBuilder(builder, mWeatherUri)
                 .setTitle(temperatureText)
                 .addEndItem(mConditionIcon);
         builder.addRow(weatherRowBuilder);
@@ -240,9 +243,6 @@ public class KeyguardSliceProvider extends SliceProvider implements
             mContentResolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.WEATHER_LOCKSCREEN_ENABLED),
                     false, this, UserHandle.USER_ALL);
-            mContentResolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.WEATHER_LOCKSCREEN_UNIT),
-                    false, this, UserHandle.USER_ALL);
             mHandler.post(KeyguardSliceProvider.this::updateWeatherSettings);
         }
 
@@ -256,12 +256,10 @@ public class KeyguardSliceProvider extends SliceProvider implements
     public void updateWeatherSettings() {
         mWeatherEnabled = Settings.System.getIntForUser(mContentResolver,
             Settings.System.WEATHER_LOCKSCREEN_ENABLED, 0, UserHandle.USER_CURRENT) != 0;
-        mUseMetricUnit = Settings.System.getIntForUser(mContentResolver,
-            Settings.System.WEATHER_LOCKSCREEN_UNIT, 0, UserHandle.USER_CURRENT) == 0;
 
         if (mWeatherEnabled && mWeatherClient == null) {
             mWeatherClient = new WeatherClient(getContext());
-            mWeatherClient.addObserver(this, false /*withQuery*/);
+            mWeatherClient.addObserver(this);
         } else if (!mWeatherEnabled && mWeatherClient != null) {
             mWeatherClient.removeObserver(this);
             mWeatherClient.destroy();
