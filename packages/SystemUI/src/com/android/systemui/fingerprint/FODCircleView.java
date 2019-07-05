@@ -316,12 +316,4 @@ public class FODCircleView extends ImageView implements OnTouchListener {
         mWM.removeView(this);
         viewAdded = false;
     }
-
-    private void setCustomIcon(){
-        if (mIsDreaming && !mIsPulsing) {
-            setImageResource(R.drawable.fod_icon_empty);
-            return;
-        }
-        setImageResource(R.drawable.fod_icon_default);
-    }
 }
