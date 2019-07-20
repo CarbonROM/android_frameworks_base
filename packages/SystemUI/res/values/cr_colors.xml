@@ -50,6 +50,7 @@
     <color name="quick_settings_theme_tile_user_six">#FFC27B</color>
     <color name="quick_settings_theme_tile_user_seven">#FFCC00</color>
     <color name="quick_settings_theme_tile_user_eight">#4285f4</color>
+    <color name="quick_settings_theme_tile_netflix">#E50914</color>
 
     <!-- Screenshot action colors -->
     <color name="screenshot_flash_color">#b3adadad</color> <!-- light grey with some transparency -->
