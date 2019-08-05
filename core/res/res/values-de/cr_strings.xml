@@ -34,4 +34,5 @@
     <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permdesc_fakePackageSignature">Erlaubt der App vorzugeben sie sei eine andere App. Bösartige Software könnte hierdurch Zugriff auf persönliche Daten erlangen. Diese Berechtigung nur mit Vorsicht bewilligen!</string>
     <!-- [CHAR LIMIT=NONE] Error when a package is installed but got the missing fonts.xml file, notifying the user why it isn't showing up. -->
+    <string name="fontservice_incompatible_font">Das von Ihnen installierte Schriftartenpaket ist nicht kompatibel, da die fonts.xml in ihren Dateien fehlt. Bitte kontaktieren Sie den Paketentwickler, um Hilfe zu erhalten.</string>
 </resources>

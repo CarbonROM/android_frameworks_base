@@ -24,7 +24,7 @@
     <string name="reboot_system_title">再起動</string>
     <string name="reboot_system_message">システムを再起動中\u2026</string>
     <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-    <string name="system_error_vendorprint">ベンダーのイメージがシステムと一致しません。 お使いの端末の<xliff:g id="string">%s</xliff:g>ベンダーイメージをフラッシュして下さい。</string>
+    <string name="system_error_vendorprint">ベンダーのイメージがシステムと一致しません。お使いの端末の<xliff:g id="string">%s</xliff:g>ベンダーイメージをフラッシュして下さい。</string>
     <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permlab_accessFontManager">フォントマネージャーにアクセス</string>
     <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
@@ -34,4 +34,5 @@
     <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permdesc_fakePackageSignature">アプリが別のアプリに偽装することを許可します。悪意のあるアプリがこれを使用してプライベートなアプリデータにアクセスする可能性があります。注意してこの許可を与えて下さい!</string>
     <!-- [CHAR LIMIT=NONE] Error when a package is installed but got the missing fonts.xml file, notifying the user why it isn't showing up. -->
+    <string name="fontservice_incompatible_font">インストールされたフォントパッケージは内部に fonts.xml が無いため利用できません。サポートを受けるにはパッケージ開発者に連絡して下さい。</string>
 </resources>

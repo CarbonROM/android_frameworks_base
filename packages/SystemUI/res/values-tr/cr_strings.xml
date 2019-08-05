@@ -143,4 +143,9 @@
     <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Dash Şarj oluyor (tam dolmasına <xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> kaldı)</string>
     <string name="keyguard_plugged_in_dash_charging">Hızlı şarj oluyor</string>
     <!-- Sync QS tile -->
+    <string name="quick_settings_sync_label">Eşitleme</string>
+    <string name="accessibility_quick_settings_sync_off">Eşitleme kapalı.</string>
+    <string name="accessibility_quick_settings_sync_on">Eşitleme açık.</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Eşitleme kapatıldı.</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Eşitleme açıldı.</string>
 </resources>

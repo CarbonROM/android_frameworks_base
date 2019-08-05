@@ -82,10 +82,12 @@
     <string name="no_home_title">Nenhum botão de Início encontrado</string>
     <string name="no_home_message">É necessário ter um botão Início para conseguir navegar neste dispositivo. Por favor, adicione um botão Início antes de salvar.</string>
     <string name="clipboard_description">O Clipboard permite arrastar itens diretamente para a área de transferência. Os itens poderão igualmente ser arrastados diretamente a partir da área de transferência, quando presentes.</string>
+    <string name="keycode_description">Os botões com código de tecla permitem adicionar teclas do teclado à barra de navegação. Quando tocados, estes realizarão a mesma ação da tecla do teclado selecionada. Primeiro, associe a tecla ao botão e depois selecione uma imagem a ser mostrada como botão.</string>
     <string name="start">Iniciar</string>
     <string name="center">Centralizar</string>
     <string name="end">Fim</string>
     <string name="space">Espaçador</string>
+    <string name="menu_ime">Menu / Troca de Teclado</string>
     <string name="select_button">Selecione o botão para adicionar</string>
     <string name="add_button">Adicionar botão</string>
     <string name="save">Salvar</string>
@@ -96,6 +98,7 @@
     <string name="navbar_editor_title">Editor</string>
     <string name="navbar_editor_summary">Configurar a barra de navegação</string>
     <!-- NavBar Tuner -->
+    <string name="menu_ime_always_show">Menu / Alternador de teclado (sempre mostrar)</string>
     <string name="search">Busca</string>
     <!-- Theme tile -->
     <string name="system_theme_style_title">Estilo</string>
@@ -129,13 +132,20 @@
     <string name="quick_settings_theme_tile_color_white">Branco</string>
     <string name="quick_settings_theme_tile_color_user_one">#StayDirty</string>
     <string name="quick_settings_theme_tile_color_user_two">Uvas</string>
+    <string name="quick_settings_theme_tile_color_user_three">Misturar</string>
     <string name="quick_settings_theme_tile_color_user_four">Hortelã</string>
     <string name="quick_settings_theme_tile_color_user_five">Dinheiro</string>
     <string name="quick_settings_theme_tile_color_user_six">Areia</string>
+    <string name="quick_settings_theme_tile_color_user_seven">Ramos</string>
     <string name="theme_info_title">O que é isto?</string>
     <string name="theme_info_message">O bloco Temas é a única e a mais fácil maneira que permite o usuário mudar o estilo do sistema.\n\nPara alternar entre detalhes e estilos, basta pressionar o bloco e selecionar para escolher as opções oferecidas.</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
     <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Traço de carregamento (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> até estar cheio)</string>
     <string name="keyguard_plugged_in_dash_charging">Carregamento rápido</string>
     <!-- Sync QS tile -->
+    <string name="quick_settings_sync_label">Sincronização</string>
+    <string name="accessibility_quick_settings_sync_off">Sincronização desativada.</string>
+    <string name="accessibility_quick_settings_sync_on">Sincronização ativada.</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Sincronização foi desativada.</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Sincronização foi ativada.</string>
 </resources>

@@ -34,4 +34,5 @@
     <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permdesc_fakePackageSignature">Permite ao aplicativo fazer-se passar por outro aplicativo. Aplicativos mal-intencionados podem usar isto para acessar aos dados de outros aplicativos. Conceda essa permissão com cautela!</string>
     <!-- [CHAR LIMIT=NONE] Error when a package is installed but got the missing fonts.xml file, notifying the user why it isn't showing up. -->
+    <string name="fontservice_incompatible_font">O pacote de fonte que você instalou não é compatível devido a falta de fontes.xml em seus arquivos. Por favor, contate o desenvolvedor de pacote para suporte.</string>
 </resources>

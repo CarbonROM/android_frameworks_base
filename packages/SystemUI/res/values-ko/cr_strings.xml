@@ -28,11 +28,17 @@
     <string name="quick_settings_smart_pixels">Smart Pixels</string>
     <string name="quick_settings_smart_pixels_on_power_save">Smart Pixels 자동 활성화</string>
     <!-- Caffeine QS Tile -->
+    <string name="quick_settings_caffeine_label">화면 꺼짐 지연</string>
+    <string name="accessibility_quick_settings_caffeine_off">화면 꺼짐 지연 꺼짐</string>
+    <string name="accessibility_quick_settings_caffeine_on">화면 꺼짐 지연 켜짐</string>
     <!-- If this is true, key chords can be used to take a screen record on the device. -->
     <!-- Screenrecord Notification Ticker -->
+    <string name="screenrecord_notif_ticker">화면이 녹화되고 있습니다</string>
     <string name="screenrecord_notif_final_ticker">화면이 성공적으로 녹화되었습니다.</string>
     <!-- Screenrecord notification title -->
+    <string name="screenrecord_notif_title">화면을 녹화하는 중</string>
     <!-- Screenrecord notification action: Stop -->
+    <string name="screenrecord_notif_stop">중지</string>
     <string name="screenrecord_notif_completed">화면이 성공적으로 녹화되었습니다.</string>
     <!-- Screenrecord notification action: show/hide pointer -->
     <string name="screenrecord_notif_pointer_on">포인터 표시</string>

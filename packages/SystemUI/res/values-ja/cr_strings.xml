@@ -22,11 +22,11 @@
     <string name="global_action_dismissable_dialog_text">高度な再起動が無効です。\n再起動しますか\u003f</string>
     <string name="global_action_dnaa">次回から表示しない</string>
     <string name="global_action_settings">設定</string>
-    <string name="global_action_screenrecord">画面の録画</string>
+    <string name="global_action_screenrecord">画面録画</string>
     <string name="global_action_flashlight">フラッシュライト</string>
     <!-- Smart Pixels QS Tile -->
-    <string name="quick_settings_smart_pixels">スマートピクセル</string>
-    <string name="quick_settings_smart_pixels_on_power_save">スマートピクセルを自動有効</string>
+    <string name="quick_settings_smart_pixels">スマート\nピクセル</string>
+    <string name="quick_settings_smart_pixels_on_power_save">自動有効</string>
     <!-- Caffeine QS Tile -->
     <string name="quick_settings_caffeine_label">カフェイン</string>
     <string name="accessibility_quick_settings_caffeine_off">カフェイン OFF</string>
@@ -64,16 +64,16 @@
     <string name="qs_menu_item_reset">リセット</string>
     <string name="qs_menu_item_titles">ラベルを隠す</string>
     <!-- SysUI Tuner -->
-    <string name="statusbar_icons_blacklist">ステータスバーアイコン</string>
+    <string name="statusbar_icons_blacklist">ステータスバーのアイコン</string>
     <string name="navbar_tuner_activity">ナビゲーションバーボタン</string>
-    <string name="lockscreen_tuner_activity">ロック画面のショートカット</string>
+    <string name="lockscreen_tuner_activity">ショートカット</string>
     <string name="powernotif_tuner_activity">電源通知</string>
     <string name="tuner_cellular_title">モバイル</string>
     <string name="tuner_hide_disabled_sim">無効な SIM カードを隠す</string>
     <!-- Advance location quick setting tile -->
-    <string name="quick_settings_location_secondary_battery_saving">バッテリーセーバー</string>
+    <string name="quick_settings_location_secondary_battery_saving">バッテリー節約</string>
     <string name="accessibility_quick_settings_location_battery_saving">位置情報レポート: バッテリー節約モード</string>
-    <string name="quick_settings_location_secondary_gps_only">センサーのみ</string>
+    <string name="quick_settings_location_secondary_gps_only">端末のみ</string>
     <string name="accessibility_quick_settings_location_gps_only">位置情報レポート: 端末のみモード</string>
     <string name="quick_settings_location_secondary_high_accuracy">高精度</string>
     <string name="accessibility_quick_settings_location_high_accuracy">位置情報レポート: 高精度モード</string>
@@ -81,7 +81,7 @@
     <string name="keycode">キーコード</string>
     <string name="no_home_title">ホームボタンは見つかりませんでした</string>
     <string name="no_home_message">この端末を操作するにはホームボタンが必要です。保存する前にホームボタンを追加して下さい。</string>
-    <string name="clipboard_description">クリップボードを使用すると、項目をクリップボードに直接ドラッグできます。項目はクリップボードから直接ドラッグすることもできます。</string>
+    <string name="clipboard_description">クリップボードを使用すると、アイテムをクリップボードに直接ドラッグできます。アイテムはクリップボードから直接ドラッグすることもできます。</string>
     <string name="keycode_description">キーコードボタンを使用すると、キーボードキーをナビゲーションバーに追加できます。押すと選択したキーボードキーがエミュレートされます。最初にボタンのキーを選択し、次にボタンに表示する画像を選択する必要があります。</string>
     <string name="start">開始</string>
     <string name="center">中央</string>
@@ -96,7 +96,7 @@
     <string name="left">左</string>
     <string name="right">右</string>
     <string name="navbar_editor_title">エディタ</string>
-    <string name="navbar_editor_summary">ナビゲーションバーを編集</string>
+    <string name="navbar_editor_summary">ナビゲーションバーを編集する</string>
     <!-- NavBar Tuner -->
     <string name="menu_ime_always_show">メニュー/キーボード の切換え (常に表示)</string>
     <string name="search">検索</string>
@@ -143,4 +143,9 @@
     <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • 急速充電中 (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> until full)</string>
     <string name="keyguard_plugged_in_dash_charging">急速充電中</string>
     <!-- Sync QS tile -->
+    <string name="quick_settings_sync_label">同期</string>
+    <string name="accessibility_quick_settings_sync_off">同期 OFF</string>
+    <string name="accessibility_quick_settings_sync_on">同期 ON</string>
+    <string name="accessibility_quick_settings_sync_changed_off">同期を OFF にしました</string>
+    <string name="accessibility_quick_settings_sync_changed_on">同期を ON にしました</string>
 </resources>

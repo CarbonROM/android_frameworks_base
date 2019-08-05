@@ -34,4 +34,5 @@
     <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permdesc_fakePackageSignature">允许应用程序假装成一个不同的程序。恶意程序可能利用此特性来访问私有程序数据。请一定谨慎授予此权限！!</string>
     <!-- [CHAR LIMIT=NONE] Error when a package is installed but got the missing fonts.xml file, notifying the user why it isn't showing up. -->
+    <string name="fontservice_incompatible_font">您安装的字体包由于缺少fonts.xml无法兼容，请联系开发者寻求帮助。</string>
 </resources>

@@ -143,4 +143,9 @@
     <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Carica Dash (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> fino al completo)</string>
     <string name="keyguard_plugged_in_dash_charging">Ricarica rapida</string>
     <!-- Sync QS tile -->
+    <string name="quick_settings_sync_label">Sincronizzazione</string>
+    <string name="accessibility_quick_settings_sync_off">Sincronizzazione disattivata.</string>
+    <string name="accessibility_quick_settings_sync_on">Sincronizzazione attivata.</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Sincronizzazione spenta.</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Sincronizzazione attivata.</string>
 </resources>
