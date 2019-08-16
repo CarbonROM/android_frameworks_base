@@ -1515,6 +1515,7 @@ public final class PowerManagerService extends SystemService
                     break;
             }
 
+            com.nvidia.shieldtech.NvHookHelper.notifyGoToSleepReason(reason);
             mLastSleepTime = eventTime;
             mSandmanSummoned = true;
             setWakefulnessLocked(WAKEFULNESS_DOZING, reason);
