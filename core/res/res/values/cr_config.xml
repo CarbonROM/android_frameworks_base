@@ -114,10 +114,6 @@
        config to 7. -->
   <integer name="config_deviceHardwareKeys">64</integer>
 
-  <!-- System-wide recents task view roundness to apply to all the recents view.
-       this value will apply on Launcher3 quickstep view and also the normal recents -->
-  <dimen name="recents_task_view_rounded_corners_radius">2.0dip</dimen>
-
   <!-- Screen off delay -->
   <integer name="config_screen_off_delay">1000</integer>
 
@@ -126,4 +122,5 @@
 
   <!-- Whether notify fingerprint client of successful cancelled authentication -->
   <bool name="config_notifyClientOnFingerprintCancelSuccess">false</bool>
+
 </resources>
