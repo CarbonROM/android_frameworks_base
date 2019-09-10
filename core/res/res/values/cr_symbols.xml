@@ -63,4 +63,7 @@
 
   <!-- Proximity check on screen on default -->
   <java-symbol type="bool" name="config_proximityCheckOnWakeEnabledByDefault" />
+
+  <!-- Post reset runnable for all clients -->
+  <java-symbol type="bool" name="config_fingerprintPostResetRunnableForAllClients" />
 </resources>
