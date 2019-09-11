@@ -64,7 +64,6 @@
          vendor fingerprint HAL implementations. -->
   <bool name="config_fingerprintPostResetRunnableForAllClients">false</bool>
 
-
   <!-- Whether device has screen with higher aspect ratio -->
   <bool name="config_haveHigherAspectRatioScreen">false</bool>
 
@@ -77,5 +76,8 @@
   <!-- Button brightness -->
   <bool name="config_button_brightness_support">false</bool>
   <integer name="config_button_brightness_default">128</integer>
+
+  <!-- Whether device ignores the RSSNR signal implementation -->
+  <bool name="config_ignoreRssnrSignalLevel">false</bool>
 
 </resources>
