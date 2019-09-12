@@ -255,6 +255,11 @@
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
 
     <uses-permission android:name="android.permission.ACCESS_SURFACE_FLINGER" />
+    
+    <!-- Pixel Live Wallpapers -->
+    <protected-broadcast android:name="com.breel.wallpapers.NOTIFICATION_RECEIVED"/>
+    <permission android:name="com.breel.wallpapers.notifications"/>
+    <uses-permission android:name="com.breel.wallpapers.notifications"/>
 
     <application
         android:name=".SystemUIApplication"
