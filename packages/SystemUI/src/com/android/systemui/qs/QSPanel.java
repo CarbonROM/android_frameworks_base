@@ -109,6 +109,7 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
     private BrightnessMirrorController mBrightnessMirrorController;
     private View mDivider;
 
+    // omni
     private boolean mBrightnessBottom;
     private boolean mBrightnessVisible;
     private View mBrightnessPlaceholder;
@@ -298,10 +299,12 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         if (QS_BRIGHTNESS_POSITION_BOTTOM.equals(key)) {
             if (newValue == null || Integer.parseInt(newValue) == 0) {
                 removeView(mBrightnessView);
+                mBrightnessPlaceholder.setVisibility(View.GONE);
                 addView(mBrightnessView, 0);
                 mBrightnessBottom = false;
             } else {
                 removeView(mBrightnessView);
+                mBrightnessPlaceholder.setVisibility(View.VISIBLE);
                 addView(mBrightnessView, getBrightnessViewPositionBottom());
                 mBrightnessBottom = true;
             }
@@ -323,7 +326,11 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         if (visible) {
             mBrightnessVisible = true;
             mBrightnessView.setVisibility(VISIBLE);
-            mBrightnessPlaceholder.setVisibility(View.VISIBLE);
+            if (!mBrightnessBottom) {
+                mBrightnessPlaceholder.setVisibility(View.GONE);
+            } else {
+                mBrightnessPlaceholder.setVisibility(View.VISIBLE);
+            }
         } else {
             mBrightnessVisible = false;
             mBrightnessView.setVisibility(GONE);
