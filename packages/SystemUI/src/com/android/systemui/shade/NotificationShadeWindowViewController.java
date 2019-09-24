@@ -19,7 +19,9 @@ package com.android.systemui.shade;
 import android.app.StatusBarManager;
 import android.media.AudioManager;
 import android.media.session.MediaSessionLegacyHelper;
+import android.provider.Settings;
 import android.os.SystemClock;
+import android.os.UserHandle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.InputDevice;
@@ -453,5 +455,17 @@ public class NotificationShadeWindowViewController {
     @VisibleForTesting
     void setDragDownHelper(DragDownHelper dragDownHelper) {
         mDragDownHelper = dragDownHelper;
+    }
+
+    public void updateSettings() {
+        boolean doubleTapToSleepEnabled = Settings.System.getIntForUser(
+                mView.getContext().getContentResolver(), Settings.System.DOUBLE_TAP_SLEEP_GESTURE, 0,
+                UserHandle.USER_CURRENT) == 1;
+        if (mNotificationPanelViewController != null) {
+            mNotificationPanelViewController.updateDoubleTapToSleep(doubleTapToSleepEnabled);
+        }
+        if (mDragDownHelper != null) {
+            mDragDownHelper.updateDoubleTapToSleep(doubleTapToSleepEnabled);
+        }
     }
 }
