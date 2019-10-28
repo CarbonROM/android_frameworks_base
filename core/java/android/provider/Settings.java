@@ -5082,6 +5082,11 @@ public final class Settings {
                 "status_bar_locked_on_secure_keyguard";
 
         /**
+         * @hide
+         */
+        public static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
+
+        /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
          *
