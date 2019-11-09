@@ -4605,6 +4605,13 @@ public final class Settings {
         public static final String GLOBAL_ACTIONS_FLASHLIGHT = "global_actions_flashlight";
 
         /**
+         * Whether to display the emergency option in the power menu
+         *
+         * @hide
+         */
+        public static final String GLOBAL_ACTIONS_EMERGENCY = "global_actions_emergency";
+
+        /**
          * Whether to scramble a pin unlock layout
          * @hide
          */
