@@ -1811,6 +1811,12 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
     }
 
+    private void setLockScreenMediaBlurLevel() {
+        if (mMediaManager != null) {
+            mMediaManager.setLockScreenMediaBlurLevel();
+        }
+    }
+
     /**
      * All changes to the status bar and notifications funnel through here and are batched.
      */
@@ -3889,6 +3895,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.FP_SWIPE_TO_DISMISS_NOTIFICATIONS),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_MEDIA_BLUR),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -3897,9 +3906,12 @@ public class StatusBar extends SystemUI implements DemoMode,
                   Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN))) {
               setStatusBarWindowViewOptions();
           }
-          if (uri.equals(Settings.Secure.getUriFor(
+          else if (uri.equals(Settings.Secure.getUriFor(
                   Settings.Secure.FP_SWIPE_TO_DISMISS_NOTIFICATIONS))) {
               setFpToDismissNotifications();
+          }
+          else if (uri.equals(Settings.System.getUriFor(Settings.System.LOCKSCREEN_MEDIA_BLUR))) {
+              setLockScreenMediaBlurLevel();
           }
             update();
         }
@@ -3908,6 +3920,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             setHideArrowForBackGesture();
             setStatusBarWindowViewOptions();
             setFpToDismissNotifications();
+            setLockScreenMediaBlurLevel();
         }
     }
     private void setHideArrowForBackGesture() {
