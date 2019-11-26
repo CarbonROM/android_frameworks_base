@@ -60,6 +60,7 @@ android_library {
         "androidx.dynamicanimation_dynamicanimation",
         "androidx-constraintlayout_constraintlayout",
         "iconloader_base",
+        "telephony-ext",
         "SystemUI-tags",
         "SystemUI-proto",
         "dagger2-2.19",
