@@ -5524,6 +5524,21 @@ public final class Settings {
         public static final String DOUBLE_TAP_SLEEP_GESTURE = "double_tap_sleep_gesture";
 
         /**
+         * Battery style
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_STYLE = "status_bar_battery_style";
+
+        /**
+          * Statusbar Battery %
+          * 0: Hide the battery percentage
+          * 1: Display the battery percentage inside the icon
+          * 2: Display the battery percentage next to Icon
+          * @hide
+          */
+        public static final String STATUS_BAR_SHOW_BATTERY_PERCENT = "status_bar_show_battery_percent";
+
+        /**
          * IMPORTANT: If you add a new public settings you also have to add it to
          * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
          * it to PRIVATE_SETTINGS below. Also add a validator that can validate
@@ -5992,7 +6007,9 @@ public final class Settings {
             SMART_PIXELS_SHIFT_TIMEOUT,
             SMART_PIXELS_ON_POWER_SAVE,
             DOUBLE_TAP_SLEEP_LOCKSCREEN,
-            DOUBLE_TAP_SLEEP_GESTURE
+            DOUBLE_TAP_SLEEP_GESTURE,
+            STATUS_BAR_BATTERY_STYLE,
+            STATUS_BAR_SHOW_BATTERY_PERCENT
         };
 
         /**
@@ -6013,6 +6030,8 @@ public final class Settings {
             CARBON_SETTINGS_VALIDATORS.put(SMART_PIXELS_ON_POWER_SAVE, 0);
             CARBON_SETTINGS_VALIDATORS.put(DOUBLE_TAP_SLEEP_LOCKSCREEN, 0);
             CARBON_SETTINGS_VALIDATORS.put(DOUBLE_TAP_SLEEP_GESTURE, 0);
+            CARBON_SETTINGS_VALIDATORS.put(STATUS_BAR_BATTERY_STYLE, 1);
+            CARBON_SETTINGS_VALIDATORS.put(STATUS_BAR_SHOW_BATTERY_PERCENT, 1);
         }
     }
 
