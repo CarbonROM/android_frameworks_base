@@ -4893,6 +4893,31 @@ public final class Settings {
       /** @hide */
       public static final Validator ACCELEROMETER_ROTATION_ANGLES_VALIDATOR =
               NON_NEGATIVE_INTEGER_VALIDATOR;
+        /**
+         * Display style of the status bar battery information
+         * 0: Display the battery an icon in portrait mode
+         * 1: Display the battery as a circle
+         * 2: Display the battery as plain text
+         * default: 0
+         */
+        public static final String STATUS_BAR_BATTERY_STYLE = "status_bar_battery_style";
+
+        /** @hide */
+        public static final Validator STATUS_BAR_BATTERY_STYLE_VALIDATOR =
+                new SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
+
+        /**
+         * Status bar battery %
+         * 0: Hide the battery percentage
+         * 1: Display the battery percentage inside the icon
+         * 2: Display the battery percentage next to the icon
+         */
+        public static final String STATUS_BAR_SHOW_BATTERY_PERCENT =
+                "status_bar_show_battery_percent";
+
+        /** @hide */
+        public static final Validator STATUS_BAR_SHOW_BATTERY_PERCENT_VALIDATOR =
+                new SettingsValidators.InclusiveIntegerRangeValidator(0, 2);
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
@@ -5099,6 +5124,8 @@ public final class Settings {
             PRIVATE_SETTINGS.add(LOCKSCREEN_MEDIA_BLUR);
             PRIVATE_SETTINGS.add(ACCELEROMETER_ROTATION_ANGLES);
             PRIVATE_SETTINGS.add(LOCKSCREEN_MEDIA_METADATA);
+            PRIVATE_SETTINGS.add(STATUS_BAR_BATTERY_STYLE);
+            PRIVATE_SETTINGS.add(STATUS_BAR_SHOW_BATTERY_PERCENT);
         }
 
         /**
@@ -5203,6 +5230,8 @@ public final class Settings {
             VALIDATORS.put(LOCKSCREEN_MEDIA_BLUR, LOCKSCREEN_MEDIA_BLUR_VALIDATOR);
             VALIDATORS.put(ACCELEROMETER_ROTATION_ANGLES, ACCELEROMETER_ROTATION_ANGLES_VALIDATOR);
             VALIDATORS.put(LOCKSCREEN_MEDIA_METADATA, LOCKSCREEN_MEDIA_METADATA_VALIDATOR);
+            VALIDATORS.put(STATUS_BAR_BATTERY_STYLE, STATUS_BAR_BATTERY_STYLE_VALIDATOR);
+            VALIDATORS.put(STATUS_BAR_SHOW_BATTERY_PERCENT, STATUS_BAR_SHOW_BATTERY_PERCENT_VALIDATOR);
         }
 
         /**
