@@ -38,10 +38,10 @@
             android:key="rotate"
             android:title="@string/status_bar_settings_auto_rotation" />
 
-        <com.android.systemui.tuner.BatteryPreference
+        <SwitchPreference
+            android:key="statusbar_battery"
             android:title="@string/battery"
-            android:summary="%s"
-            android:entries="@array/battery_options" />
+            android:defaultValue="true" />
 
         <com.android.systemui.tuner.StatusBarSwitch
             android:key="bluetooth"
