@@ -22,6 +22,8 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.os.UserHandle;
+import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Pair;
 import android.view.DisplayCutout;
@@ -151,6 +153,7 @@ public class QuickStatusBarHeader extends FrameLayout {
         Configuration config = mContext.getResources().getConfiguration();
         setDatePrivacyContainersWidth(config.orientation == Configuration.ORIENTATION_LANDSCAPE);
 
+        mBatteryRemainingIcon.setIsQsHeader(true);
         // QS will always show the estimate, and BatteryMeterView handles the case where
         // it's unavailable or charging
         mBatteryRemainingIcon.setPercentShowMode(BatteryMeterView.MODE_ESTIMATE);
@@ -265,7 +268,11 @@ public class QuickStatusBarHeader extends FrameLayout {
 
         int textColor = Utils.getColorAttrDefaultColor(mContext, android.R.attr.textColorPrimary);
         if (textColor != mTextColorPrimary) {
+            boolean isCircleBattery = Settings.System.getIntForUser(
+                    mContext.getContentResolver(), Settings.System.STATUS_BAR_BATTERY_STYLE,
+                    0, UserHandle.USER_CURRENT) == 1;
             int textColorSecondary = Utils.getColorAttrDefaultColor(mContext,
+                    isCircleBattery ? android.R.attr.textColorHint :
                     android.R.attr.textColorSecondary);
             mTextColorPrimary = textColor;
             mClockView.setTextColor(textColor);

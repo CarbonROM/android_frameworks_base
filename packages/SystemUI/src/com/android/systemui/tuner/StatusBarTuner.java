@@ -15,16 +15,32 @@
  */
 package com.android.systemui.tuner;
 
+import android.content.ContentResolver;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragment;
+import androidx.preference.SwitchPreference;
 
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 import com.android.systemui.R;
 
-public class StatusBarTuner extends PreferenceFragment {
+public class StatusBarTuner extends PreferenceFragment implements Preference.OnPreferenceChangeListener {
+
+    private static final String STATUSBAR_BATTERYICON_PREFERENCE = "statusbar_battery";
+
+    private static final int BATTERY_STYLE_PORTRAIT = 0;
+    private static final int BATTERY_STYLE_TEXT = 4;
+    private static final int BATTERY_PERCENT_HIDDEN = 0;
+
+    private ContentResolver mContentResolver;
+    private SwitchPreference mStatusBarBattery;
+    private int mBatteryIconStyleValue;
+    private int mBatteryIconStyleValuePrev;
+    private int mBatteryPercentValue;
+    private int mBatteryPercentValuePrev;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -36,6 +52,53 @@ public class StatusBarTuner extends PreferenceFragment {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.status_bar_prefs);
+
+        mContentResolver = getContext().getContentResolver();
+
+        mBatteryIconStyleValue = Settings.System.getIntForUser(mContentResolver,
+                Settings.System.STATUS_BAR_BATTERY_STYLE, BATTERY_STYLE_PORTRAIT, UserHandle.USER_CURRENT);
+        mBatteryIconStyleValuePrev = Settings.System.getIntForUser(mContentResolver,
+                Settings.System.STATUS_BAR_BATTERY_STYLE_PREV, BATTERY_STYLE_PORTRAIT, UserHandle.USER_CURRENT);
+
+        mBatteryPercentValue = Settings.System.getIntForUser(mContentResolver,
+                Settings.System.STATUS_BAR_SHOW_BATTERY_PERCENT, BATTERY_PERCENT_HIDDEN, UserHandle.USER_CURRENT);
+        mBatteryPercentValuePrev = Settings.System.getIntForUser(mContentResolver,
+                Settings.System.STATUS_BAR_SHOW_BATTERY_PERCENT_PREV, BATTERY_PERCENT_HIDDEN, UserHandle.USER_CURRENT);
+
+        mStatusBarBattery = (SwitchPreference) findPreference(STATUSBAR_BATTERYICON_PREFERENCE);
+        boolean isBatteryIconHidden = mBatteryIconStyleValue == BATTERY_STYLE_TEXT && mBatteryPercentValue == BATTERY_PERCENT_HIDDEN;
+        if (mStatusBarBattery != null) {
+            mStatusBarBattery.setChecked(!isBatteryIconHidden);
+            mStatusBarBattery.setOnPreferenceChangeListener(this);
+        }
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        if (preference == mStatusBarBattery) {
+            if ((Boolean) newValue) {
+                mBatteryPercentValue = mBatteryPercentValuePrev;
+                mBatteryIconStyleValue = mBatteryIconStyleValuePrev;
+            } else {
+                Settings.System.putIntForUser(mContentResolver,
+                    Settings.System.STATUS_BAR_SHOW_BATTERY_PERCENT_PREV, mBatteryPercentValue,
+                    UserHandle.USER_CURRENT);
+                mBatteryPercentValuePrev = mBatteryPercentValue;
+                Settings.System.putIntForUser(mContentResolver,
+                    Settings.System.STATUS_BAR_BATTERY_STYLE_PREV, mBatteryIconStyleValue,
+                    UserHandle.USER_CURRENT);
+                mBatteryIconStyleValuePrev = mBatteryIconStyleValue;
+
+                mBatteryPercentValue = BATTERY_PERCENT_HIDDEN;
+                mBatteryIconStyleValue = BATTERY_STYLE_TEXT;
+            }
+            Settings.System.putIntForUser(mContentResolver,
+                Settings.System.STATUS_BAR_SHOW_BATTERY_PERCENT, mBatteryPercentValue, UserHandle.USER_CURRENT);
+            Settings.System.putIntForUser(mContentResolver,
+                Settings.System.STATUS_BAR_BATTERY_STYLE, mBatteryIconStyleValue, UserHandle.USER_CURRENT);
+            return true;
+        }
+        return false;
     }
 
     @Override
