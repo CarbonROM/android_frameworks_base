@@ -5500,7 +5500,7 @@ public final class Settings {
          * @hide
          */
         @Readable
-        public static final String SHOW_BATTERY_PERCENT = "status_bar_show_battery_percent";
+        public static final String SHOW_BATTERY_PERCENT = "unused_status_bar_show_battery_percent";
 
         /**
          * Whether or not to enable multiple audio focus.
@@ -5522,6 +5522,37 @@ public final class Settings {
          * @hide
          */
         public static final String DOUBLE_TAP_SLEEP_GESTURE = "double_tap_sleep_gesture";
+
+        /**
+         * Battery style
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_STYLE = "status_bar_battery_style";
+
+        /**
+         * previous Battery style
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_STYLE_PREV = "status_bar_battery_style_prev";
+
+        /**
+          * Statusbar Battery %
+          * 0: Hide the battery percentage
+          * 1: Display the battery percentage inside the icon
+          * 2: Display the battery percentage next to Icon
+          * @hide
+          */
+        public static final String STATUS_BAR_SHOW_BATTERY_PERCENT = "status_bar_show_battery_percent";
+
+        /**
+          * Statusbar Previous Battery %
+          * 0: Hide the battery percentage
+          * 1: Display the battery percentage inside the icon
+          * 2: Display the battery percentage next to Icon
+          * @hide
+          */
+        public static final String STATUS_BAR_SHOW_BATTERY_PERCENT_PREV = "status_bar_show_battery_percent_prev";
+
 
         /**
          * IMPORTANT: If you add a new public settings you also have to add it to
@@ -5992,7 +6023,11 @@ public final class Settings {
             SMART_PIXELS_SHIFT_TIMEOUT,
             SMART_PIXELS_ON_POWER_SAVE,
             DOUBLE_TAP_SLEEP_LOCKSCREEN,
-            DOUBLE_TAP_SLEEP_GESTURE
+            DOUBLE_TAP_SLEEP_GESTURE,
+            STATUS_BAR_BATTERY_STYLE,
+            STATUS_BAR_BATTERY_STYLE_PREV,
+            STATUS_BAR_SHOW_BATTERY_PERCENT,
+            STATUS_BAR_SHOW_BATTERY_PERCENT_PREV
         };
 
         /**
@@ -6013,6 +6048,10 @@ public final class Settings {
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(SMART_PIXELS_ON_POWER_SAVE, 0);
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(DOUBLE_TAP_SLEEP_LOCKSCREEN, 0);
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(DOUBLE_TAP_SLEEP_GESTURE, 0);
+            CARBON_SYSTEM_SETTINGS_VALIDATORS.put(STATUS_BAR_BATTERY_STYLE, 1);
+            CARBON_SYSTEM_SETTINGS_VALIDATORS.put(STATUS_BAR_BATTERY_STYLE_PREV, 1);
+            CARBON_SYSTEM_SETTINGS_VALIDATORS.put(STATUS_BAR_SHOW_BATTERY_PERCENT, 1);
+            CARBON_SYSTEM_SETTINGS_VALIDATORS.put(STATUS_BAR_SHOW_BATTERY_PERCENT_PREV, 1);
         }
     }
 
