@@ -23,4 +23,9 @@
 
     <!-- [CHAR LIMIT=NONE] Error when a package is installed but got the missing fonts.xml file, notifying the user why it isn't showing up. -->
     <string name="fontservice_incompatible_font">The font package you\'ve installed is not compatible due to missing fonts.xml on their files. Please contact the package developer for support.</string>
+
+    <!-- Message for updating an existing app -->
+    <string name="old_version_number">Installed version: <xliff:g id="old_version">%1$s</xliff:g></string>
+    <!-- Message for updating an existing system app -->
+    <string name="new_version_number">To be installed: <xliff:g id="new_version">%1$s</xliff:g></string>
 </resources>
