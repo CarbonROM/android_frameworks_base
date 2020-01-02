@@ -4632,6 +4632,14 @@ public class Intent implements Parcelable, Cloneable {
     public static final String ACTION_DEVICE_CUSTOMIZATION_READY =
             "android.intent.action.DEVICE_CUSTOMIZATION_READY";
 
+    /**
+     * Broadcast action: notify the system that the user has performed a gesture on the screen
+     * to launch the camera. Broadcast should be protected to receivers holding the
+     * {@link Manifest.permission#STATUS_BAR_SERVICE} permission.
+     * @hide
+     */
+    public static final String ACTION_SCREEN_CAMERA_GESTURE =
+            "android.intent.action.SCREEN_CAMERA_GESTURE";
 
     /**
      * Activity Action: Display an activity state associated with an unique {@link LocusId}.
