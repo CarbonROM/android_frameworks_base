@@ -134,6 +134,7 @@ public class KeyguardClockSwitch extends RelativeLayout {
      */
     private boolean mShowingHeader;
     private boolean mSupportsDarkText;
+    private boolean mShowCurrentUserTime;
     private int[] mColorPalette;
 
     /**
@@ -194,6 +195,10 @@ public class KeyguardClockSwitch extends RelativeLayout {
         return mClockPlugin != null;
     }
 
+    public boolean hasCustomClockInBigContainer() {
+        return hasCustomClock() && mClockPlugin.shouldShowInBigContainer();
+    }
+
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
@@ -239,6 +244,10 @@ public class KeyguardClockSwitch extends RelativeLayout {
             if (smallClockView != null && smallClockView.getParent() == mSmallClockFrame) {
                 mSmallClockFrame.removeView(smallClockView);
             }
+            View bigClockView = mClockPlugin.getBigClockView();
+            if (bigClockView != null && bigClockView.getParent() == mSmallClockFrame) {
+                mSmallClockFrame.removeView(bigClockView);
+            }
             if (mBigClockContainer != null) {
                 mBigClockContainer.removeAllViews();
                 updateBigClockVisibility();
@@ -258,24 +267,36 @@ public class KeyguardClockSwitch extends RelativeLayout {
             mKeyguardStatusArea.setVisibility(View.VISIBLE);
             return;
         }
+
         // Attach small and big clock views to hierarchy.
         View smallClockView = plugin.getView();
-        if (smallClockView != null) {
-            mSmallClockFrame.addView(smallClockView, -1,
-                    new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT));
-            mClockView.setVisibility(View.GONE);
-            mClockViewBold.setVisibility(View.GONE);
-        }
         View bigClockView = plugin.getBigClockView();
-        if (bigClockView != null && mBigClockContainer != null) {
-            mBigClockContainer.addView(bigClockView);
-            updateBigClockVisibility();
+
+        if (plugin.shouldShowInBigContainer()) {
+            if (smallClockView != null) {
+                mSmallClockFrame.addView(smallClockView, -1,
+                        new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT));
+                mClockView.setVisibility(View.GONE);
+                mClockViewBold.setVisibility(View.GONE);
+            }
+            if (bigClockView != null && mBigClockContainer != null) {
+                mBigClockContainer.addView(bigClockView);
+                updateBigClockVisibility();
+            }
+        } else {
+            if (bigClockView != null ) {
+                mSmallClockFrame.addView(bigClockView, -1,
+                        new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT));
+            }
         }
+
         // Hide default clock.
         if (!plugin.shouldShowStatusArea()) {
             mKeyguardStatusArea.setVisibility(View.GONE);
         }
+
         // Initialize plugin parameters.
         mClockPlugin = plugin;
         mClockPlugin.setStyle(getPaint().getStyle());
@@ -291,12 +312,16 @@ public class KeyguardClockSwitch extends RelativeLayout {
      */
     public void setBigClockContainer(ViewGroup container) {
         if (mClockPlugin != null && container != null) {
-            View bigClockView = mClockPlugin.getBigClockView();
-            if (bigClockView != null) {
-                container.addView(bigClockView);
+            if (mClockPlugin.shouldShowInBigContainer()) {
+                View bigClockView = mClockPlugin.getBigClockView();
+                if (bigClockView != null) {
+                    container.addView(bigClockView);
+                }
+                mBigClockContainer = container;
+            } else {
+                mBigClockContainer = null;
             }
         }
-        mBigClockContainer = container;
         updateBigClockVisibility();
     }
 
@@ -325,6 +350,7 @@ public class KeyguardClockSwitch extends RelativeLayout {
     public void setShowCurrentUserTime(boolean showCurrentUserTime) {
         mClockView.setShowCurrentUserTime(showCurrentUserTime);
         mClockViewBold.setShowCurrentUserTime(showCurrentUserTime);
+        mShowCurrentUserTime = showCurrentUserTime;
     }
 
     public void setTextSize(int unit, float size) {
