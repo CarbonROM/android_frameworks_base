@@ -36,6 +36,9 @@ LOCAL_REQUIRED_MODULES := \
 	FontBariolSourceOverlay \
 	FontCagliostroSourceOverlay \
 	FontComfortaaSourceOverlay \
+	FontExotwoSourceOverlay \
+	FontStoropiaSourceOverlay \
+	FontUbuntuSourceOverlay \
 	FontComicSansSourceOverlay \
 	FontCoolstorySourceOverlay \
 	FontGoogleSansSourceOverlay \
