@@ -145,4 +145,7 @@
     <string name="screenrecord_stopdot_label">Show stop dot</string>
     <string name="screenrecord_low_quality_label">Low quality</string>
 
+    <!-- Spectrum Analog clock -->
+    <string name="clock_title_spectrum" translatable="false">Spectrum</string>
+
 </resources>
