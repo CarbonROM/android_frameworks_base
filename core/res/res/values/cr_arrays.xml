@@ -39,4 +39,7 @@
         <item>voiceassist</item>
         <item>restart</item>
     </string-array>
+
+    <!-- Custom Analog clocks -->
+    <color name="analog_clock_hand_hour_color">@*android:color/accent_device_default_light</color>
 </resources>
