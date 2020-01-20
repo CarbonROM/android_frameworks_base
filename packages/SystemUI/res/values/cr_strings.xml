@@ -152,6 +152,8 @@
     <string name="screenrecord_low_quality_title">Low quality</string>
     <string name="screenrecord_low_quality_summary">Record in a lower quality to save space on your device</string>
 
+    <!-- Spidey Analog clock -->
+    <string name="clock_title_spidey" translatable="false">Spidey</string>
     <!-- Spectrum Analog clock -->
     <string name="clock_title_spectrum" translatable="false">Spectrum</string>
 
