@@ -643,6 +643,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private final List<DeviceKeyHandler> mDeviceKeyHandlers = new ArrayList<>();
 
     private int mTorchActionMode;
+    private boolean mIsTorchEnabled;
 
     private static final int MSG_DISPATCH_MEDIA_KEY_WITH_WAKE_LOCK = 3;
     private static final int MSG_DISPATCH_MEDIA_KEY_REPEAT_WITH_WAKE_LOCK = 4;
@@ -839,6 +840,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.SWIPE_TO_SCREENSHOT), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.Secure.getUriFor(
+                    Settings.Secure.FLASHLIGHT_ENABLED), false, this,
                     UserHandle.USER_ALL);
             updateSettings();
         }
@@ -1270,7 +1274,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private void powerMultiPressAction(long eventTime, boolean interactive, int behavior) {
         switch (behavior) {
             case MULTI_PRESS_POWER_NOTHING:
-                if ((mTorchActionMode == 1) && (!isScreenOn() || isDozeMode())) {
+                if ((mTorchActionMode == 1) && (!isScreenOn() || isDozeMode()
+                        || mIsTorchEnabled)) {
                     toggleFlashLight();
                 }
                 break;
@@ -1419,7 +1424,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         if (FactoryTest.isLongPressOnPowerOffEnabled()) {
             return LONG_PRESS_POWER_SHUT_OFF_NO_CONFIRM;
         }
-        if ((mTorchActionMode == 2) && (!isScreenOn() || isDozeMode())) {
+        if ((mTorchActionMode == 2) && (!isScreenOn() || isDozeMode() || mIsTorchEnabled)) {
             return LONG_PRESS_POWER_TORCH;
         }
         return mLongPressOnPowerBehavior;
@@ -2199,10 +2204,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mTorchActionMode = Settings.Secure.getIntForUser(resolver,
                     Settings.Secure.TORCH_POWER_BUTTON_GESTURE, 0,
                     UserHandle.USER_CURRENT);
-
             mVolumeMusicControl = Settings.System.getIntForUser(resolver,
                     Settings.System.VOLUME_BUTTON_MUSIC_CONTROL, 1,
                     UserHandle.USER_CURRENT) != 0;
+            mIsTorchEnabled = Settings.Secure.getInt(resolver,
+            		Settings.Secure.FLASHLIGHT_ENABLED, 0) == 1;
         }
         if (updateRotation) {
             updateRotation(true);
