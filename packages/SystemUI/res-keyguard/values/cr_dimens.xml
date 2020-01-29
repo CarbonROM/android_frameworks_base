@@ -27,4 +27,6 @@
     <dimen name="analog_clock_width">90dp</dimen>
     <dimen name="analog_clock_height">90dp</dimen>
 
+    <dimen name="custom_clock_left_padding">32dp</dimen>
+
 </resources>
