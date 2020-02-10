@@ -50,6 +50,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -94,9 +95,12 @@ import com.android.systemui.shared.system.ActivityManagerWrapper;
 import com.android.systemui.statusbar.phone.StatusBar;
 import com.android.systemui.util.NotificationChannels;
 
+import com.nicdahlquist.pngquant.LibPngQuant;
+
 import libcore.io.IoUtils;
 
 import java.io.IOException;
+import java.io.File;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
@@ -284,6 +288,17 @@ class SaveImageInBackgroundTask extends AsyncTask<Void, Void, Void> {
         return Bitmap.createBitmap(picture);
     }
 
+    public String getPathFromURI(Uri uri, Context context) {
+            String [] proj={MediaStore.Images.Media.DATA};
+            Cursor cursor = context.getContentResolver().query(uri, proj,  null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            String path = cursor.getString(column_index); 
+            cursor.close();
+            return path;
+    }
+
+
     @Override
     protected Void doInBackground(Void... paramsUnused) {
         if (isCancelled()) {
@@ -300,13 +315,13 @@ class SaveImageInBackgroundTask extends AsyncTask<Void, Void, Void> {
 
         try {
             // Save the screenshot to the MediaStore
-            final MediaStore.PendingParams params = new MediaStore.PendingParams(
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, mImageFileName, "image/png");
-            params.setPrimaryDirectory(Environment.DIRECTORY_PICTURES);
-            params.setSecondaryDirectory(Environment.DIRECTORY_SCREENSHOTS);
+            final MediaStore.PendingParams origParams = new MediaStore.PendingParams(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, mImageFileName + "-orig", "image/png");
+            origParams.setPrimaryDirectory(Environment.DIRECTORY_PICTURES);
+            origParams.setSecondaryDirectory(Environment.DIRECTORY_SCREENSHOTS);
 
-            final Uri uri = MediaStore.createPending(context, params);
-            final MediaStore.PendingSession session = MediaStore.openPending(context, uri);
+            final Uri origUri = MediaStore.createPending(context, origParams);
+            final MediaStore.PendingSession session = MediaStore.openPending(context, origUri);
             try {
                 try (OutputStream out = session.openOutputStream()) {
                     if (!image.compress(Bitmap.CompressFormat.PNG, 100, out)) {
@@ -320,6 +335,26 @@ class SaveImageInBackgroundTask extends AsyncTask<Void, Void, Void> {
             } finally {
                 IoUtils.closeQuietly(session);
             }
+
+            // Create URI for quantized image
+            final MediaStore.PendingParams params = new MediaStore.PendingParams(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, mImageFileName, "image/png");
+            params.setPrimaryDirectory(Environment.DIRECTORY_PICTURES);
+            params.setSecondaryDirectory(Environment.DIRECTORY_SCREENSHOTS);
+
+            final Uri uri = MediaStore.createPending(context, params);
+
+            // Compress the image with pngquant
+            String srcPath = getPathFromURI(origUri, context);
+            String destPath = getPathFromURI(uri, context);
+
+            File imgSrc = new File(srcPath);
+            File imgDest = new File(destPath);
+            new LibPngQuant().pngQuantFile(imgSrc, imgDest);
+            if (!imgSrc.delete())
+                throw new IOException("Failed to delete original image");
+
+
 
             // Note: Both the share and edit actions are proxied through ActionProxyReceiver in
             // order to do some common work like dismissing the keyguard and sending
