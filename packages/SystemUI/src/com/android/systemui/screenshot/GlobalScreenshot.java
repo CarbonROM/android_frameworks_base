@@ -50,6 +50,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -94,9 +95,12 @@ import com.android.systemui.shared.system.ActivityManagerWrapper;
 import com.android.systemui.statusbar.phone.StatusBar;
 import com.android.systemui.util.NotificationChannels;
 
+import com.nicdahlquist.pngquant.LibPngQuant;
+
 import libcore.io.IoUtils;
 
 import java.io.IOException;
+import java.io.File;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
@@ -284,6 +288,16 @@ class SaveImageInBackgroundTask extends AsyncTask<Void, Void, Void> {
         return Bitmap.createBitmap(picture);
     }
 
+    public String getPathFromURI(Uri uri, Context context) {
+            String [] proj={MediaStore.Images.Media.DATA};
+            Cursor cursor = context.getContentResolver().query(uri, proj,  null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            String path = cursor.getString(column_index);
+            cursor.close();
+            return path;
+    }
+
     @Override
     protected Void doInBackground(Void... paramsUnused) {
         if (isCancelled()) {
@@ -300,12 +314,12 @@ class SaveImageInBackgroundTask extends AsyncTask<Void, Void, Void> {
 
         try {
             // Save the screenshot to the MediaStore
-            final MediaStore.PendingParams params = new MediaStore.PendingParams(
+            MediaStore.PendingParams params = new MediaStore.PendingParams(
                     MediaStore.Images.Media.EXTERNAL_CONTENT_URI, mImageFileName, "image/png");
             params.setPrimaryDirectory(Environment.DIRECTORY_PICTURES);
             params.setSecondaryDirectory(Environment.DIRECTORY_SCREENSHOTS);
 
-            final Uri uri = MediaStore.createPending(context, params);
+            Uri uri = MediaStore.createPending(context, params);
             final MediaStore.PendingSession session = MediaStore.openPending(context, uri);
             try {
                 try (OutputStream out = session.openOutputStream()) {
@@ -319,6 +333,34 @@ class SaveImageInBackgroundTask extends AsyncTask<Void, Void, Void> {
                 throw e;
             } finally {
                 IoUtils.closeQuietly(session);
+            }
+
+            // Save quantized image to the MediaStore
+            final MediaStore.PendingParams quantParams = new MediaStore.PendingParams(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, mImageFileName + "_quant", "image/png");
+            quantParams.setPrimaryDirectory(Environment.DIRECTORY_PICTURES);
+            quantParams.setSecondaryDirectory(Environment.DIRECTORY_SCREENSHOTS);
+            final Uri quantUri = MediaStore.createPending(context, quantParams);
+
+            // Collect paths for pngquant compression
+            String srcPath = getPathFromURI(uri, context);
+            String destPath = getPathFromURI(quantUri, context);
+            File imgSrc = new File(srcPath);
+            File imgDest = new File(destPath);
+
+            // Quantize screenshot
+            boolean quantized = new LibPngQuant().pngQuantFile(imgSrc, imgDest);
+
+            // Cleanup after image compression
+            if (quantized && imgSrc.delete()) {
+                uri = quantUri;
+                params = quantParams;
+                Slog.i(TAG, "Image successfully quantized");
+            } else if (quantized) {
+                throw new IOException("Failed to delete original image");
+            } else {
+                imgDest.delete();
+                Slog.i(TAG, "Image failed to quantize");
             }
 
             // Note: Both the share and edit actions are proxied through ActionProxyReceiver in
