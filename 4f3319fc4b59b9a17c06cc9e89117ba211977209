@@ -1,0 +1,4 @@
+{
+  "pushCert": "certificate version 0.1\npusher 0FBB331F 1581345366 -0500\npushee ssh://review.carbonrom.org:29418/CarbonROM/android_frameworks_base\nnonce 1581345366-33CD50382569A7B9A0DC4C3C9D9BA84D22C7A55E\n\n0000000000000000000000000000000000000000 4f3319fc4b59b9a17c06cc9e89117ba211977209 refs/for/cr-8.0%topic\u003dagressive-battery-improvments\n-----BEGIN PGP SIGNATURE-----\n\niQEzBAABCAAdFiEEkqz1NuhTmwnMKC0bhlFdVg+7Mx8FAl5BalYACgkQhlFdVg+7\nMx9f7Qf+Ku/PbE5v25uG8r2JBRcX/iDfWl9sfIviQRQA6Yj4K0nB63IWzVl9eb+X\nOFDanHLhcIEWqsLlWOlsCdhdxN28R6T4jx8luTFCC/u2NouHHHUDm4HjDz+2d8lC\ninZaRjMRQ0f8U0QjaE2L4CSyxpDULaKGCW2l/GHkZ46kmn11/bokDyCTaOaH5BJt\ngvog8UswbqabGrvjT+29zP1TwkRH2gGMH6RP2xS8XWVhkP7sOCQLFzfHSmYmasYK\nItVohKAchDiWAX1Lrma5sxOaCSH+P3WJom8Ez/bT+IzpPTX1tGZW2sD39AT/8FG2\n8YhQeoEpPeEd9tkQ6xyXjyOzo4pMVg\u003d\u003d\n\u003dfIi+\n-----END PGP SIGNATURE-----\n",
+  "comments": []
+}
