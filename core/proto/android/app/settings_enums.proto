@@ -2406,4 +2406,7 @@ enum PageId {
     // CATEGORY: SETTINGS
     // OS: Q
     SETTINGS_AWARE_DISPLAY = 1750;
+
+    // Panel for Bluetooth
+    PANEL_BLUETOOTH = 1751;
 }
