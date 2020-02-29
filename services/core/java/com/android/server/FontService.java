@@ -358,9 +358,9 @@ public class FontService extends IFontService.Stub {
             return null;
         }
         if (fontConfig != null) {
-            List<FontConfig.Family> families = fontConfig.getFamilies();
+            FontConfig.Family[] families = fontConfig.getFamilies();
             if (families != null) {
-                FontConfig.Family family = families.get(0);
+                FontConfig.Family family = families[0];
                 if (family != null) {
                     FontConfig.Font[] fonts = family.getFonts();
                     if (fonts != null && fonts.length > 0) {

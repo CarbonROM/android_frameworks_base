@@ -43,6 +43,12 @@ public class FontListParser {
         return parse(in, "/system/fonts");
     }
 
+    public static FontConfig parse(File configFilename, String fontDir) throws XmlPullParserException, IOException {
+        FileInputStream in = null;
+        in = new FileInputStream(configFilename);
+        return FontListParser.parse(in, fontDir);
+    }
+
     /**
      * Parse the fonts.xml
      */
