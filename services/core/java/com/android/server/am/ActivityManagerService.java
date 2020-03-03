@@ -6941,7 +6941,7 @@ public class ActivityManagerService extends IActivityManager.Stub
         }
     }
 
-    private final boolean attachApplicationLocked(IApplicationThread thread,
+    private boolean attachApplicationLocked(@NonNull IApplicationThread thread,
             int pid) {
 
         // Find the application record that is being attached...  either via
@@ -7246,6 +7246,9 @@ public class ActivityManagerService extends IActivityManager.Stub
 
     @Override
     public final void attachApplication(IApplicationThread thread) {
+        if (thread == null) {
+            throw new SecurityException("Invalid application interface");
+        }
         synchronized (this) {
             int callingPid = Binder.getCallingPid();
             final long origId = Binder.clearCallingIdentity();
