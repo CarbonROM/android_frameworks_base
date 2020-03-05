@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2017 CarbonROM
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Power Menu -->
+    <string name="global_action_reboot">Reiniciar</string>
+    <string name="global_action_reboot_more">Reiniciar\u2026</string>
+    <string name="global_action_reboot_sub">Sistema</string>
+    <string name="global_action_reboot_recovery">Recuperação</string>
+    <string name="global_action_reboot_bootloader">Bootloader</string>
+    <string name="global_action_dismissable_dialog_text">A reinicialização avançada está desativada. Deseja reinicializar</string>
+    <string name="global_action_dnaa">Não mostrar novamente</string>
+    <string name="global_action_settings">Configurações</string>
+    <string name="global_action_screenrecord">Gravação de tela</string>
+    <string name="global_action_flashlight">Lanterna</string>
+    <!-- Smart Pixels QS Tile -->
+    <string name="quick_settings_smart_pixels">Pixels Inteligentes</string>
+    <string name="quick_settings_smart_pixels_on_power_save">Pixels inteligentes habilitados automaticamente</string>
+    <!-- Caffeine QS Tile -->
+    <string name="quick_settings_caffeine_label">Cafeína</string>
+    <string name="accessibility_quick_settings_caffeine_off">Cafeína desligada</string>
+    <string name="accessibility_quick_settings_caffeine_on">Cafeína ligada</string>
+    <!-- Heads up QS tile -->
+    <string name="quick_settings_heads_up_label">Notificações flutuantes</string>
+    <!-- Sync QS tile -->
+    <string name="quick_settings_sync_label">Sincronização</string>
+    <string name="accessibility_quick_settings_sync_off">Sincronização desativada.</string>
+    <string name="accessibility_quick_settings_sync_on">Sincronização ativada.</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Sincronização foi desativada.</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Sincronização foi ativada.</string>
+    <!-- SysUI Tuner -->
+    <string name="statusbar_icons_blacklist">Ícones da barra de status</string>
+    <string name="navbar_tuner_activity">Botões da barra de navegação</string>
+    <string name="lockscreen_tuner_activity">Atalhos da tela de bloqueio</string>
+    <string name="powernotif_tuner_activity">Notificações de liga/desliga</string>
+    <!-- QS Config -->
+    <string name="qs_menu_item_columns">Colunas</string>
+    <string name="qs_menu_item_columns_landscape">Colunas em modo paisagem</string>
+    <string name="qs_menu_item_columns_three">3</string>
+    <string name="qs_menu_item_columns_four">4</string>
+    <string name="qs_menu_item_columns_five">5</string>
+    <string name="qs_menu_item_columns_six">6</string>
+    <string name="qs_menu_item_columns_seven">7</string>
+    <string name="qs_menu_item_columns_eight">8</string>
+    <string name="qs_menu_item_columns_nine">9</string>
+    <string name="qs_menu_item_reset">Redefinir</string>
+    <string name="qs_menu_item_titles">Mostrar títulos</string>
+    <!-- Location Tile -->
+    <string name="accessibility_quick_settings_location_battery_saving">Relatório de localização: modo de economia de bateria.</string>
+    <string name="accessibility_quick_settings_location_gps_only">Relatório de localização: modo somente sensores.</string>
+    <string name="accessibility_quick_settings_location_high_accuracy">Relatório de localização: modo de alta precisão.</string>
+    <string name="quick_settings_location_battery_saving_label">Economia de bateria</string>
+    <string name="quick_settings_location_high_accuracy_label">Alta precisão</string>
+    <string name="quick_settings_location_detail_mode_high_accuracy_title">Alta precisão</string>
+    <string name="quick_settings_location_detail_mode_battery_saving_title">Economia de bateria</string>
+    <!-- LTE QS Tile -->
+    <!-- CPUInfo tile -->
+    <!-- Ambient display QS tile -->
+    <!-- Screenshot QS tile -->
+    <string name="quick_settings_screenshot_label">Captura de tela</string>
+    <!-- navbar editor -->
+    <string name="preview">Prévia</string>
+    <string name="keycode">Código-chave</string>
+    <string name="no_home_title">Nenhum botão de Início encontrado</string>
+    <string name="no_home_message">É necessário ter um botão Início para conseguir navegar neste dispositivo. Por favor, adicione um botão Início antes de salvar.</string>
+    <string name="clipboard_description">O Clipboard permite arrastar itens diretamente para a área de transferência. Os itens poderão igualmente ser arrastados diretamente a partir da área de transferência, quando presentes.</string>
+    <string name="keycode_description">Os botões com código de tecla permitem adicionar teclas do teclado à barra de navegação. Quando tocados, estes realizarão a mesma ação da tecla do teclado selecionada. Primeiro, associe a tecla ao botão e depois selecione uma imagem a ser mostrada como botão.</string>
+    <string name="start">Iniciar</string>
+    <string name="center">Centralizar</string>
+    <string name="end">Fim</string>
+    <string name="space">Espaçador</string>
+    <string name="menu_ime">Menu / Troca de Teclado</string>
+    <string name="select_button">Selecione o botão para adicionar</string>
+    <string name="add_button">Adicionar botão</string>
+    <string name="save">Salvar</string>
+    <string name="reset">Redefinir</string>
+    <string name="select_keycode">Selecione a tecla do teclado</string>
+    <string name="left">Esquerda</string>
+    <string name="right">Direita</string>
+    <string name="navbar_editor_title">Editor</string>
+    <string name="navbar_editor_summary">Configurar a barra de navegação</string>
+    <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Traço de carregamento (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> até estar cheio)</string>
+    <string name="keyguard_plugged_in_dash_charging">Carregamento rápido</string>
+    <!-- DataSwitch Tile -->
+    <!-- Screen recorder -->
+    <!-- Spectrum Analog clock -->
+    <!-- Dot Analog clock -->
+    <!-- Sneeky Analog clock -->
+</resources>
