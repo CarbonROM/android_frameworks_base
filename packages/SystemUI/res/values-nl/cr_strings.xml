@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2017 CarbonROM
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Power Menu -->
+    <string name="global_action_reboot">Herstart</string>
+    <string name="global_action_reboot_sub">Systeem</string>
+    <string name="global_action_reboot_recovery">Recovery</string>
+    <string name="global_action_reboot_bootloader">Bootloader</string>
+    <string name="global_action_dnaa">Niet opnieuw tonen</string>
+    <string name="global_action_settings">Instellingen</string>
+    <string name="global_action_screenrecord">Schermopname</string>
+    <string name="global_action_flashlight">Zaklamp</string>
+    <!-- Smart Pixels QS Tile -->
+    <string name="quick_settings_smart_pixels">Slimme Pixels</string>
+    <!-- Caffeine QS Tile -->
+    <string name="quick_settings_caffeine_label">Cafeïne</string>
+    <string name="accessibility_quick_settings_caffeine_off">Cafeïne uitgeschakeld</string>
+    <string name="accessibility_quick_settings_caffeine_on">Cafeïne ingeschakeld</string>
+    <!-- Heads up QS tile -->
+    <!-- Sync QS tile -->
+    <!-- SysUI Tuner -->
+    <string name="statusbar_icons_blacklist">Statusbalk iconen</string>
+    <!-- QS Config -->
+    <string name="qs_menu_item_columns">Kolommen</string>
+    <string name="qs_menu_item_columns_landscape">Kolommen landschap</string>
+    <string name="qs_menu_item_columns_three">3</string>
+    <string name="qs_menu_item_columns_four">4</string>
+    <string name="qs_menu_item_columns_five">5</string>
+    <string name="qs_menu_item_columns_six">6</string>
+    <string name="qs_menu_item_columns_seven">7</string>
+    <string name="qs_menu_item_columns_eight">8</string>
+    <string name="qs_menu_item_columns_nine">9</string>
+    <string name="qs_menu_item_reset">Opnieuw instellen</string>
+    <string name="qs_menu_item_titles">Labels weergeven</string>
+    <!-- Location Tile -->
+    <!-- LTE QS Tile -->
+    <!-- CPUInfo tile -->
+    <!-- Ambient display QS tile -->
+    <!-- Screenshot QS tile -->
+    <string name="quick_settings_screenshot_label">Schermafbeelding</string>
+    <!-- navbar editor -->
+    <string name="reset">Opnieuw instellen</string>
+    <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <!-- DataSwitch Tile -->
+    <!-- Screen recorder -->
+    <!-- Spectrum Analog clock -->
+    <!-- Dot Analog clock -->
+    <!-- Sneeky Analog clock -->
+</resources>

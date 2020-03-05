@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2017 CarbonROM
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Power Menu -->
+    <string name="global_action_reboot">Restart</string>
+    <string name="global_action_reboot_more">Restart\u2026</string>
+    <string name="global_action_reboot_sub">Systém</string>
+    <string name="global_action_reboot_recovery">Recovery</string>
+    <string name="global_action_reboot_bootloader">Bootloader</string>
+    <string name="global_action_dismissable_dialog_text">Rozšířené restartování je zakázáno. Chcete restartovat\u003f</string>
+    <string name="global_action_dnaa">Znovu nezobrazovat</string>
+    <string name="global_action_settings">Nastavení</string>
+    <string name="global_action_screenrecord">Záznam obrazovky</string>
+    <string name="global_action_flashlight">Svítilna</string>
+    <!-- Smart Pixels QS Tile -->
+    <string name="quick_settings_smart_pixels">Smart Pixels</string>
+    <string name="quick_settings_smart_pixels_on_power_save">Automaticky povolit Smart Pixels</string>
+    <!-- Caffeine QS Tile -->
+    <string name="quick_settings_caffeine_label">Caffeine</string>
+    <string name="accessibility_quick_settings_caffeine_off">Caffeine vypnuto</string>
+    <string name="accessibility_quick_settings_caffeine_on">Caffeine zapnuto</string>
+    <!-- Heads up QS tile -->
+    <string name="quick_settings_heads_up_label">Plovoucí oznámení</string>
+    <!-- Sync QS tile -->
+    <string name="quick_settings_sync_label">Synchr.</string>
+    <string name="accessibility_quick_settings_sync_off">Synchronizace vyp.</string>
+    <string name="accessibility_quick_settings_sync_on">Synchronizace zap.</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Synchronizace vypnuta.</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Synchronizace zapnuta.</string>
+    <!-- SysUI Tuner -->
+    <string name="statusbar_icons_blacklist">Ikony stavové lišty</string>
+    <string name="navbar_tuner_activity">Tlačítka navigačního panelu</string>
+    <string name="lockscreen_tuner_activity">Zkratky zamykací obrazovky</string>
+    <string name="powernotif_tuner_activity">Rozšířené oznámení</string>
+    <!-- QS Config -->
+    <string name="qs_menu_item_columns">Sloupce</string>
+    <string name="qs_menu_item_columns_landscape">Sloupce na šířku</string>
+    <string name="qs_menu_item_columns_three">3</string>
+    <string name="qs_menu_item_columns_four">4</string>
+    <string name="qs_menu_item_columns_five">5</string>
+    <string name="qs_menu_item_columns_six">6</string>
+    <string name="qs_menu_item_columns_seven">7</string>
+    <string name="qs_menu_item_columns_eight">8</string>
+    <string name="qs_menu_item_columns_nine">9</string>
+    <string name="qs_menu_item_reset">Resetovat</string>
+    <string name="qs_menu_item_titles">Zobrazit popisky</string>
+    <!-- Location Tile -->
+    <string name="accessibility_quick_settings_location_battery_saving">Hlášení polohy: úspora baterie.</string>
+    <string name="accessibility_quick_settings_location_gps_only">Hlášení polohy: pouze GPS.</string>
+    <string name="accessibility_quick_settings_location_high_accuracy">Hlášení polohy: vysoká přesnost.</string>
+    <string name="quick_settings_location_battery_saving_label">Úspora baterie</string>
+    <string name="quick_settings_location_high_accuracy_label">Vysoká přesnost</string>
+    <string name="quick_settings_location_detail_mode_high_accuracy_title">Vysoká přesnost</string>
+    <string name="quick_settings_location_detail_mode_battery_saving_title">Úspora baterie</string>
+    <!-- LTE QS Tile -->
+    <!-- CPUInfo tile -->
+    <!-- Ambient display QS tile -->
+    <!-- Screenshot QS tile -->
+    <string name="quick_settings_screenshot_label">Snímek obrazovky</string>
+    <!-- navbar editor -->
+    <string name="preview">Náhled</string>
+    <string name="keycode">Klávesa</string>
+    <string name="no_home_title">Tlačítko Domů nebylo nalezeno</string>
+    <string name="no_home_message">K ovládání tohoto zařízení je zapotřebí tlačítko Domů. Před uložením přidejte tlačítko Domů.</string>
+    <string name="clipboard_description">Schránka umožňuje přetažení položek přímo do schránky. Položky lze také přetáhnout přímo ze schránky, pokud jsou k dispozici.</string>
+    <string name="keycode_description">Tlačítka Klávesa umožňují přidat na navigační panel klávesy z klávesnice. Když na ně klepnete, budou emulovat vybranou klávesu. K tlačítku je nejprve nutné přiřadit klávesu a poté přidat obrázek tlačítka.</string>
+    <string name="start">Začátek</string>
+    <string name="center">Uprostřed</string>
+    <string name="end">Konec</string>
+    <string name="space">Mezerník</string>
+    <string name="menu_ime">Přepínač menu/klávesnice</string>
+    <string name="select_button">Vyberte tlačítko pro přidání</string>
+    <string name="add_button">Přidat tlačítko</string>
+    <string name="save">Uložit</string>
+    <string name="reset">Resetovat</string>
+    <string name="select_keycode">Vyberte tlačítko klávesnice</string>
+    <string name="left">Levé</string>
+    <string name="right">Pravé</string>
+    <string name="navbar_editor_title">Editor</string>
+    <string name="navbar_editor_summary">Konfigurace navigačního panelu</string>
+    <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • DASH nabíjení (zbývá <xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g>)</string>
+    <string name="keyguard_plugged_in_dash_charging">DASH nabíjení</string>
+    <!-- DataSwitch Tile -->
+    <!-- Screen recorder -->
+    <!-- Spectrum Analog clock -->
+    <!-- Dot Analog clock -->
+    <!-- Sneeky Analog clock -->
+</resources>
