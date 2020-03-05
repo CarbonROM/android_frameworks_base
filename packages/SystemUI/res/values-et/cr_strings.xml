@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2017 CarbonROM
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Power Menu -->
+    <string name="global_action_reboot">Taaskäivita</string>
+    <string name="global_action_reboot_more">Taaskäivita\u2026</string>
+    <string name="global_action_reboot_sub">Süsteem</string>
+    <string name="global_action_reboot_recovery">Taastusesse</string>
+    <string name="global_action_reboot_bootloader">Käivituslaadurisse</string>
+    <string name="global_action_dismissable_dialog_text">Täpsem taaskäivitus on keelatud.\nKas soovid taaskäivitada\u003f</string>
+    <string name="global_action_dnaa">Ära enam näita</string>
+    <string name="global_action_settings">Seaded</string>
+    <string name="global_action_screenrecord">Kuva lindistamine</string>
+    <string name="global_action_flashlight">Taskulamp</string>
+    <!-- Smart Pixels QS Tile -->
+    <string name="quick_settings_smart_pixels">Nutikad pikslid</string>
+    <string name="quick_settings_smart_pixels_on_power_save">Automaatselt lubatud nutikad pikslid</string>
+    <!-- Caffeine QS Tile -->
+    <string name="quick_settings_caffeine_label">Kofeiin</string>
+    <string name="accessibility_quick_settings_caffeine_off">Kofeiin väljas</string>
+    <string name="accessibility_quick_settings_caffeine_on">Kofeiin sees</string>
+    <!-- If this is true, key chords can be used to take a screen record on the device. -->
+    <!-- Screenrecord Notification Ticker -->
+    <string name="screenrecord_notif_ticker">Kuva hetkel lindistatakse</string>
+    <string name="screenrecord_notif_final_ticker">Kuva edukalt lindistatud</string>
+    <!-- Screenrecord notification title -->
+    <string name="screenrecord_notif_title">Lindistan kuva</string>
+    <!-- Screenrecord notification action: Stop -->
+    <string name="screenrecord_notif_stop">Peata</string>
+    <string name="screenrecord_notif_completed">Kuva edukalt lindistatud</string>
+    <!-- Screenrecord notification action: show/hide pointer -->
+    <string name="screenrecord_notif_pointer_on">Kuva kursorit</string>
+    <string name="screenrecord_notif_pointer_off">Peida kursor</string>
+    <!-- Screen record notification error title -->
+    <string name="screenrecord_notif_error">Ekraani ei saa lindistada</string>
+    <string name="notification_channel_screenrecord">Kuva lindistused</string>
+    <!-- Power QS Tile -->
+    <string name="quick_settings_power_title">Lülita ekraan välja</string>
+    <string name="quick_settings_power_details_title">Taaskäivitus režiim</string>
+    <string name="quick_settings_power_off">Lülita välja</string>
+    <string name="quick_settings_preferences">Eelistused</string>
+    <!-- QS Colums -->
+    <string name="qs_menu_item_columns">Portree veergude arv</string>
+    <string name="qs_menu_item_columns_landscape">Maastiku orientatsiooni veergude arv</string>
+    <string name="qs_menu_item_columns_three">3</string>
+    <string name="qs_menu_item_columns_four">4</string>
+    <string name="qs_menu_item_columns_five">5</string>
+    <string name="qs_menu_item_columns_six">6</string>
+    <string name="qs_menu_item_columns_seven">7</string>
+    <string name="qs_menu_item_columns_eight">8</string>
+    <string name="qs_menu_item_columns_nine">9</string>
+    <string name="qs_menu_item_reset">Lähtesta</string>
+    <string name="qs_menu_item_titles">Peida sildid</string>
+    <!-- SysUI Tuner -->
+    <string name="statusbar_icons_blacklist">Olekuriba ikoonid</string>
+    <string name="navbar_tuner_activity">Navigeerimisriba nupud</string>
+    <string name="lockscreen_tuner_activity">Lukustusekraani otseteed</string>
+    <string name="powernotif_tuner_activity">Toiteteated</string>
+    <string name="tuner_cellular_title">Mobiilne</string>
+    <string name="tuner_hide_disabled_sim">Peida keelatud SIM-kaardid</string>
+    <!-- Advance location quick setting tile -->
+    <string name="quick_settings_location_secondary_battery_saving">Aku säästmine</string>
+    <string name="accessibility_quick_settings_location_battery_saving">Asukohateavitus: aku säästmise režiim.</string>
+    <string name="quick_settings_location_secondary_gps_only">Ainult sensorid</string>
+    <string name="accessibility_quick_settings_location_gps_only">Asukohateavitus: ainult sensorite režiim.</string>
+    <string name="quick_settings_location_secondary_high_accuracy">Väga täpne</string>
+    <string name="accessibility_quick_settings_location_high_accuracy">Asukohateavitus: kõrge täpsusega režiim.</string>
+    <string name="preview">Eelvaade</string>
+    <string name="keycode">Nupukood</string>
+    <string name="no_home_title">Kodunuppu ei leitud</string>
+    <string name="no_home_message">Kodunupp on vajalik selles seadmes navigeerimiseks. Palun lisa kodunupp enne salvestamist.</string>
+    <string name="clipboard_description">Lõikelaud võimaldab üksusi otse lõikelauda lohistada. Üksusi saab ka otse välja lohistada, kui need on olemas.</string>
+    <string name="keycode_description">Nupukoodiga nupud võimaldavad klaviatuuriklahvide lisamist navigatsiooniribale. Vajutades need emuleerivad valitud klaviatuuriklahvi. Kõigepealt tuleb valida nupu jaoks klahv, seejärel nupul kuvatav pilt.</string>
+    <string name="start">Käivita</string>
+    <string name="center">Keskel</string>
+    <string name="end">Lõpp</string>
+    <string name="space">Tühik</string>
+    <string name="menu_ime">Menüü/klaviatuurivahetaja</string>
+    <string name="select_button">Vali lisatav nupp</string>
+    <string name="add_button">Lisa nupp</string>
+    <string name="save">Salvesta</string>
+    <string name="reset">Lähtesta</string>
+    <string name="select_keycode">Vali klaviatuurinupp</string>
+    <string name="left">Vasak</string>
+    <string name="right">Parem</string>
+    <string name="navbar_editor_title">Toimetaja</string>
+    <string name="navbar_editor_summary">Seadista navigatsiooniriba</string>
+    <!-- NavBar Tuner -->
+    <string name="menu_ime_always_show">Menüü/klaviatuuri vahetaja (alati kuvatud)</string>
+    <string name="search">Otsi</string>
+    <!-- Theme tile -->
+    <string name="system_theme_style_title">Stiil</string>
+    <string name="system_theme_style_auto">Automaatne</string>
+    <string name="system_theme_style_light">Hele</string>
+    <string name="system_theme_style_dark">Tume</string>
+    <string name="quick_settings_theme_tile_title">Sekundaarne</string>
+    <string name="quick_settings_theme_tile_accent_detail_title">Vali värv</string>
+    <string name="quick_settings_theme_tile_style_detail_title">Vali stiil</string>
+    <string name="quick_settings_theme_tile_color_default">Vaikimisi</string>
+    <string name="quick_settings_theme_tile_color_red">Punane</string>
+    <string name="quick_settings_theme_tile_color_pink">Roosa</string>
+    <string name="quick_settings_theme_tile_color_purple">Purpur</string>
+    <string name="quick_settings_theme_tile_color_deep_purple">Tume violetne</string>
+    <string name="quick_settings_theme_tile_color_indigo">Indigo</string>
+    <string name="quick_settings_theme_tile_color_blue">Sinine</string>
+    <string name="quick_settings_theme_tile_color_light_blue">Helesinine</string>
+    <string name="quick_settings_theme_tile_color_cyan">Tsüaan</string>
+    <string name="quick_settings_theme_tile_color_teal">Hele sinikasroheline</string>
+    <string name="quick_settings_theme_tile_color_green">Roheline</string>
+    <string name="quick_settings_theme_tile_color_light_green">Heleroheline</string>
+    <string name="quick_settings_theme_tile_color_lime">Laimi</string>
+    <string name="quick_settings_theme_tile_color_yellow">Kollane</string>
+    <string name="quick_settings_theme_tile_color_amber">Merevaik</string>
+    <string name="quick_settings_theme_tile_color_orange">Oranž</string>
+    <string name="quick_settings_theme_tile_color_deep_orange">Heleoranž</string>
+    <string name="quick_settings_theme_tile_color_brown">Pruun</string>
+    <string name="quick_settings_theme_tile_color_grey">Hall</string>
+    <string name="quick_settings_theme_tile_color_blue_grey">Sinikas hall</string>
+    <string name="quick_settings_theme_tile_color_black">Must</string>
+    <string name="quick_settings_theme_tile_color_white">Valge</string>
+    <string name="quick_settings_theme_tile_color_user_one">#StayDirty</string>
+    <string name="quick_settings_theme_tile_color_user_two">Viinamarjad</string>
+    <string name="quick_settings_theme_tile_color_user_three">Sinine</string>
+    <string name="quick_settings_theme_tile_color_user_four">Piparmünt</string>
+    <string name="quick_settings_theme_tile_color_user_five">Raha</string>
+    <string name="quick_settings_theme_tile_color_user_six">Liivakarva</string>
+    <string name="quick_settings_theme_tile_color_user_seven">Rams</string>
+    <string name="theme_info_title">Mis see on?</string>
+    <string name="theme_info_message">Paan on ainulaadne, kuid hõlpsasti kasutatav, mis võimaldab kasutajal muuta süsteemi aktsenti või stiili.\n\nRõhumärke ja stiile saate muuta, klõpsates pikalt paanil ja valides ühe pakutavatest suvanditest.</string>
+    <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Kiirlaadimine (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> täieliku laadimiseni)</string>
+    <string name="keyguard_plugged_in_dash_charging">Lisandite laadimine</string>
+    <!-- Sync QS tile -->
+    <string name="quick_settings_sync_label">Sünkr.</string>
+    <string name="accessibility_quick_settings_sync_off">Sünkr. välja</string>
+    <string name="accessibility_quick_settings_sync_on">Sünkr. sisse</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Sünkroniseerimine sisse lülitatud.</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Sünkroniseerimine sisse lülitatud.</string>
+</resources>
