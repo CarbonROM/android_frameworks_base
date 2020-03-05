@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2017 CarbonROM
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_fakePackageSignature">Nadpisz podpis pakietu</string>
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_fakePackageSignature">Pozwala aplikacji na udawanie innej. Złośliwa aplikacja może mieć dostęp do prywatnych danych aplikacji. Udzielaj tego uprawnienia uważnie!</string>
+    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
+    <string name="system_error_vendorprint">Twój obraz vendor nie pasuje do systemu. Proszę zainstaluj obraz vendor <xliff:g id="string">%s</xliff:g> dla twojego urządzenia</string>
+    <!-- Global actions -->
+    <string name="reboot_to_bootloader_title">Uruchom w tryb bootloader</string>
+    <string name="reboot_to_bootloader_message">Uruchamianie w trybie bootloader\u2026</string>
+    <string name="reboot_to_recovery_title">Uruchom w tryb recovery</string>
+    <string name="reboot_to_recovery_message">Uruchamianie w trybie recovery\u2026</string>
+    <string name="reboot_system_title">Zrestartuj system</string>
+    <string name="reboot_system_message">Restartowanie systemu\u2026</string>
+</resources>
