@@ -4804,7 +4804,13 @@ public final class Settings {
         * @hide
         */
         public static final String SWAP_VOLUME_KEYS_ON_ROTATION = "swap_volume_keys_on_rotation";
-        
+
+        /**
+         * Use Proximity Sensor for Flashlight Toggle
+         * @hide
+         */
+        public static final String FLASHLIGHT_PROXIMITYCHECK = "proximitycheck_torch";
+
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
@@ -4877,6 +4883,7 @@ public final class Settings {
             LOCK_SHOW_STATUS_BAR,
             ENABLE_CONDITIONS,
             ENABLE_SUGGESTIONS,
+            FLASHLIGHT_PROXIMITYCHECK,
         };
 
         /**
@@ -5007,6 +5014,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(LOCK_SHOW_STATUS_BAR);
             PRIVATE_SETTINGS.add(ENABLE_CONDITIONS);
             PRIVATE_SETTINGS.add(ENABLE_SUGGESTIONS);
+            PRIVATE_SETTINGS.add(FLASHLIGHT_PROXIMITYCHECK);
         }
 
         /**
