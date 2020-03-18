@@ -1114,7 +1114,8 @@ public class SoundTriggerHelper implements SoundTrigger.StatusListener {
             mIsPowerSaveMode =
                 mPowerManager.getPowerSaveState(ServiceType.SOUND).batterySaverEnabled;
         }
-        return !mCallActive && !mServiceDisabled && !mIsPowerSaveMode;
+        Slog.i(TAG, "isRecognitionAllowed: mCallActive: " + Boolean.toString(mCallActive) + " mServiceDisabled: " + Boolean.toString(mServiceDisabled) + " mIsPowerSaveMode: " + Boolean.toString(mIsPowerSaveMode));
+        return !mCallActive && !mIsPowerSaveMode;
     }
 
     // A single routine that implements the start recognition logic for both generic and keyphrase
