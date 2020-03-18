@@ -1114,6 +1114,7 @@ public class SoundTriggerHelper implements SoundTrigger.StatusListener {
             mIsPowerSaveMode =
                 mPowerManager.getPowerSaveState(ServiceType.SOUND).batterySaverEnabled;
         }
+        Slog.i(TAG, "isRecognitionAllowed: mCallActive: " + Boolean.toString(mCallActive) + " mServiceDisabled: " + Boolean.toString(mServiceDisabled) + " mIsPowerSaveMode: " + Boolean.toString(mIsPowerSaveMode));
         return !mCallActive && !mServiceDisabled && !mIsPowerSaveMode;
     }
 
