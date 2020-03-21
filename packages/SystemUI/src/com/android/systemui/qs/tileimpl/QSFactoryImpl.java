@@ -42,7 +42,6 @@ import com.android.systemui.qs.tiles.HeadsUpTile;
 import com.android.systemui.qs.tiles.HotspotTile;
 import com.android.systemui.qs.tiles.IntentTile;
 import com.android.systemui.qs.tiles.LocationTile;
-import com.android.systemui.qs.tiles.LteTile;
 import com.android.systemui.qs.tiles.NfcTile;
 import com.android.systemui.qs.tiles.NightDisplayTile;
 import com.android.systemui.qs.tiles.RotationLockTile;
@@ -88,7 +87,6 @@ public class QSFactoryImpl implements QSFactory {
     private final Provider<AmbientDisplayTile> mAmbientDisplayTileProvider;
     private final Provider<HeadsUpTile> mHeadsUpTileProvider;
     private final Provider<SyncTile> mSyncTileProvider;
-    private final Provider<LteTile> mLteTileProvider;
     private final Provider<CPUInfoTile> mCPUInfoTileProvider;
     private final Provider<ScreenshotTile> mScreenshotTileProvider;
     private final Provider<DataSwitchTile> mDataSwitchTileProvider;
@@ -120,7 +118,6 @@ public class QSFactoryImpl implements QSFactory {
             Provider<CaffeineTile> caffeineTileProvider,
             Provider<HeadsUpTile> headsUpTileProvider,
             Provider<SyncTile> syncTileProvider,
-            Provider<LteTile> lteTileProvider,
             Provider<CPUInfoTile> cpuInfoTileProvider,
             Provider<ScreenshotTile> screenshotTileProvider,
             Provider<DataSwitchTile> dataSwitchTileProvider) {
@@ -148,7 +145,6 @@ public class QSFactoryImpl implements QSFactory {
         mAmbientDisplayTileProvider = ambientDisplayTileProvider;
         mHeadsUpTileProvider = headsUpTileProvider;
         mSyncTileProvider = syncTileProvider;
-        mLteTileProvider = lteTileProvider;
         mCPUInfoTileProvider = cpuInfoTileProvider;
         mScreenshotTileProvider = screenshotTileProvider;
         mDataSwitchTileProvider = dataSwitchTileProvider;
@@ -215,8 +211,6 @@ public class QSFactoryImpl implements QSFactory {
                 return mHeadsUpTileProvider.get();
             case "sync":
                 return mSyncTileProvider.get();
-            case "lte":
-                return mLteTileProvider.get();
             case "cpuinfo":
                 return mCPUInfoTileProvider.get();
             case "screenshot":
