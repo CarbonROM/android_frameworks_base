@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.provider.Settings;
 import android.service.quicksettings.Tile;
-import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.content.ComponentName;
 import com.android.internal.telephony.DcParamObject;
@@ -118,8 +117,8 @@ public class LteTile extends QSTileImpl<BooleanState> {
     }
 
     private int getCurrentPreferredNetworkMode() {
-        final int subId = SubscriptionManager.getDefaultDataSubscriptionId();
+        int subid = 1;
         return Settings.Global.getInt(mContext.getContentResolver(),
-                Settings.Global.PREFERRED_NETWORK_MODE + subId, -1);
+                Settings.Global.PREFERRED_NETWORK_MODE + subid, -1);
     }
 }
