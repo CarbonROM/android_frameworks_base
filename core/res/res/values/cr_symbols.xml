@@ -78,4 +78,13 @@
   <!-- Whether to allow process with media UID to access CameraServiceProxy -->
   <java-symbol type="bool" name="config_allowMediaUidForCameraServiceProxy" />
 
+  <!-- Last app switch animations -->
+  <java-symbol type="anim" name="smartaction_app_in" />
+  <java-symbol type="anim" name="smartaction_app_out" />
+
+  <!-- Kill app message -->
+  <java-symbol type="string" name="app_killed_message" />
+
+  <!-- Hardware key binding -->
+  <java-symbol type="integer" name="config_deviceHardwareKeys" />
 </resources>

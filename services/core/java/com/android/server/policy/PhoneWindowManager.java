@@ -16,6 +16,7 @@
 
 package com.android.server.policy;
 
+import static android.Manifest.permission.ACCESS_SURFACE_FLINGER;
 import static android.Manifest.permission.INTERNAL_SYSTEM_WINDOW;
 import static android.Manifest.permission.SYSTEM_ALERT_WINDOW;
 import static android.app.AppOpsManager.OP_SYSTEM_ALERT_WINDOW;
@@ -204,6 +205,7 @@ import com.android.internal.accessibility.AccessibilityShortcutController;
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.nano.MetricsProto;
 import com.android.internal.os.DeviceKeyHandler;
+import com.android.internal.os.HardwareKeyHandler;
 import com.android.internal.os.RoSystemProperties;
 import com.android.internal.policy.IKeyguardDismissCallback;
 import com.android.internal.policy.IShortcutService;
@@ -230,6 +232,8 @@ import com.android.server.wm.DisplayPolicy;
 import com.android.server.wm.DisplayRotation;
 import com.android.server.wm.WindowManagerInternal;
 import com.android.server.wm.WindowManagerInternal.AppTransitionListener;
+import com.android.smartactions.utils.ActionHandler;
+
 
 import dalvik.system.PathClassLoader;
 
@@ -675,6 +679,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
     private SwipeToScreenshotListener mSwipeToScreenshot;
 
+    private HardwareKeyHandler mKeyHandler;
+
     private class PolicyHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
@@ -770,11 +776,17 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 case MSG_TOGGLE_TORCH:
                     toggleFlashLight();
                     break;
-                case MSG_DISPATCH_VOLKEY_SKIP_TRACK: {
+                case MSG_DISPATCH_VOLKEY_SKIP_TRACK:
                     sendSkipTrackEventToStatusBar(msg.arg1);
                     mVolumeMusicControlActive = true;
                     break;
-                }
+                case HardwareKeyHandler.MSG_FIRE_HOME:
+                    launchHomeFromHotKey(DEFAULT_DISPLAY);
+                    break;
+                case HardwareKeyHandler.MSG_DO_HAPTIC_FB:
+                    performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, false,
+                            "Hwkey action binding");
+                    break;
             }
         }
     }
@@ -1555,6 +1567,33 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         mHandler.sendEmptyMessage(MSG_DISPATCH_SHOW_GLOBAL_ACTIONS);
     }
 
+    /**
+     * Allow ActionHandler to send custom actions to window manager
+     *
+     * @hide
+     */
+    @Override
+    public void sendCustomAction(Intent intent) {
+        String action = intent.getAction();
+        if (action != null) {
+            if (ActionHandler.INTENT_SHOW_POWER_MENU.equals(action)) {
+                showGlobalActions();
+            } else if (ActionHandler.INTENT_SCREENSHOT.equals(action)) {
+                mContext.enforceCallingOrSelfPermission(ACCESS_SURFACE_FLINGER,
+                        TAG + "sendCustomAction permission denied");
+                mHandler.removeCallbacks(mScreenshotRunnable);
+                mScreenshotRunnable.setScreenshotType(TAKE_SCREENSHOT_FULLSCREEN);
+                mHandler.post(mScreenshotRunnable);
+            } else if (ActionHandler.INTENT_REGION_SCREENSHOT.equals(action)) {
+                mContext.enforceCallingOrSelfPermission(ACCESS_SURFACE_FLINGER,
+                        TAG + "sendCustomAction permission denied");
+                mHandler.removeCallbacks(mScreenshotRunnable);
+                mScreenshotRunnable.setScreenshotType(TAKE_SCREENSHOT_SELECTED_REGION);
+                mHandler.post(mScreenshotRunnable);
+            }
+        }
+    }
+
     void showGlobalActionsInternal() {
         if (mGlobalActions == null) {
             mGlobalActions = new GlobalActions(mContext, mWindowManagerFuncs);
@@ -1899,6 +1938,24 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         });
         mWakeGestureListener = new MyWakeGestureListener(mContext, mHandler);
+
+        // only for hwkey devices
+        if (!mContext.getResources().getBoolean(
+                com.android.internal.R.bool.config_showNavigationBar)) {
+            PathClassLoader loader =  new PathClassLoader("/system/app/HwKeyHandler/HwKeyHandler.apk",
+                    getClass().getClassLoader());
+            try {
+                Class<?> klass = loader.loadClass("com.aquarios.hwkey.HardkeyActionHandler");
+                Constructor<?> constructor = klass.getConstructor(Context.class, Handler.class);
+                mKeyHandler = (HardwareKeyHandler) constructor.newInstance(
+                        mContext, mHandler);
+            } catch (Exception e) {
+                Slog.w(TAG, "Could not instantiate hardware key handler "
+                        + "com.aquarios.hwkey.HardkeyActionHandler" + " from class "
+                        + "/system/app/DeviceHandler/HwKeyHandler.apk", e);
+            }
+        }
+
         mSettingsObserver = new SettingsObserver(mHandler);
         mSettingsObserver.observe();
         mShortcutManager = new ShortcutManager(context);
@@ -2793,10 +2850,27 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         final boolean down = event.getAction() == KeyEvent.ACTION_DOWN;
         final boolean canceled = event.isCanceled();
         final int displayId = event.getDisplayId();
+        final boolean longPress = (flags & KeyEvent.FLAG_LONG_PRESS) != 0;
+        final boolean virtualKey = event.getDeviceId() == KeyCharacterMap.VIRTUAL_KEYBOARD;
 
         if (DEBUG_INPUT) {
             Log.d(TAG, "interceptKeyTi keyCode=" + keyCode + " down=" + down + " repeatCount="
                     + repeatCount + " keyguardOn=" + keyguardOn + " canceled=" + canceled);
+        }
+
+        // we only handle events from hardware key devices that originate from
+        // real button
+        // pushes. We ignore virtual key events as well since it didn't come
+        // from a hard key or
+        // it's the key handler synthesizing a back or menu key event for
+        // dispatch
+        // if keyguard is showing and secure, don't intercept and let aosp keycode
+        // implementation handle event
+        if (mKeyHandler != null && !keyguardOn && !virtualKey) {
+            boolean handled = mKeyHandler.handleKeyEvent(win != null ? win.getAttrs() : null, keyCode, repeatCount, down, canceled,
+                    longPress, keyguardOn);
+            if (handled)
+                return -1;
         }
 
         // If we think we might have a volume down & power key chord on the way
@@ -5640,26 +5714,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     @Override
     public boolean hasNavigationBar() {
         return mDefaultDisplayPolicy.hasNavigationBar();
-    }
-
-    @Override
-    public void sendCustomAction(Intent intent) {
-        String action = intent.getAction();
-        if (action != null) {
-            if (CrUtils.INTENT_SCREENSHOT.equals(action)) {
-                mContext.enforceCallingOrSelfPermission(Manifest.permission.ACCESS_SURFACE_FLINGER,
-                        TAG + "sendCustomAction permission denied");
-                mHandler.removeCallbacks(mScreenshotRunnable);
-                mScreenshotRunnable.setScreenshotType(TAKE_SCREENSHOT_FULLSCREEN);
-                mHandler.post(mScreenshotRunnable);
-            } else if (CrUtils.INTENT_REGION_SCREENSHOT.equals(action)) {
-                mContext.enforceCallingOrSelfPermission(Manifest.permission.ACCESS_SURFACE_FLINGER,
-                        TAG + "sendCustomAction permission denied");
-                mHandler.removeCallbacks(mScreenshotRunnable);
-                mScreenshotRunnable.setScreenshotType(TAKE_SCREENSHOT_SELECTED_REGION);
-                mHandler.post(mScreenshotRunnable);
-            }
-        }
     }
 
     @Override
