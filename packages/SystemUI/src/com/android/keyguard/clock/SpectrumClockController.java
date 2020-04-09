@@ -51,11 +51,6 @@ public class SpectrumClockController implements ClockPlugin {
     private final SysuiColorExtractor mColorExtractor;
 
     /**
-     * Computes preferred position of clock.
-     */
-    private final SmallClockPosition mClockPosition;
-
-    /**
      * Renders preview from clock view.
      */
     private final ViewPreviewer mRenderer = new ViewPreviewer();
@@ -65,12 +60,6 @@ public class SpectrumClockController implements ClockPlugin {
      */
     private ClockLayout mBigClockView;
     private ImageClock mSpectrumClock;
-
-    /**
-     * Small clock shown on lock screen above stack scroller.
-     */
-    private View mView;
-    private TextClock mLockClock;
 
     /**
      * Helper to extract colors from wallpaper palette for clock face.
@@ -89,23 +78,17 @@ public class SpectrumClockController implements ClockPlugin {
         mResources = res;
         mLayoutInflater = inflater;
         mColorExtractor = colorExtractor;
-        mClockPosition = new SmallClockPosition(res);
     }
 
     private void createViews() {
         mBigClockView = (ClockLayout) mLayoutInflater.inflate(R.layout.spectrum_clock, null);
-        mSpectrumClock = mBigClockView.findViewById(R.id.analog_clock);
-
-        mView = mLayoutInflater.inflate(R.layout.digital_clock, null);
-        mLockClock = mView.findViewById(R.id.lock_screen_clock);
+        mSpectrumClock = mBigClockView.findViewById(R.id.spectrum_clock);
     }
 
     @Override
     public void onDestroyView() {
         mBigClockView = null;
         mSpectrumClock = null;
-        mView = null;
-        mLockClock = null;
     }
 
     @Override
@@ -142,10 +125,7 @@ public class SpectrumClockController implements ClockPlugin {
 
     @Override
     public View getView() {
-        if (mView == null) {
-            createViews();
-        }
-        return mView;
+        return null;
     }
 
     @Override
@@ -158,11 +138,8 @@ public class SpectrumClockController implements ClockPlugin {
 
     @Override
     public int getPreferredY(int totalHeight) {
-        return mClockPosition.getPreferredY();
+        return totalHeight / 2;
     }
-
-    @Override
-    public void setStyle(Style style) {}
 
     @Override
     public void setTextColor(int color) {
@@ -178,21 +155,17 @@ public class SpectrumClockController implements ClockPlugin {
     private void updateColor() {
         final int primary = mPalette.getPrimaryColor();
         final int secondary = mPalette.getSecondaryColor();
-        mLockClock.setTextColor(secondary);
-        //mSpectrumClock.setClockColors(primary, secondary);
     }
 
     @Override
     public void onTimeTick() {
         mSpectrumClock.onTimeChanged();
         mBigClockView.onTimeChanged();
-        mLockClock.refresh();
     }
 
     @Override
     public void setDarkAmount(float darkAmount) {
         mPalette.setDarkAmount(darkAmount);
-        mClockPosition.setDarkAmount(darkAmount);
         mBigClockView.setDarkAmount(darkAmount);
     }
 
