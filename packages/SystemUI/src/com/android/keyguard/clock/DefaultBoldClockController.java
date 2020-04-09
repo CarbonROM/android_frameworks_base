@@ -177,6 +177,11 @@ public class DefaultBoldClockController implements ClockPlugin {
     public void onTimeZoneChanged(TimeZone timeZone) {}
 
     @Override
+    public boolean shouldShowInBigContainer() {
+        return true;
+    }
+
+    @Override
     public boolean shouldShowStatusArea() {
         return true;
     }
