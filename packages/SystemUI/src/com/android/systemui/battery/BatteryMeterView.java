@@ -62,6 +62,7 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
 
     private static final int BATTERY_STYLE_PORTRAIT = 0;
     private static final int BATTERY_STYLE_CIRCLE = 1;
+    private static final int BATTERY_STYLE_DOTTED_CIRCLE = 2;
     private static final int BATTERY_STYLE_TEXT = 4; /*hidden icon*/
     private static final int BATTERY_STYLE_HIDDEN = 5;
 
@@ -413,9 +414,11 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
         float iconScaleFactor = typedValue.getFloat();
 
         int batteryHeight = res.getDimensionPixelSize(R.dimen.status_bar_battery_icon_height);
-        int batteryWidth = getBatteryStyle() == BATTERY_STYLE_CIRCLE ?
-                res.getDimensionPixelSize(R.dimen.status_bar_battery_icon_circle_width) :
-                res.getDimensionPixelSize(R.dimen.status_bar_battery_icon_width);
+        int batteryStyle = getBatteryStyle();
+        int batteryWidth = (batteryStyle == BATTERY_STYLE_CIRCLE
+                || batteryStyle == BATTERY_STYLE_DOTTED_CIRCLE)
+                ? res.getDimensionPixelSize(R.dimen.status_bar_battery_icon_circle_width)
+                : res.getDimensionPixelSize(R.dimen.status_bar_battery_icon_width);
         int marginBottom = res.getDimensionPixelSize(R.dimen.battery_margin_bottom);
 
         LinearLayout.LayoutParams scaledLayoutParams = new LinearLayout.LayoutParams(
@@ -426,12 +429,15 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
     }
 
     private void updateDrawable() {
-        switch (getBatteryStyle()) {
+        int style = getBatteryStyle();
+        switch (style) {
             case BATTERY_STYLE_PORTRAIT:
                 mBatteryIconView.setImageDrawable(mThemedDrawable);
                 mBatteryIconView.setVisibility(View.VISIBLE);
                 break;
             case BATTERY_STYLE_CIRCLE:
+            case BATTERY_STYLE_DOTTED_CIRCLE:
+                mCircleDrawable.setMeterStyle(style);
                 mBatteryIconView.setImageDrawable(mCircleDrawable);
                 mBatteryIconView.setVisibility(View.VISIBLE);
                 break;
