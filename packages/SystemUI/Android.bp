@@ -125,7 +125,9 @@ android_library {
         "jsr330",
         "lottie",
         "LowLightDreamLib",
+        "vendor.lineage.powershare-V1.0-java",
     ],
+
     manifest: "AndroidManifest.xml",
     additional_manifests: ["CarbonManifest.xml"],
 
