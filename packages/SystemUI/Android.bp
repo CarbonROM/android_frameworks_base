@@ -96,7 +96,9 @@ android_library {
         "dagger2",
         "jsr330",
         "lottie",
+        "vendor.lineage.powershare-V1.0-java",
     ],
+
     manifest: "AndroidManifest.xml",
 
     kotlincflags: ["-Xjvm-default=enable"],
