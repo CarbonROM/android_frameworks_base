@@ -18,6 +18,7 @@ package com.android.systemui.carbon
 
 import com.android.systemui.qs.tileimpl.QSTileImpl
 import com.android.systemui.qs.tiles.SmartPixelsTile
+import com.android.systemui.qs.tiles.PowerShareTile
 
 import dagger.Binds
 import dagger.Module
@@ -31,4 +32,10 @@ interface CarbonModule {
     @IntoMap
     @StringKey(SmartPixelsTile.TILE_SPEC)
     fun bindSmartPixelsTile(smartPixelsTile: SmartPixelsTile): QSTileImpl<*>
+
+    /** Inject PowerShareTile into tileMap in QSModule */
+    @Binds
+    @IntoMap
+    @StringKey(PowerShareTile.TILE_SPEC)
+    fun bindPowerShareTile(powerShareTile: PowerShareTile): QSTileImpl<*>
 }
