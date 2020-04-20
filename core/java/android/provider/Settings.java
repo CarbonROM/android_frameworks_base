@@ -14529,6 +14529,13 @@ public final class Settings {
          */
         public static final String SHOW_CPU_OVERLAY = "show_cpu_overlay";
 
+	/**
+         * Set variable refresh rate setting on boot if available
+         * 0 - auto/default, 1 - 60Hz, 2 - 90Hz, 3 - 120Hz
+         * @hide
+         */
+        public static final String REFRESH_RATE_SETTING = "refresh_rate_setting";
+
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
