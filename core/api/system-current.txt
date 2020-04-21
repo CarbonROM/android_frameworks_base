@@ -14194,6 +14194,7 @@ package android.text {
   }
 
   public static final class FontConfig.FontFamily implements android.os.Parcelable {
+    method public void clearName();
     method public int describeContents();
     method @NonNull public java.util.List<android.text.FontConfig.Font> getFontList();
     method @NonNull public android.os.LocaleList getLocaleList();
