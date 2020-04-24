@@ -32,6 +32,10 @@
     <string name="accessibility_quick_settings_caffeine_on">屏幕常亮开启</string>
     <!-- Heads up QS tile -->
     <string name="quick_settings_heads_up_label">浮动通知</string>
+    <string name="accessibility_quick_settings_heads_up_off">关闭浮动通知</string>
+    <string name="accessibility_quick_settings_heads_up_on">打开浮动通知</string>
+    <string name="accessibility_quick_settings_heads_up_changed_off">浮动通知已关闭</string>
+    <string name="accessibility_quick_settings_heads_up_changed_on">浮动通知已开启</string>
     <!-- Sync QS tile -->
     <string name="quick_settings_sync_label">同步</string>
     <string name="accessibility_quick_settings_sync_off">同步关闭</string>
@@ -43,6 +47,7 @@
     <string name="navbar_tuner_activity">导航栏按钮</string>
     <string name="lockscreen_tuner_activity">锁屏快捷方式</string>
     <string name="powernotif_tuner_activity">电源通知</string>
+    <string name="quick_settings_roaming_title">漫游指示符</string>
     <!-- QS Config -->
     <string name="qs_menu_item_columns">列数</string>
     <string name="qs_menu_item_columns_landscape">行数</string>
@@ -60,10 +65,12 @@
     <string name="accessibility_quick_settings_location_gps_only">位置报告：仅传感器模式。</string>
     <string name="accessibility_quick_settings_location_high_accuracy">位置报告：高精确度模式。</string>
     <string name="quick_settings_location_battery_saving_label">低耗电量</string>
+    <string name="quick_settings_location_gps_only_label">仅GPS</string>
+    <string name="quick_settings_location_gps_only_label_twoline">仅GPS</string>
     <string name="quick_settings_location_high_accuracy_label">高精确度</string>
+    <string name="quick_settings_location_detail_menu_title">选择模式：</string>
     <string name="quick_settings_location_detail_mode_high_accuracy_title">高精确度</string>
     <string name="quick_settings_location_detail_mode_battery_saving_title">低耗电量</string>
-    <!-- LTE QS Tile -->
     <!-- CPUInfo tile -->
     <!-- Ambient display QS tile -->
     <!-- Screenshot QS tile -->
@@ -93,7 +100,10 @@
     <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Dash 闪充充电中 (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> 直到充满)</string>
     <string name="keyguard_plugged_in_dash_charging">Dash 闪充</string>
     <!-- DataSwitch Tile -->
-    <!-- Screen recorder -->
+    <string name="qs_data_switch_label">切换数据卡</string>
+    <string name="qs_data_switch_toast_1">目前只插入了一个 SIM 卡</string>
+    <!-- Screen record -->
+    <string name="screenrecord_dialog_start">起始</string>
     <!-- Spectrum Analog clock -->
     <!-- Dot Analog clock -->
     <!-- Sneeky Analog clock -->

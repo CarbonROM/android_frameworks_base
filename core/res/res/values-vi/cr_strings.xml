@@ -28,4 +28,9 @@
     <string name="reboot_to_recovery_message">Đang khởi động vào bootloader\u2026</string>
     <string name="reboot_system_title">Khởi động lại hệ thống</string>
     <string name="reboot_system_message">Đang khởi động lại hệ thống\u2026</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">truy cập trình quản lý font chữ</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">Cho phép một ứng dụng để truy cập vào các font quản lý.</string>
+    <!-- [CHAR LIMIT=NONE] Error when a package is installed but got the missing fonts.xml file, notifying the user why it isn't showing up. -->
 </resources>

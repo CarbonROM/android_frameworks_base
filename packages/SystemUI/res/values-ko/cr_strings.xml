@@ -52,7 +52,6 @@
     <!-- Location Tile -->
     <string name="quick_settings_location_high_accuracy_label">높은 정확성</string>
     <string name="quick_settings_location_detail_mode_high_accuracy_title">높은 정확성</string>
-    <!-- LTE QS Tile -->
     <!-- CPUInfo tile -->
     <!-- Ambient display QS tile -->
     <!-- Screenshot QS tile -->
@@ -72,7 +71,8 @@
     <string name="navbar_editor_summary">내비게이션 바를 조정합니다.</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
     <!-- DataSwitch Tile -->
-    <!-- Screen recorder -->
+    <!-- Screen record -->
+    <string name="screenrecord_dialog_start">왼쪽</string>
     <!-- Spectrum Analog clock -->
     <!-- Dot Analog clock -->
     <!-- Sneeky Analog clock -->

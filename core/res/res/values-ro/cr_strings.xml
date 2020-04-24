@@ -21,4 +21,9 @@
     <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
     <string name="system_error_vendorprint">Imaginea dumneavostra de furnizor nu corespunde cu sistemul. Va rugam instalati imaginea de furnizor <xliff:g id="string">%s</xliff:g> pentru dispozitivul dumneavoastra</string>
     <!-- Global actions -->
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">acceseaza managerul de fonturi</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">Permite unei aplicatii sa acceseze managerul de fonturi.</string>
+    <!-- [CHAR LIMIT=NONE] Error when a package is installed but got the missing fonts.xml file, notifying the user why it isn't showing up. -->
 </resources>

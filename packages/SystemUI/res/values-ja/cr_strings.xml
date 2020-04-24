@@ -32,6 +32,10 @@
     <string name="accessibility_quick_settings_caffeine_on">カフェイン ON</string>
     <!-- Heads up QS tile -->
     <string name="quick_settings_heads_up_label">Heads Up</string>
+    <string name="accessibility_quick_settings_heads_up_off">Heads Up OFF</string>
+    <string name="accessibility_quick_settings_heads_up_on">Heads Up ON</string>
+    <string name="accessibility_quick_settings_heads_up_changed_off">Heads Up を OFF にしました</string>
+    <string name="accessibility_quick_settings_heads_up_changed_on">Heads Up を ON にしました</string>
     <!-- Sync QS tile -->
     <string name="quick_settings_sync_label">同期</string>
     <string name="accessibility_quick_settings_sync_off">同期 OFF</string>
@@ -43,6 +47,7 @@
     <string name="navbar_tuner_activity">ナビゲーションバーボタン</string>
     <string name="lockscreen_tuner_activity">ショートカット</string>
     <string name="powernotif_tuner_activity">電源通知</string>
+    <string name="quick_settings_roaming_title">ローミング表示</string>
     <!-- QS Config -->
     <string name="qs_menu_item_columns">列数</string>
     <string name="qs_menu_item_columns_landscape">横向きの列数</string>
@@ -60,14 +65,33 @@
     <string name="accessibility_quick_settings_location_gps_only">位置情報レポート: 端末のみモード</string>
     <string name="accessibility_quick_settings_location_high_accuracy">位置情報レポート: 高精度モード</string>
     <string name="quick_settings_location_battery_saving_label">バッテリー節約</string>
+    <string name="quick_settings_location_battery_saving_label_twoline">バッテリー\n節約</string>
+    <string name="quick_settings_location_gps_only_label">端末のみ</string>
+    <string name="quick_settings_location_gps_only_label_twoline">端末のみ</string>
     <string name="quick_settings_location_high_accuracy_label">高精度</string>
+    <string name="quick_settings_location_high_accuracy_label_twoline">高精度</string>
+    <string name="quick_settings_location_detail_title">位置情報</string>
+    <string name="quick_settings_location_detail_menu_title">モード選択:</string>
     <string name="quick_settings_location_detail_mode_high_accuracy_title">高精度</string>
     <string name="quick_settings_location_detail_mode_battery_saving_title">バッテリー節約</string>
-    <!-- LTE QS Tile -->
+    <string name="quick_settings_location_detail_mode_sensors_only_title">端末のみ</string>
+    <string name="quick_settings_location_detail_mode_high_accuracy_description">GPS、Wi-Fi、Bluetooth、モバイルネットワークで現在地を特定する</string>
+    <string name="quick_settings_location_detail_mode_battery_saving_description">Wi-Fi、Bluetooth、モバイルネットワークで現在地を特定する</string>
+    <string name="quick_settings_location_detail_mode_sensors_only_description">GPS で現在地を特定する</string>
     <!-- CPUInfo tile -->
+    <string name="quick_settings_cpuinfo_label">CPU 情報</string>
+    <string name="accessibility_quick_settings_cpuinfo_off">CPU 情報 OFF</string>
+    <string name="accessibility_quick_settings_cpuinfo_on">CPU 情報 ON</string>
     <!-- Ambient display QS tile -->
+    <string name="quick_settings_ambient_display_label">アンビエント表示</string>
+    <string name="accessibility_quick_settings_ambient_display_off">アンビエント表示は OFF です</string>
+    <string name="accessibility_quick_settings_ambient_display_on">アンビエント表示は ON です</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_off">アンビエント表示が OFF になりました</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_on">アンビエント表示が ON になりました</string>
     <!-- Screenshot QS tile -->
     <string name="quick_settings_screenshot_label">スクリーン\nショット</string>
+    <string name="quick_settings_full_screenshot_label">全画面</string>
+    <string name="quick_settings_region_screenshot_label">部分指定</string>
     <!-- navbar editor -->
     <string name="preview">プレビュー</string>
     <string name="keycode">キーコード</string>
@@ -89,11 +113,29 @@
     <string name="right">右</string>
     <string name="navbar_editor_title">エディタ</string>
     <string name="navbar_editor_summary">ナビゲーションバーを編集する</string>
+    <string name="status_bar_vpn">VPN</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
     <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • 急速充電中 (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> until full)</string>
     <string name="keyguard_plugged_in_dash_charging">Dash Charging</string>
     <!-- DataSwitch Tile -->
-    <!-- Screen recorder -->
+    <string name="qs_data_switch_label">データ SIM の切換え</string>
+    <string name="qs_data_switch_toast_0">現在 SIM カードは挿入されていません</string>
+    <string name="qs_data_switch_toast_1">現在 SIM カードは1枚のみ挿入されています</string>
+    <string name="qs_data_switch_changed_1">SIM 1にデータ通信切り替え</string>
+    <string name="qs_data_switch_changed_2">SIM 2にデータ通信切り替え</string>
+    <!-- Screen record -->
+    <string name="screenrecord_dialog_title">録画を開始しますか?</string>
+    <string name="screenrecord_dialog_summary">記録中は Android システムは画面に表示されたり端末で再生されたりする機密情報を取得できます。これには、パスワード、支払い情報、写真、メッセージ、音声が含まれます。</string>
+    <string name="screenrecord_dialog_start">開始</string>
+    <string name="screenrecord_dialog_cancel">中止</string>
+    <string name="screenrecord_audio_title">音声の録音</string>
+    <string name="screenrecord_audio_summary">録画時に音声も録音する</string>
+    <string name="screenrecord_taps_title">画面にタッチを表示</string>
+    <string name="screenrecord_taps_summary">録画時に視覚フィードバックを表示する</string>
+    <string name="screenrecord_stopdot_title">停止ドットを表示</string>
+    <string name="screenrecord_stopdot_summary">赤い点を表示して、シングルタップで記録を停止します。長押しして反対側に移動します。</string>
+    <string name="screenrecord_low_quality_title">低品質</string>
+    <string name="screenrecord_low_quality_summary">端末の容量を節約するため低品質で録画する</string>
     <!-- Spectrum Analog clock -->
     <!-- Dot Analog clock -->
     <!-- Sneeky Analog clock -->

@@ -32,6 +32,10 @@
     <string name="accessibility_quick_settings_caffeine_on">Kofeiin sees</string>
     <!-- Heads up QS tile -->
     <string name="quick_settings_heads_up_label">Tähelepanuks</string>
+    <string name="accessibility_quick_settings_heads_up_off">Hüpikteated on keelatud.</string>
+    <string name="accessibility_quick_settings_heads_up_on">Hüpikteated on lubatud.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_off">Hüpikteated on välja lülitatud.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_on">Hüpikteated on sisse lülitatud.</string>
     <!-- Sync QS tile -->
     <string name="quick_settings_sync_label">Sünkr.</string>
     <string name="accessibility_quick_settings_sync_off">Sünkr. välja</string>
@@ -43,6 +47,7 @@
     <string name="navbar_tuner_activity">Navigeerimisriba nupud</string>
     <string name="lockscreen_tuner_activity">Lukustusekraani otseteed</string>
     <string name="powernotif_tuner_activity">Toiteteated</string>
+    <string name="quick_settings_roaming_title">Rändlusindikaator</string>
     <!-- QS Config -->
     <string name="qs_menu_item_columns">Väljad</string>
     <string name="qs_menu_item_columns_landscape">Horisontaalsed veerud</string>
@@ -60,14 +65,33 @@
     <string name="accessibility_quick_settings_location_gps_only">Asukohateavitus: ainult sensorite režiim.</string>
     <string name="accessibility_quick_settings_location_high_accuracy">Asukohateavitus: kõrge täpsusega režiim.</string>
     <string name="quick_settings_location_battery_saving_label">Aku säästmine</string>
+    <string name="quick_settings_location_battery_saving_label_twoline">Aku\nsäästmine</string>
+    <string name="quick_settings_location_gps_only_label">Ainult GPS</string>
+    <string name="quick_settings_location_gps_only_label_twoline">Ainult GPS</string>
     <string name="quick_settings_location_high_accuracy_label">Väga täpne</string>
+    <string name="quick_settings_location_high_accuracy_label_twoline">Väga\ntäpne</string>
+    <string name="quick_settings_location_detail_title">Asukoht</string>
+    <string name="quick_settings_location_detail_menu_title">Valige režiim:</string>
     <string name="quick_settings_location_detail_mode_high_accuracy_title">Väga täpne</string>
     <string name="quick_settings_location_detail_mode_battery_saving_title">Aku säästmine</string>
-    <!-- LTE QS Tile -->
+    <string name="quick_settings_location_detail_mode_sensors_only_title">Ainult seade</string>
+    <string name="quick_settings_location_detail_mode_high_accuracy_description">Asukoha määramiseks kasutage GPS-, Wi\u2011Fi-, Bluetooth- või mobiilsidevõrku</string>
+    <string name="quick_settings_location_detail_mode_battery_saving_description">Asukoha määramiseks kasutage  Wi\u2011Fi-, Bluetooth- või mobiilsidevõrku</string>
+    <string name="quick_settings_location_detail_mode_sensors_only_description">Kasutage asukoha määramiseks GPS-i</string>
     <!-- CPUInfo tile -->
+    <string name="quick_settings_cpuinfo_label">CPU info</string>
+    <string name="accessibility_quick_settings_cpuinfo_off">CPU info väljas</string>
+    <string name="accessibility_quick_settings_cpuinfo_on">CPU info sees</string>
     <!-- Ambient display QS tile -->
+    <string name="quick_settings_ambient_display_label">Säästlik ekraan</string>
+    <string name="accessibility_quick_settings_ambient_display_off">Säästlik ekraan väljas.</string>
+    <string name="accessibility_quick_settings_ambient_display_on">Säästlik ekraan sees.</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_off">Säästlik ekraan välja lülitatud.</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_on">Säästlik ekraan sisse lülitatud.</string>
     <!-- Screenshot QS tile -->
     <string name="quick_settings_screenshot_label">Ekraanipilt</string>
+    <string name="quick_settings_full_screenshot_label">Täielik</string>
+    <string name="quick_settings_region_screenshot_label">Osaline</string>
     <!-- navbar editor -->
     <string name="preview">Eelvaade</string>
     <string name="keycode">Nupukood</string>
@@ -89,11 +113,29 @@
     <string name="right">Parem</string>
     <string name="navbar_editor_title">Toimetaja</string>
     <string name="navbar_editor_summary">Seadista navigatsiooniriba</string>
+    <string name="status_bar_vpn">VPN</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
     <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Kiirlaadimine (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> täieliku laadimiseni)</string>
     <string name="keyguard_plugged_in_dash_charging">Lisandite laadimine</string>
     <!-- DataSwitch Tile -->
-    <!-- Screen recorder -->
+    <string name="qs_data_switch_label">Mobiilse andmesidekaardi vahetamine</string>
+    <string name="qs_data_switch_toast_0">Praegu pole SIM-kaarti sisestatud.</string>
+    <string name="qs_data_switch_toast_1">Praegu on sisestatud ainult üks SIM-kaart</string>
+    <string name="qs_data_switch_changed_1">Lülitage andmeedastus SIM 1.</string>
+    <string name="qs_data_switch_changed_2">Lülitage andmeedastus SIM 2.</string>
+    <!-- Screen record -->
+    <string name="screenrecord_dialog_title">Alustada salvestamist?</string>
+    <string name="screenrecord_dialog_summary">Salvestamise ajal saab Android süsteem koguda tundlikku teavet, mis on ekraanil nähtav või mida teie seadmes esitatakse. See hõlmab paroole, makseteavet, fotosid, sõnumeid ja heli.</string>
+    <string name="screenrecord_dialog_start">Käivita</string>
+    <string name="screenrecord_dialog_cancel">Tühista</string>
+    <string name="screenrecord_audio_title">Salvesta heli</string>
+    <string name="screenrecord_audio_summary">Heli salvestamine salvestamise ajal</string>
+    <string name="screenrecord_taps_title">Kuva puudutusi ekraanil</string>
+    <string name="screenrecord_taps_summary">Kuvage salvestamise ajal visuaalset tagasisidet</string>
+    <string name="screenrecord_stopdot_title">Näita stopp-punkti</string>
+    <string name="screenrecord_stopdot_summary">Salvestamise lõpetamiseks ühe nupuvajutusega puudutage punast punkti. Vajutage seda pikalt, et liigutada vastasküljele.</string>
+    <string name="screenrecord_low_quality_title">Madal kvaliteet</string>
+    <string name="screenrecord_low_quality_summary">Salvestage madalama kvaliteediga, et seadmes ruumi kokku hoida</string>
     <!-- Spectrum Analog clock -->
     <!-- Dot Analog clock -->
     <!-- Sneeky Analog clock -->
