@@ -43,6 +43,7 @@
     <string name="navbar_tuner_activity">Boutons de la barre de navigation</string>
     <string name="lockscreen_tuner_activity">Raccourcis de l\'écran verrouillé</string>
     <string name="powernotif_tuner_activity">Notifications d\'alimentation</string>
+    <string name="quick_settings_roaming_title">Indicateur d’itinérance</string>
     <!-- QS Config -->
     <string name="qs_menu_item_columns">Colonnes</string>
     <string name="qs_menu_item_columns_landscape">Colonnes en orientation paysage</string>
@@ -60,10 +61,14 @@
     <string name="accessibility_quick_settings_location_gps_only">Suivi de Localisation: GPS uniquement.</string>
     <string name="accessibility_quick_settings_location_high_accuracy">Suivi de Localisation: mode haute précision.</string>
     <string name="quick_settings_location_battery_saving_label">Économiseur de batterie</string>
+    <string name="quick_settings_location_gps_only_label">GPS uniquement</string>
+    <string name="quick_settings_location_gps_only_label_twoline">GPS uniquement</string>
     <string name="quick_settings_location_high_accuracy_label">Haute précision</string>
+    <string name="quick_settings_location_high_accuracy_label_twoline">Haute\nprécision</string>
+    <string name="quick_settings_location_detail_title">Localisation</string>
+    <string name="quick_settings_location_detail_menu_title">Sélectionner le mode :</string>
     <string name="quick_settings_location_detail_mode_high_accuracy_title">Haute précision</string>
     <string name="quick_settings_location_detail_mode_battery_saving_title">Économiseur de batterie</string>
-    <!-- LTE QS Tile -->
     <!-- CPUInfo tile -->
     <!-- Ambient display QS tile -->
     <!-- Screenshot QS tile -->
@@ -89,11 +94,13 @@
     <string name="right">Droite</string>
     <string name="navbar_editor_title">Editeur</string>
     <string name="navbar_editor_summary">Configurer la barre de navigation</string>
+    <string name="status_bar_vpn">VPN</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
     <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Dash Charging (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> until full)</string>
     <string name="keyguard_plugged_in_dash_charging">Charge via Dash</string>
     <!-- DataSwitch Tile -->
-    <!-- Screen recorder -->
+    <!-- Screen record -->
+    <string name="screenrecord_dialog_start">Démarrer</string>
     <!-- Spectrum Analog clock -->
     <!-- Dot Analog clock -->
     <!-- Sneeky Analog clock -->

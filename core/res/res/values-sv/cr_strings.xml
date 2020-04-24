@@ -28,4 +28,9 @@
     <string name="reboot_to_recovery_message">Startar om till recovery\u2026</string>
     <string name="reboot_system_title">Starta om systemet</string>
     <string name="reboot_system_message">Startar om systemet\u2026</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">åtkomst till typsnittshanterare</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">Ger en app åtkomst till typsnittshanteraren.</string>
+    <!-- [CHAR LIMIT=NONE] Error when a package is installed but got the missing fonts.xml file, notifying the user why it isn't showing up. -->
 </resources>

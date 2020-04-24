@@ -28,4 +28,10 @@
     <string name="reboot_to_recovery_message">正在重启至恢复模式\u2026</string>
     <string name="reboot_system_title">重新启动</string>
     <string name="reboot_system_message">正在重启\u2026</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">访问字体管理器</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">允许应用程序访问字体管理器。</string>
+    <!-- [CHAR LIMIT=NONE] Error when a package is installed but got the missing fonts.xml file, notifying the user why it isn't showing up. -->
+    <string name="fontservice_incompatible_font">您安装的字体包由于缺少fonts.xml无法兼容，请联系开发者寻求帮助。</string>
 </resources>

@@ -78,8 +78,6 @@
     <string name="quick_settings_location_detail_mode_high_accuracy_description">Nutze GPS, W\u2011Lan, Bluetooth und Mobilfunknetze zur Ortung</string>
     <string name="quick_settings_location_detail_mode_battery_saving_description">Nutze W\u2011Lan, Bluetooth und Mobilfunknetze zur Ortung</string>
     <string name="quick_settings_location_detail_mode_sensors_only_description">Nutze GPS zur Ortung</string>
-    <!-- LTE QS Tile -->
-    <string name="qs_lte_label">LTE</string>
     <!-- CPUInfo tile -->
     <string name="quick_settings_cpuinfo_label">CPU-Info</string>
     <string name="accessibility_quick_settings_cpuinfo_off">CPU-Info aus</string>
@@ -125,9 +123,19 @@
     <string name="qs_data_switch_toast_1">Derzeit ist nur eine SIM-Karte eingelegt</string>
     <string name="qs_data_switch_changed_1">Wechsel die Daten SIM auf SIM 1.</string>
     <string name="qs_data_switch_changed_2">Wechsel die Daten SIM auf SIM 2.</string>
-    <!-- Screen recorder -->
-    <string name="screenrecord_stopdot_label">Stop-Punkt anzeigen</string>
-    <string name="screenrecord_low_quality_label">Niedrige Qualität</string>
+    <!-- Screen record -->
+    <string name="screenrecord_dialog_title">Aufnahme starten?</string>
+    <string name="screenrecord_dialog_summary">Während der Aufnahme kann das Android System jegliche sensible Daten erfassen, die auf dem Bildschirm dargestellt oder abgespielt werden. Dies beinhaltet Passwörter, Zahlungsdaten, Fotos, Nachrichten und Tonaufnahmen.</string>
+    <string name="screenrecord_dialog_start">Starten</string>
+    <string name="screenrecord_dialog_cancel">Abbrechen</string>
+    <string name="screenrecord_audio_title">Ton aufzeichnen</string>
+    <string name="screenrecord_audio_summary">Ton während der Aufnahme aufzeichnen</string>
+    <string name="screenrecord_taps_title">Berührungen auf dem Bildschirm anzeigen</string>
+    <string name="screenrecord_taps_summary">Visuelles Feedback während der Aufnahme anzeigen</string>
+    <string name="screenrecord_stopdot_title">Stop-Punkt anzeigen</string>
+    <string name="screenrecord_stopdot_summary">Zeigt einen roten Punkt, um die Aufnahme mit einem einzigen Tippen zu beenden. Halten Sie ihn lange gedrückt, um ihn auf die andere Seite zu verschieben.</string>
+    <string name="screenrecord_low_quality_title">Niedrige Qualität</string>
+    <string name="screenrecord_low_quality_summary">In geringerer Qualität aufnehmen, um Speicherplatz auf Ihrem Gerät zu sparen</string>
     <!-- Spectrum Analog clock -->
     <!-- Dot Analog clock -->
     <!-- Sneeky Analog clock -->
