@@ -19,4 +19,5 @@
     <string name="screen_zoom_summary_smaller">Mniejszy</string>
     <!-- Description for the screen zoom level that makes interface elements smallest. [CHAR LIMIT=24] -->
     <string name="screen_zoom_summary_smallest">Najmniejszy</string>
+    <string name="status_deep_sleep">Status_głebokiego_snu</string>
 </resources>

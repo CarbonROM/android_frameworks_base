@@ -32,12 +32,17 @@
     <string name="accessibility_quick_settings_caffeine_on">Activar Caffeine</string>
     <!-- Heads up QS tile -->
     <string name="quick_settings_heads_up_label">Notificaciones emergentes</string>
+    <string name="accessibility_quick_settings_heads_up_off">Notificación emergente apagada.</string>
+    <string name="accessibility_quick_settings_heads_up_on">Notificación emergente encendida.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_off">Notificaciones flotantes apagadas.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_on">Notificaciones flotantes encendidas.</string>
     <!-- Sync QS tile -->
     <!-- SysUI Tuner -->
     <string name="statusbar_icons_blacklist">Iconos de la barra de estado</string>
     <string name="navbar_tuner_activity">Botones de la barra de navegación</string>
     <string name="lockscreen_tuner_activity">Atajos de la pantalla de bloqueo</string>
     <string name="powernotif_tuner_activity">Notificaciones de energía</string>
+    <string name="quick_settings_roaming_title">Indicador de itinerancia</string>
     <!-- QS Config -->
     <string name="qs_menu_item_columns">Columnas</string>
     <string name="qs_menu_item_columns_landscape">Columnas horizontales</string>
@@ -52,20 +57,49 @@
     <string name="qs_menu_item_titles">Mostrar etiquetas</string>
     <!-- Location Tile -->
     <string name="quick_settings_location_battery_saving_label">Ahorro de batería</string>
+    <string name="quick_settings_location_battery_saving_label_twoline">Ahorro de\nbatería</string>
+    <string name="quick_settings_location_gps_only_label">Solo GPS</string>
+    <string name="quick_settings_location_gps_only_label_twoline">Solo GPS</string>
     <string name="quick_settings_location_high_accuracy_label">Alta precisión</string>
+    <string name="quick_settings_location_high_accuracy_label_twoline">Alta\nprecisión</string>
+    <string name="quick_settings_location_detail_title">Ubicación</string>
+    <string name="quick_settings_location_detail_menu_title">Seleccionar modo:</string>
     <string name="quick_settings_location_detail_mode_high_accuracy_title">Alta precisión</string>
     <string name="quick_settings_location_detail_mode_battery_saving_title">Ahorro de batería</string>
-    <!-- LTE QS Tile -->
+    <string name="quick_settings_location_detail_mode_sensors_only_title">Solo dispositivo</string>
+    <string name="quick_settings_location_detail_mode_high_accuracy_description">Determinar ubicación con GPS, Wi\u2011Fi, bluetooth o redes móviles </string>
+    <string name="quick_settings_location_detail_mode_battery_saving_description">Determinar ubicación con Wi\u2011Fi, bluetooth o redes móviles </string>
+    <string name="quick_settings_location_detail_mode_sensors_only_description">Determinar ubicación con el GPS</string>
     <!-- CPUInfo tile -->
+    <string name="quick_settings_cpuinfo_label">Información de CPU</string>
+    <string name="accessibility_quick_settings_cpuinfo_off">Información de CPU apagada</string>
+    <string name="accessibility_quick_settings_cpuinfo_on">Información de la CPU encendida</string>
     <!-- Ambient display QS tile -->
+    <string name="quick_settings_ambient_display_label">Pantalla ambiente</string>
+    <string name="accessibility_quick_settings_ambient_display_off">Pantalla ambiente apagada.</string>
+    <string name="accessibility_quick_settings_ambient_display_on">Pantalla ambiente encendida.</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_off">Se ha desactivado la pantalla ambiente.</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_on">Se ha activado la pantalla ambiente.</string>
     <!-- Screenshot QS tile -->
     <string name="quick_settings_screenshot_label">Captura de pantalla</string>
+    <string name="quick_settings_full_screenshot_label">Completa</string>
+    <string name="quick_settings_region_screenshot_label">Parcial</string>
     <!-- navbar editor -->
     <string name="reset">Restablecer</string>
+    <string name="left">Izquierdo</string>
+    <string name="right">Derecho</string>
+    <string name="navbar_editor_title">Editor</string>
+    <string name="navbar_editor_summary">Configurar barra de navegación</string>
+    <string name="status_bar_vpn">VPN</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
     <string name="keyguard_plugged_in_dash_charging">Carga Rápida</string>
     <!-- DataSwitch Tile -->
-    <!-- Screen recorder -->
+    <string name="qs_data_switch_label">Cambiar tarjeta de datos</string>
+    <string name="qs_data_switch_toast_0">Actualmente no se ha insertado ninguna tarjeta SIM</string>
+    <string name="qs_data_switch_toast_1">Actualmente sólo se ha insertado una tarjeta SIM</string>
+    <string name="qs_data_switch_changed_1">Cambiar tarjeta de datos a SIM 1.</string>
+    <string name="qs_data_switch_changed_2">Cambiar tarjeta de datos a SIM 2.</string>
+    <!-- Screen record -->
     <!-- Spectrum Analog clock -->
     <!-- Dot Analog clock -->
     <!-- Sneeky Analog clock -->

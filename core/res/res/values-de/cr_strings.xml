@@ -28,4 +28,10 @@
     <string name="reboot_to_recovery_message">Neustart in die Recovery\u2026</string>
     <string name="reboot_system_title">System neu starten</string>
     <string name="reboot_system_message">System wird neu gestartet\u2026</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">auf den Schriftart-Manager zugreifen</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">Erlaubt einer Anwendung den Zugriff auf den Schriftart-Manager.</string>
+    <!-- [CHAR LIMIT=NONE] Error when a package is installed but got the missing fonts.xml file, notifying the user why it isn't showing up. -->
+    <string name="fontservice_incompatible_font">Das von Ihnen installierte Schriftartenpaket ist nicht kompatibel, da die fonts.xml in ihren Dateien fehlt. Bitte kontaktieren Sie den Paketentwickler, um Hilfe zu erhalten.</string>
 </resources>
