@@ -49,7 +49,6 @@
     <string name="qs_menu_item_reset">Återställ</string>
     <string name="qs_menu_item_titles">Visa ettiketter</string>
     <!-- Location Tile -->
-    <!-- LTE QS Tile -->
     <!-- CPUInfo tile -->
     <!-- Ambient display QS tile -->
     <!-- Screenshot QS tile -->
@@ -59,7 +58,7 @@
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
     <string name="keyguard_plugged_in_dash_charging">Dash laddar</string>
     <!-- DataSwitch Tile -->
-    <!-- Screen recorder -->
+    <!-- Screen record -->
     <!-- Spectrum Analog clock -->
     <!-- Dot Analog clock -->
     <!-- Sneeky Analog clock -->

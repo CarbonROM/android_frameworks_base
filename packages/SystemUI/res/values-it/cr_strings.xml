@@ -32,6 +32,10 @@
     <string name="accessibility_quick_settings_caffeine_on">Caffeina attivata</string>
     <!-- Heads up QS tile -->
     <string name="quick_settings_heads_up_label">Notifiche fluttuanti</string>
+    <string name="accessibility_quick_settings_heads_up_off">Heads up disattivate.</string>
+    <string name="accessibility_quick_settings_heads_up_on">Heads up attive.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_off">Heads up disabilitate.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_on">Heads up attivate.</string>
     <!-- Sync QS tile -->
     <string name="quick_settings_sync_label">Sincronizzazione</string>
     <string name="accessibility_quick_settings_sync_off">Sincronizzazione disattivata.</string>
@@ -43,6 +47,7 @@
     <string name="navbar_tuner_activity">Pulsanti della barra di navigazione</string>
     <string name="lockscreen_tuner_activity">Scorciatoie schermata di sblocco</string>
     <string name="powernotif_tuner_activity">Mostra notifiche</string>
+    <string name="quick_settings_roaming_title">Indicatore di roaming</string>
     <!-- QS Config -->
     <string name="qs_menu_item_columns">Colonne</string>
     <string name="qs_menu_item_columns_landscape">Colonne in modalità orizzontale</string>
@@ -60,11 +65,21 @@
     <string name="accessibility_quick_settings_location_gps_only">Geolocalizzazione: modalità solo GPS.</string>
     <string name="accessibility_quick_settings_location_high_accuracy">Geolocalizzazione: modalità alta precisione.</string>
     <string name="quick_settings_location_battery_saving_label">Risparmio energetico</string>
+    <string name="quick_settings_location_battery_saving_label_twoline">RIsparmio\nbatteria</string>
+    <string name="quick_settings_location_gps_only_label">Solo GPS</string>
+    <string name="quick_settings_location_gps_only_label_twoline">Solo GPS</string>
     <string name="quick_settings_location_high_accuracy_label">Alta precisione</string>
+    <string name="quick_settings_location_high_accuracy_label_twoline">Alta precisione</string>
+    <string name="quick_settings_location_detail_title">Localizzazione</string>
+    <string name="quick_settings_location_detail_menu_title">Seleziona modalità:</string>
     <string name="quick_settings_location_detail_mode_high_accuracy_title">Alta precisione</string>
     <string name="quick_settings_location_detail_mode_battery_saving_title">Risparmio energetico</string>
-    <!-- LTE QS Tile -->
+    <string name="quick_settings_location_detail_mode_sensors_only_title">Solo dispositivo</string>
+    <string name="quick_settings_location_detail_mode_high_accuracy_description">Usa GPS, Wi\u2011Fi,  Blueooth, o reti celllulari per determinare la posizione </string>
+    <string name="quick_settings_location_detail_mode_battery_saving_description">Usa GPS, Wi\u2011Fi,  Blueooth, o reti celllulari per determinare la posizione </string>
+    <string name="quick_settings_location_detail_mode_sensors_only_description">Usa il GPS per determinare la tua posizione</string>
     <!-- CPUInfo tile -->
+    <string name="quick_settings_cpuinfo_label">Info CPU</string>
     <!-- Ambient display QS tile -->
     <!-- Screenshot QS tile -->
     <string name="quick_settings_screenshot_label">Screenshot</string>
@@ -93,7 +108,11 @@
     <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Carica Dash (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> fino al completo)</string>
     <string name="keyguard_plugged_in_dash_charging">Ricarica rapida</string>
     <!-- DataSwitch Tile -->
-    <!-- Screen recorder -->
+    <!-- Screen record -->
+    <string name="screenrecord_dialog_start">Inizio</string>
+    <string name="screenrecord_dialog_cancel">Annulla</string>
+    <string name="screenrecord_audio_title">Registra audio</string>
+    <string name="screenrecord_audio_summary">Registra audio durante la registrazione</string>
     <!-- Spectrum Analog clock -->
     <!-- Dot Analog clock -->
     <!-- Sneeky Analog clock -->
