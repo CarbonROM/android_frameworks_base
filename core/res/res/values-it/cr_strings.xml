@@ -28,4 +28,10 @@
     <string name="reboot_to_recovery_message">Riavvio in recovery\u2026</string>
     <string name="reboot_system_title">Riavvia il sistema</string>
     <string name="reboot_system_message">Riavvio in sistema\u2026</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">accesso gestore caratteri</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">Consente ad una applicazione di accedere al gestore dei caratteri.</string>
+    <!-- [CHAR LIMIT=NONE] Error when a package is installed but got the missing fonts.xml file, notifying the user why it isn't showing up. -->
+    <string name="fontservice_incompatible_font">Il pacchetto font che hai installato non è compatibile a causa della mancanza di \"fonts.xml\" in esso. Contatta lo sviluppatore del font per supporto.</string>
 </resources>

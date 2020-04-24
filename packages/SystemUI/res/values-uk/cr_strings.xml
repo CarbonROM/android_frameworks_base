@@ -49,7 +49,6 @@
     <string name="qs_menu_item_reset">Скинути</string>
     <string name="qs_menu_item_titles">Показати мітку</string>
     <!-- Location Tile -->
-    <!-- LTE QS Tile -->
     <!-- CPUInfo tile -->
     <!-- Ambient display QS tile -->
     <!-- Screenshot QS tile -->
@@ -59,7 +58,7 @@
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
     <string name="keyguard_plugged_in_dash_charging">Швидка зарядка</string>
     <!-- DataSwitch Tile -->
-    <!-- Screen recorder -->
+    <!-- Screen record -->
     <!-- Spectrum Analog clock -->
     <!-- Dot Analog clock -->
     <!-- Sneeky Analog clock -->

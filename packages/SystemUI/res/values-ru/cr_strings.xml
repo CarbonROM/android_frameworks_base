@@ -32,6 +32,10 @@
     <string name="accessibility_quick_settings_caffeine_on">Запрет сна вкл</string>
     <!-- Heads up QS tile -->
     <string name="quick_settings_heads_up_label">Всплывающие уведомления</string>
+    <string name="accessibility_quick_settings_heads_up_off">Всплывающие уведомления отключены.</string>
+    <string name="accessibility_quick_settings_heads_up_on">Всплывающие уведомления включены.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_off">Всплывающие уведомления выключены.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_on">Всплывающие уведомления включены.</string>
     <!-- Sync QS tile -->
     <string name="quick_settings_sync_label">Синхронизация</string>
     <string name="accessibility_quick_settings_sync_off">Синхронизация выкл.</string>
@@ -43,6 +47,7 @@
     <string name="navbar_tuner_activity">Кнопки панели навигации</string>
     <string name="lockscreen_tuner_activity">Ярлыки экрана блокировки</string>
     <string name="powernotif_tuner_activity">Уведомления о разряде</string>
+    <string name="quick_settings_roaming_title">Индикатор роуминга</string>
     <!-- QS Config -->
     <string name="qs_menu_item_columns">Столбцы</string>
     <string name="qs_menu_item_columns_landscape">Столбцы в альбомной ориентации экрана</string>
@@ -60,14 +65,33 @@
     <string name="accessibility_quick_settings_location_gps_only">Местоположение: по спутникам GPS.</string>
     <string name="accessibility_quick_settings_location_high_accuracy">Местоположение: по всем источникам.</string>
     <string name="quick_settings_location_battery_saving_label">Экономия батареи</string>
+    <string name="quick_settings_location_battery_saving_label_twoline">Экономия\nбатареи</string>
+    <string name="quick_settings_location_gps_only_label">Только GPS</string>
+    <string name="quick_settings_location_gps_only_label_twoline">Только GPS</string>
     <string name="quick_settings_location_high_accuracy_label">Высокая точность</string>
+    <string name="quick_settings_location_high_accuracy_label_twoline">Высокая\nточность</string>
+    <string name="quick_settings_location_detail_title">Местоположение</string>
+    <string name="quick_settings_location_detail_menu_title">Выбрать режим:</string>
     <string name="quick_settings_location_detail_mode_high_accuracy_title">Высокая точность</string>
     <string name="quick_settings_location_detail_mode_battery_saving_title">Экономия батареи</string>
-    <!-- LTE QS Tile -->
+    <string name="quick_settings_location_detail_mode_sensors_only_title">Только устройство</string>
+    <string name="quick_settings_location_detail_mode_high_accuracy_description">Использовать данные сотовой сети, Wi\u2011Fi и GPS для определения местоположения</string>
+    <string name="quick_settings_location_detail_mode_battery_saving_description">Использовать данные сотовой сети, Wi\u2011Fi и GPS для определения местоположения</string>
+    <string name="quick_settings_location_detail_mode_sensors_only_description">Использовать GPS для определения местоположения</string>
     <!-- CPUInfo tile -->
+    <string name="quick_settings_cpuinfo_label">Информация о ЦП</string>
+    <string name="accessibility_quick_settings_cpuinfo_off">Информация о ЦП выкл</string>
+    <string name="accessibility_quick_settings_cpuinfo_on">Информация о ЦП вкл</string>
     <!-- Ambient display QS tile -->
+    <string name="quick_settings_ambient_display_label">Активный экран</string>
+    <string name="accessibility_quick_settings_ambient_display_off">Активный дисплей выкл.</string>
+    <string name="accessibility_quick_settings_ambient_display_on">Активный дисплей вкл.</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_off">Активный дисплей выкл.</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_on">Активный дисплей вкл.</string>
     <!-- Screenshot QS tile -->
     <string name="quick_settings_screenshot_label">Снимок экрана</string>
+    <string name="quick_settings_full_screenshot_label">Полностью</string>
+    <string name="quick_settings_region_screenshot_label">Частичный</string>
     <!-- navbar editor -->
     <string name="preview">Предпросмотр</string>
     <string name="keycode">Ключевой код</string>
@@ -89,11 +113,19 @@
     <string name="right">Справа</string>
     <string name="navbar_editor_title">Редактор</string>
     <string name="navbar_editor_summary">Настройка панели навигации</string>
+    <string name="status_bar_vpn">VPN</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
     <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g>• Быстрая зарядка (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> до полной зарядки)</string>
     <string name="keyguard_plugged_in_dash_charging">Dash Charging</string>
     <!-- DataSwitch Tile -->
-    <!-- Screen recorder -->
+    <string name="qs_data_switch_label">Переключить карту мобильных данных</string>
+    <string name="qs_data_switch_toast_0">В настоящее время SIM-карта не вставлена</string>
+    <string name="qs_data_switch_toast_1">В настоящее время вставлена только одна SIM-карта</string>
+    <string name="qs_data_switch_changed_1">Переключить передачу данных на SIM 1.</string>
+    <string name="qs_data_switch_changed_2">Переключить передачу данных на SIM 2.</string>
+    <!-- Screen record -->
+    <string name="screenrecord_dialog_title">Начать запись?</string>
+    <string name="screenrecord_dialog_start">Старт</string>
     <!-- Spectrum Analog clock -->
     <!-- Dot Analog clock -->
     <!-- Sneeky Analog clock -->

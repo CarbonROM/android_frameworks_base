@@ -28,4 +28,10 @@
     <string name="reboot_to_recovery_message">Перезапуск в рекавери\u2026</string>
     <string name="reboot_system_title">Перезагрука системы</string>
     <string name="reboot_system_message">Перезапуск системы\u2026</string>
+    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">доступ к диспетчеру шрифтов</string>
+    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_accessFontManager">Позволяет приложению обращаться к диспетчеру шрифтов.</string>
+    <!-- [CHAR LIMIT=NONE] Error when a package is installed but got the missing fonts.xml file, notifying the user why it isn't showing up. -->
+    <string name="fontservice_incompatible_font">Установленный вами пакет шрифтов несовместим из-за отсутствия файла fonts.xml в их файлах. Пожалуйста, свяжитесь с разработчиком пакета для поддержки.</string>
 </resources>

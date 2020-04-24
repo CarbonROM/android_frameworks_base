@@ -39,7 +39,6 @@
     <string name="qs_menu_item_reset">Nollaa</string>
     <string name="qs_menu_item_titles">Näytä nimikkeet</string>
     <!-- Location Tile -->
-    <!-- LTE QS Tile -->
     <!-- CPUInfo tile -->
     <!-- Ambient display QS tile -->
     <!-- Screenshot QS tile -->
@@ -48,7 +47,7 @@
     <string name="reset">Nollaa</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
     <!-- DataSwitch Tile -->
-    <!-- Screen recorder -->
+    <!-- Screen record -->
     <!-- Spectrum Analog clock -->
     <!-- Dot Analog clock -->
     <!-- Sneeky Analog clock -->

@@ -32,6 +32,10 @@
     <string name="accessibility_quick_settings_caffeine_on">Cafeína ligada</string>
     <!-- Heads up QS tile -->
     <string name="quick_settings_heads_up_label">Notificações flutuantes</string>
+    <string name="accessibility_quick_settings_heads_up_off">Notificações pop-up desativadas.</string>
+    <string name="accessibility_quick_settings_heads_up_on">Notificações pop-up ativadas.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_off">As notificações pop-up foram desativadas.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_on">As notificações pop-up foram ativadas.</string>
     <!-- Sync QS tile -->
     <string name="quick_settings_sync_label">Sincronização</string>
     <string name="accessibility_quick_settings_sync_off">Sincronização desativada.</string>
@@ -43,6 +47,7 @@
     <string name="navbar_tuner_activity">Botões da barra de navegação</string>
     <string name="lockscreen_tuner_activity">Atalhos da tela de bloqueio</string>
     <string name="powernotif_tuner_activity">Notificações de liga/desliga</string>
+    <string name="quick_settings_roaming_title">Indicador de Roaming</string>
     <!-- QS Config -->
     <string name="qs_menu_item_columns">Colunas</string>
     <string name="qs_menu_item_columns_landscape">Colunas em modo paisagem</string>
@@ -60,14 +65,33 @@
     <string name="accessibility_quick_settings_location_gps_only">Relatório de localização: modo somente sensores.</string>
     <string name="accessibility_quick_settings_location_high_accuracy">Relatório de localização: modo de alta precisão.</string>
     <string name="quick_settings_location_battery_saving_label">Economia de bateria</string>
+    <string name="quick_settings_location_battery_saving_label_twoline">Economia de bateria\n</string>
+    <string name="quick_settings_location_gps_only_label">Apenas GPS</string>
+    <string name="quick_settings_location_gps_only_label_twoline">GPS ligado</string>
     <string name="quick_settings_location_high_accuracy_label">Alta precisão</string>
+    <string name="quick_settings_location_high_accuracy_label_twoline">Alta precisão</string>
+    <string name="quick_settings_location_detail_title">Localizações</string>
+    <string name="quick_settings_location_detail_menu_title">Modo de seleção</string>
     <string name="quick_settings_location_detail_mode_high_accuracy_title">Alta precisão</string>
     <string name="quick_settings_location_detail_mode_battery_saving_title">Economia de bateria</string>
-    <!-- LTE QS Tile -->
+    <string name="quick_settings_location_detail_mode_sensors_only_title">Informações do dispositivo</string>
+    <string name="quick_settings_location_detail_mode_high_accuracy_description">Usar GPS, Wi\u2011Fi, Bluetooth ou redes celulares para determinar a localização </string>
+    <string name="quick_settings_location_detail_mode_battery_saving_description">Usar Wi\u2011Fi, Bluetooth ou redes celulares para determinar a localização</string>
+    <string name="quick_settings_location_detail_mode_sensors_only_description">Usar o GPS para determinar sua localização</string>
     <!-- CPUInfo tile -->
+    <string name="quick_settings_cpuinfo_label">Informações da CPU</string>
+    <string name="accessibility_quick_settings_cpuinfo_off">Informação da CPU desligado</string>
+    <string name="accessibility_quick_settings_cpuinfo_on">Informações da CPU ligada</string>
     <!-- Ambient display QS tile -->
+    <string name="quick_settings_ambient_display_label">Tela Ambiente</string>
+    <string name="accessibility_quick_settings_ambient_display_off">Tela ambiente desligada.</string>
+    <string name="accessibility_quick_settings_ambient_display_on">Tela ambiente ligada.</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_off">Tela ambiente desligada.</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_on">Tela ambiente ligada.</string>
     <!-- Screenshot QS tile -->
     <string name="quick_settings_screenshot_label">Captura de tela</string>
+    <string name="quick_settings_full_screenshot_label">Completa</string>
+    <string name="quick_settings_region_screenshot_label">Parcial</string>
     <!-- navbar editor -->
     <string name="preview">Prévia</string>
     <string name="keycode">Código-chave</string>
@@ -89,11 +113,29 @@
     <string name="right">Direita</string>
     <string name="navbar_editor_title">Editor</string>
     <string name="navbar_editor_summary">Configurar a barra de navegação</string>
+    <string name="status_bar_vpn">VPN</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
     <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Traço de carregamento (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> até estar cheio)</string>
     <string name="keyguard_plugged_in_dash_charging">Carregamento rápido</string>
     <!-- DataSwitch Tile -->
-    <!-- Screen recorder -->
+    <string name="qs_data_switch_label">Trocar cartão de dados</string>
+    <string name="qs_data_switch_toast_0">Atualmente nenhum cartão SIM foi inserido</string>
+    <string name="qs_data_switch_toast_1">Atualmente apenas um cartão SIM foi inserido</string>
+    <string name="qs_data_switch_changed_1">Trocar o cartão de dados para o SIM 1.</string>
+    <string name="qs_data_switch_changed_2">Troque o cartão de dados para o SIM 2.</string>
+    <!-- Screen record -->
+    <string name="screenrecord_dialog_title">Iniciar a gravação?</string>
+    <string name="screenrecord_dialog_summary">Durante a gravação, o sistema Android pode capturar quaisquer informações confidenciais visíveis na sua tela ou reproduzidas no seu dispositivo. Isso inclui senhas, informações de pagamento, fotos, mensagens e áudio.</string>
+    <string name="screenrecord_dialog_start">Iniciar</string>
+    <string name="screenrecord_dialog_cancel">Cancelar</string>
+    <string name="screenrecord_audio_title">Gravar áudio</string>
+    <string name="screenrecord_audio_summary">Gravar áudio durante gravação</string>
+    <string name="screenrecord_taps_title">Mostrar toques na tela</string>
+    <string name="screenrecord_taps_summary">Mostrar feedback visual durante a gravação</string>
+    <string name="screenrecord_stopdot_title">Mostrar ponto de parada</string>
+    <string name="screenrecord_stopdot_summary">Mostre um ponto vermelho para parar de gravar com um único toque. Segure ele para movê-lo para o lado oposto.</string>
+    <string name="screenrecord_low_quality_title">Baixa qualidade</string>
+    <string name="screenrecord_low_quality_summary">Gravar em baixa qualidade para economizar espaço no seu dispositivo</string>
     <!-- Spectrum Analog clock -->
     <!-- Dot Analog clock -->
     <!-- Sneeky Analog clock -->
