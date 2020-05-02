@@ -83,9 +83,6 @@ public class PowerShareTile extends QSTileImpl<BooleanState>
         }
 
         mBatteryController = batteryController;
-
-        batteryController.addCallback(this);
-
         mNotificationManager = mContext.getSystemService(NotificationManager.class);
 
         NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID,
@@ -101,6 +98,8 @@ public class PowerShareTile extends QSTileImpl<BooleanState>
         mNotification = builder.build();
         mNotification.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
         mNotification.visibility = Notification.VISIBILITY_PUBLIC;
+
+        batteryController.addCallback(this);
     }
 
     @Override
