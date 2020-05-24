@@ -33,7 +33,7 @@
     <!-- Heads up QS tile -->
     <string name="quick_settings_heads_up_label">Всплывающие уведомления</string>
     <string name="accessibility_quick_settings_heads_up_off">Всплывающие уведомления отключены.</string>
-    <string name="accessibility_quick_settings_heads_up_on">Всплывающие уведомления включены.</string>
+    <string name="accessibility_quick_settings_heads_up_on">Включить всплывающие уведомления</string>
     <string name="accessibility_quick_settings_heads_up_changed_off">Всплывающие уведомления выключены.</string>
     <string name="accessibility_quick_settings_heads_up_changed_on">Всплывающие уведомления включены.</string>
     <!-- Sync QS tile -->
@@ -65,11 +65,11 @@
     <string name="accessibility_quick_settings_location_gps_only">Местоположение: по спутникам GPS.</string>
     <string name="accessibility_quick_settings_location_high_accuracy">Местоположение: по всем источникам.</string>
     <string name="quick_settings_location_battery_saving_label">Экономия батареи</string>
-    <string name="quick_settings_location_battery_saving_label_twoline">Экономия\nбатареи</string>
+    <string name="quick_settings_location_battery_saving_label_twoline">Экономия батареи</string>
     <string name="quick_settings_location_gps_only_label">Только GPS</string>
     <string name="quick_settings_location_gps_only_label_twoline">Только GPS</string>
     <string name="quick_settings_location_high_accuracy_label">Высокая точность</string>
-    <string name="quick_settings_location_high_accuracy_label_twoline">Высокая\nточность</string>
+    <string name="quick_settings_location_high_accuracy_label_twoline">Высокая точность</string>
     <string name="quick_settings_location_detail_title">Местоположение</string>
     <string name="quick_settings_location_detail_menu_title">Выбрать режим:</string>
     <string name="quick_settings_location_detail_mode_high_accuracy_title">Высокая точность</string>

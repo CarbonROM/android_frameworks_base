@@ -37,6 +37,11 @@
     <string name="accessibility_quick_settings_heads_up_changed_off">Notificaciones flotantes apagadas.</string>
     <string name="accessibility_quick_settings_heads_up_changed_on">Notificaciones flotantes encendidas.</string>
     <!-- Sync QS tile -->
+    <string name="quick_settings_sync_label">Sincronización</string>
+    <string name="accessibility_quick_settings_sync_off">Sincronización apagada.</string>
+    <string name="accessibility_quick_settings_sync_on">Sincronización activada</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Sincronización desactivada</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Sincronización activada</string>
     <!-- SysUI Tuner -->
     <string name="statusbar_icons_blacklist">Iconos de la barra de estado</string>
     <string name="navbar_tuner_activity">Botones de la barra de navegación</string>
@@ -56,6 +61,9 @@
     <string name="qs_menu_item_reset">Restablecer</string>
     <string name="qs_menu_item_titles">Mostrar etiquetas</string>
     <!-- Location Tile -->
+    <string name="accessibility_quick_settings_location_battery_saving">Modo de ubicación: ahorro de batería</string>
+    <string name="accessibility_quick_settings_location_gps_only">Modo de ubicación: solo sensores</string>
+    <string name="accessibility_quick_settings_location_high_accuracy">Modo de ubicación: alta precisión</string>
     <string name="quick_settings_location_battery_saving_label">Ahorro de batería</string>
     <string name="quick_settings_location_battery_saving_label_twoline">Ahorro de\nbatería</string>
     <string name="quick_settings_location_gps_only_label">Solo GPS</string>
@@ -85,13 +93,29 @@
     <string name="quick_settings_full_screenshot_label">Completa</string>
     <string name="quick_settings_region_screenshot_label">Parcial</string>
     <!-- navbar editor -->
+    <string name="preview">Vista previa</string>
+    <string name="keycode">Código clave</string>
+    <string name="no_home_title">Ningún botón de inicio encontrado</string>
+    <string name="no_home_message">Se requiere un botón de inicio para poder navegar por este dispositivo. Por favor, añade un botón de inicio antes de guardar.</string>
+    <string name="clipboard_description">El portapapeles permite que los elementos se arrastren directamente. Los elementos también se pueden arrastrar directamente desde el portapapeles cuando estén presentes.</string>
+    <string name="keycode_description">Los botones de código de teclas permiten añadir teclas a la barra de navegación. Cuando se presiona emular la tecla de teclado seleccionada. Primero hay que seleccionar la tecla para el botón, seguido de una imagen que se mostrará en el botón.</string>
+    <string name="start">Iniciar</string>
+    <string name="center">Centro</string>
+    <string name="end">Final</string>
+    <string name="space">Espaciador</string>
+    <string name="menu_ime">Interruptor de menú / teclado</string>
+    <string name="select_button">Seleccionar botón para añadir</string>
+    <string name="add_button">Añadir botón</string>
+    <string name="save">Guardar</string>
     <string name="reset">Restablecer</string>
+    <string name="select_keycode">Seleccionar botón de teclado</string>
     <string name="left">Izquierdo</string>
     <string name="right">Derecho</string>
     <string name="navbar_editor_title">Editor</string>
     <string name="navbar_editor_summary">Configurar barra de navegación</string>
     <string name="status_bar_vpn">VPN</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Carga dash (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> para completar)</string>
     <string name="keyguard_plugged_in_dash_charging">Carga Rápida</string>
     <!-- DataSwitch Tile -->
     <string name="qs_data_switch_label">Cambiar tarjeta de datos</string>
@@ -100,6 +124,7 @@
     <string name="qs_data_switch_changed_1">Cambiar tarjeta de datos a SIM 1.</string>
     <string name="qs_data_switch_changed_2">Cambiar tarjeta de datos a SIM 2.</string>
     <!-- Screen record -->
+    <string name="screenrecord_dialog_start">Iniciar</string>
     <!-- Spectrum Analog clock -->
     <!-- Dot Analog clock -->
     <!-- Sneeky Analog clock -->
