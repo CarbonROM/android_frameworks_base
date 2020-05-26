@@ -11090,6 +11090,12 @@ public final class Settings {
                 "extra_automatic_power_save_mode";
 
         /**
+         * Whether to enable our custom black theme
+         * @hide
+         */
+        public static final String BERRY_BLACK_THEME = "berry_black_theme";
+
+        /**
          * These entries are considered common between the personal and the managed profile,
          * since the managed profile doesn't get to change them.
          */
@@ -11190,7 +11196,7 @@ public final class Settings {
          * @hide
          */
         public static final String[] CARBON_SECURE_SETTINGS = {
-            // FOO_BAR_BALABALA
+            BERRY_BLACK_THEME
         };
 
         /**
@@ -11204,7 +11210,7 @@ public final class Settings {
          */
         public static final Map<String, Integer> CARBON_SECURE_SETTINGS_VALIDATORS = new ArrayMap<>();
         static {
-            //CARBON_SECURE_SETTINGS_VALIDATORS.put(FOO_BAR_BALABALA, 1);
+            CARBON_SECURE_SETTINGS_VALIDATORS.put(BERRY_BLACK_THEME, 0);
         }
     }
 
