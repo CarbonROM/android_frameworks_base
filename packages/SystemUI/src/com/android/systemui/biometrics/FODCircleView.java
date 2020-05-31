@@ -25,6 +25,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
+import android.hardware.biometrics.BiometricSourceType;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.RemoteException;
@@ -309,6 +310,7 @@ public class FODCircleView extends ImageView {
         dispatchPress();
 
         setImageDrawable(null);
+        updatePosition();
         invalidate();
     }
 
@@ -385,6 +387,10 @@ public class FODCircleView extends ImageView {
 
         if (mIsDreaming) {
             mParams.x += mDreamingOffsetX;
+            mParams.y += mDreamingOffsetY;
+        }
+
+        if (mIsDreaming && !mIsCircleShowing) {
             mParams.y += mDreamingOffsetY;
         }
 
