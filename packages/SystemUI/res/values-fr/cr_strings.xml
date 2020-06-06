@@ -32,6 +32,10 @@
     <string name="accessibility_quick_settings_caffeine_on">Caffeine activée</string>
     <!-- Heads up QS tile -->
     <string name="quick_settings_heads_up_label">Notifications flottantes</string>
+    <string name="accessibility_quick_settings_heads_up_off">Heads up off.</string>
+    <string name="accessibility_quick_settings_heads_up_on">Heads up on.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_off">Heads up turned off.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_on">Heads up turned on.</string>
     <!-- Sync QS tile -->
     <string name="quick_settings_sync_label">Synchroniser</string>
     <string name="accessibility_quick_settings_sync_off">Synchronisation désactivée.</string>
@@ -61,6 +65,7 @@
     <string name="accessibility_quick_settings_location_gps_only">Suivi de Localisation: GPS uniquement.</string>
     <string name="accessibility_quick_settings_location_high_accuracy">Suivi de Localisation: mode haute précision.</string>
     <string name="quick_settings_location_battery_saving_label">Économiseur de batterie</string>
+    <string name="quick_settings_location_battery_saving_label_twoline">Battery\nsaving</string>
     <string name="quick_settings_location_gps_only_label">GPS uniquement</string>
     <string name="quick_settings_location_gps_only_label_twoline">GPS uniquement</string>
     <string name="quick_settings_location_high_accuracy_label">Haute précision</string>
@@ -69,10 +74,24 @@
     <string name="quick_settings_location_detail_menu_title">Sélectionner le mode :</string>
     <string name="quick_settings_location_detail_mode_high_accuracy_title">Haute précision</string>
     <string name="quick_settings_location_detail_mode_battery_saving_title">Économiseur de batterie</string>
+    <string name="quick_settings_location_detail_mode_sensors_only_title">Device only</string>
+    <string name="quick_settings_location_detail_mode_high_accuracy_description">Use GPS, Wi\u2011Fi, Bluetooth, or cellular networks to determine location </string>
+    <string name="quick_settings_location_detail_mode_battery_saving_description">Use Wi\u2011Fi, Bluetooth, or cellular networks to determine location</string>
+    <string name="quick_settings_location_detail_mode_sensors_only_description">Use GPS to determine your location</string>
     <!-- CPUInfo tile -->
+    <string name="quick_settings_cpuinfo_label">CPU Info</string>
+    <string name="accessibility_quick_settings_cpuinfo_off">CPU Info off</string>
+    <string name="accessibility_quick_settings_cpuinfo_on">CPU Info on</string>
     <!-- Ambient display QS tile -->
+    <string name="quick_settings_ambient_display_label">Ambient display</string>
+    <string name="accessibility_quick_settings_ambient_display_off">Ambient display off.</string>
+    <string name="accessibility_quick_settings_ambient_display_on">Ambient display on.</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_off">Ambient display turned off.</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_on">Ambient display turned on.</string>
     <!-- Screenshot QS tile -->
     <string name="quick_settings_screenshot_label">Capture d\'écran</string>
+    <string name="quick_settings_full_screenshot_label">Full</string>
+    <string name="quick_settings_region_screenshot_label">Partial</string>
     <!-- navbar editor -->
     <string name="preview">Aperçu</string>
     <string name="keycode">Code clé</string>
@@ -99,8 +118,24 @@
     <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Dash Charging (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> until full)</string>
     <string name="keyguard_plugged_in_dash_charging">Charge via Dash</string>
     <!-- DataSwitch Tile -->
+    <string name="qs_data_switch_label">Switch data card</string>
+    <string name="qs_data_switch_toast_0">Currently no SIM card is inserted</string>
+    <string name="qs_data_switch_toast_1">Currently only one SIM card is inserted</string>
+    <string name="qs_data_switch_changed_1">Switch data card to SIM 1.</string>
+    <string name="qs_data_switch_changed_2">Switch data card to SIM 2.</string>
     <!-- Screen record -->
+    <string name="screenrecord_dialog_title">Start recording?</string>
+    <string name="screenrecord_dialog_summary">While recording, Android system can capture any sensitive information that\'s visible on your screen or played on your device. This includes passwords, payment info, photos, messages, and audio.</string>
     <string name="screenrecord_dialog_start">Démarrer</string>
+    <string name="screenrecord_dialog_cancel">Cancel</string>
+    <string name="screenrecord_audio_title">Record audio</string>
+    <string name="screenrecord_audio_summary">Record audio while recording</string>
+    <string name="screenrecord_taps_title">Show touches on screen</string>
+    <string name="screenrecord_taps_summary">Show visual feedback while recording</string>
+    <string name="screenrecord_stopdot_title">Show stop dot</string>
+    <string name="screenrecord_stopdot_summary">Show a red dot to stop recording with a single tap. Longpress it to move it to the opposite side.</string>
+    <string name="screenrecord_low_quality_title">Low quality</string>
+    <string name="screenrecord_low_quality_summary">Record in a lower quality to save space on your device</string>
     <!-- Spectrum Analog clock -->
     <!-- Dot Analog clock -->
     <!-- Sneeky Analog clock -->

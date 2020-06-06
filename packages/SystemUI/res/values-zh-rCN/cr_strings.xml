@@ -65,16 +65,33 @@
     <string name="accessibility_quick_settings_location_gps_only">位置报告：仅传感器模式。</string>
     <string name="accessibility_quick_settings_location_high_accuracy">位置报告：高精确度模式。</string>
     <string name="quick_settings_location_battery_saving_label">低耗电量</string>
+    <string name="quick_settings_location_battery_saving_label_twoline">省电模式</string>
     <string name="quick_settings_location_gps_only_label">仅GPS</string>
     <string name="quick_settings_location_gps_only_label_twoline">仅GPS</string>
     <string name="quick_settings_location_high_accuracy_label">高精确度</string>
+    <string name="quick_settings_location_high_accuracy_label_twoline">高精度</string>
+    <string name="quick_settings_location_detail_title">定位</string>
     <string name="quick_settings_location_detail_menu_title">选择模式：</string>
     <string name="quick_settings_location_detail_mode_high_accuracy_title">高精确度</string>
     <string name="quick_settings_location_detail_mode_battery_saving_title">低耗电量</string>
+    <string name="quick_settings_location_detail_mode_sensors_only_title">仅使用传感器</string>
+    <string name="quick_settings_location_detail_mode_high_accuracy_description">使用 GPS，Wi\u2011Fi 及移动数据定位 </string>
+    <string name="quick_settings_location_detail_mode_battery_saving_description">使用 Wi\u2011Fi、蓝牙或或移动数据定位</string>
+    <string name="quick_settings_location_detail_mode_sensors_only_description">仅使用 GPS 定位</string>
     <!-- CPUInfo tile -->
+    <string name="quick_settings_cpuinfo_label">CPU 信息</string>
+    <string name="accessibility_quick_settings_cpuinfo_off">处理器信息关闭</string>
+    <string name="accessibility_quick_settings_cpuinfo_on">处理器信息开启</string>
     <!-- Ambient display QS tile -->
+    <string name="quick_settings_ambient_display_label">环境显示</string>
+    <string name="accessibility_quick_settings_ambient_display_off">关闭环境显示</string>
+    <string name="accessibility_quick_settings_ambient_display_on">开启环境显示</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_off">环境显示已关闭</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_on">环境显示已开启</string>
     <!-- Screenshot QS tile -->
     <string name="quick_settings_screenshot_label">屏幕截图</string>
+    <string name="quick_settings_full_screenshot_label">全屏截图</string>
+    <string name="quick_settings_region_screenshot_label">区域截图</string>
     <!-- navbar editor -->
     <string name="preview">预览</string>
     <string name="keycode">密钥</string>
@@ -96,14 +113,29 @@
     <string name="right">右</string>
     <string name="navbar_editor_title">编辑</string>
     <string name="navbar_editor_summary">配置导航栏</string>
+    <string name="status_bar_vpn">VPN</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
     <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Dash 闪充充电中 (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> 直到充满)</string>
     <string name="keyguard_plugged_in_dash_charging">Dash 闪充</string>
     <!-- DataSwitch Tile -->
     <string name="qs_data_switch_label">切换数据卡</string>
+    <string name="qs_data_switch_toast_0">无SIM卡</string>
     <string name="qs_data_switch_toast_1">目前只插入了一个 SIM 卡</string>
+    <string name="qs_data_switch_changed_1">使用SIM卡1的数据流量</string>
+    <string name="qs_data_switch_changed_2">使用SIM卡2的数据流量</string>
     <!-- Screen record -->
+    <string name="screenrecord_dialog_title">开始录制吗？</string>
+    <string name="screenrecord_dialog_summary">在录制过程中，安卓系统可以获取您屏幕上显示或播放的所有敏感信息，包括密码、付款信息、照片、消息和音频。</string>
     <string name="screenrecord_dialog_start">起始</string>
+    <string name="screenrecord_dialog_cancel">取消</string>
+    <string name="screenrecord_audio_title">录制音频</string>
+    <string name="screenrecord_audio_summary">录制时录制音频</string>
+    <string name="screenrecord_taps_title">显示触摸点</string>
+    <string name="screenrecord_taps_summary">录制时显示视觉反馈</string>
+    <string name="screenrecord_stopdot_title">显示停止按钮</string>
+    <string name="screenrecord_stopdot_summary">在录制时显示一个可单击停止录制的红点按钮。长按它可以将其移动到屏幕另一侧。</string>
+    <string name="screenrecord_low_quality_title">低画质</string>
+    <string name="screenrecord_low_quality_summary">以较低质量录制以节约您设备上的存储空间。</string>
     <!-- Spectrum Analog clock -->
     <!-- Dot Analog clock -->
     <!-- Sneeky Analog clock -->
