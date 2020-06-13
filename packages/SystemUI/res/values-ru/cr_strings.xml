@@ -125,7 +125,17 @@
     <string name="qs_data_switch_changed_2">Переключить передачу данных на SIM 2.</string>
     <!-- Screen record -->
     <string name="screenrecord_dialog_title">Начать запись?</string>
+    <string name="screenrecord_dialog_summary">Во время записи система Android может захватывать любую конфиденциальную информацию, которая видна на вашем экране или воспроизводится на вашем устройстве.  Это включает пароли, информацию о платежах, фотографии, сообщения и аудио.</string>
     <string name="screenrecord_dialog_start">Старт</string>
+    <string name="screenrecord_dialog_cancel">Закрыть</string>
+    <string name="screenrecord_audio_title">Запись аудио</string>
+    <string name="screenrecord_audio_summary">Записывать аудио во время записи </string>
+    <string name="screenrecord_taps_title">Показывать касания на экране</string>
+    <string name="screenrecord_taps_summary">Показывать визуальный отклик во время записи</string>
+    <string name="screenrecord_stopdot_title">Показать точку остановки</string>
+    <string name="screenrecord_stopdot_summary">Показать красную точку, чтобы остановить запись одним нажатием.  Нажмите и удерживайте, чтобы перенести её в противоположную сторону.</string>
+    <string name="screenrecord_low_quality_title">Низкое качество</string>
+    <string name="screenrecord_low_quality_summary">Запись в низком качестве для экономии места на устройстве</string>
     <!-- Spectrum Analog clock -->
     <!-- Dot Analog clock -->
     <!-- Sneeky Analog clock -->
