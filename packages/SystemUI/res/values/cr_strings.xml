@@ -161,6 +161,7 @@
     <!-- Sneeky Analog clock -->
     <string name="clock_title_sneeky" translatable="false">Sneeky</string>
 
-    <!-- volte switch -->
+    <!-- volte/vowifi switch -->
     <string name="status_bar_volte">VoLTE</string>
+    <string name="status_bar_vowifi">VoWiFi</string>
 </resources>
