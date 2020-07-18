@@ -1000,9 +1000,9 @@ public final class PowerManagerService extends SystemService
             resolver.registerContentObserver(
                     Settings.System.getUriFor(Settings.System.BUTTON_BACKLIGHT_ENABLE),
                     false, mSettingsObserver, UserHandle.USER_ALL);
-            resolver.registerContentObserver(
+/*            resolver.registerContentObserver(
                     Settings.Secure.getUriFor(Settings.Secure.HARDWARE_KEYS_DISABLE),
-                    false, mSettingsObserver, UserHandle.USER_ALL);
+                    false, mSettingsObserver, UserHandle.USER_ALL);*/
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.BUTTON_BACKLIGHT_TIMEOUT),
                     false, mSettingsObserver, UserHandle.USER_ALL);
@@ -5323,11 +5323,11 @@ public final class PowerManagerService extends SystemService
                     mContext.getContentResolver(), Settings.System.BUTTON_BACKLIGHT_ENABLE,
                     1, UserHandle.USER_CURRENT) != 0;
 
-            boolean hardwareKeysDisable = Settings.Secure.getIntForUser(
+/*            boolean hardwareKeysDisable = Settings.Secure.getIntForUser(
                     mContext.getContentResolver(), Settings.Secure.HARDWARE_KEYS_DISABLE,
-                    0, UserHandle.USER_CURRENT) != 0;
+                    0, UserHandle.USER_CURRENT) != 0;*/
 
-            mButtonBacklightEnable = mButtonBacklightEnable && !hardwareKeysDisable;
+            mButtonBacklightEnable = mButtonBacklightEnable/* && !hardwareKeysDisable*/;
             mButtonBacklightOnTouchOnly = Settings.System.getIntForUser(
                     mContext.getContentResolver(), Settings.System.BUTTON_BACKLIGHT_ON_TOUCH_ONLY,
                     0, UserHandle.USER_CURRENT) != 0;
