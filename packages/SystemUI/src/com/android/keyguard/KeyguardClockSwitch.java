@@ -282,6 +282,8 @@ public class KeyguardClockSwitch extends RelativeLayout {
                 updateBigClockVisibility();
             }
         } else {
+            mClockView.setVisibility(View.GONE);
+            mClockViewBold.setVisibility(View.GONE);
             if (bigClockView != null ) {
                 mSmallClockFrame.addView(bigClockView, -1,
                         new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
