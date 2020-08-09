@@ -63,6 +63,8 @@ public class TypeClockController implements ClockPlugin {
     private View mView;
     private TypographicClock mTypeClock;
     private TypographicClock mBigClockView;
+    private TypographicClock mBigClockPreview;
+    private TypographicClock mTypeClockPreview;
 
     /**
      * Create a TypeClockController instance.
@@ -80,9 +82,10 @@ public class TypeClockController implements ClockPlugin {
 
     private void createViews() {
         mView = mLayoutInflater.inflate(R.layout.type_aod_clock, null);
-
+        mBigClockPreview  = (TypographicClock) mLayoutInflater.inflate(R.layout.typographic_clock_preview, null);
         mBigClockView  = (TypographicClock) mLayoutInflater.inflate(R.layout.typographic_clock, null);
         mTypeClock = mBigClockView.findViewById(R.id.type_clock);
+        mTypeClockPreview = mBigClockPreview.findViewById(R.id.type_clock_preview);
     }
 
     @Override
@@ -111,7 +114,7 @@ public class TypeClockController implements ClockPlugin {
     public Bitmap getPreview(int width, int height) {
 
         // Use the big clock view for the preview
-        View view = getBigClockView();
+        View view = getBigClockPreview();
 
         // Initialize state of plugin before generating preview.
         setDarkAmount(1f);
@@ -140,6 +143,13 @@ public class TypeClockController implements ClockPlugin {
         return mBigClockView ;
     }
 
+    public View getBigClockPreview() {
+        if (mBigClockPreview  == null) {
+            createViews();
+        }
+        return mBigClockPreview ;
+    }
+
     @Override
     public int getPreferredY(int totalHeight) {
         return totalHeight / 2;
@@ -151,6 +161,7 @@ public class TypeClockController implements ClockPlugin {
     @Override
     public void setTextColor(int color) {
         mTypeClock.setTextColor(color);
+        mTypeClockPreview.setTextColor(color);
     }
 
     @Override
@@ -160,6 +171,7 @@ public class TypeClockController implements ClockPlugin {
         }
         final int color = colorPalette[Math.max(0, colorPalette.length - 5)];
         mTypeClock.setClockColor(color);
+        mTypeClockPreview.setClockColor(color);
     }
 
     @Override
@@ -170,6 +182,7 @@ public class TypeClockController implements ClockPlugin {
     @Override
     public void onTimeZoneChanged(TimeZone timeZone) {
         mTypeClock.onTimeZoneChanged(timeZone);
+        mTypeClockPreview.onTimeZoneChanged(timeZone);
     }
 
     @Override
