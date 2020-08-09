@@ -16,13 +16,14 @@
   -->
 <com.android.keyguard.clock.TypographicClock
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/type_clock"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingStart="50dp"
+    android:id="@+id/type_clock_preview"
+    android:layout_width="@dimen/custom_clock_preview_width"
+    android:layout_height="@dimen/custom_clock_preview_height"
+    android:paddingStart="20dp"
     android:gravity="center_vertical|left"
-    style="@style/widget_big"
-    android:textSize="39dp"
-    android:lineHeight="36dp"
-    android:letterSpacing="-.05"
+    android:fontFamily="sans-serif-condensed"
+    android:textSize="22dp"
+    android:scaleX=".8"
+    android:scaleY=".8"
+    android:lineHeight="20dp"
     />
