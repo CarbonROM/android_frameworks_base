@@ -186,6 +186,5 @@ public class AnalogClockController implements ClockPlugin {
 
     @Override
     public void setTypeface(Typeface tf) {
-        mLockClock.setTypeface(tf);
     }
 }
