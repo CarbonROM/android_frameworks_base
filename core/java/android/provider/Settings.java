@@ -4551,7 +4551,7 @@ public final class Settings {
          */
         public static final String VOLUME_BUTTON_MUSIC_CONTROL = "volume_button_music_control";
 
-	/**
+        /**
          * Check the proximity sensor during wakeup
          * @hide
          */
@@ -4579,7 +4579,7 @@ public final class Settings {
          */
         public static final String DOUBLE_TAP_SLEEP_ANYWHERE = "double_tap_sleep_anywhere";
 
-        /**
+       /**
         * Allow users to pull down the status bar quickly
         * @hide
         */
@@ -4885,48 +4885,48 @@ public final class Settings {
                 BOOLEAN_VALIDATOR;
 
         /**
-        * Swap volume buttons on rotation
-        * @hide
-        */
+         * Swap volume buttons on rotation
+         * @hide
+         */
         public static final String SWAP_VOLUME_KEYS_ON_ROTATION = "swap_volume_keys_on_rotation";
 
         /**
-        * Whether to show media art on lockscreen
-        * Boolean setting. 0 = off, 1 = on.
-        * @hide
-        */
-       public static final String LOCKSCREEN_MEDIA_METADATA = "lockscreen_media_metadata";
+         * Whether to show media art on lockscreen
+         * Boolean setting. 0 = off, 1 = on.
+         * @hide
+         */
+        public static final String LOCKSCREEN_MEDIA_METADATA = "lockscreen_media_metadata";
 
-       /** @hide */
-       public static final Validator LOCKSCREEN_MEDIA_METADATA_VALIDATOR =
+        /** @hide */
+        public static final Validator LOCKSCREEN_MEDIA_METADATA_VALIDATOR =
                BOOLEAN_VALIDATOR;
 
         /**
-        * Media artwork wallpaper blur level on lockscreen
-        * @hide
-        */
-       public static final String LOCKSCREEN_MEDIA_BLUR = "lockscreen_media_blur";
+         * Media artwork wallpaper blur level on lockscreen
+         * @hide
+         */
+        public static final String LOCKSCREEN_MEDIA_BLUR = "lockscreen_media_blur";
 
-       /** @hide */
-       private static final Validator LOCKSCREEN_MEDIA_BLUR_VALIDATOR =
+        /** @hide */
+        private static final Validator LOCKSCREEN_MEDIA_BLUR_VALIDATOR =
+                NON_NEGATIVE_INTEGER_VALIDATOR;
+
+        /**
+         * Control the type of rotation which can be performed using the accelerometer
+         * if ACCELEROMETER_ROTATION is enabled.
+         * Value is a bitwise combination of
+         * 1 = 0 degrees (portrait)
+         * 2 = 90 degrees (left)
+         * 4 = 180 degrees (inverted portrait)
+         * 8 = 270 degrees (right)
+         * Setting to 0 is effectively orientation lock
+         * @hide
+         */
+        public static final String ACCELEROMETER_ROTATION_ANGLES = "accelerometer_rotation_angles";
+
+        /** @hide */
+        public static final Validator ACCELEROMETER_ROTATION_ANGLES_VALIDATOR =
                NON_NEGATIVE_INTEGER_VALIDATOR;
-
-      /**
-      * Control the type of rotation which can be performed using the accelerometer
-      * if ACCELEROMETER_ROTATION is enabled.
-      * Value is a bitwise combination of
-      1 = 0 degrees (portrait)
-      * 2 = 90 degrees (left)
-      * 4 = 180 degrees (inverted portrait)
-      * 8 = 270 degrees (right)
-      * Setting to 0 is effectively orientation lock
-      * @hide
-      */
-      public static final String ACCELEROMETER_ROTATION_ANGLES = "accelerometer_rotation_angles";
-
-      /** @hide */
-      public static final Validator ACCELEROMETER_ROTATION_ANGLES_VALIDATOR =
-              NON_NEGATIVE_INTEGER_VALIDATOR;
 
         /**
          * Battery style
@@ -4935,12 +4935,12 @@ public final class Settings {
         public static final String STATUS_BAR_BATTERY_STYLE = "status_bar_battery_style";
 
         /**
-          * Statusbar Battery %
-          * 0: Hide the battery percentage
-          * 1: Display the battery percentage inside the icon
-          * 2: Display the battery percentage next to Icon
-          * @hide
-          */
+         * Statusbar Battery %
+         * 0: Hide the battery percentage
+         * 1: Display the battery percentage inside the icon
+         * 2: Display the battery percentage next to Icon
+         * @hide
+         */
         public static final String STATUS_BAR_SHOW_BATTERY_PERCENT = "status_bar_show_battery_percent";
 
         /**
