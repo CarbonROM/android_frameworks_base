@@ -33,6 +33,7 @@ import android.metrics.LogMaker;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.os.UserHandle;
+import android.provider.Settings;
 import android.text.format.Formatter;
 import android.util.Log;
 
@@ -352,15 +353,26 @@ public class DozeTriggers implements DozeMachine.Part {
     }
 
     private void tryToggleFlashlight() {
-        proximityCheckThenCall((result) -> {
-            if (result == ProximityCheck.RESULT_NEAR) {
-                // in pocket, abort pulse
-                return;
-            } else {
-                // not in pocket, toggle flashlight
-                mDozeHost.performToggleFlashlight();
-            }
-        }, false/*performedProxCheck*/, DozeLog.REASON_TOGGLE_FLASHLIGHT);
+        // skip proximity check for flip cases
+        if (mSkipFlashlightProximityCheck()) {
+            mDozeHost.performToggleFlashlight();
+        } else {
+            // execute proximity check
+            proximityCheckThenCall((result) -> {
+                if (result == ProximityCheck.RESULT_NEAR) {
+                    // in pocket, abort pulse
+                    return;
+                } else {
+                    // not in pocket, toggle flashlight
+                    mDozeHost.performToggleFlashlight();
+                }
+            }, false/*performedProxCheck*/, DozeLog.REASON_TOGGLE_FLASHLIGHT);
+        }
+    }
+
+    private boolean mSkipFlashlightProximityCheck() {
+        return Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.DISABLE_TORCH_PROXIMITY_CHECK, 0, UserHandle.USER_CURRENT) == 1;
     }
 
     private void requestPulse(final int reason, boolean performedProxCheck,

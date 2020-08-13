@@ -4944,6 +4944,14 @@ public final class Settings {
         public static final String STATUS_BAR_SHOW_BATTERY_PERCENT = "status_bar_show_battery_percent";
 
         /**
+         * Whether to disable the flashlight proximity check
+         * 0 = enabled (default)
+         * 1 = disabled
+         * @hide
+         */
+        public static final String DISABLE_TORCH_PROXIMITY_CHECK = "disable_torch_proximity_check";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
