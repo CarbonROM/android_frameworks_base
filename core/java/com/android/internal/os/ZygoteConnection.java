@@ -187,6 +187,10 @@ class ZygoteConnection {
                     return null;
                 }
 
+                if (parsedArgs.refreshTypeface) {
+                    return handleRefreshTypeface(zygoteServer);
+                }
+
                 if (parsedArgs.mPermittedCapabilities != 0
                         || parsedArgs.mEffectiveCapabilities != 0) {
                     throw new ZygoteSecurityException("Client may not specify capabilities: "
@@ -318,12 +322,7 @@ class ZygoteConnection {
                     parsedArgs.mHiddenApiAccessStatslogSampleRate);
         }
 
-        if (parsedArgs.refreshTheme) {
-            Typeface.recreateDefaults();
-        }
-
         throw new AssertionError("Shouldn't get here");
-
     }
 
     private void handleAbiListQuery() {
@@ -424,6 +423,11 @@ class ZygoteConnection {
     private Runnable handleApiDenylistExemptions(ZygoteServer zygoteServer, String[] exemptions) {
         return stateChangeWithUsapPoolReset(zygoteServer,
                 () -> ZygoteInit.setApiDenylistExemptions(exemptions));
+    }
+
+    private Runnable handleRefreshTypeface(ZygoteServer zygoteServer) {
+        return stateChangeWithUsapPoolReset(zygoteServer,
+                () -> Typeface.recreateDefaults());
     }
 
     private Runnable handleUsapPoolStatusChange(ZygoteServer zygoteServer, boolean newStatus) {
