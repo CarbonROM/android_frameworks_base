@@ -1231,7 +1231,7 @@ public class Typeface {
         android.graphics.FontFamily fontFamily =
                 new android.graphics.FontFamily(family.getLanguages(), family.getVariant());
         for (FontConfig.Font font : family.getFonts()) {
-            String fullPathName = font.getFontFamilyName();
+            String fullPathName = font.getPostScriptName();
             ByteBuffer fontBuffer = bufferForPath.get(fullPathName);
             if (fontBuffer == null) {
                 try (FileInputStream file = new FileInputStream(fullPathName)) {
