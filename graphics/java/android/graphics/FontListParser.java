@@ -31,6 +31,7 @@ import android.util.Xml;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -80,7 +81,7 @@ public class FontListParser {
     }
 
     public static FontConfig parse(File configFilename, String fontDir) throws XmlPullParserException, IOException {
-        try (InputStream is = new FileInputStream(configFilename)) {
+        try (InputStream is = new BufferedInputStream(new FileInputStream(configFilename))) {
             XmlPullParser parser = Xml.newPullParser();
             parser.setInput(is, null);
             parser.nextTag();
@@ -269,6 +270,10 @@ public class FontListParser {
             @Nullable Map<String, File> updatableFontMap,
             boolean allowNonExistingFile)
             throws XmlPullParserException, IOException {
+
+        if (!fontDir.endsWith("/")) {
+            fontDir = fontDir + "/";
+        }
 
         String indexStr = parser.getAttributeValue(null, ATTR_INDEX);
         int index = indexStr == null ? 0 : Integer.parseInt(indexStr);
