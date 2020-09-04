@@ -118,6 +118,9 @@ public class FontService extends IFontService.Stub {
                     mService.sendInitializeFontMapMessage();
                 }
             }
+            if (phase == PHASE_THIRD_PARTY_APPS_CAN_START) {
+                mService.sendRefreshFontsMessage();
+            }
         }
     }
 
@@ -126,6 +129,7 @@ public class FontService extends IFontService.Stub {
         private static final int MESSAGE_CHANGE_FONT = 2;
         private static final int MESSAGE_PACKAGE_ADDED_OR_UPDATED = 3;
         private static final int MESSAGE_PACKAGE_REMOVED = 4;
+        private static final int MESSAGE_REFRESH_FONTS = 5;
 
         public FontHandler(Looper looper) {
             super(looper);
@@ -168,6 +172,9 @@ public class FontService extends IFontService.Stub {
                             applyFontsPriv(FontInfo.getDefaultFontInfo());
                         }
                     }
+                    break;
+                case MESSAGE_REFRESH_FONTS:
+                    refreshFonts();
                     break;
                 default:
                     Log.w(TAG, "Unknown message " + msg.what);
@@ -255,6 +262,12 @@ public class FontService extends IFontService.Stub {
     private void sendInitializeFontMapMessage() {
         Message msg = mFontHandler.obtainMessage(
                 FontHandler.MESSAGE_INITIALIZE_MAP);
+        mFontHandler.sendMessage(msg);
+    }
+
+    private void sendRefreshFontsMessage() {
+        Message msg = mFontHandler.obtainMessage(
+                FontHandler.MESSAGE_REFRESH_FONTS);
         mFontHandler.sendMessage(msg);
     }
 
@@ -377,16 +390,16 @@ public class FontService extends IFontService.Stub {
             return null;
         }
         if (fontConfig != null) {
-            List<FontConfig.Family> families = fontConfig.getFamilies();
+            List<FontConfig.FontFamily> families = fontConfig.getFontFamilies();
             if (families != null) {
-                FontConfig.Family family = families.get(0);
+                FontConfig.FontFamily family = families.get(0);
                 if (family != null) {
-                    FontConfig.Font[] fonts = family.getFonts();
-                    if (fonts != null && fonts.length > 0) {
-                        FontConfig.Font font = fonts[0];
+                    List<FontConfig.Font> fonts = family.getFontList();
+                    if (fonts != null && fonts.size() > 0) {
+                        FontConfig.Font font = fonts.get(0);
                         if (font != null) {
-                            Log.v(TAG, "Font found from parsing fonts.xml! " + font.getFontName());
-                            return font.getFontName();
+                            Log.v(TAG, "Font found from parsing fonts.xml! " + font.getPostScriptName());
+                            return font.getPostScriptName();
                         }
                     }
                 }
@@ -597,7 +610,7 @@ public class FontService extends IFontService.Stub {
             restoreconThemeDir();
         }
         // Notify zygote that themes need a refresh
-        SystemProperties.set("sys.refresh_theme", "1");
+        SystemProperties.set("sys.refresh_typeface", "1");
         float fontSize = Settings.System.getFloatForUser(mContext.getContentResolver(),
                 Settings.System.FONT_SCALE, 1.0f, UserHandle.USER_CURRENT);
         Settings.System.putFloatForUser(mContext.getContentResolver(),
