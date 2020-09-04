@@ -561,6 +561,8 @@ public class ActivityManagerService extends IActivityManager.Stub
             2000 * Build.HW_TIMEOUT_MULTIPLIER; // 2 seconds;
     private static final int JAVA_DUMP_MINIMUM_SIZE = 100; // 100 bytes.
 
+    private static final String PROP_REFRESH_TYPEFACE = "sys.refresh_typeface";
+
     OomAdjuster mOomAdjuster;
 
     static final String EXTRA_TITLE = "android.intent.extra.TITLE";
@@ -1538,6 +1540,8 @@ public class ActivityManagerService extends IActivityManager.Stub
 
     private final PlatformCompat mPlatformCompat;
 
+    final ZygoteTypefaceRefreshUpdate mZygoteTypefaceRefresh;
+
     PackageManagerInternal mPackageManagerInt;
     PermissionManagerServiceInternal mPermissionManagerInt;
     private TestUtilityService mTestUtilityService;
@@ -2297,6 +2301,42 @@ public class ActivityManagerService extends IActivityManager.Stub
         return mAppOpsManager;
     }
 
+    /** Zygote Observer for Font Changes */
+    static class ZygoteTypefaceRefreshUpdate extends ContentObserver {
+
+        private final Context mContext;
+
+        public ZygoteTypefaceRefreshUpdate(Handler handler, Context context) {
+            super(handler);
+            mContext = context;
+        }
+
+        public void registerObserver() {
+            mContext.getContentResolver().registerContentObserver(
+                    Settings.System.getUriFor(Settings.System.FONT_SCALE),
+                    false,
+                    this);
+            update();
+        }
+
+        private void update() {
+            // Check if zygote should refresh its fonts
+            if (SystemProperties.getBoolean(PROP_REFRESH_TYPEFACE, false)) {
+                SystemProperties.set(PROP_REFRESH_TYPEFACE, "false");
+                ZYGOTE_PROCESS.refreshTypeface();
+            }
+        }
+
+        public void onChange(boolean selfChange) {
+            update();
+        }
+    }
+
+    @VisibleForTesting
+    public ActivityManagerService(Injector injector) {
+        this(injector, null /* handlerThread */);
+    }
+
     /** Provides the basic functionality for unit tests. */
     @VisibleForTesting
     ActivityManagerService(Injector injector, @NonNull ServiceThread handlerThread) {
@@ -2333,6 +2373,7 @@ public class ActivityManagerService extends IActivityManager.Stub
         mProcStartHandler = null;
         mHiddenApiBlacklist = null;
         mSdkSandboxSettings = null;
+        mZygoteTypefaceRefresh = null;
         mFactoryTest = FACTORY_TEST_OFF;
         mUgmInternal = LocalServices.getService(UriGrantsManagerInternal.class);
         mInternal = new LocalService();
@@ -2453,6 +2494,7 @@ public class ActivityManagerService extends IActivityManager.Stub
 
         mHiddenApiBlacklist = new HiddenApiSettings(mHandler, mContext);
         mSdkSandboxSettings = new SdkSandboxSettings(mContext);
+        mZygoteTypefaceRefresh = new ZygoteTypefaceRefreshUpdate(mHandler, mContext);
 
         Watchdog.getInstance().addMonitor(this);
         Watchdog.getInstance().addThread(mHandler);
@@ -8039,6 +8081,7 @@ public class ActivityManagerService extends IActivityManager.Stub
         mHiddenApiBlacklist.registerObserver();
         mSdkSandboxSettings.registerObserver();
         mPlatformCompat.registerContentObserver();
+        mZygoteTypefaceRefresh.registerObserver();
 
         mAppProfiler.retrieveSettings();
 
