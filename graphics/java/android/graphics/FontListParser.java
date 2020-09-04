@@ -270,6 +270,10 @@ public class FontListParser {
             boolean allowNonExistingFile)
             throws XmlPullParserException, IOException {
 
+        if (!fontDir.endsWith("/")) {
+            fontDir = fontDir + "/";
+        }
+
         String indexStr = parser.getAttributeValue(null, ATTR_INDEX);
         int index = indexStr == null ? 0 : Integer.parseInt(indexStr);
         List<FontVariationAxis> axes = new ArrayList<>();
