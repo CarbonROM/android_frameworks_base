@@ -319,11 +319,10 @@ class ZygoteConnection {
         }
 
         if (parsedArgs.refreshTheme) {
-            Typeface.recreateDefaults();
+            return handleRefreshTypeface(zygoteServer);
         }
 
         throw new AssertionError("Shouldn't get here");
-
     }
 
     private void handleAbiListQuery() {
@@ -424,6 +423,11 @@ class ZygoteConnection {
     private Runnable handleApiDenylistExemptions(ZygoteServer zygoteServer, String[] exemptions) {
         return stateChangeWithUsapPoolReset(zygoteServer,
                 () -> ZygoteInit.setApiDenylistExemptions(exemptions));
+    }
+
+    private Runnable handleRefreshTypeface(ZygoteServer zygoteServer) {
+        return stateChangeWithUsapPoolReset(zygoteServer,
+                () -> Typeface.recreateDefaults());
     }
 
     private Runnable handleUsapPoolStatusChange(ZygoteServer zygoteServer, boolean newStatus) {
