@@ -105,6 +105,8 @@ public class ThemeOverlayController extends CoreStartable implements Dumpable {
     protected static final String TAG = "ThemeOverlayController";
     protected static final String OVERLAY_BERRY_BLACK_THEME =
             "org.carbonrom.overlay.android.blacktheme";
+    protected static final String OVERLAY_BERRY_BLACK_THEME_SYSUI =
+            "org.carbonrom.overlay.systemui.blacktheme";
     private static final boolean DEBUG = true;
 
     protected static final int NEUTRAL = 0;
@@ -684,7 +686,9 @@ public class ThemeOverlayController extends CoreStartable implements Dumpable {
                 0, currentUser) == 1) && isNightMode();
         if (categoryToPackage.containsKey(OVERLAY_CATEGORY_SYSTEM_PALETTE) && isBlackMode) {
             OverlayIdentifier blackTheme = new OverlayIdentifier(OVERLAY_BERRY_BLACK_THEME);
+            OverlayIdentifier blackSysuiTheme = new OverlayIdentifier(OVERLAY_BERRY_BLACK_THEME_SYSUI);
             categoryToPackage.put(OVERLAY_CATEGORY_SYSTEM_PALETTE, blackTheme);
+            categoryToPackage.put(OVERLAY_CATEGORY_SYSTEM_PALETTE, blackSysuiTheme);
         }
 
         Set<UserHandle> managedProfiles = new HashSet<>();
