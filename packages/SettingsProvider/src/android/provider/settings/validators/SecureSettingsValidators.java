@@ -46,6 +46,7 @@ import java.util.Map;
  */
 public class SecureSettingsValidators {
     public static final Map<String, Validator> VALIDATORS = new ArrayMap<>();
+    final Map<String, Integer> carbonValidators = Settings.Secure.CARBON_SECURE_SETTINGS_VALIDATORS;
 
     static {
         VALIDATORS.put(Secure.BUGREPORT_IN_POWER_MENU, BOOLEAN_VALIDATOR);
@@ -337,5 +338,19 @@ public class SecureSettingsValidators {
             return true;
         });
         VALIDATORS.put(Secure.ODI_CAPTIONS_VOLUME_UI_ENABLED, BOOLEAN_VALIDATOR);
+
+        // BOOLEAN_VALIDATOR == 0
+        // ANY_INTEGER_VALIDATOR == 1
+        // ANY_STRING_VALIDATOR == 2
+        for (String key : carbonValidators.keySet()) {
+                Integer validatorId = carbonValidators.get(key);
+                if (validatorId == 0) {
+                VALIDATORS.put(key, SettingsValidators.BOOLEAN_VALIDATOR);
+                } else if (validatorId == 1) {
+                        VALIDATORS.put(key, SettingsValidators.ANY_INTEGER_VALIDATOR);
+                } else if (validatorId == 2) {
+                        VALIDATORS.put(key, SettingsValidators.ANY_STRING_VALIDATOR);
+                }
+        }
     }
 }
