@@ -16,6 +16,7 @@
 
 package android.provider.settings.validators;
 
+import static android.provider.settings.validators.SettingsValidators.ANY_INTEGER_VALIDATOR;
 import static android.provider.settings.validators.SettingsValidators.ANY_STRING_VALIDATOR;
 import static android.provider.settings.validators.SettingsValidators.BOOLEAN_VALIDATOR;
 import static android.provider.settings.validators.SettingsValidators.COMPONENT_NAME_VALIDATOR;
@@ -40,6 +41,7 @@ import java.util.Map;
 public class SystemSettingsValidators {
     @UnsupportedAppUsage
     public static final Map<String, Validator> VALIDATORS = new ArrayMap<>();
+    final static Map<String, Integer> carbonValidators = System.CARBON_SYSTEM_SETTINGS_VALIDATORS;
 
     static {
         VALIDATORS.put(
@@ -207,5 +209,18 @@ public class SystemSettingsValidators {
         VALIDATORS.put(System.WIFI_STATIC_DNS2, LENIENT_IP_ADDRESS_VALIDATOR);
         VALIDATORS.put(System.SHOW_BATTERY_PERCENT, BOOLEAN_VALIDATOR);
         VALIDATORS.put(System.NOTIFICATION_LIGHT_PULSE, BOOLEAN_VALIDATOR);
+        // BOOLEAN_VALIDATOR == 0
+        // ANY_INTEGER_VALIDATOR == 1
+        // ANY_STRING_VALIDATOR == 2
+        for (String key : carbonValidators.keySet()) {
+            Integer validatorId = carbonValidators.get(key);
+            if (validatorId == 0) {
+                VALIDATORS.put(key, BOOLEAN_VALIDATOR);
+            } else if (validatorId == 1) {
+                VALIDATORS.put(key, ANY_INTEGER_VALIDATOR);
+            } else if (validatorId == 2) {
+                VALIDATORS.put(key, ANY_STRING_VALIDATOR);
+            }
+        }
     }
 }

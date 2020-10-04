@@ -46,6 +46,7 @@ import java.util.Map;
  */
 public class SecureSettingsValidators {
     public static final Map<String, Validator> VALIDATORS = new ArrayMap<>();
+    final static Map<String, Integer> carbonValidators = Secure.CARBON_SECURE_SETTINGS_VALIDATORS;
 
     static {
         VALIDATORS.put(Secure.BUGREPORT_IN_POWER_MENU, BOOLEAN_VALIDATOR);
@@ -347,5 +348,19 @@ public class SecureSettingsValidators {
         VALIDATORS.put(Secure.BLUETOOTH_LE_BROADCAST_PROGRAM_INFO, ANY_STRING_VALIDATOR);
         VALIDATORS.put(Secure.BLUETOOTH_LE_BROADCAST_CODE, ANY_STRING_VALIDATOR);
         VALIDATORS.put(Secure.BLUETOOTH_LE_BROADCAST_APP_SOURCE_NAME, ANY_STRING_VALIDATOR);
+
+        // BOOLEAN_VALIDATOR == 0
+        // ANY_INTEGER_VALIDATOR == 1
+        // ANY_STRING_VALIDATOR == 2
+        for (String key : carbonValidators.keySet()) {
+                Integer validatorId = carbonValidators.get(key);
+                if (validatorId == 0) {
+                VALIDATORS.put(key, BOOLEAN_VALIDATOR);
+                } else if (validatorId == 1) {
+                        VALIDATORS.put(key, ANY_INTEGER_VALIDATOR);
+                } else if (validatorId == 2) {
+                        VALIDATORS.put(key, ANY_STRING_VALIDATOR);
+                }
+        }
     }
 }

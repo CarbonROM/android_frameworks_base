@@ -5941,6 +5941,35 @@ public final class Settings {
             return isCallingPackageAllowedToWriteSettings(context, Process.myUid(),
                     context.getOpPackageName(), false);
         }
+
+        /**
+         Add Carbon settings like e.g.
+         @hide
+         public static final String FOO_BAR_BALABALA = "foo_bar_balabala";
+        */
+
+        /**
+         * Settings handlers will combine its list with this so we dont need
+         * to add new things into SettingsProvider SystemSettings
+         * @hide
+         */
+        public static final String[] CARBON_SYSTEM_SETTINGS = {
+            // FOO_BAR_BALABALA
+        };
+
+        /**
+         * Settings handlers will combine its list with this so we dont need
+         * to add new things into SettingsProvider SystemSettingsValidators
+         * we cant use Validators interface so use a simple integer mapping
+         * BOOLEAN_VALIDATOR == 0
+         * ANY_INTEGER_VALIDATOR == 1
+         * ANY_STRING_VALIDATOR == 2
+         * @hide
+         */
+        public static final Map<String, Integer> CARBON_SYSTEM_SETTINGS_VALIDATORS = new ArrayMap<>();
+        static {
+            //CARBON_SYSTEM_SETTINGS_VALIDATORS.put(FOO_BAR_BALABALA, 1);
+        }
     }
 
     /**
@@ -11053,6 +11082,35 @@ public final class Settings {
         @Deprecated
         public static void setLocationProviderEnabled(ContentResolver cr,
                 String provider, boolean enabled) {
+        }
+
+        /**
+         Add Carbon settings like e.g.
+         @hide
+         public static final String FOO_BAR_BALABALA = "foo_bar_balabala";
+        */
+
+        /**
+         * Settings handlers will combine its list with this so we dont need
+         * to add new things into SettingsProvider SecureSettings
+         * @hide
+         */
+        public static final String[] CARBON_SECURE_SETTINGS = {
+            // FOO_BAR_BALABALA
+        };
+
+        /**
+         * Settings handlers will combine its list with this so we dont need
+         * to add new things into SettingsProvider SecureSettingsValidators
+         * we cant use Validators interface so use a simple integer mapping
+         * BOOLEAN_VALIDATOR == 0
+         * ANY_INTEGER_VALIDATOR == 1
+         * ANY_STRING_VALIDATOR == 2
+         * @hide
+         */
+        public static final Map<String, Integer> CARBON_SECURE_SETTINGS_VALIDATORS = new ArrayMap<>();
+        static {
+            //CARBON_SECURE_SETTINGS_VALIDATORS.put(FOO_BAR_BALABALA, 1);
         }
     }
 
