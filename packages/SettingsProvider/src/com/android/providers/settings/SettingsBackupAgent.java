@@ -41,6 +41,7 @@ import android.provider.settings.backup.SecureSettings;
 import android.provider.settings.backup.SystemSettings;
 import android.provider.settings.validators.GlobalSettingsValidators;
 import android.provider.settings.validators.SecureSettingsValidators;
+import android.provider.settings.validators.SettingsValidators;
 import android.provider.settings.validators.SystemSettingsValidators;
 import android.provider.settings.validators.Validator;
 import android.telephony.SubscriptionManager;
@@ -617,7 +618,9 @@ public class SettingsBackupAgent extends BackupAgentHelper {
         Cursor cursor = getContentResolver().query(Settings.System.CONTENT_URI, PROJECTION, null,
                 null, null);
         try {
-            return extractRelevantValues(cursor, SystemSettings.SETTINGS_TO_BACKUP);
+            String[] settings = ArrayUtils.concatElements(String.class, SystemSettings.SETTINGS_TO_BACKUP,
+                    Settings.System.CARBON_SYSTEM_SETTINGS);
+            return extractRelevantValues(cursor, settings);
         } finally {
             cursor.close();
         }
@@ -627,7 +630,9 @@ public class SettingsBackupAgent extends BackupAgentHelper {
         Cursor cursor = getContentResolver().query(Settings.Secure.CONTENT_URI, PROJECTION, null,
                 null, null);
         try {
-            return extractRelevantValues(cursor, SecureSettings.SETTINGS_TO_BACKUP);
+            String[] settings = ArrayUtils.concatElements(String.class, SecureSettings.SETTINGS_TO_BACKUP,
+                    Settings.Secure.CARBON_SECURE_SETTINGS);
+            return extractRelevantValues(cursor, settings);
         } finally {
             cursor.close();
         }
@@ -877,11 +882,12 @@ public class SettingsBackupAgent extends BackupAgentHelper {
         if (contentUri.equals(Settings.Secure.CONTENT_URI)) {
             whitelist = ArrayUtils.concatElements(String.class, SecureSettings.SETTINGS_TO_BACKUP,
                     Settings.Secure.LEGACY_RESTORE_SETTINGS,
-                    DeviceSpecificSettings.DEVICE_SPECIFIC_SETTINGS_TO_BACKUP);
+                    DeviceSpecificSettings.DEVICE_SPECIFIC_SETTINGS_TO_BACKUP,
+                    Settings.Secure.CARBON_SECURE_SETTINGS);
             validators = SecureSettingsValidators.VALIDATORS;
         } else if (contentUri.equals(Settings.System.CONTENT_URI)) {
             whitelist = ArrayUtils.concatElements(String.class, SystemSettings.SETTINGS_TO_BACKUP,
-                    Settings.System.LEGACY_RESTORE_SETTINGS);
+                    Settings.System.LEGACY_RESTORE_SETTINGS, Settings.System.CARBON_SYSTEM_SETTINGS);
             validators = SystemSettingsValidators.VALIDATORS;
         } else if (contentUri.equals(Settings.Global.CONTENT_URI)) {
             whitelist = ArrayUtils.concatElements(String.class, GlobalSettings.SETTINGS_TO_BACKUP,
