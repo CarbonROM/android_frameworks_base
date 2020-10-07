@@ -74,6 +74,7 @@ public enum ScrimState {
             } else {
                 mAnimationDuration = ScrimController.ANIMATION_DURATION;
             }
+            mAnimateChange = false;
             mFrontTint = Color.BLACK;
             mBehindTint = Color.BLACK;
             mNotifTint = mClipQsScrim ? Color.BLACK : Color.TRANSPARENT;
@@ -240,8 +241,7 @@ public enum ScrimState {
                     ? mKeyguardFadingAwayDuration
                     : StatusBar.FADE_KEYGUARD_DURATION;
 
-            boolean fromAod = previousState == AOD || previousState == PULSING;
-            mAnimateChange = !mLaunchingAffordanceWithPreview && !fromAod;
+            mAnimateChange = false;
 
             mFrontTint = Color.TRANSPARENT;
             mBehindTint = Color.BLACK;
