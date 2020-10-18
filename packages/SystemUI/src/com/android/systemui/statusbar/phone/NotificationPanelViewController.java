@@ -4217,8 +4217,8 @@ public class NotificationPanelViewController extends PanelViewController {
                     return false;
                 }
 
-                if (mBarState == StatusBarState.KEYGUARD && Settings.System.getIntForUser(
-                        mView.getContext().getContentResolver(),
+                if (mBarState == StatusBarState.KEYGUARD && !mPulsing && !mDozing &&
+                        Settings.System.getIntForUser(mView.getContext().getContentResolver(),
                         Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN, 0, UserHandle.USER_CURRENT) == 1) {
                     mDoubleTapGestureListener.onTouchEvent(event);
                 }
