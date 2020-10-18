@@ -2853,4 +2853,10 @@
     <string name="controls_menu_add">Add controls</string>
     <!-- Controls menu, edit [CHAR_LIMIT=30] -->
     <string name="controls_menu_edit">Edit controls</string>
+
+    <!-- Power Menu -->
+    <string name="global_action_restart_advanced">Advanced</string>
+    <string name="global_action_restart_recovery">Recovery</string>
+    <string name="global_action_restart_bootloader">Bootloader</string>
+    <string name="global_action_restart_ui">SystemUI</string>
 </resources>
