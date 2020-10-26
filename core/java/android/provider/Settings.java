@@ -5512,6 +5512,12 @@ public final class Settings {
         public static final String MULTI_AUDIO_FOCUS_ENABLED = "multi_audio_focus_enabled";
 
         /**
+         * Double tap on lockscreen to sleep
+         * @hide
+         */
+        public static final String DOUBLE_TAP_SLEEP_LOCKSCREEN = "double_tap_sleep_lockscreen";
+
+        /**
          * IMPORTANT: If you add a new public settings you also have to add it to
          * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
          * it to PRIVATE_SETTINGS below. Also add a validator that can validate
@@ -5978,7 +5984,8 @@ public final class Settings {
             SMART_PIXELS_ENABLE,
             SMART_PIXELS_PATTERN,
             SMART_PIXELS_SHIFT_TIMEOUT,
-            SMART_PIXELS_ON_POWER_SAVE
+            SMART_PIXELS_ON_POWER_SAVE,
+            DOUBLE_TAP_SLEEP_LOCKSCREEN
         };
 
         /**
@@ -5997,6 +6004,7 @@ public final class Settings {
             CARBON_SETTINGS_VALIDATORS.put(SMART_PIXELS_PATTERN, 1);
             CARBON_SETTINGS_VALIDATORS.put(SMART_PIXELS_SHIFT_TIMEOUT, 1);
             CARBON_SETTINGS_VALIDATORS.put(SMART_PIXELS_ON_POWER_SAVE, 0);
+            CARBON_SETTINGS_VALIDATORS.put(DOUBLE_TAP_SLEEP_LOCKSCREEN, 0);
         }
     }
 
