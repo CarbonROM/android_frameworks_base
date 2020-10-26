@@ -5599,6 +5599,12 @@ public final class Settings {
         public static final String SHOW_FOURG_ICON = "show_fourg_icon";
 
         /**
+         * Double tap on lockscreen to sleep
+         * @hide
+         */
+        public static final String DOUBLE_TAP_SLEEP_LOCKSCREEN = "double_tap_sleep_lockscreen";
+
+        /**
          * IMPORTANT: If you add a new public settings you also have to add it to
          * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
          * it to PRIVATE_SETTINGS below. Also add a validator that can validate
@@ -6073,7 +6079,8 @@ public final class Settings {
             STATUS_BAR_BATTERY_STYLE_PREV,
             STATUS_BAR_SHOW_BATTERY_PERCENT,
             STATUS_BAR_SHOW_BATTERY_PERCENT_PREV,
-            SHOW_FOURG_ICON
+            SHOW_FOURG_ICON,
+            DOUBLE_TAP_SLEEP_LOCKSCREEN,
         };
 
         /**
@@ -6097,6 +6104,7 @@ public final class Settings {
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(STATUS_BAR_SHOW_BATTERY_PERCENT, 1);
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(STATUS_BAR_SHOW_BATTERY_PERCENT_PREV, 1);
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(SHOW_FOURG_ICON, 0);
+            CARBON_SYSTEM_SETTINGS_VALIDATORS.put(DOUBLE_TAP_SLEEP_LOCKSCREEN, 0);
         }
     }
 
