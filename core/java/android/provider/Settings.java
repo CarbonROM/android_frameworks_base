@@ -5517,8 +5517,15 @@ public final class Settings {
          * 1 = on
          * @hide
          */
+
         @Readable
         public static final String DESKTOP_MODE = "desktop_mode";
+
+        /**
+         * Double tap on lockscreen to sleep
+         * @hide
+         */
+        public static final String DOUBLE_TAP_SLEEP_LOCKSCREEN = "double_tap_sleep_lockscreen";
 
         /**
          * IMPORTANT: If you add a new public settings you also have to add it to
@@ -5988,7 +5995,8 @@ public final class Settings {
             SMART_PIXELS_ENABLE,
             SMART_PIXELS_PATTERN,
             SMART_PIXELS_SHIFT_TIMEOUT,
-            SMART_PIXELS_ON_POWER_SAVE
+            SMART_PIXELS_ON_POWER_SAVE,
+            DOUBLE_TAP_SLEEP_LOCKSCREEN
         };
 
         /**
@@ -6007,6 +6015,7 @@ public final class Settings {
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(SMART_PIXELS_PATTERN, 1);
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(SMART_PIXELS_SHIFT_TIMEOUT, 1);
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(SMART_PIXELS_ON_POWER_SAVE, 0);
+            CARBON_SYSTEM_SETTINGS_VALIDATORS.put(DOUBLE_TAP_SLEEP_LOCKSCREEN, 0);
         }
     }
 
