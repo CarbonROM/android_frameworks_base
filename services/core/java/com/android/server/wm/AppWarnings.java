@@ -166,7 +166,6 @@ class AppWarnings {
     public void onStartActivity(ActivityRecord r) {
         showUnsupportedCompileSdkDialogIfNeeded(r);
         showUnsupportedDisplaySizeDialogIfNeeded(r);
-        showDeprecatedTargetDialogIfNeeded(r);
     }
 
     /**
