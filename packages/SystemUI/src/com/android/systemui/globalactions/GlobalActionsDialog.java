@@ -54,6 +54,7 @@ import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.Rect;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.os.Binder;
@@ -83,6 +84,7 @@ import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.IWindowManager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -2570,6 +2572,22 @@ public class GlobalActionsDialog implements DialogInterface.OnDismissListener,
             ViewGroup contentParent = (ViewGroup) content.getParent();
             contentParent.setClipChildren(false);
             contentParent.setClipToPadding(false);
+        }
+
+        /**
+         * A workaround for dismissing all dialogs once touched outside.
+         * Workaround is for setCanceledOnTouchOutside(true) not working
+         */ 
+        @Override
+        public boolean dispatchTouchEvent(MotionEvent event) {
+            Rect viewRect = new Rect();
+            mGlobalActionsLayout.getGlobalVisibleRect(viewRect);
+            if (!viewRect.contains((int) event.getRawX(), (int) event.getRawY())) {
+                dismissForControlsActivity();
+                return true;
+            }
+
+            return super.dispatchTouchEvent(event);
         }
 
         @Override
