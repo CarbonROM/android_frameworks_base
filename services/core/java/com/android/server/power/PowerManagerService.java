@@ -2381,8 +2381,8 @@ public final class PowerManagerService extends SystemService
                             + screenOffTimeout - screenDimDuration;
                     if (now < nextTimeout) {
                         mUserActivitySummary = USER_ACTIVITY_SCREEN_BRIGHT;
-                        if (getWakefulnessLocked() == WAKEFULNESS_AWAKE) {
-                            float buttonBrightness = PowerManager.BRIGHTNESS_OFF_FLOAT;;
+                        if (getWakefulnessLocked() == WAKEFULNESS_AWAKE && mButtonsLight != null) {
+                            float buttonBrightness = PowerManager.BRIGHTNESS_OFF_FLOAT;
                             if (isValidBrightness(
                                     mButtonBrightnessOverrideFromWindowManager)) {
                                 if (mButtonBrightnessOverrideFromWindowManager >
@@ -2422,7 +2422,7 @@ public final class PowerManagerService extends SystemService
                         nextTimeout = mLastUserActivityTime + screenOffTimeout;
                         if (now < nextTimeout) {
                             mUserActivitySummary = USER_ACTIVITY_SCREEN_DIM;
-                            if (getWakefulnessLocked() == WAKEFULNESS_AWAKE) {
+                            if (getWakefulnessLocked() == WAKEFULNESS_AWAKE && mButtonsLight != null) {
                                 mButtonsLight.setBrightness(PowerManager.BRIGHTNESS_OFF_FLOAT);
                                 mButtonOn = false;
                             }
