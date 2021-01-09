@@ -195,6 +195,9 @@ public class NotificationPanelViewController extends PanelViewController {
     private static final String DOUBLE_TAP_SLEEP_LOCKSCREEN =
             Settings.Secure.DOUBLE_TAP_SLEEP_LOCKSCREEN;
 
+    private static final String STATUS_BAR_QUICK_QS_PULLDOWN =
+            Settings.Secure.STATUS_BAR_QUICK_QS_PULLDOWN;
+
     private static final Rect M_DUMMY_DIRTY_RECT = new Rect(0, 0, 1, 1);
     private static final Rect EMPTY_RECT = new Rect();
 
@@ -482,6 +485,8 @@ public class NotificationPanelViewController extends PanelViewController {
         }
     };
 
+    private int mOneFingerQuickSettingsIntercept;
+
     @Inject
     public NotificationPanelViewController(NotificationPanelView view,
             InjectionInflationController injectionInflationController,
@@ -516,7 +521,7 @@ public class NotificationPanelViewController extends PanelViewController {
         mFlingAnimationUtilsBuilder = flingAnimationUtilsBuilder;
         mMediaHierarchyManager = mediaHierarchyManager;
         mStatusBarKeyguardViewManager = statusBarKeyguardViewManager;
-	mTunerService = tunerService;
+        mTunerService = tunerService;
         mView.setWillNotDraw(!DEBUG);
         mInjectionInflationController = injectionInflationController;
         mFalsingManager = falsingManager;
@@ -1353,7 +1358,22 @@ public class NotificationPanelViewController extends PanelViewController {
                         MotionEvent.BUTTON_SECONDARY) || event.isButtonPressed(
                         MotionEvent.BUTTON_TERTIARY));
 
-        return twoFingerDrag || stylusButtonClickDrag || mouseButtonClickDrag;
+        final float w = mView.getMeasuredWidth();
+        final float x = event.getX();
+        float region = w * 1.f / 4.f; // TODO overlay region fraction?
+        boolean showQsOverride = false;
+
+        switch (mOneFingerQuickSettingsIntercept) {
+            case 1: // Right side pulldown
+                showQsOverride = mView.isLayoutRtl() ? x < region : w - region < x;
+                break;
+            case 2: // Left side pulldown
+                showQsOverride = mView.isLayoutRtl() ? w - region < x : x < region;
+                break;
+        }
+        showQsOverride &= mBarState == StatusBarState.SHADE;
+
+        return twoFingerDrag || showQsOverride || stylusButtonClickDrag || mouseButtonClickDrag;
     }
 
     private void handleQsDown(MotionEvent event) {
@@ -3654,6 +3674,7 @@ public class NotificationPanelViewController extends PanelViewController {
             mZenModeController.addCallback(mZenModeControllerCallback);
             mConfigurationController.addCallback(mConfigurationListener);
             mTunerService.addTunable(this, DOUBLE_TAP_SLEEP_LOCKSCREEN);
+            mTunerService.addTunable(this, STATUS_BAR_QUICK_QS_PULLDOWN);
             mUpdateMonitor.registerCallback(mKeyguardUpdateCallback);
             // Theme might have changed between inflating this view and attaching it to the
             // window, so
@@ -3667,13 +3688,15 @@ public class NotificationPanelViewController extends PanelViewController {
             mStatusBarStateController.removeCallback(mStatusBarStateListener);
             mZenModeController.removeCallback(mZenModeControllerCallback);
             mConfigurationController.removeCallback(mConfigurationListener);
-	    mTunerService.removeTunable(this);
+            mTunerService.removeTunable(this);
             mUpdateMonitor.removeCallback(mKeyguardUpdateCallback);
         }
 
         @Override
         public void onTuningChanged(String key, String newValue) {
-            if (DOUBLE_TAP_SLEEP_LOCKSCREEN.equals(key)) {
+            if (STATUS_BAR_QUICK_QS_PULLDOWN.equals(key)) {
+                mOneFingerQuickSettingsIntercept = TunerService.parseInteger(newValue, 1);
+            } else if (DOUBLE_TAP_SLEEP_LOCKSCREEN.equals(key)) {
                 mDoubleTapToSleepEnabled = TunerService.parseIntegerSwitch(newValue, true);
             }
         }
