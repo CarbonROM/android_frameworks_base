@@ -75,7 +75,7 @@ public class NetworkTrafficSB extends NetworkTraffic implements DarkReceiver, St
 
     @Override
     protected RelativeSizeSpan getSpeedRelativeSizeSpan() {
-        return new RelativeSizeSpan(0.75f);
+        return new RelativeSizeSpan(0.70f);
     }
 
     @Override
