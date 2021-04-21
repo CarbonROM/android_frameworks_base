@@ -116,6 +116,8 @@ public class TunerServiceImpl extends TunerService {
             }
         }
 
+        initIconHideList();
+
         mCurrentUser = mUserTracker.getUserId();
         mCurrentUserTracker = new UserTracker.Callback() {
             @Override
@@ -134,21 +136,18 @@ public class TunerServiceImpl extends TunerService {
         mUserTracker.removeCallback(mCurrentUserTracker);
     }
 
-    private void upgradeTuner(int oldVersion, int newVersion, Handler mainHandler) {
-        if (oldVersion < 1) {
-            String hideListStr = getValue(StatusBarIconController.ICON_HIDE_LIST);
-            if (hideListStr != null) {
-                ArraySet<String> iconHideList =
-                        StatusBarIconController.getIconHideList(mContext, hideListStr);
-
-                iconHideList.add("rotate");
-                iconHideList.add("headset");
-
-                Settings.Secure.putStringForUser(mContentResolver,
-                        StatusBarIconController.ICON_HIDE_LIST,
-                        TextUtils.join(",", iconHideList), mCurrentUser);
-            }
+    private void initIconHideList() {
+        String hideListStr = getValue(StatusBarIconController.ICON_HIDE_LIST);
+        if (hideListStr == null) {
+            ArraySet<String> iconHideList =
+                    StatusBarIconController.getIconHideList(mContext, hideListStr);
+            Settings.Secure.putStringForUser(mContentResolver,
+                    StatusBarIconController.ICON_HIDE_LIST,
+                    TextUtils.join(",", iconHideList), mCurrentUser);
         }
+    }
+
+    private void upgradeTuner(int oldVersion, int newVersion, Handler mainHandler) {
         // 3 Removed because of a revert.
         if (oldVersion < 4) {
             // Delay this so that we can wait for everything to be registered first.
