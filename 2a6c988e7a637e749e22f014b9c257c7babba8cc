@@ -19,6 +19,24 @@
       "serverId": "4c0b52a2-b090-4331-a190-b288d812d081"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "486af997_6e842f3d",
+        "filename": "packages/SystemUI/src/com/android/systemui/BatteryMeterView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 236
+      },
+      "writtenOn": "2021-04-24T10:48:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e8f0293_d070c803",
+      "revId": "2a6c988e7a637e749e22f014b9c257c7babba8cc",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01f39db5_3a0b9eef",
@@ -32,6 +50,24 @@
       "writtenOn": "2021-04-24T10:27:25Z",
       "side": 1,
       "message": "This should go in front of the updateShowPercent()",
+      "revId": "2a6c988e7a637e749e22f014b9c257c7babba8cc",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ed0108f_ea2b5671",
+        "filename": "packages/SystemUI/src/com/android/systemui/BatteryMeterView.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 236
+      },
+      "writtenOn": "2021-04-24T10:48:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01f39db5_3a0b9eef",
       "revId": "2a6c988e7a637e749e22f014b9c257c7babba8cc",
       "serverId": "4c0b52a2-b090-4331-a190-b288d812d081"
     }
