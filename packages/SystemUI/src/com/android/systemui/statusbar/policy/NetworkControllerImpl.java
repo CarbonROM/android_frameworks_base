@@ -111,7 +111,7 @@ public class NetworkControllerImpl extends BroadcastReceiver
     private final Object mLock = new Object();
     private Config mConfig;
 
-    private boolean mShowImsIcon = true;
+    private boolean mShowImsIcon = false;
 
     private PhoneStateListener mPhoneStateListener;
     private int mActiveMobileDataSubscription = SubscriptionManager.INVALID_SUBSCRIPTION_ID;
@@ -412,7 +412,7 @@ public class NetworkControllerImpl extends BroadcastReceiver
     @Override
     public void onTuningChanged(String key, String newValue) {
         if (key.equals("ims")) {
-            mShowImsIcon = TunerService.parseIntegerSwitch(newValue, true);
+            mShowImsIcon = TunerService.parseIntegerSwitch(newValue, false);
             updateImsIcon();
         }
     }
