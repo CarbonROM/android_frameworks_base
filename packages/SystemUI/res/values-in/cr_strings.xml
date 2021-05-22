@@ -14,9 +14,11 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Power Menu -->
     <string name="global_action_reboot">Mulai ulang</string>
+    <string name="global_action_reboot_more">Mulai ulang\u2026</string>
     <string name="global_action_reboot_sub">Sistem</string>
     <string name="global_action_reboot_recovery">Pemulihan</string>
     <string name="global_action_reboot_bootloader">Bootloader</string>
+    <string name="global_action_dismissable_dialog_text">Opsi mulai ulang lanjutan nonaktif. Apakah Anda ingin memulai ulang\u003f</string>
     <string name="global_action_dnaa">Jangan tampilkan lagi</string>
     <string name="global_action_settings">Pengaturan</string>
     <string name="global_action_screenrecord">Rekam layar</string>
@@ -30,12 +32,22 @@
     <string name="accessibility_quick_settings_caffeine_on">Kafein hidup</string>
     <!-- Heads up QS tile -->
     <string name="quick_settings_heads_up_label">Pemberitahuan awal</string>
+    <string name="accessibility_quick_settings_heads_up_off">Notifikasi mengambang mati.</string>
+    <string name="accessibility_quick_settings_heads_up_on">Notifikasi mengambang aktif.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_off">Notifikasi mengambang dinonaktifkan.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_on">Notifikasi mengambang dihidupkan.</string>
     <!-- Sync QS tile -->
+    <string name="quick_settings_sync_label">Sinkronisasi</string>
+    <string name="accessibility_quick_settings_sync_off">Sinkron mati</string>
+    <string name="accessibility_quick_settings_sync_on">Sinkron nyala</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Sinkron dimatikan</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Sinkron dinyalakan</string>
     <!-- SysUI Tuner -->
     <string name="statusbar_icons_blacklist">Ikon bilah status</string>
     <string name="navbar_tuner_activity">Tombol bilah navigasi</string>
     <string name="lockscreen_tuner_activity">Jalan pintas ke layar kunci</string>
     <string name="powernotif_tuner_activity">Pemberitahuan daya</string>
+    <string name="quick_settings_roaming_title">Indikator Roaming</string>
     <!-- QS Config -->
     <string name="qs_menu_item_columns">Kolom</string>
     <string name="qs_menu_item_columns_landscape">Kolom datar</string>
@@ -49,16 +61,81 @@
     <string name="qs_menu_item_reset">Atur ulang</string>
     <string name="qs_menu_item_titles">Tampilkan label</string>
     <!-- Location Tile -->
+    <string name="accessibility_quick_settings_location_battery_saving">Pelaporan Lokasi: mode hemat baterai.</string>
+    <string name="accessibility_quick_settings_location_gps_only">Pelaporan Lokasi: mode hanya sensor.</string>
+    <string name="accessibility_quick_settings_location_high_accuracy">Pelaporan Lokasi: Mode akurasi tinggi.</string>
+    <string name="quick_settings_location_battery_saving_label">Hemat baterai</string>
+    <string name="quick_settings_location_battery_saving_label_twoline">Hemat\nbaterai</string>
+    <string name="quick_settings_location_gps_only_label">Hanya GPS</string>
+    <string name="quick_settings_location_gps_only_label_twoline">Hanya GPS</string>
+    <string name="quick_settings_location_high_accuracy_label">Akurasi Tinggi</string>
+    <string name="quick_settings_location_high_accuracy_label_twoline">Akurasi\nTinggi</string>
+    <string name="quick_settings_location_detail_title">Lokasi</string>
+    <string name="quick_settings_location_detail_menu_title">Pilih mode:</string>
+    <string name="quick_settings_location_detail_mode_high_accuracy_title">Akurasi Tinggi</string>
+    <string name="quick_settings_location_detail_mode_battery_saving_title">Hemat baterai</string>
+    <string name="quick_settings_location_detail_mode_sensors_only_title">Hanya perangkat</string>
+    <string name="quick_settings_location_detail_mode_high_accuracy_description">Gunakan GPS, Wi\u2011Fi, Bluetooth, atau jaringan seluler untuk menentukan lokasi</string>
+    <string name="quick_settings_location_detail_mode_battery_saving_description">Gunakan Wi\u2011Fi, Bluetooth, atau jaringan seluler untuk menentukan lokasi</string>
+    <string name="quick_settings_location_detail_mode_sensors_only_description">Gunakan GPS untuk menentukan lokasi Anda</string>
     <!-- CPUInfo tile -->
+    <string name="quick_settings_cpuinfo_label">Info CPU</string>
+    <string name="accessibility_quick_settings_cpuinfo_off">Info CPU mati</string>
+    <string name="accessibility_quick_settings_cpuinfo_on">Info CPU aktif</string>
     <!-- Ambient display QS tile -->
+    <string name="quick_settings_ambient_display_label">Tampilan ambien</string>
+    <string name="accessibility_quick_settings_ambient_display_off">Tampilan ambien mati.</string>
+    <string name="accessibility_quick_settings_ambient_display_on">Tampilan ambien aktif.</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_off">Tampilan ambien dinonaktifkan.</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_on">Tampilan ambien dihidupkan.</string>
     <!-- Screenshot QS tile -->
     <string name="quick_settings_screenshot_label">Tangkap layar</string>
+    <string name="quick_settings_full_screenshot_label">Penuh</string>
+    <string name="quick_settings_region_screenshot_label">Sebagian</string>
     <!-- navbar editor -->
+    <string name="preview">Pratinjau</string>
+    <string name="keycode">Kata kunci</string>
+    <string name="no_home_title">Tidak ada tombol beranda yang ditemukan</string>
+    <string name="no_home_message">Tombol home diperlukan untuk dapat menavigasi perangkat ini. Harap tambahkan tombol beranda sebelum menyimpan.</string>
+    <string name="clipboard_description">Clipboard memungkinkan item diseret langsung ke clipboard. Item juga dapat diseret langsung dari clipboard saat ada.</string>
+    <string name="keycode_description">Tombol kode kunci memungkinkan tombol keyboard ditambahkan ke Bilah Navigasi. Ketika ditekan mereka emulasi tombol keyboard yang dipilih. Pertama kunci harus dipilih untuk tombol, diikuti oleh gambar yang akan ditampilkan pada tombol.</string>
+    <string name="start">Mulai</string>
+    <string name="center">Tengah</string>
+    <string name="end">Selesai</string>
+    <string name="space">Spacer</string>
+    <string name="menu_ime">Menu / beralih keyboard</string>
+    <string name="select_button">Pilih tombol untuk ditambahkan</string>
+    <string name="add_button">Tambahkan tombol</string>
+    <string name="save">Simpan</string>
     <string name="reset">Atur ulang</string>
+    <string name="select_keycode">Pilih Tombol Keyboard</string>
+    <string name="left">Kiri</string>
+    <string name="right">Kanan</string>
+    <string name="navbar_editor_title">Pengedit</string>
+    <string name="navbar_editor_summary">Konfigurasikan bilah navigasi</string>
+    <string name="status_bar_vpn">VPN</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g>\" Pengisian Cepat <xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> sampai penuh)</string>
     <string name="keyguard_plugged_in_dash_charging">Mengisi Cepat</string>
     <!-- DataSwitch Tile -->
+    <string name="qs_data_switch_label">Ganti kartu data</string>
+    <string name="qs_data_switch_toast_0">Saat ini tidak ada kartu SIM yang dimasukkan</string>
+    <string name="qs_data_switch_toast_1">Saat ini hanya satu kartu SIM yang dimasukkan</string>
+    <string name="qs_data_switch_changed_1">Pindah kartu data ke SIM 1.</string>
+    <string name="qs_data_switch_changed_2">Pindah kartu data ke SIM 2.</string>
     <!-- Screen record -->
+    <string name="screenrecord_dialog_title">Mulai merekam?</string>
+    <string name="screenrecord_dialog_summary">Saat merekam, sistem Android dapat menangkap informasi sensitif apa pun yang terlihat di layar Anda atau diputar di perangkat Anda. Ini termasuk kata sandi, info pembayaran, foto, pesan, dan audio.</string>
+    <string name="screenrecord_dialog_start">Mulai</string>
+    <string name="screenrecord_dialog_cancel">Batal</string>
+    <string name="screenrecord_audio_title">Rekam audio</string>
+    <string name="screenrecord_audio_summary">Rekam audio ketika merekam</string>
+    <string name="screenrecord_taps_title">Tampilkan sentuhan pada layar</string>
+    <string name="screenrecord_taps_summary">Tunjukkan umpan balik visual saat merekam</string>
+    <string name="screenrecord_stopdot_title">Tampilkan titik berhenti</string>
+    <string name="screenrecord_stopdot_summary">Tampilkan titik merah untuk berhenti merekam dengan satu ketukan. Tekan lama untuk memindahkannya ke sisi yang berlawanan.</string>
+    <string name="screenrecord_low_quality_title">Kualitas rendah</string>
+    <string name="screenrecord_low_quality_summary">Rekam dengan kualitas lebih rendah untuk menghemat ruang di perangkat Anda</string>
     <!-- Spectrum Analog clock -->
     <!-- Dot Analog clock -->
     <!-- Sneeky Analog clock -->

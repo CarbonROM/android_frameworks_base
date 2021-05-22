@@ -83,11 +83,11 @@
     <string name="accessibility_quick_settings_cpuinfo_off">İşlemci bilgisi kapalı</string>
     <string name="accessibility_quick_settings_cpuinfo_on">İşlemci bilgisi açık</string>
     <!-- Ambient display QS tile -->
-    <string name="quick_settings_ambient_display_label">Her zaman açık</string>
-    <string name="accessibility_quick_settings_ambient_display_off">Her zaman açık devre dışı</string>
-    <string name="accessibility_quick_settings_ambient_display_on">Her zaman açık aktif</string>
-    <string name="accessibility_quick_settings_ambient_display_changed_off">Her zaman açık kapatıldı</string>
-    <string name="accessibility_quick_settings_ambient_display_changed_on">Her zaman açık artık aktif</string>
+    <string name="quick_settings_ambient_display_label">Ortam ekranı</string>
+    <string name="accessibility_quick_settings_ambient_display_off">Ortam ekranı devre dışı.</string>
+    <string name="accessibility_quick_settings_ambient_display_on">Ortam ekranı açık.</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_off">Ortam ekranı kapatıldı.</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_on">Ortam ekranı açıldı.</string>
     <!-- Screenshot QS tile -->
     <string name="quick_settings_screenshot_label">Ekran görüntüsü</string>
     <string name="quick_settings_full_screenshot_label">Tam</string>
@@ -120,7 +120,7 @@
     <!-- DataSwitch Tile -->
     <string name="qs_data_switch_label">Veri kartını değiştir</string>
     <string name="qs_data_switch_toast_0">Şu anda SIM kartı takılı değil</string>
-    <string name="qs_data_switch_toast_1">Şu anda sadece bir SIM kartı takılı.</string>
+    <string name="qs_data_switch_toast_1">Şu anda sadece bir SIM kartı takılı</string>
     <string name="qs_data_switch_changed_1">Veri kartını SIM 1 olarak değiştir.</string>
     <string name="qs_data_switch_changed_2">Veri kartını SIM 2 olarak değiştir.</string>
     <!-- Screen record -->

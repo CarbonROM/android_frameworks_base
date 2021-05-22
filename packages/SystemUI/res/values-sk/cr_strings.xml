@@ -14,9 +14,11 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Power Menu -->
     <string name="global_action_reboot">Reštartovať</string>
+    <string name="global_action_reboot_more">Reštart\u2026</string>
     <string name="global_action_reboot_sub">Systém</string>
     <string name="global_action_reboot_recovery">Recovery</string>
     <string name="global_action_reboot_bootloader">Bootloader</string>
+    <string name="global_action_dismissable_dialog_text">Pokročilé reštartovanie je zakázané.\nChcete vykonať reštart\u003f</string>
     <string name="global_action_dnaa">Nezobrazovať znovu</string>
     <string name="global_action_settings">Nastavenia</string>
     <string name="global_action_screenrecord">Záznam obrazovky</string>
@@ -30,12 +32,22 @@
     <string name="accessibility_quick_settings_caffeine_on">Kofeín zap.</string>
     <!-- Heads up QS tile -->
     <string name="quick_settings_heads_up_label">Plávajúce upozornenia</string>
+    <string name="accessibility_quick_settings_heads_up_off">Plávajúce upozornenia vyp.</string>
+    <string name="accessibility_quick_settings_heads_up_on">Plávajúce upozornenia zap.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_off">Plávajúce upozornenia vypnuté</string>
+    <string name="accessibility_quick_settings_heads_up_changed_on">Plávajúce upozornenia zapnuté</string>
     <!-- Sync QS tile -->
+    <string name="quick_settings_sync_label">Synchr.</string>
+    <string name="accessibility_quick_settings_sync_off">Synchr. vyp.</string>
+    <string name="accessibility_quick_settings_sync_on">Synchr. zap.</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Synchronizácia vypnutá</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Synchronizácia zapnutá</string>
     <!-- SysUI Tuner -->
     <string name="statusbar_icons_blacklist">Ikony stavového riadku</string>
     <string name="navbar_tuner_activity">Tlačidlá navigačného panela</string>
     <string name="lockscreen_tuner_activity">Odkazy na obrazovke uzamknutia</string>
     <string name="powernotif_tuner_activity">Rozšírené upozornenia</string>
+    <string name="quick_settings_roaming_title">Indikátor roamingu</string>
     <!-- QS Config -->
     <string name="qs_menu_item_columns">Stĺpce</string>
     <string name="qs_menu_item_columns_landscape">Stĺpce na šírku</string>
@@ -49,16 +61,81 @@
     <string name="qs_menu_item_reset">Resetovať</string>
     <string name="qs_menu_item_titles">Zobraziť názvy</string>
     <!-- Location Tile -->
+    <string name="accessibility_quick_settings_location_battery_saving">Hlásenie polohy: režim úspory batérie.</string>
+    <string name="accessibility_quick_settings_location_gps_only">Hlásenie polohy: iba GPS.</string>
+    <string name="accessibility_quick_settings_location_high_accuracy">Hlásenie polohy: režim vysokej presnosti.</string>
+    <string name="quick_settings_location_battery_saving_label">Úspora batérie</string>
+    <string name="quick_settings_location_battery_saving_label_twoline">Úspora\nbatérie</string>
+    <string name="quick_settings_location_gps_only_label">Iba GPS</string>
+    <string name="quick_settings_location_gps_only_label_twoline">Iba GPS</string>
+    <string name="quick_settings_location_high_accuracy_label">Vysoká presnosť</string>
+    <string name="quick_settings_location_high_accuracy_label_twoline">Vysoká\npresnost</string>
+    <string name="quick_settings_location_detail_title">Poloha</string>
+    <string name="quick_settings_location_detail_menu_title">Vyberte režim:</string>
+    <string name="quick_settings_location_detail_mode_high_accuracy_title">Vysoká presnosť</string>
+    <string name="quick_settings_location_detail_mode_battery_saving_title">Úspora batérie</string>
+    <string name="quick_settings_location_detail_mode_sensors_only_title">Iba senzory zariadenia</string>
+    <string name="quick_settings_location_detail_mode_high_accuracy_description">Na určovanie polohy používať GPS, WiFi, Bluetooth alebo mobilné siete</string>
+    <string name="quick_settings_location_detail_mode_battery_saving_description">Na určovanie polohy používať WiFi, Bluetooth alebo mobilné siete</string>
+    <string name="quick_settings_location_detail_mode_sensors_only_description">NA určovanie polohy používať GPS</string>
     <!-- CPUInfo tile -->
+    <string name="quick_settings_cpuinfo_label">Informácie o CPU</string>
+    <string name="accessibility_quick_settings_cpuinfo_off">Informácie o CPU vypnuté</string>
+    <string name="accessibility_quick_settings_cpuinfo_on">Informácie o CPU zapnuté</string>
     <!-- Ambient display QS tile -->
+    <string name="quick_settings_ambient_display_label">Ambientne zobrazenie</string>
+    <string name="accessibility_quick_settings_ambient_display_off">Ambientne zobrazenie vyp.</string>
+    <string name="accessibility_quick_settings_ambient_display_on">Ambientne zobrazenie zap.</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_off">Ambientne zobrazenie je vypnuté.</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_on">Ambientne zobrazenie je zapnuté.</string>
     <!-- Screenshot QS tile -->
     <string name="quick_settings_screenshot_label">Snímka obrazovky</string>
+    <string name="quick_settings_full_screenshot_label">Úplný</string>
+    <string name="quick_settings_region_screenshot_label">Čiastočný</string>
     <!-- navbar editor -->
+    <string name="preview">Ukážka</string>
+    <string name="keycode">Klávesa</string>
+    <string name="no_home_title">Tlačidlo Domov nebolo nájdené</string>
+    <string name="no_home_message">Na ovládanie tohto zariadenia je potrebné tlačidlo Domov. Pred uložením pridajte tlačidlo Domov.</string>
+    <string name="clipboard_description">Schránka umožňuje pretiahnutie položiek priamo do schránky. Položky je možné pretiahnuť aj priamo zo schránky, ak sú k dispozícii.</string>
+    <string name="keycode_description">Tlačidlo Klávesa umožňujé pridať na navigačný panel klávesy z klávesnice. Keď na ne kliknete, budú emulovať vybranú klávesu. K tlačidlu je najprv nutné priradiť kláves a potom pridať obrázok tlačidla.</string>
+    <string name="start">Začiatok</string>
+    <string name="center">Uprostred</string>
+    <string name="end">Koniec</string>
+    <string name="space">Medzerník</string>
+    <string name="menu_ime">Prepínač menu/klávesnice</string>
+    <string name="select_button">Vyberte tlačidlo pre pridanie</string>
+    <string name="add_button">Pridať tlačidlo</string>
+    <string name="save">Uložiť</string>
     <string name="reset">Resetovať</string>
+    <string name="select_keycode">Vyberte tlačidlo klávesnice</string>
+    <string name="left">Ľavé</string>
+    <string name="right">Pravé</string>
+    <string name="navbar_editor_title">Editor</string>
+    <string name="navbar_editor_summary">Konfigurácia navigačného panela</string>
+    <string name="status_bar_vpn">VPN</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • DASH nabíjanie (zostáva <xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g>)</string>
     <string name="keyguard_plugged_in_dash_charging">Dash nabíjanie</string>
     <!-- DataSwitch Tile -->
+    <string name="qs_data_switch_label">Prepnúť kartu pre mobilné dáta</string>
+    <string name="qs_data_switch_toast_0">Momentálne nie je vložená žiadna SIM karta</string>
+    <string name="qs_data_switch_toast_1">Momentálne je vložená jedna SIM karta</string>
+    <string name="qs_data_switch_changed_1">Prepnúť dátovú kartu na SIM 1.</string>
+    <string name="qs_data_switch_changed_2">Prepnúť dátovú kartu na SIM 2.</string>
     <!-- Screen record -->
+    <string name="screenrecord_dialog_title">Spustiť nahrávanie?</string>
+    <string name="screenrecord_dialog_summary">Počas nahrávania môže systém Android zachytiť akékoľvek citlivé informácie, ktoré sú zobrazené alebo prehrávané na obrazovke vášho zariadenia. To zahŕňa heslá, informácie o platbách, fotografie, správy a zvuk. </string>
+    <string name="screenrecord_dialog_start">Začiatok</string>
+    <string name="screenrecord_dialog_cancel">Zrušiť</string>
+    <string name="screenrecord_audio_title">Zaznamenať zvuk</string>
+    <string name="screenrecord_audio_summary">Zaznamenat zvuk při nahrávání</string>
+    <string name="screenrecord_taps_title">Zobraziť dotyky na obrazovke</string>
+    <string name="screenrecord_taps_summary">Zobraziť vizuálnu spätnú väzbu pri nahrávaní</string>
+    <string name="screenrecord_stopdot_title">Zobraziť bodku ukončenia</string>
+    <string name="screenrecord_stopdot_summary">Zobrazí červenú bodku pre zastavenie nahrávania jediným kliknutím. Dlhým stlačením ju presuniete na opačnú stranu.</string>
+    <string name="screenrecord_low_quality_title">Nízka kvalita</string>
+    <string name="screenrecord_low_quality_summary">Nahrávanie v nižšej kvalite pre ušetrenie miesta vo vašom zariadení</string>
     <!-- Spectrum Analog clock -->
     <!-- Dot Analog clock -->
     <!-- Sneeky Analog clock -->
