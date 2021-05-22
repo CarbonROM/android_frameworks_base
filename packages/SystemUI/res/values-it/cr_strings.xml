@@ -80,9 +80,18 @@
     <string name="quick_settings_location_detail_mode_sensors_only_description">Usa il GPS per determinare la tua posizione</string>
     <!-- CPUInfo tile -->
     <string name="quick_settings_cpuinfo_label">Info CPU</string>
+    <string name="accessibility_quick_settings_cpuinfo_off">Info CPU disattivate</string>
+    <string name="accessibility_quick_settings_cpuinfo_on">Informazioni sulla CPU attivate</string>
     <!-- Ambient display QS tile -->
+    <string name="quick_settings_ambient_display_label">Ambient display</string>
+    <string name="accessibility_quick_settings_ambient_display_off">Ambient display spento.</string>
+    <string name="accessibility_quick_settings_ambient_display_on">Ambient display attivo.</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_off">Ambient display disattivato.</string>
+    <string name="accessibility_quick_settings_ambient_display_changed_on">Ambient display attivato.</string>
     <!-- Screenshot QS tile -->
     <string name="quick_settings_screenshot_label">Screenshot</string>
+    <string name="quick_settings_full_screenshot_label">Intero</string>
+    <string name="quick_settings_region_screenshot_label">Parziale</string>
     <!-- navbar editor -->
     <string name="preview">Anteprima</string>
     <string name="keycode">Keycode</string>
@@ -104,15 +113,29 @@
     <string name="right">Destra</string>
     <string name="navbar_editor_title">Editor</string>
     <string name="navbar_editor_summary">Configura la barra di navigazione</string>
+    <string name="status_bar_vpn">VPN</string>
     <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
     <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Carica Dash (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> fino al completo)</string>
     <string name="keyguard_plugged_in_dash_charging">Ricarica rapida</string>
     <!-- DataSwitch Tile -->
+    <string name="qs_data_switch_label">Cambia scheda dati</string>
+    <string name="qs_data_switch_toast_0">Al momento non è stata inserita alcuna SIM</string>
+    <string name="qs_data_switch_toast_1">Attualmente è inserita solo una scheda SIM</string>
+    <string name="qs_data_switch_changed_1">Passa la scheda dati alla SIM 1.</string>
+    <string name="qs_data_switch_changed_2">Passa alla SIM 2.</string>
     <!-- Screen record -->
+    <string name="screenrecord_dialog_title">Avviare la registrazione?</string>
+    <string name="screenrecord_dialog_summary">Durante la registrazione, il sistema Android può catturare tutte le informazioni sensibili che sono visibili sullo schermo o mostrate sul dispositivo. Questo include password, informazioni di pagamento, foto, messaggi, e audio.</string>
     <string name="screenrecord_dialog_start">Inizio</string>
     <string name="screenrecord_dialog_cancel">Annulla</string>
     <string name="screenrecord_audio_title">Registra audio</string>
     <string name="screenrecord_audio_summary">Registra audio durante la registrazione</string>
+    <string name="screenrecord_taps_title">Mostra i tocchi sullo schermo</string>
+    <string name="screenrecord_taps_summary">Mostra un feedback visivo durante la registrazione</string>
+    <string name="screenrecord_stopdot_title">Mostra punto di arresto</string>
+    <string name="screenrecord_stopdot_summary">Mostra un punto rosso per interrompere la registrazione con un solo tocco. Premi a lungo per spostarlo sul lato opposto.</string>
+    <string name="screenrecord_low_quality_title">Bassa qualità</string>
+    <string name="screenrecord_low_quality_summary">Registra ad una qualità inferiore per risparmiare spazio sul tuo dispositivo</string>
     <!-- Spectrum Analog clock -->
     <!-- Dot Analog clock -->
     <!-- Sneeky Analog clock -->
