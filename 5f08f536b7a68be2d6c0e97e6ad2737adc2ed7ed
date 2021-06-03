@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7daf1d9_ee12fba5",
+        "filename": "packages/SystemUI/src/com/android/systemui/statusbar/policy/NetworkTrafficSB.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 236
+      },
+      "writtenOn": "2021-06-03T02:54:41Z",
+      "side": 1,
+      "message": "should remove this notch check, it kills functionality some punch hole devices.",
+      "revId": "5f08f536b7a68be2d6c0e97e6ad2737adc2ed7ed",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081"
+    }
+  ]
+}
