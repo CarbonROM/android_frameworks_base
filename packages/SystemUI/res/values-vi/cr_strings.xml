@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2017-2021 CarbonROM
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="global_action_restart_recovery">Recovery</string>
+    <string name="global_action_restart_bootloader">Bootloader</string>
+    <string name="quick_settings_caffeine_label">Caffeine</string>
+    <string name="accessibility_quick_settings_caffeine_off">Tắt caffeine</string>
+    <string name="accessibility_quick_settings_caffeine_on">Mở caffeine</string>
+    <string name="quick_settings_heads_up_label">Heads up</string>
+    <string name="qs_data_switch_label">Chuyển đổi thẻ dữ liệu</string>
+    <string name="qs_data_switch_toast_0">Hiện tại không có thẻ SIM nào được lắp vào</string>
+    <string name="qs_data_switch_toast_1">Hiện tại không có thẻ SIM nào được lắp vào</string>
+    <string name="qs_data_switch_changed_1">Chuyển thẻ dữ liệu sang SIM 1.</string>
+    <string name="qs_data_switch_changed_2">Chuyển thẻ dữ liệu sang SIM 2.</string>
+    <string name="statusbar_icons_blacklist">Biểu tượng trên thanh trạng thái</string>
+    <string name="navbar_tuner_activity">Nút trên thanh điều hướng</string>
+    <string name="lockscreen_tuner_activity">Phím tắt khóa màn hình</string>
+    <string name="powernotif_tuner_activity">Thông báo điện năng</string>
+    <string name="quick_settings_smart_pixels">Điểm ảnh thông minh</string>
+    <string name="quick_settings_smart_pixels_on_power_save">Tự động bật Điểm ảnh thông minh</string>
+</resources>

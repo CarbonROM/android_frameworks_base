@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2017-2021 CarbonROM
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="global_action_restart_recovery">恢復模式</string>
+    <string name="global_action_restart_bootloader">開機載入器</string>
+    <string name="quick_settings_caffeine_label">暫停休眠</string>
+    <string name="accessibility_quick_settings_caffeine_off">暫停休眠 關閉</string>
+    <string name="accessibility_quick_settings_caffeine_on">暫停休眠 開啟</string>
+    <string name="quick_settings_heads_up_label">顯示通知</string>
+    <string name="accessibility_quick_settings_heads_up_off">快速瀏覽 關閉</string>
+    <string name="accessibility_quick_settings_heads_up_on">快速瀏覽 開啟</string>
+    <string name="accessibility_quick_settings_heads_up_changed_off">快速瀏覽通知 關閉</string>
+    <string name="accessibility_quick_settings_heads_up_changed_on">快速瀏覽通知 開啟</string>
+    <string name="qs_data_switch_label">切換數據卡</string>
+    <string name="qs_data_switch_toast_0">當前未插入 SIM 卡</string>
+    <string name="qs_data_switch_toast_1">目前僅插入一張 SIM 卡</string>
+    <string name="qs_data_switch_changed_1">將數據卡切換到 SIM 1</string>
+    <string name="qs_data_switch_changed_2">將數據卡切換到 SIM 2</string>
+    <string name="statusbar_icons_blacklist">狀態欄選項</string>
+    <string name="navbar_tuner_activity">虛擬按鍵</string>
+    <string name="lockscreen_tuner_activity">鎖定畫面捷徑</string>
+    <string name="powernotif_tuner_activity">電源通知</string>
+    <string name="quick_settings_smart_pixels">Smart Pixels</string>
+    <string name="quick_settings_smart_pixels_on_power_save">自動開啟Smart Pixels</string>
+</resources>

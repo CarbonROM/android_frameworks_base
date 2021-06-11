@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2017-2021 CarbonROM
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="global_action_restart_recovery">Pemulihan</string>
+    <string name="global_action_restart_bootloader">Bootloader</string>
+    <string name="quick_settings_caffeine_label">Kafein</string>
+    <string name="accessibility_quick_settings_caffeine_off">Kafein mati</string>
+    <string name="accessibility_quick_settings_caffeine_on">Kafein hidup</string>
+    <string name="quick_settings_heads_up_label">Pemberitahuan awal</string>
+    <string name="accessibility_quick_settings_heads_up_off">Notifikasi mengambang mati.</string>
+    <string name="accessibility_quick_settings_heads_up_on">Notifikasi mengambang aktif.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_off">Notifikasi mengambang dinonaktifkan.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_on">Notifikasi mengambang dihidupkan.</string>
+    <string name="qs_data_switch_label">Ganti kartu data</string>
+    <string name="qs_data_switch_toast_0">Saat ini tidak ada kartu SIM yang dimasukkan</string>
+    <string name="qs_data_switch_toast_1">Saat ini hanya satu kartu SIM yang dimasukkan</string>
+    <string name="qs_data_switch_changed_1">Pindah kartu data ke SIM 1.</string>
+    <string name="qs_data_switch_changed_2">Pindah kartu data ke SIM 2.</string>
+    <string name="statusbar_icons_blacklist">Ikon bilah status</string>
+    <string name="navbar_tuner_activity">Tombol bilah navigasi</string>
+    <string name="lockscreen_tuner_activity">Jalan pintas ke layar kunci</string>
+    <string name="powernotif_tuner_activity">Pemberitahuan daya</string>
+    <string name="quick_settings_smart_pixels">Smart Pixels</string>
+    <string name="quick_settings_smart_pixels_on_power_save">Aktifkan Smart Pixels secara otomatis</string>
+</resources>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2017-2021 CarbonROM
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="global_action_restart_recovery">रिकवरी</string>
+    <string name="global_action_restart_bootloader">बूटलोडर</string>
+    <string name="quick_settings_caffeine_label">कैफीन</string>
+    <string name="accessibility_quick_settings_caffeine_off">कैफीन बंद</string>
+    <string name="accessibility_quick_settings_caffeine_on">कैफीन चालू</string>
+    <string name="quick_settings_heads_up_label">सचेत!</string>
+    <string name="statusbar_icons_blacklist">स्थिति पट्टी चिह्न</string>
+    <string name="navbar_tuner_activity">पथ प्रदर्शन पट्टी बटन</string>
+    <string name="lockscreen_tuner_activity">लॉक स्क्रीन शॉर्टकट</string>
+    <string name="powernotif_tuner_activity">पावर सूचनाएं</string>
+    <string name="quick_settings_smart_pixels">स्मार्ट पिक्सेल</string>
+    <string name="quick_settings_smart_pixels_on_power_save">स्वत:-सक्षम स्मार्ट पिक्सेल</string>
+</resources>

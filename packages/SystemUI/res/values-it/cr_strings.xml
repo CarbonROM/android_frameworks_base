@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2017-2021 CarbonROM
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="global_action_restart_recovery">Recovery</string>
+    <string name="global_action_restart_bootloader">Bootloader</string>
+    <string name="quick_settings_caffeine_label">Caffeina</string>
+    <string name="accessibility_quick_settings_caffeine_off">Caffeina disattivata</string>
+    <string name="accessibility_quick_settings_caffeine_on">Caffeina attivata</string>
+    <string name="quick_settings_heads_up_label">Notifiche fluttuanti</string>
+    <string name="accessibility_quick_settings_heads_up_off">Heads up disattivate.</string>
+    <string name="accessibility_quick_settings_heads_up_on">Heads up attive.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_off">Heads up disabilitate.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_on">Heads up attivate.</string>
+    <string name="qs_data_switch_label">Cambia scheda dati</string>
+    <string name="qs_data_switch_toast_0">Al momento non è stata inserita alcuna SIM</string>
+    <string name="qs_data_switch_toast_1">Attualmente è inserita solo una scheda SIM</string>
+    <string name="qs_data_switch_changed_1">Passa la scheda dati alla SIM 1.</string>
+    <string name="qs_data_switch_changed_2">Passa alla SIM 2.</string>
+    <string name="statusbar_icons_blacklist">Icone barra di stato</string>
+    <string name="navbar_tuner_activity">Pulsanti della barra di navigazione</string>
+    <string name="lockscreen_tuner_activity">Scorciatoie schermata di sblocco</string>
+    <string name="powernotif_tuner_activity">Mostra notifiche</string>
+    <string name="quick_settings_smart_pixels">Smart pixel</string>
+    <string name="quick_settings_smart_pixels_on_power_save">Abilita automaticamente Smart Pixel</string>
+</resources>
