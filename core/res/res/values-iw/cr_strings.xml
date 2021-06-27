@@ -15,13 +15,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permlab_fakePackageSignature">זייף חתימת חבילה</string>
-    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permdesc_fakePackageSignature">אפשר לאפליקציה להעמיד פנים שהיא אפליקציה אחרת. אפליקציות זדוניות עלולות להשתמש בזה כדי לקבל גישה לנתוני אפליקציה אישיים. אפשר גישה בזהירות בלבד!</string>
-    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-    <!-- Global actions -->
-    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-    <!-- [CHAR LIMIT=NONE] Error when a package is installed but got the missing fonts.xml file, notifying the user why it isn't showing up. -->
 </resources>

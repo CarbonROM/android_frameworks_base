@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2017 CarbonROM
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="global_action_reboot">Рестартиране</string>
+    <string name="global_action_reboot_more">Рестартиране\u2026</string>
+    <string name="global_action_reboot_sub">Система</string>
+    <string name="global_action_reboot_recovery">Режим на възстановяване</string>
+    <string name="global_action_reboot_bootloader">Буутлоудър</string>
+    <string name="global_action_dismissable_dialog_text">Персонализираното рестартиране е изключено. Бихте ли желали да рестартирате\u003f</string>
+    <string name="global_action_dnaa">Да не се показва отново</string>
+    <string name="global_action_settings">Настройки</string>
+    <string name="global_action_screenrecord">Видеозапис на екрана</string>
+    <string name="global_action_flashlight">Фенерче</string>
+    <string name="quick_settings_smart_pixels">Умни пиксели</string>
+    <string name="quick_settings_smart_pixels_on_power_save">Автоматично-включвани Умни Пиксели</string>
+    <string name="quick_settings_caffeine_label">Кофеин</string>
+    <string name="accessibility_quick_settings_caffeine_off">Кофеин изкл.</string>
+    <string name="accessibility_quick_settings_caffeine_on">Кофеин вкл.</string>
+    <string name="quick_settings_sync_label">Синхронизиране</string>
+    <string name="accessibility_quick_settings_sync_off">Синхр. изкл.</string>
+    <string name="accessibility_quick_settings_sync_on">Синхр. вкл.</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Синхронизирането е изключено.</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Синхронизирането е включено.</string>
+    <string name="statusbar_icons_blacklist">Икони в лентата на състоянието</string>
+    <string name="navbar_tuner_activity">Бутони на навигационната лента</string>
+    <string name="lockscreen_tuner_activity">Опции за заключен екран</string>
+    <string name="powernotif_tuner_activity">Известия за захранването</string>
+    <string name="qs_menu_item_columns_three">3</string>
+    <string name="qs_menu_item_columns_four">4</string>
+    <string name="qs_menu_item_columns_five">5</string>
+    <string name="qs_menu_item_columns_six">6</string>
+    <string name="qs_menu_item_columns_seven">7</string>
+    <string name="qs_menu_item_columns_eight">8</string>
+    <string name="qs_menu_item_columns_nine">9</string>
+    <string name="qs_menu_item_reset">Нулиране</string>
+    <string name="accessibility_quick_settings_location_battery_saving">Отчитане на местоположението: режим пестене на батерия</string>
+    <string name="accessibility_quick_settings_location_gps_only">Отчитане на местоположението: само сензори</string>
+    <string name="accessibility_quick_settings_location_high_accuracy">Отчитане на местоположението: режим висока точност</string>
+    <string name="quick_settings_location_battery_saving_label">Пестене на батерия</string>
+    <string name="quick_settings_location_high_accuracy_label">Висока точност</string>
+    <string name="quick_settings_location_detail_mode_high_accuracy_title">Висока точност</string>
+    <string name="quick_settings_location_detail_mode_battery_saving_title">Пестене на батерия</string>
+    <string name="preview">Визуализация</string>
+    <string name="keycode">Ключов код</string>
+    <string name="no_home_title">Не е намерен бутон за началния екран</string>
+    <string name="no_home_message">Бутон за началния екран е задължителен за да може да навигирате това устройство. Моля добавете бутон за начален екран преди да запазите.</string>
+    <string name="clipboard_description">Буферната Памет позволява преместването на елементи директно в буферната памет. Елементите също могат да бъдат преместени директно извън буферната памет, когато са налични.</string>
+    <string name="keycode_description">Клавишите от ключовият код позволяват да бъдат добавяни клавиши от клавиатурата към Навигационната Лента. При докосване, те емулират избраните клавиши от клавиатурата. Първоначално ключа трабва да бъде избран за клавиша, следван от изображение, което се показва върху клавиша.</string>
+    <string name="start">Начало</string>
+    <string name="center">Центриране</string>
+    <string name="end">Край</string>
+    <string name="menu_ime">Превключване на Меню / Клавиатура</string>
+    <string name="select_button">Избиране на бутон за добавяне</string>
+    <string name="add_button">Добавяне на бутон</string>
+    <string name="save">Запазване</string>
+    <string name="reset">Нулиране</string>
+    <string name="select_keycode">Избиране на клавиш от клавиатурата</string>
+    <string name="navbar_editor_title">Редактор</string>
+    <string name="navbar_editor_summary">Персонализиране на навигационната лента</string>
+    <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Бързо зареждане (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> до пълно зареждане)</string>
+    <string name="keyguard_plugged_in_dash_charging">Бързо Зареждане</string>
+    <string name="screenrecord_dialog_start">Начало</string>
+</resources>

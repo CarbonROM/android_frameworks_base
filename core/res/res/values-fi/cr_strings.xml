@@ -15,20 +15,16 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permlab_fakePackageSignature">Huijaa paketin allekirjoitusta</string>
-    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permdesc_fakePackageSignature">Sallii sovelluksen esittää olevansa eri sovellus. Haitalliset sovellukset saattavat käyttää tätä päästäkseen käsiksi yksityisiin sovellustietoihin. Anna tämä oikeus vain harkitusti!</string>
-    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-    <!-- Global actions -->
+    <string name="system_error_vendorprint">Toimittajan kuvanne ei vastaa järjestelmää. Ole hyvä ja asenna <xliff:g id="string"/> kuvanne laitteellesi</string>
     <string name="reboot_to_bootloader_title">Käynnistä Bootloader-tilaan</string>
     <string name="reboot_to_bootloader_message">Käynnistetään Bootloader-tilaan\u2026</string>
     <string name="reboot_to_recovery_title">Käynnistä recovery-tilaan</string>
     <string name="reboot_to_recovery_message">Käynnistetään recovery-tilaan\u2026</string>
     <string name="reboot_system_title">Käynnistä uudelleen</string>
     <string name="reboot_system_message">Käynnistetään uudelleen\u2026</string>
-    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_accessFontManager">Avaa kirjasinhallinta</string>
     <string name="permdesc_accessFontManager">Sallii sovellukselle pääsyn fontinhallintaan.</string>
-    <!-- [CHAR LIMIT=NONE] Error when a package is installed but got the missing fonts.xml file, notifying the user why it isn't showing up. -->
+    <string name="fontservice_incompatible_font">Asennettu kirjasinpaketti ei ole yhteensopiva, koska fonts.xml tiedosto puuttuu paketin tiedostoista. Ota yhteyttä paketin kehittäjään saadaksesi tukea.</string>
 </resources>

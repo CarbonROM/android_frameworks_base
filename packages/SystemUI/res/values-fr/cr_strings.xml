@@ -12,7 +12,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Power Menu -->
     <string name="global_action_reboot">Redémarrer</string>
     <string name="global_action_reboot_more">Redémarrer</string>
     <string name="global_action_reboot_sub">Système</string>
@@ -23,28 +22,26 @@
     <string name="global_action_settings">Paramètres</string>
     <string name="global_action_screenrecord">Enregistrement de l\'écran</string>
     <string name="global_action_flashlight">Lampe de poche</string>
-    <!-- Smart Pixels QS Tile -->
     <string name="quick_settings_smart_pixels">Pixels intelligents</string>
     <string name="quick_settings_smart_pixels_on_power_save">Pixels intelligents activés automatiquement</string>
-    <!-- Caffeine QS Tile -->
     <string name="quick_settings_caffeine_label">Caffeine</string>
     <string name="accessibility_quick_settings_caffeine_off">Caffeine désactivée</string>
     <string name="accessibility_quick_settings_caffeine_on">Caffeine activée</string>
-    <!-- Heads up QS tile -->
     <string name="quick_settings_heads_up_label">Notifications flottantes</string>
-    <!-- Sync QS tile -->
+    <string name="accessibility_quick_settings_heads_up_off">Notifications flottantes désactivées.</string>
+    <string name="accessibility_quick_settings_heads_up_on">Notifications flottantes activées.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_off">Les notifications flottantes ont été désactivées.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_on">Les notifications flottantes ont été activées.</string>
     <string name="quick_settings_sync_label">Synchroniser</string>
     <string name="accessibility_quick_settings_sync_off">Synchronisation désactivée.</string>
     <string name="accessibility_quick_settings_sync_on">Synchronisation activée.</string>
     <string name="accessibility_quick_settings_sync_changed_off">La synchronisation est désactivée.</string>
     <string name="accessibility_quick_settings_sync_changed_on">La synchronisation est activée.</string>
-    <!-- SysUI Tuner -->
     <string name="statusbar_icons_blacklist">Icônes de la barre d\'état</string>
     <string name="navbar_tuner_activity">Boutons de la barre de navigation</string>
     <string name="lockscreen_tuner_activity">Raccourcis de l\'écran verrouillé</string>
     <string name="powernotif_tuner_activity">Notifications d\'alimentation</string>
     <string name="quick_settings_roaming_title">Indicateur d’itinérance</string>
-    <!-- QS Config -->
     <string name="qs_menu_item_columns">Colonnes</string>
     <string name="qs_menu_item_columns_landscape">Colonnes en orientation paysage</string>
     <string name="qs_menu_item_columns_three">3</string>
@@ -56,11 +53,11 @@
     <string name="qs_menu_item_columns_nine">9</string>
     <string name="qs_menu_item_reset">Réinitialiser</string>
     <string name="qs_menu_item_titles">Afficher les noms des applis</string>
-    <!-- Location Tile -->
     <string name="accessibility_quick_settings_location_battery_saving">Suivi de Localisation: Mode d\'économie d\'énergie.</string>
     <string name="accessibility_quick_settings_location_gps_only">Suivi de Localisation: GPS uniquement.</string>
     <string name="accessibility_quick_settings_location_high_accuracy">Suivi de Localisation: mode haute précision.</string>
     <string name="quick_settings_location_battery_saving_label">Économiseur de batterie</string>
+    <string name="quick_settings_location_battery_saving_label_twoline">Économie\nd\'énergie</string>
     <string name="quick_settings_location_gps_only_label">GPS uniquement</string>
     <string name="quick_settings_location_gps_only_label_twoline">GPS uniquement</string>
     <string name="quick_settings_location_high_accuracy_label">Haute précision</string>
@@ -69,11 +66,16 @@
     <string name="quick_settings_location_detail_menu_title">Sélectionner le mode :</string>
     <string name="quick_settings_location_detail_mode_high_accuracy_title">Haute précision</string>
     <string name="quick_settings_location_detail_mode_battery_saving_title">Économiseur de batterie</string>
-    <!-- CPUInfo tile -->
-    <!-- Ambient display QS tile -->
-    <!-- Screenshot QS tile -->
+    <string name="quick_settings_location_detail_mode_sensors_only_title">Appareil uniquement</string>
+    <string name="quick_settings_location_detail_mode_high_accuracy_description">Utiliser le GPS, le Wi\u2011Fi, le Bluetooth ou les réseaux cellulaires pour déterminer la position </string>
+    <string name="quick_settings_location_detail_mode_battery_saving_description">Utiliser Wi\u2011Fi, Bluetooth ou réseaux cellulaires pour déterminer la position</string>
+    <string name="quick_settings_location_detail_mode_sensors_only_description">Utiliser le GPS pour déterminer votre position</string>
+    <string name="quick_settings_cpuinfo_label">Infos CPU</string>
+    <string name="accessibility_quick_settings_cpuinfo_off">Infos CPU désactivées</string>
+    <string name="accessibility_quick_settings_cpuinfo_on">Infos CPU activées</string>
     <string name="quick_settings_screenshot_label">Capture d\'écran</string>
-    <!-- navbar editor -->
+    <string name="quick_settings_full_screenshot_label">Plein écran</string>
+    <string name="quick_settings_region_screenshot_label">Partielle</string>
     <string name="preview">Aperçu</string>
     <string name="keycode">Code clé</string>
     <string name="no_home_title">Pas de bouton d\'accueil trouvé</string>
@@ -95,13 +97,19 @@
     <string name="navbar_editor_title">Editeur</string>
     <string name="navbar_editor_summary">Configurer la barre de navigation</string>
     <string name="status_bar_vpn">VPN</string>
-    <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
     <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Dash Charging (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> until full)</string>
     <string name="keyguard_plugged_in_dash_charging">Charge via Dash</string>
-    <!-- DataSwitch Tile -->
-    <!-- Screen record -->
+    <string name="qs_data_switch_toast_0">Actuellement aucune carte SIM n\'est insérée</string>
+    <string name="qs_data_switch_toast_1">Actuellement, une seule carte SIM est insérée</string>
+    <string name="qs_data_switch_changed_1">Données mobiles basculées sur SIM 1.</string>
+    <string name="qs_data_switch_changed_2">Données mobiles basculées sur SIM 2.</string>
+    <string name="screenrecord_dialog_title">Commencer l\'enregistrement ?</string>
+    <string name="screenrecord_dialog_summary">Pendant l\'enregistrement, le système Android peut capturer toutes les informations sensibles visibles sur votre écran ou jouées sur votre appareil. Cela inclut les mots de passe, les informations de paiement, les photos, les messages et l\'audio.</string>
     <string name="screenrecord_dialog_start">Démarrer</string>
-    <!-- Spectrum Analog clock -->
-    <!-- Dot Analog clock -->
-    <!-- Sneeky Analog clock -->
+    <string name="screenrecord_dialog_cancel">Annuler</string>
+    <string name="screenrecord_audio_title">Enregistrer l\'audio</string>
+    <string name="screenrecord_audio_summary">Enregistrer l\'audio pendant l\'enregistrement</string>
+    <string name="screenrecord_stopdot_summary">Afficher un point rouge pour arrêter l\'enregistrement d\'un simple appui. Appuyez longuement pour le déplacer vers le côté opposé.</string>
+    <string name="screenrecord_low_quality_title">Basse qualité</string>
+    <string name="screenrecord_low_quality_summary">Enregistrez en une qualité inférieure pour économiser de l\'espace sur votre appareil</string>
 </resources>

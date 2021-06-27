@@ -12,7 +12,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Power Menu -->
     <string name="global_action_reboot">Neustart</string>
     <string name="global_action_reboot_more">Neu starten</string>
     <string name="global_action_reboot_sub">System</string>
@@ -23,32 +22,26 @@
     <string name="global_action_settings">Einstellungen</string>
     <string name="global_action_screenrecord">Bildschirmaufzeichnung</string>
     <string name="global_action_flashlight">Taschenlampe</string>
-    <!-- Smart Pixels QS Tile -->
     <string name="quick_settings_smart_pixels">Smart Pixels</string>
     <string name="quick_settings_smart_pixels_on_power_save">Aktiviere Smart Pixels automatisch</string>
-    <!-- Caffeine QS Tile -->
     <string name="quick_settings_caffeine_label">Caffeine</string>
     <string name="accessibility_quick_settings_caffeine_off">Caffeine aus</string>
     <string name="accessibility_quick_settings_caffeine_on">Caffeine an</string>
-    <!-- Heads up QS tile -->
     <string name="quick_settings_heads_up_label">Heads up</string>
     <string name="accessibility_quick_settings_heads_up_off">Kurzes Einblenden aus.</string>
     <string name="accessibility_quick_settings_heads_up_on">Kurzes Einblenden an.</string>
     <string name="accessibility_quick_settings_heads_up_changed_off">Kurzes Einblenden deaktiviert.</string>
     <string name="accessibility_quick_settings_heads_up_changed_on">Kurzes Einblenden eingeschaltet.</string>
-    <!-- Sync QS tile -->
     <string name="quick_settings_sync_label">Synchronisation</string>
     <string name="accessibility_quick_settings_sync_off">Synchronisierung aus.</string>
     <string name="accessibility_quick_settings_sync_on">Synchronisierung an.</string>
     <string name="accessibility_quick_settings_sync_changed_off">Synchronisierung deaktiviert.</string>
     <string name="accessibility_quick_settings_sync_changed_on">Synchronisierung aktiviert.</string>
-    <!-- SysUI Tuner -->
     <string name="statusbar_icons_blacklist">Statusleisten-Symbole</string>
     <string name="navbar_tuner_activity">Navigationsleistentasten</string>
     <string name="lockscreen_tuner_activity">Sperrbildschirm-Verknüpfungen</string>
     <string name="powernotif_tuner_activity">Power Benachrichtigungen</string>
     <string name="quick_settings_roaming_title">Roaming-Anzeige</string>
-    <!-- QS Config -->
     <string name="qs_menu_item_columns">Spalten</string>
     <string name="qs_menu_item_columns_landscape">Spalten (Querformat)</string>
     <string name="qs_menu_item_columns_three">3</string>
@@ -60,7 +53,6 @@
     <string name="qs_menu_item_columns_nine">9</string>
     <string name="qs_menu_item_reset">Zurücksetzen</string>
     <string name="qs_menu_item_titles">Beschriftungen anzeigen</string>
-    <!-- Location Tile -->
     <string name="accessibility_quick_settings_location_battery_saving">Standort-Modus: Energiesparmodus.</string>
     <string name="accessibility_quick_settings_location_gps_only">Standort Modus: Nur Sensoren.</string>
     <string name="accessibility_quick_settings_location_high_accuracy">Standort Modus: Hohe Genauigkeit.</string>
@@ -78,21 +70,17 @@
     <string name="quick_settings_location_detail_mode_high_accuracy_description">Nutze GPS, W\u2011Lan, Bluetooth und Mobilfunknetze zur Ortung</string>
     <string name="quick_settings_location_detail_mode_battery_saving_description">Nutze W\u2011Lan, Bluetooth und Mobilfunknetze zur Ortung</string>
     <string name="quick_settings_location_detail_mode_sensors_only_description">Nutze GPS zur Ortung</string>
-    <!-- CPUInfo tile -->
     <string name="quick_settings_cpuinfo_label">CPU-Info</string>
     <string name="accessibility_quick_settings_cpuinfo_off">CPU-Info aus</string>
     <string name="accessibility_quick_settings_cpuinfo_on">CPU-Info an</string>
-    <!-- Ambient display QS tile -->
     <string name="quick_settings_ambient_display_label">Inaktivitätsdisplay</string>
     <string name="accessibility_quick_settings_ambient_display_off">Inaktivitätsdisplay aus.</string>
     <string name="accessibility_quick_settings_ambient_display_on">Inaktivitätsdisplay an.</string>
     <string name="accessibility_quick_settings_ambient_display_changed_off">Inaktivitätsdisplay deaktiviert.</string>
     <string name="accessibility_quick_settings_ambient_display_changed_on">Inaktivitätsdisplay aktiviert.</string>
-    <!-- Screenshot QS tile -->
     <string name="quick_settings_screenshot_label">Screenshot</string>
     <string name="quick_settings_full_screenshot_label">Voll</string>
     <string name="quick_settings_region_screenshot_label">Teilweise</string>
-    <!-- navbar editor -->
     <string name="preview">Vorschau</string>
     <string name="keycode">Tastencode</string>
     <string name="no_home_title">Keine \"Home\"-Taste gefunden</string>
@@ -114,16 +102,13 @@
     <string name="navbar_editor_title">Editor</string>
     <string name="navbar_editor_summary">Navigationsleiste konfigurieren</string>
     <string name="status_bar_vpn">VPN</string>
-    <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
     <string name="keyguard_indication_dash_charging_time"><xliff:g id="percentage">%2$s</xliff:g> • Schnelles Aufladen (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> bis voll)</string>
     <string name="keyguard_plugged_in_dash_charging">Dash Charging</string>
-    <!-- DataSwitch Tile -->
     <string name="qs_data_switch_label">Daten SIM wechseln</string>
     <string name="qs_data_switch_toast_0">Derzeit ist keine SIM-Karte eingelegt</string>
     <string name="qs_data_switch_toast_1">Derzeit ist nur eine SIM-Karte eingelegt</string>
     <string name="qs_data_switch_changed_1">Wechsel die Daten SIM auf SIM 1.</string>
     <string name="qs_data_switch_changed_2">Wechsel die Daten SIM auf SIM 2.</string>
-    <!-- Screen record -->
     <string name="screenrecord_dialog_title">Aufnahme starten?</string>
     <string name="screenrecord_dialog_summary">Während der Aufnahme kann das Android System jegliche sensible Daten erfassen, die auf dem Bildschirm dargestellt oder abgespielt werden. Dies beinhaltet Passwörter, Zahlungsdaten, Fotos, Nachrichten und Tonaufnahmen.</string>
     <string name="screenrecord_dialog_start">Starten</string>
@@ -136,7 +121,4 @@
     <string name="screenrecord_stopdot_summary">Zeigt einen roten Punkt, um die Aufnahme mit einem einzigen Tippen zu beenden. Halten Sie ihn lange gedrückt, um ihn auf die andere Seite zu verschieben.</string>
     <string name="screenrecord_low_quality_title">Niedrige Qualität</string>
     <string name="screenrecord_low_quality_summary">In geringerer Qualität aufnehmen, um Speicherplatz auf Ihrem Gerät zu sparen</string>
-    <!-- Spectrum Analog clock -->
-    <!-- Dot Analog clock -->
-    <!-- Sneeky Analog clock -->
 </resources>

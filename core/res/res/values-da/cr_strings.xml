@@ -15,22 +15,15 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permlab_fakePackageSignature">Spoof pakke underskrift</string>
-    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permdesc_fakePackageSignature">Tillader app til at foregive at være en anden app. Ondsindede programmer kunne måske bruges til at få adgang til private programdata. Giv denne tilladelse kun med forsigtighed!</string>
-    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
     <string name="system_error_vendorprint">Dit udbyder billede svarer ikke til systemet. Venligst flash <xliff:g id="string">%s</xliff:g> udbyder billede til din enhed</string>
-    <!-- Global actions -->
     <string name="reboot_to_bootloader_title">Genstart bootloader</string>
     <string name="reboot_to_bootloader_message">Genstarter til bootloader\u2026</string>
     <string name="reboot_to_recovery_title">Genstart gendannelse</string>
     <string name="reboot_to_recovery_message">Genstarter til gendannelse\u2026</string>
     <string name="reboot_system_title">Genstart systemet</string>
     <string name="reboot_system_message">Genstarter system\u2026</string>
-    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permlab_accessFontManager">adgang til skrifttype manager</string>
-    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permdesc_accessFontManager">Giver mulighed for at en app får adgang til skrifttypen manager.</string>
-    <!-- [CHAR LIMIT=NONE] Error when a package is installed but got the missing fonts.xml file, notifying the user why it isn't showing up. -->
 </resources>

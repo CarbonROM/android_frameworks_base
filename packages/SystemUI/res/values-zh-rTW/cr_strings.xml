@@ -12,7 +12,6 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Power Menu -->
     <string name="global_action_reboot">重新啟動</string>
     <string name="global_action_reboot_more">重新啟動\u2026</string>
     <string name="global_action_reboot_sub">系統</string>
@@ -23,32 +22,26 @@
     <string name="global_action_settings">設定</string>
     <string name="global_action_screenrecord">螢幕錄影</string>
     <string name="global_action_flashlight">手電筒</string>
-    <!-- Smart Pixels QS Tile -->
     <string name="quick_settings_smart_pixels">Smart Pixels</string>
     <string name="quick_settings_smart_pixels_on_power_save">自動開啟Smart Pixels</string>
-    <!-- Caffeine QS Tile -->
     <string name="quick_settings_caffeine_label">暫停休眠</string>
     <string name="accessibility_quick_settings_caffeine_off">暫停休眠 關閉</string>
     <string name="accessibility_quick_settings_caffeine_on">暫停休眠 開啟</string>
-    <!-- Heads up QS tile -->
     <string name="quick_settings_heads_up_label">顯示通知</string>
     <string name="accessibility_quick_settings_heads_up_off">快速瀏覽 關閉</string>
     <string name="accessibility_quick_settings_heads_up_on">快速瀏覽 開啟</string>
     <string name="accessibility_quick_settings_heads_up_changed_off">快速瀏覽通知 關閉</string>
     <string name="accessibility_quick_settings_heads_up_changed_on">快速瀏覽通知 開啟</string>
-    <!-- Sync QS tile -->
     <string name="quick_settings_sync_label">同步處理</string>
     <string name="accessibility_quick_settings_sync_off">關閉同步處理</string>
     <string name="accessibility_quick_settings_sync_on">開啟同步處理</string>
     <string name="accessibility_quick_settings_sync_changed_off">同步處理已關閉</string>
     <string name="accessibility_quick_settings_sync_changed_on">同步處理已開啟</string>
-    <!-- SysUI Tuner -->
     <string name="statusbar_icons_blacklist">狀態欄選項</string>
     <string name="navbar_tuner_activity">虛擬按鍵</string>
     <string name="lockscreen_tuner_activity">鎖定畫面捷徑</string>
     <string name="powernotif_tuner_activity">電源通知</string>
     <string name="quick_settings_roaming_title">漫遊指示開啟</string>
-    <!-- QS Config -->
     <string name="qs_menu_item_columns">列</string>
     <string name="qs_menu_item_columns_landscape">美化列</string>
     <string name="qs_menu_item_columns_three">3</string>
@@ -60,7 +53,6 @@
     <string name="qs_menu_item_columns_nine">9</string>
     <string name="qs_menu_item_reset">重設</string>
     <string name="qs_menu_item_titles">顯示標籤</string>
-    <!-- Location Tile -->
     <string name="accessibility_quick_settings_location_battery_saving">座標定位：省電模式</string>
     <string name="accessibility_quick_settings_location_gps_only">座標定位：僅傳感器模式</string>
     <string name="accessibility_quick_settings_location_high_accuracy">座標定位：高精確度模式</string>
@@ -78,21 +70,17 @@
     <string name="quick_settings_location_detail_mode_high_accuracy_description">使用 GPS、Wi\u2011Fi、藍芽、行動網路 定位</string>
     <string name="quick_settings_location_detail_mode_battery_saving_description">使用 Wi\u2011Fi、藍芽、行動網路 定位</string>
     <string name="quick_settings_location_detail_mode_sensors_only_description">使用 GPS 定位</string>
-    <!-- CPUInfo tile -->
     <string name="quick_settings_cpuinfo_label">CPU 信息</string>
     <string name="accessibility_quick_settings_cpuinfo_off">CPU 信息 關閉</string>
     <string name="accessibility_quick_settings_cpuinfo_on">CPU 信息 開啟</string>
-    <!-- Ambient display QS tile -->
     <string name="quick_settings_ambient_display_label">環境顯示</string>
     <string name="accessibility_quick_settings_ambient_display_off">環境顯示 關閉</string>
     <string name="accessibility_quick_settings_ambient_display_on">環境顯示 開啟</string>
     <string name="accessibility_quick_settings_ambient_display_changed_off">環境顯示 已關閉</string>
     <string name="accessibility_quick_settings_ambient_display_changed_on">環境顯示 已開啟</string>
-    <!-- Screenshot QS tile -->
     <string name="quick_settings_screenshot_label">螢幕截圖</string>
     <string name="quick_settings_full_screenshot_label">全部</string>
     <string name="quick_settings_region_screenshot_label">部分</string>
-    <!-- navbar editor -->
     <string name="preview">預覽</string>
     <string name="keycode">按鍵模擬</string>
     <string name="no_home_title">找不到首頁鍵</string>
@@ -114,16 +102,13 @@
     <string name="navbar_editor_title">編輯</string>
     <string name="navbar_editor_summary">設定導航欄位</string>
     <string name="status_bar_vpn">VPN</string>
-    <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
     <string name="keyguard_indication_dash_charging_time">&lt;xliff:g id="percentage"&gt;快速充電 (距離充飽還需要&lt;xliff:g id="charging_time_left" example="4 hours and 2 minutes"&gt;)</string>
     <string name="keyguard_plugged_in_dash_charging">Dash Charging</string>
-    <!-- DataSwitch Tile -->
     <string name="qs_data_switch_label">切換數據卡</string>
     <string name="qs_data_switch_toast_0">當前未插入 SIM 卡</string>
     <string name="qs_data_switch_toast_1">目前僅插入一張 SIM 卡</string>
     <string name="qs_data_switch_changed_1">將數據卡切換到 SIM 1</string>
     <string name="qs_data_switch_changed_2">將數據卡切換到 SIM 2</string>
-    <!-- Screen record -->
     <string name="screenrecord_dialog_title">開始錄製？</string>
     <string name="screenrecord_dialog_summary">錄製時，Android 系統可以捕捉螢幕上可見或設備上播放的任何敏感信息。 這包括密碼，付款信息，照片，消息和聲音。</string>
     <string name="screenrecord_dialog_start">起始</string>
@@ -136,7 +121,4 @@
     <string name="screenrecord_stopdot_summary">在錄製時顯示一個可單擊停止錄製的紅點按鈕。長按它可以將其移動到螢幕另一側。</string>
     <string name="screenrecord_low_quality_title">低品質</string>
     <string name="screenrecord_low_quality_summary">錄製品質較低，以節省設備空間</string>
-    <!-- Spectrum Analog clock -->
-    <!-- Dot Analog clock -->
-    <!-- Sneeky Analog clock -->
 </resources>

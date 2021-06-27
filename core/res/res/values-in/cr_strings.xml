@@ -15,22 +15,16 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permlab_fakePackageSignature">Palsukan tanda tangan paket</string>
-    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permdesc_fakePackageSignature">Izinkan aplikasi berpura-pura menjadi aplikasi yang berbeda. Aplikasi jahat mungkin dapat menggunakan ini untuk mengakses data aplikasi pribadi. Berikan izin ini hanya dengan hati-hati!</string>
-    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
     <string name="system_error_vendorprint">Vendor image anda tidak sesuai dengan sistem. Mohon flash vendor image <xliff:g id="string">%s</xliff:g> untuk perangkat anda</string>
-    <!-- Global actions -->
     <string name="reboot_to_bootloader_title">Mulai ulang ke bootloader</string>
     <string name="reboot_to_bootloader_message">Mulai ulang ke bootloader\u2026</string>
     <string name="reboot_to_recovery_title">Mulai ulang ke pemulihan</string>
     <string name="reboot_to_recovery_message">Mulai ulang ke pemulihan\u2026</string>
     <string name="reboot_system_title">Mulai ulang sistem</string>
     <string name="reboot_system_message">Mulai ulang sistem\u2026</string>
-    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permlab_accessFontManager">akses pangaturan huruf</string>
-    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permdesc_accessFontManager">Izinkan aplikasi mengakses pengaturan huruf.</string>
-    <!-- [CHAR LIMIT=NONE] Error when a package is installed but got the missing fonts.xml file, notifying the user why it isn't showing up. -->
+    <string name="fontservice_incompatible_font">Paket font yang Anda instal tidak kompatibel karena tidak ada fonts.xml pada file mereka. Silakan hubungi pengembang paket untuk dukungan.</string>
 </resources>

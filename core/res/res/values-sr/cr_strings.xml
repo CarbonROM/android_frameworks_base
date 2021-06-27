@@ -15,19 +15,12 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
-    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-    <!-- Global actions -->
     <string name="reboot_to_bootloader_title">Поново покрени у подизни учитавач</string>
     <string name="reboot_to_bootloader_message">Поновно покретање у подизни учитавач\u2026</string>
     <string name="reboot_to_recovery_title">Поново покрени у опоравак</string>
     <string name="reboot_to_recovery_message">Поновно покретање у опоравак\u2026</string>
     <string name="reboot_system_title">Поново покрени систем</string>
     <string name="reboot_system_message">Поновно покретање система\u2026</string>
-    <!-- [CHAR LIMIT=NONE] Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permlab_accessFontManager">приступ менаџеру фонтова</string>
-    <!-- [CHAR LIMIT=NONE] Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permdesc_accessFontManager">Дозвољава некој апликацији приступ менаџеру фонтова.</string>
-    <!-- [CHAR LIMIT=NONE] Error when a package is installed but got the missing fonts.xml file, notifying the user why it isn't showing up. -->
 </resources>

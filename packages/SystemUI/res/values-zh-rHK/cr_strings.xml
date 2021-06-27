@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2017 CarbonROM
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="global_action_reboot">重新開機</string>
+    <string name="global_action_reboot_more">重新開機\u2026</string>
+    <string name="global_action_reboot_sub">系統</string>
+    <string name="global_action_reboot_recovery">恢復模式</string>
+    <string name="global_action_reboot_bootloader">引導加載程式</string>
+    <string name="global_action_dismissable_dialog_text">高級重啟已被禁用。您想要重啟嗎\u003f</string>
+    <string name="global_action_dnaa">不要再顯示</string>
+    <string name="global_action_settings">設定</string>
+    <string name="global_action_screenrecord">熒幕錄製</string>
+    <string name="global_action_flashlight">電筒</string>
+    <string name="quick_settings_smart_pixels">智慧像素</string>
+    <string name="quick_settings_smart_pixels_on_power_save">自動開啟智慧像素</string>
+    <string name="quick_settings_caffeine_label">「咖啡因」模式</string>
+    <string name="accessibility_quick_settings_caffeine_off">關閉咖啡因模式</string>
+    <string name="accessibility_quick_settings_caffeine_on">開啟「咖啡因」模式</string>
+    <string name="quick_settings_sync_label">同步</string>
+    <string name="accessibility_quick_settings_sync_off">關閉同步</string>
+    <string name="accessibility_quick_settings_sync_on">開啟同步</string>
+    <string name="accessibility_quick_settings_sync_changed_off">同步已關閉。</string>
+    <string name="accessibility_quick_settings_sync_changed_on">同步已開啟。</string>
+    <string name="statusbar_icons_blacklist">狀態欄圖標</string>
+    <string name="navbar_tuner_activity">導航欄按鈕</string>
+    <string name="lockscreen_tuner_activity">鎖定熒幕捷徑</string>
+    <string name="powernotif_tuner_activity">電源通知</string>
+    <string name="qs_menu_item_columns_three">3</string>
+    <string name="qs_menu_item_columns_four">4</string>
+    <string name="qs_menu_item_columns_five">5</string>
+    <string name="qs_menu_item_columns_six">6</string>
+    <string name="qs_menu_item_columns_seven">7</string>
+    <string name="qs_menu_item_columns_eight">8</string>
+    <string name="qs_menu_item_columns_nine">9</string>
+    <string name="qs_menu_item_reset">重置</string>
+    <string name="accessibility_quick_settings_location_battery_saving">位置報告：電池節省模式</string>
+    <string name="accessibility_quick_settings_location_gps_only">位置報告：僅感測器模式</string>
+    <string name="accessibility_quick_settings_location_high_accuracy">位置報告：高精確度模式</string>
+    <string name="quick_settings_location_battery_saving_label">電池節省</string>
+    <string name="quick_settings_location_high_accuracy_label">高精確度</string>
+    <string name="quick_settings_location_detail_mode_high_accuracy_title">高精確度</string>
+    <string name="quick_settings_location_detail_mode_battery_saving_title">電池節省</string>
+    <string name="preview">預覽</string>
+    <string name="keycode">擊鍵碼</string>
+    <string name="no_home_title">未檢測到主熒幕按鈕</string>
+    <string name="no_home_message">需要主熒幕按鈕以導航該裝置。請在保存之前增加主熒幕按鈕。</string>
+    <string name="clipboard_description">「剪貼簿」允許項目直接拖拽至剪貼簿。當項目存在時，也可被拖拽出剪貼簿。</string>
+    <string name="keycode_description">「擊鍵碼」允許鍵盤按鍵被添加至導航欄。當被按下時，其模擬所選之鍵盤按鍵。首先按鍵必須被按下，跟隨將被顯示在按鈕上的圖像。</string>
+    <string name="start">開始</string>
+    <string name="center">置中</string>
+    <string name="end">結束</string>
+    <string name="space">空格器</string>
+    <string name="menu_ime">菜單/鍵盤切換器</string>
+    <string name="select_button">選擇欲添加的按鈕</string>
+    <string name="add_button">添加按鈕</string>
+    <string name="save">儲存</string>
+    <string name="reset">重置</string>
+    <string name="select_keycode">選取鍵盤按鈕</string>
+    <string name="left">左</string>
+    <string name="right">右</string>
+    <string name="navbar_editor_title">編輯器</string>
+    <string name="navbar_editor_summary">配置導航欄</string>
+    <string name="keyguard_indication_dash_charging_time">&lt;xliff:g id="percentage"&gt;%2$s&lt;/xliff:g&gt;快速充電（&lt;xliff:g id="charging_time_left" example="4 hours and 2 minutes"&gt;直至充滿）</string>
+    <string name="keyguard_plugged_in_dash_charging">快速充電</string>
+    <string name="screenrecord_dialog_start">開始</string>
+</resources>
