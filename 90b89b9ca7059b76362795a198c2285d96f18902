@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ad95811_0cd51678",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4
+      },
+      "writtenOn": "2021-07-02T23:09:31Z",
+      "side": 1,
+      "message": "Seems to cause a condition issue with the doubletap lockscreen option. If doubletapping on the lockscreen is disabled, doubletap on the statusbar isnt working either.\n",
+      "revId": "90b89b9ca7059b76362795a198c2285d96f18902",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081"
+    }
+  ]
+}
