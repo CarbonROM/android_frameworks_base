@@ -16,6 +16,8 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="system_error_vendorprint">Obraz výrobcu nie je vhodný pre tento systém. Prosím, nainštalujte obraz výrobcu <xliff:g id="string">%s</xliff:g> pre vaše zariadenie</string>
+    <string name="reboot_title">Reštartovať</string>
+    <string name="reboot_message">Reštartovanie systému</string>
     <string name="permlab_accessFontManager">prístup k správe fontov písma</string>
     <string name="permdesc_accessFontManager">Umožňuje aplikácii získať prístup k správcovi fontov písma.</string>
     <string name="fontservice_incompatible_font">Balíček písiem, ktorý ste nainštalovali, nie je kompatibilný kvôli chýbajúcim súborom fonts.xml. Obráťte sa prosím na vývojárov balíčka.</string>

@@ -16,6 +16,8 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="system_error_vendorprint">Twój obraz vendor nie pasuje do systemu. Proszę zainstaluj obraz vendor <xliff:g id="string">%s</xliff:g> dla twojego urządzenia</string>
+    <string name="reboot_title">Uruchom ponownie</string>
+    <string name="reboot_message">Ponowne uruchamianie systemu</string>
     <string name="permlab_accessFontManager">dostęp do menedżera czcionek</string>
     <string name="permdesc_accessFontManager">Zezwala aplikacji na dostęp do menedżera czcionek.</string>
     <string name="fontservice_incompatible_font">Zainstalowany pakiet czcionek jest niezgodny z powodu brakującego pliku fonts.xml. Skontaktuj się z twórcą paczki w celu uzyskania pomocy.</string>

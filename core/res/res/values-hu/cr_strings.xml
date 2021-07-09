@@ -16,6 +16,8 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="system_error_vendorprint">A gyártó image nem egyezik a rendszer verziójával. Telepítse a <xliff:g id="string">%s</xliff:g> gyártó image-et az eszközére</string>
+    <string name="reboot_title">Újraindítás</string>
+    <string name="reboot_message">Rendszer újraindítása</string>
     <string name="permlab_accessFontManager">hozzáférés betűtípus-kezelőhöz</string>
     <string name="permdesc_accessFontManager">Engedélyezi az alkalmazás számára, hogy hozzáférjen a betűtípus-kezelőhöz.</string>
     <string name="fontservice_incompatible_font">A telepített betűtípus csomag fájljaiból hiányzik a fonts.xml, ezért nem kompatibilis. Kérjük, forduljon a csomag fejlesztőjéhez további segítségért.</string>

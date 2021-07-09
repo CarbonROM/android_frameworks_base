@@ -12,8 +12,10 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="global_action_restart_advanced">Gelişmiş</string>
     <string name="global_action_restart_recovery">Kurtarma</string>
     <string name="global_action_restart_bootloader">Ön yükleyici</string>
+    <string name="global_action_restart_ui">Sistem arayüzü</string>
     <string name="quick_settings_caffeine_label">Kafein</string>
     <string name="accessibility_quick_settings_caffeine_off">Kafein kapalı</string>
     <string name="accessibility_quick_settings_caffeine_on">Kafein açık</string>

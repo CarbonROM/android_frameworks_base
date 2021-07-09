@@ -16,6 +16,8 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="system_error_vendorprint">Hình ảnh nhà cung cấp của bạn không phù hợp với hệ thống. Xin vui lòng flash <xliff:g id="string">%s</xliff:g> nhà cung cấp hình ảnh cho thiết bị của bạn</string>
+    <string name="reboot_title">Khởi động lại</string>
+    <string name="reboot_message">Khởi động lại hệ thống</string>
     <string name="permlab_accessFontManager">truy cập trình quản lý font chữ</string>
     <string name="permdesc_accessFontManager">Cho phép một ứng dụng để truy cập vào các font quản lý.</string>
     <string name="fontservice_incompatible_font">Gói phông chữ bạn đã cài đặt không tương thích do thiếu font.xml trên các tệp của chúng. Vui lòng liên hệ với nhà phát triển gói để được hỗ trợ.</string>

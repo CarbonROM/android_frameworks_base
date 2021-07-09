@@ -16,6 +16,8 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="system_error_vendorprint">ベンダーのイメージがシステムと一致しません。お使いの端末の<xliff:g id="string">%s</xliff:g>ベンダーイメージをフラッシュして下さい。</string>
+    <string name="reboot_title">再起動</string>
+    <string name="reboot_message">システムを再起動中...</string>
     <string name="permlab_accessFontManager">フォントマネージャーにアクセス</string>
     <string name="permdesc_accessFontManager">アプリのフォントマネージャーへのアクセスを許可する</string>
     <string name="fontservice_incompatible_font">インストールされたフォントパッケージは内部に fonts.xml が無いため利用できません。サポートを受けるにはパッケージ開発者に連絡して下さい。</string>

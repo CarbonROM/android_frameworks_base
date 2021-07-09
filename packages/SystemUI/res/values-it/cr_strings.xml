@@ -33,4 +33,5 @@
     <string name="powernotif_tuner_activity">Mostra notifiche</string>
     <string name="quick_settings_smart_pixels">Smart pixel</string>
     <string name="quick_settings_smart_pixels_on_power_save">Abilita automaticamente Smart Pixel</string>
+    <string name="status_bar_ims">VoLTE/VoWiFi</string>
 </resources>

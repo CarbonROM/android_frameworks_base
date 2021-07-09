@@ -12,12 +12,18 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="global_action_restart_advanced">Nâng cao</string>
     <string name="global_action_restart_recovery">Recovery</string>
     <string name="global_action_restart_bootloader">Bootloader</string>
+    <string name="global_action_restart_ui">Hệ Thống UI</string>
     <string name="quick_settings_caffeine_label">Caffeine</string>
     <string name="accessibility_quick_settings_caffeine_off">Tắt caffeine</string>
     <string name="accessibility_quick_settings_caffeine_on">Mở caffeine</string>
     <string name="quick_settings_heads_up_label">Heads up</string>
+    <string name="accessibility_quick_settings_heads_up_off">Tắt cảnh báo</string>
+    <string name="accessibility_quick_settings_heads_up_on">Bật cảnh báo</string>
+    <string name="accessibility_quick_settings_heads_up_changed_off">Cảnh báo đã tắt.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_on">Cảnh báo đã bật</string>
     <string name="qs_data_switch_label">Chuyển đổi thẻ dữ liệu</string>
     <string name="qs_data_switch_toast_0">Hiện tại không có thẻ SIM nào được lắp vào</string>
     <string name="qs_data_switch_toast_1">Hiện tại không có thẻ SIM nào được lắp vào</string>
@@ -29,4 +35,9 @@
     <string name="powernotif_tuner_activity">Thông báo điện năng</string>
     <string name="quick_settings_smart_pixels">Điểm ảnh thông minh</string>
     <string name="quick_settings_smart_pixels_on_power_save">Tự động bật Điểm ảnh thông minh</string>
+    <string name="status_bar_ims">VoLTE/VoWiFi</string>
+    <string name="quick_settings_powershare_label">Cảnh báo không dây</string>
+    <string name="quick_settings_powershare_off_powersave_label">Cảnh báo không dây tắt\nTiết kiệm pin</string>
+    <string name="quick_settings_powershare_off_low_battery_label">Cảnh báo không dây tắt\n Pin quá yếu</string>
+    <string name="quick_settings_powershare_enabled_label">PowerShare không dây được bật</string>
 </resources>
