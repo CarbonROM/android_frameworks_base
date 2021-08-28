@@ -23,4 +23,10 @@
     <string name="powernotif_tuner_activity">Известия за захранването</string>
     <string name="quick_settings_smart_pixels">Умни пиксели</string>
     <string name="quick_settings_smart_pixels_on_power_save">Автоматично-включвани Умни Пиксели</string>
+    <string name="quick_settings_reboot_recovery_label">Режим на възстановяване</string>
+    <string name="quick_settings_sync_label">Синхронизиране</string>
+    <string name="accessibility_quick_settings_sync_off">Синхр. изкл.</string>
+    <string name="accessibility_quick_settings_sync_on">Синхр. вкл.</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Синхронизирането е изключено.</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Синхронизирането е включено.</string>
 </resources>

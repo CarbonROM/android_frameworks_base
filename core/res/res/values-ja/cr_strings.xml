@@ -21,4 +21,6 @@
     <string name="permlab_accessFontManager">フォントマネージャーにアクセス</string>
     <string name="permdesc_accessFontManager">アプリのフォントマネージャーへのアクセスを許可する</string>
     <string name="fontservice_incompatible_font">インストールされたフォントパッケージは内部に fonts.xml が無いため利用できません。サポートを受けるにはパッケージ開発者に連絡して下さい。</string>
+    <string name="permlab_fakePackageSignature">パッケージ署名の偽装</string>
+    <string name="permgrouplab_fake_package_signature">パッケージ署名の偽装</string>
 </resources>

@@ -19,4 +19,6 @@
     <string name="permlab_accessFontManager">juurdepääs fondihaldurile</string>
     <string name="permdesc_accessFontManager">Võimaldab rakendusel fondihaldurile ligi pääseda.</string>
     <string name="fontservice_incompatible_font">Teie installitud fontide pakett ei ühildu, kuna nende failides puudub fonts.xml. Toe saamiseks võtke ühendust paketi arendajaga.</string>
+    <string name="permlab_fakePackageSignature">Peta paki allkirja</string>
+    <string name="permgrouplab_fake_package_signature">Peta paki allkirja</string>
 </resources>

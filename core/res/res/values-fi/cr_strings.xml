@@ -16,7 +16,11 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="system_error_vendorprint">Toimittajan kuvanne ei vastaa järjestelmää. Ole hyvä ja asenna <xliff:g id="string"/> kuvanne laitteellesi</string>
+    <string name="reboot_title">Käynnistä uudelleen</string>
+    <string name="reboot_message">Uudelleen käynnistää järjestelmää</string>
     <string name="permlab_accessFontManager">Avaa kirjasinhallinta</string>
     <string name="permdesc_accessFontManager">Sallii sovellukselle pääsyn fontinhallintaan.</string>
     <string name="fontservice_incompatible_font">Asennettu kirjasinpaketti ei ole yhteensopiva, koska fonts.xml tiedosto puuttuu paketin tiedostoista. Ota yhteyttä paketin kehittäjään saadaksesi tukea.</string>
+    <string name="permlab_fakePackageSignature">Huijaa paketin allekirjoitusta</string>
+    <string name="permgrouplab_fake_package_signature">Huijaa paketin allekirjoitusta</string>
 </resources>

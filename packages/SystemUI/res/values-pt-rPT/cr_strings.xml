@@ -23,4 +23,10 @@
     <string name="powernotif_tuner_activity">Notificações de energia</string>
     <string name="quick_settings_smart_pixels">Pixeis Inteligentes</string>
     <string name="quick_settings_smart_pixels_on_power_save">Auto-ativação dos Pixeis Inteligentes</string>
+    <string name="quick_settings_reboot_recovery_label">Recuperação</string>
+    <string name="quick_settings_sync_label">Sincronizar</string>
+    <string name="accessibility_quick_settings_sync_off">Sincronização desligada.</string>
+    <string name="accessibility_quick_settings_sync_on">Sincronização ligada.</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Sincronização foi desligada.</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Sincronização foi ligada.</string>
 </resources>

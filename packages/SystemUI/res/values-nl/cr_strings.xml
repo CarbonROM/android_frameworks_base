@@ -12,6 +12,7 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="global_action_restart_advanced">Geavanceerd</string>
     <string name="global_action_restart_recovery">Recovery</string>
     <string name="global_action_restart_bootloader">Bootloader</string>
     <string name="quick_settings_caffeine_label">Cafeïne</string>
@@ -19,4 +20,5 @@
     <string name="accessibility_quick_settings_caffeine_on">Cafeïne ingeschakeld</string>
     <string name="statusbar_icons_blacklist">Statusbalk iconen</string>
     <string name="quick_settings_smart_pixels">Slimme Pixels</string>
+    <string name="quick_settings_reboot_recovery_label">Recovery</string>
 </resources>

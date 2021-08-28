@@ -23,4 +23,10 @@
     <string name="powernotif_tuner_activity">電源通知</string>
     <string name="quick_settings_smart_pixels">智慧像素</string>
     <string name="quick_settings_smart_pixels_on_power_save">自動開啟智慧像素</string>
+    <string name="quick_settings_reboot_recovery_label">恢復模式</string>
+    <string name="quick_settings_sync_label">同步</string>
+    <string name="accessibility_quick_settings_sync_off">關閉同步</string>
+    <string name="accessibility_quick_settings_sync_on">開啟同步</string>
+    <string name="accessibility_quick_settings_sync_changed_off">同步已關閉。</string>
+    <string name="accessibility_quick_settings_sync_changed_on">同步已開啟。</string>
 </resources>

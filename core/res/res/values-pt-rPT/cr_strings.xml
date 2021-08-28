@@ -19,4 +19,6 @@
     <string name="permlab_accessFontManager">aceder ao gestor de fontes</string>
     <string name="permdesc_accessFontManager">Permite que uma aplicação aceda ao gestor de tipos de letra.</string>
     <string name="fontservice_incompatible_font">O pacote de fontes que você instalou não é compatível devido à falta de fonts.xml nos seus arquivos. Entre em contacto com o programador do pacote para obter suporte.</string>
+    <string name="permlab_fakePackageSignature">Falsificar a assinatura de pacotes</string>
+    <string name="permgrouplab_fake_package_signature">Falsificar a assinatura de pacotes</string>
 </resources>

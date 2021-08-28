@@ -19,4 +19,6 @@
     <string name="permlab_accessFontManager">доступ к диспетчеру шрифтов</string>
     <string name="permdesc_accessFontManager">Позволяет приложению обращаться к диспетчеру шрифтов.</string>
     <string name="fontservice_incompatible_font">Установленный вами пакет шрифтов несовместим из-за отсутствия файла fonts.xml в их файлах. Пожалуйста, свяжитесь с разработчиком пакета для поддержки.</string>
+    <string name="permlab_fakePackageSignature">Имитировать подпись пакета</string>
+    <string name="permgrouplab_fake_package_signature">Имитировать подпись пакета</string>
 </resources>

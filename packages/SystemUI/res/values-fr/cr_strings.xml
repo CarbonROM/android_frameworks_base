@@ -35,4 +35,10 @@
     <string name="quick_settings_smart_pixels">Pixels intelligents</string>
     <string name="quick_settings_smart_pixels_on_power_save">Pixels intelligents activés automatiquement</string>
     <string name="status_bar_ims">VoLTE/VoWiFi</string>
+    <string name="quick_settings_reboot_recovery_label">Recovery</string>
+    <string name="quick_settings_sync_label">Synchroniser</string>
+    <string name="accessibility_quick_settings_sync_off">Synchronisation désactivée.</string>
+    <string name="accessibility_quick_settings_sync_on">Synchronisation activée.</string>
+    <string name="accessibility_quick_settings_sync_changed_off">La synchronisation est désactivée.</string>
+    <string name="accessibility_quick_settings_sync_changed_on">La synchronisation est activée.</string>
 </resources>

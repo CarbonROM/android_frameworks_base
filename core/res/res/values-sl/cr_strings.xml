@@ -18,4 +18,6 @@
     <string name="system_error_vendorprint">Vendor particija se ne ujema s sistemom. Prosim namestite <xliff:g id="string">%s</xliff:g> vendor particijo za vašo napravo</string>
     <string name="permlab_accessFontManager">dostop do upravitelja pisav</string>
     <string name="permdesc_accessFontManager">Dovoli aplikaciji dostop do upravitelja pisav.</string>
+    <string name="permlab_fakePackageSignature">Zaobidenje podpisa paketa</string>
+    <string name="permgrouplab_fake_package_signature">Zaobidenje podpisa paketa</string>
 </resources>

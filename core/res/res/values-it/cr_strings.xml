@@ -21,4 +21,6 @@
     <string name="permlab_accessFontManager">accesso gestore caratteri</string>
     <string name="permdesc_accessFontManager">Consente ad una applicazione di accedere al gestore dei caratteri.</string>
     <string name="fontservice_incompatible_font">Il pacchetto font che hai installato non è compatibile a causa della mancanza di \"fonts.xml\" in esso. Contatta lo sviluppatore del font per supporto.</string>
+    <string name="permlab_fakePackageSignature">Firma del pacchetto</string>
+    <string name="permgrouplab_fake_package_signature">Firma del pacchetto</string>
 </resources>

@@ -19,4 +19,5 @@
     <string name="accessibility_quick_settings_caffeine_on">Caffeine on</string>
     <string name="quick_settings_smart_pixels">Smart Pixels</string>
     <string name="quick_settings_smart_pixels_on_power_save">Auto-Enable Smart Pixels</string>
+    <string name="quick_settings_reboot_recovery_label">Recovery</string>
 </resources>

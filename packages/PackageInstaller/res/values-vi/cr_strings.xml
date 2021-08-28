@@ -15,5 +15,5 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="old_version_number">Phiên bản đã cài đặt: &lt;xliff: g id = "old_version"&gt;% 1 $ s &lt;/ xliff: g&gt;</string>
-    <string name="new_version_number">Để được cài đặt: &lt;xliff: g id = "new_version"&gt;% 1 $ s &lt;/ xliff: g&gt;</string>
+    <string name="new_version_number">Phiên bản sắp cài: <xliff:g id="new_version">%1$s</xliff:g></string>
 </resources>

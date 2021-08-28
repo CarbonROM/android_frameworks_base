@@ -21,4 +21,6 @@
     <string name="permlab_accessFontManager">dostęp do menedżera czcionek</string>
     <string name="permdesc_accessFontManager">Zezwala aplikacji na dostęp do menedżera czcionek.</string>
     <string name="fontservice_incompatible_font">Zainstalowany pakiet czcionek jest niezgodny z powodu brakującego pliku fonts.xml. Skontaktuj się z twórcą paczki w celu uzyskania pomocy.</string>
+    <string name="permlab_fakePackageSignature">Nadpisz podpis pakietu</string>
+    <string name="permgrouplab_fake_package_signature">Nadpisz podpis pakietu</string>
 </resources>

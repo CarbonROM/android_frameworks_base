@@ -19,4 +19,6 @@
     <string name="permlab_accessFontManager">訪問字型管理員</string>
     <string name="permdesc_accessFontManager">允許應用程式訪問字型管理員。</string>
     <string name="fontservice_incompatible_font">您安裝的字體包無法兼容，缺少 fonts.xml 文件，請向字體包的開發人員聯繫獲取支持。</string>
+    <string name="permlab_fakePackageSignature">僞裝軟體包簽名</string>
+    <string name="permgrouplab_fake_package_signature">僞裝軟體包簽名</string>
 </resources>

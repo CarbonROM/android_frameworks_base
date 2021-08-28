@@ -24,4 +24,5 @@
     <string name="powernotif_tuner_activity">पावर सूचनाएं</string>
     <string name="quick_settings_smart_pixels">स्मार्ट पिक्सेल</string>
     <string name="quick_settings_smart_pixels_on_power_save">स्वत:-सक्षम स्मार्ट पिक्सेल</string>
+    <string name="quick_settings_reboot_recovery_label">रिकवरी</string>
 </resources>

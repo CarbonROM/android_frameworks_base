@@ -16,7 +16,11 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="system_error_vendorprint">Sua imagem do vendor não coincide com o sistema. Por favor atualize a imagem do vendor para a versão <xliff:g id="string">%s</xliff:g> do seu dispositivo</string>
+    <string name="reboot_title">Reiniciar</string>
+    <string name="reboot_message">Reiniciar o sistema</string>
     <string name="permlab_accessFontManager">acessar gerenciador de fontes</string>
     <string name="permdesc_accessFontManager">Permite que um aplicativo acesse o gerenciador de fontes.</string>
     <string name="fontservice_incompatible_font">O pacote de fonte que você instalou não é compatível devido a falta de fontes.xml em seus arquivos. Por favor, contate o desenvolvedor de pacote para suporte.</string>
+    <string name="permlab_fakePackageSignature">Assinatura de pacote spoof</string>
+    <string name="permgrouplab_fake_package_signature">Assinatura de pacote spoof</string>
 </resources>

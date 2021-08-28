@@ -16,6 +16,10 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="system_error_vendorprint">Je fabrieksversie komt niet overeen met het systeem. Gelieve de <xliff:g id="string">%s</xliff:g> fabrieksversie op jouw apparaat installeren</string>
+    <string name="reboot_title">Heropstarten</string>
+    <string name="reboot_message">Systeem heropstarten</string>
     <string name="permlab_accessFontManager">toegang tot lettertype beheer</string>
     <string name="permdesc_accessFontManager">Laat een app toegang hebben tot lettertype beheerder.</string>
+    <string name="permlab_fakePackageSignature">Pakket handtekening imiteren</string>
+    <string name="permgrouplab_fake_package_signature">Pakket handtekening imiteren</string>
 </resources>

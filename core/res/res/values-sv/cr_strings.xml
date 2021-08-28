@@ -16,6 +16,10 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="system_error_vendorprint">Tillverkarens avbild matchar inte systemet. Vänligen flasha <xliff:g id="string">%s</xliff:g> tillverkarens avbild för din enhet</string>
+    <string name="reboot_title">Starta om</string>
+    <string name="reboot_message">Startar om systemet</string>
     <string name="permlab_accessFontManager">åtkomst till typsnittshanterare</string>
     <string name="permdesc_accessFontManager">Ger en app åtkomst till typsnittshanteraren.</string>
+    <string name="permlab_fakePackageSignature">Fejka paketsignatur</string>
+    <string name="permgrouplab_fake_package_signature">Fejka paketsignatur</string>
 </resources>

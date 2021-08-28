@@ -33,4 +33,10 @@
     <string name="powernotif_tuner_activity">電源通知</string>
     <string name="quick_settings_smart_pixels">Smart Pixels</string>
     <string name="quick_settings_smart_pixels_on_power_save">自動開啟Smart Pixels</string>
+    <string name="quick_settings_reboot_recovery_label">恢復模式</string>
+    <string name="quick_settings_sync_label">同步處理</string>
+    <string name="accessibility_quick_settings_sync_off">關閉同步處理</string>
+    <string name="accessibility_quick_settings_sync_on">開啟同步處理</string>
+    <string name="accessibility_quick_settings_sync_changed_off">同步處理已關閉</string>
+    <string name="accessibility_quick_settings_sync_changed_on">同步處理已開啟</string>
 </resources>

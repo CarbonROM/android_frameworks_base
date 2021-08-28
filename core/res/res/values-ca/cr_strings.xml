@@ -18,4 +18,6 @@
     <string name="system_error_vendorprint">La imatge del proveïdor no coincideix amb el sistema. Si us plau, flaixeeu la <xliff:g id="string">%s</xliff:g> imatge del proveïdor per al vostre dispositiu</string>
     <string name="permlab_accessFontManager">accedeix al gestor de fonts</string>
     <string name="permdesc_accessFontManager">Permet que una aplicació accedeixi al gestor de fonts.</string>
+    <string name="permlab_fakePackageSignature">Signatura de paquet Spoof</string>
+    <string name="permgrouplab_fake_package_signature">Signatura de paquet Spoof</string>
 </resources>

@@ -21,4 +21,6 @@
     <string name="permlab_accessFontManager">accéder au gestionnaire de polices</string>
     <string name="permdesc_accessFontManager">Permettre à une application d’accéder au gestionnaire de polices.</string>
     <string name="fontservice_incompatible_font">Le paquet de police que vous avez installé n\'est pas compatible en raison de fonts.xml manquants sur leurs fichiers. Veuillez contacter le développeur du paquet pour obtenir de l\'aide.</string>
+    <string name="permlab_fakePackageSignature">Usurper la signature du paquet</string>
+    <string name="permgrouplab_fake_package_signature">Usurper la signature du paquet</string>
 </resources>

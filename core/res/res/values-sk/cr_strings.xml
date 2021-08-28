@@ -21,4 +21,6 @@
     <string name="permlab_accessFontManager">prístup k správe fontov písma</string>
     <string name="permdesc_accessFontManager">Umožňuje aplikácii získať prístup k správcovi fontov písma.</string>
     <string name="fontservice_incompatible_font">Balíček písiem, ktorý ste nainštalovali, nie je kompatibilný kvôli chýbajúcim súborom fonts.xml. Obráťte sa prosím na vývojárov balíčka.</string>
+    <string name="permlab_fakePackageSignature">Sfalšovanie podpisu balíka</string>
+    <string name="permgrouplab_fake_package_signature">Sfalšovanie podpisu balíka</string>
 </resources>

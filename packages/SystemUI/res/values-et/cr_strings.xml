@@ -33,4 +33,10 @@
     <string name="powernotif_tuner_activity">Toiteteated</string>
     <string name="quick_settings_smart_pixels">Nutikad pikslid</string>
     <string name="quick_settings_smart_pixels_on_power_save">Automaatselt lubatud nutikad pikslid</string>
+    <string name="quick_settings_reboot_recovery_label">Taastusesse</string>
+    <string name="quick_settings_sync_label">Sünkr.</string>
+    <string name="accessibility_quick_settings_sync_off">Sünkr. välja</string>
+    <string name="accessibility_quick_settings_sync_on">Sünkr. sisse</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Sünkroniseerimine sisse lülitatud.</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Sünkroniseerimine sisse lülitatud.</string>
 </resources>

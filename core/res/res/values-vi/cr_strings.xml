@@ -21,4 +21,6 @@
     <string name="permlab_accessFontManager">truy cập trình quản lý font chữ</string>
     <string name="permdesc_accessFontManager">Cho phép một ứng dụng để truy cập vào các font quản lý.</string>
     <string name="fontservice_incompatible_font">Gói phông chữ bạn đã cài đặt không tương thích do thiếu font.xml trên các tệp của chúng. Vui lòng liên hệ với nhà phát triển gói để được hỗ trợ.</string>
+    <string name="permlab_fakePackageSignature">Giả mạo chữ ký gói</string>
+    <string name="permgrouplab_fake_package_signature">Giả mạo chữ ký gói</string>
 </resources>

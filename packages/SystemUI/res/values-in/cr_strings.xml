@@ -33,4 +33,10 @@
     <string name="powernotif_tuner_activity">Pemberitahuan daya</string>
     <string name="quick_settings_smart_pixels">Smart Pixels</string>
     <string name="quick_settings_smart_pixels_on_power_save">Aktifkan Smart Pixels secara otomatis</string>
+    <string name="quick_settings_reboot_recovery_label">Pemulihan</string>
+    <string name="quick_settings_sync_label">Sinkronisasi</string>
+    <string name="accessibility_quick_settings_sync_off">Sinkron mati</string>
+    <string name="accessibility_quick_settings_sync_on">Sinkron nyala</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Sinkron dimatikan</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Sinkron dinyalakan</string>
 </resources>

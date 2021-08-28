@@ -19,4 +19,6 @@
     <string name="permlab_accessFontManager">akses pangaturan huruf</string>
     <string name="permdesc_accessFontManager">Izinkan aplikasi mengakses pengaturan huruf.</string>
     <string name="fontservice_incompatible_font">Paket font yang Anda instal tidak kompatibel karena tidak ada fonts.xml pada file mereka. Silakan hubungi pengembang paket untuk dukungan.</string>
+    <string name="permlab_fakePackageSignature">Palsukan tanda tangan paket</string>
+    <string name="permgrouplab_fake_package_signature">Palsukan tanda tangan paket</string>
 </resources>

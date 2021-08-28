@@ -21,4 +21,6 @@
     <string name="permlab_accessFontManager">hozzáférés betűtípus-kezelőhöz</string>
     <string name="permdesc_accessFontManager">Engedélyezi az alkalmazás számára, hogy hozzáférjen a betűtípus-kezelőhöz.</string>
     <string name="fontservice_incompatible_font">A telepített betűtípus csomag fájljaiból hiányzik a fonts.xml, ezért nem kompatibilis. Kérjük, forduljon a csomag fejlesztőjéhez további segítségért.</string>
+    <string name="permlab_fakePackageSignature">Csomag hamisított aláírása</string>
+    <string name="permgrouplab_fake_package_signature">Csomag hamisított aláírása</string>
 </resources>

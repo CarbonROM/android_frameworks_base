@@ -12,8 +12,10 @@
      limitations under the License.
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="global_action_restart_advanced">Avancerat</string>
     <string name="global_action_restart_recovery">Återställning</string>
     <string name="global_action_restart_bootloader">Bootloader</string>
+    <string name="global_action_restart_ui">SystemUI</string>
     <string name="quick_settings_caffeine_label">Koffein</string>
     <string name="accessibility_quick_settings_caffeine_off">Koffein av</string>
     <string name="accessibility_quick_settings_caffeine_on">Koffein på</string>
@@ -24,4 +26,6 @@
     <string name="powernotif_tuner_activity">Ström-aviseringar</string>
     <string name="quick_settings_smart_pixels">Smarta pixlar</string>
     <string name="quick_settings_smart_pixels_on_power_save">Aktiverade automatiskt Smart Pixels</string>
+    <string name="status_bar_ims">VoLTE/VoWiFi</string>
+    <string name="quick_settings_reboot_recovery_label">Återställning</string>
 </resources>

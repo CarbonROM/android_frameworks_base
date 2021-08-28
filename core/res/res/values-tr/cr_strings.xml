@@ -21,4 +21,6 @@
     <string name="permlab_accessFontManager">yazı tipi yöneticisine erişim</string>
     <string name="permdesc_accessFontManager">Bir uygulamanın yazı tipi yöneticisine erişmesine izin verir.</string>
     <string name="fontservice_incompatible_font">Yüklediğiniz yazı tipi paketi dosyalarındaki eksik font.xml nedeniyle uyumlu değil. Lütfen destek için paket geliştiriciye başvurun.</string>
+    <string name="permlab_fakePackageSignature">Sahte paket imzası</string>
+    <string name="permgrouplab_fake_package_signature">Sahte paket imzası</string>
 </resources>

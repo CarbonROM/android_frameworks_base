@@ -18,4 +18,6 @@
     <string name="system_error_vendorprint">आपकी विक्रेता छवि सिस्टम से मेल नहीं खाती । कृपया आपके डिवाइस के लिए विक्रेता छवि <xliff:g id="string">%s</xliff:g> को फ़्लैश करे</string>
     <string name="permlab_accessFontManager">फ़ॉन्ट प्रबंधक का उपयोग करें</string>
     <string name="permdesc_accessFontManager">किसी एप्लिकेशन को फ़ॉंट प्रबंधक तक पहुंचने की अनुमति देता है ।</string>
+    <string name="permlab_fakePackageSignature">धोखा पैकेज हस्ताक्षर</string>
+    <string name="permgrouplab_fake_package_signature">धोखा पैकेज हस्ताक्षर</string>
 </resources>
