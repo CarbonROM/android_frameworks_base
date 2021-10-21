@@ -48,7 +48,6 @@ public class StatusBarTuner extends PreferenceFragment implements Preference.OnP
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
-        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
