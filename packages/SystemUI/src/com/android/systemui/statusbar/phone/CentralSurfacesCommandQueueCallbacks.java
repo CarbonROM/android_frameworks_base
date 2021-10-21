@@ -606,6 +606,10 @@ public class CentralSurfacesCommandQueueCallbacks implements CommandQueue.Callba
 
     @Override
     public void toggleCameraFlash() {
+        mCentralSurfaces.toggleCameraFlash();
+    }
+
+    public void toggleFlashlight() {
         if (mFlashlightController.isAvailable()) {
             mFlashlightController.setFlashlight(!mFlashlightController.isEnabled());
         }
