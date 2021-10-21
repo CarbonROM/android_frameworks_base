@@ -200,6 +200,7 @@ import com.android.internal.policy.PhoneWindow;
 import com.android.internal.policy.TransitionAnimation;
 import com.android.internal.statusbar.IStatusBarService;
 import com.android.internal.util.ArrayUtils;
+import com.android.internal.util.cr.CrUtils;
 import com.android.server.ExtconStateObserver;
 import com.android.server.ExtconUEventObserver;
 import com.android.server.GestureLauncherService;
@@ -270,6 +271,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     static final int LONG_PRESS_POWER_SHUT_OFF_NO_CONFIRM = 3;
     static final int LONG_PRESS_POWER_GO_TO_VOICE_ASSIST = 4;
     static final int LONG_PRESS_POWER_ASSISTANT = 5; // Settings.Secure.ASSISTANT
+    static final int LONG_PRESS_POWER_TORCH = 6;
 
     // must match: config_veryLongPresOnPowerBehavior in config.xml
     static final int VERY_LONG_PRESS_POWER_NOTHING = 0;
@@ -285,6 +287,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     static final int MULTI_PRESS_POWER_THEATER_MODE = 1;
     static final int MULTI_PRESS_POWER_BRIGHTNESS_BOOST = 2;
     static final int MULTI_PRESS_POWER_LAUNCH_TARGET_ACTIVITY = 3;
+    static final int MULTI_PRESS_POWER_TORCH = 4;
 
     // must match: config_longPressOnBackBehavior in config.xml
     static final int LONG_PRESS_BACK_NOTHING = 0;
@@ -621,6 +624,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
     private int mPowerButtonSuppressionDelayMillis = POWER_BUTTON_SUPPRESSION_DELAY_DEFAULT_MILLIS;
 
+    private int mTorchActionMode;
+
     private KeyCombinationManager mKeyCombinationManager;
     private SingleKeyGestureDetector mSingleKeyGestureDetector;
     private GestureLauncherService mGestureLauncherService;
@@ -647,6 +652,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private static final int MSG_HANDLE_ALL_APPS = 22;
     private static final int MSG_LAUNCH_ASSIST = 23;
     private static final int MSG_RINGER_TOGGLE_CHORD = 24;
+    private static final int MSG_TOGGLE_TORCH = 50;
+    private static final int MSG_CLEAR_PROXIMITY = 51;
 
     private class PolicyHandler extends Handler {
         @Override
@@ -717,8 +724,16 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 case MSG_SCREENSHOT_CHORD:
                     handleScreenShot(msg.arg1, msg.arg2);
                     break;
+                case MSG_TOGGLE_TORCH:
+                    toggleFlashLight();
+                    break;
             }
         }
+    }
+
+    private void toggleFlashLight() {
+        performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, true, "Flashlight toggle");
+        CrUtils.toggleCameraFlash();
     }
 
     private UEventObserver mHDMIObserver = new UEventObserver() {
@@ -774,6 +789,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.Global.getUriFor(
                     Settings.Global.POWER_BUTTON_SUPPRESSION_DELAY_AFTER_GESTURE_WAKE), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.Secure.getUriFor(
+                    Settings.Secure.TORCH_POWER_BUTTON_GESTURE), false, this,
                     UserHandle.USER_ALL);
             updateSettings();
         }
@@ -929,6 +947,18 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
     }
 
+    private boolean isDozeMode() {
+        IDreamManager dreamManager = getDreamManager();
+        try {
+            if (dreamManager != null && dreamManager.isDreaming()) {
+                return true;
+            }
+        } catch (RemoteException e) {
+            return false;
+        }
+        return false;
+    }
+
     private void interceptPowerKeyUp(KeyEvent event, boolean canceled) {
         final boolean handled = canceled || mPowerKeyHandled;
 
@@ -960,7 +990,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         if (count == 1) {
             mSideFpsEventHandler.notifyPowerPressed();
         }
-        if (mDefaultDisplayPolicy.isScreenOnEarly() && !mDefaultDisplayPolicy.isScreenOnFully()) {
+        if (!isDozeMode() && mDefaultDisplayPolicy.isScreenOnEarly() && !mDefaultDisplayPolicy.isScreenOnFully()) {
             Slog.i(TAG, "Suppressed redundant power key press while "
                     + "already in the process of turning the screen on.");
             return;
@@ -1039,6 +1069,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     break;
                 }
             }
+        } else if ((mTorchActionMode != 0) && (!isScreenOn() || isDozeMode())) {
+            wakeUpFromPowerKey(eventTime);
         }
     }
 
@@ -1152,6 +1184,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             case MULTI_PRESS_POWER_LAUNCH_TARGET_ACTIVITY:
                 launchTargetActivityOnMultiPressPower();
                 break;
+            case MULTI_PRESS_POWER_TORCH:
+                if (!isScreenOn() || isDozeMode()) {
+                    toggleFlashLight();
+                }
+                break;
         }
     }
 
@@ -1248,6 +1285,15 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 launchAssistAction(null, powerKeyDeviceId, eventTime,
                         AssistUtils.INVOCATION_TYPE_POWER_BUTTON_LONG_PRESS);
                 break;
+            case LONG_PRESS_POWER_TORCH:
+                mPowerKeyHandled = true;
+                // Toggle torch state asynchronously to help protect against
+                // a misbehaving cameraservice from blocking systemui.
+                mHandler.removeMessages(MSG_TOGGLE_TORCH);
+                Message msg = mHandler.obtainMessage(MSG_TOGGLE_TORCH);
+                msg.setAsynchronous(true);
+                msg.sendToTarget();
+                break;
         }
     }
 
@@ -1312,6 +1358,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         if (mLongPressOnPowerBehavior == LONG_PRESS_POWER_GO_TO_VOICE_ASSIST
                 && !isLongPressToAssistantEnabled(mContext)) {
             return LONG_PRESS_POWER_NOTHING;
+        }
+
+        if ((mTorchActionMode == 2) && (!isScreenOn() || isDozeMode())) {
+            return LONG_PRESS_POWER_TORCH;
         }
 
         return mLongPressOnPowerBehavior;
@@ -2548,6 +2598,14 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     Settings.Global.KEY_CHORD_POWER_VOLUME_UP,
                     mContext.getResources().getInteger(
                             com.android.internal.R.integer.config_keyChordPowerVolumeUp));
+            mTorchActionMode = Settings.Secure.getIntForUser(resolver,
+                    Settings.Secure.TORCH_POWER_BUTTON_GESTURE, 0, UserHandle.USER_CURRENT);
+            if (mTorchActionMode == 1) {
+                mDoublePressOnPowerBehavior = MULTI_PRESS_POWER_TORCH;
+            } else {
+                mDoublePressOnPowerBehavior = mContext.getResources().getInteger(
+                    com.android.internal.R.integer.config_doublePressOnPowerBehavior);
+            }
         }
         if (updateRotation) {
             updateRotation(true);
@@ -5994,6 +6052,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 return "MULTI_PRESS_POWER_BRIGHTNESS_BOOST";
             case MULTI_PRESS_POWER_LAUNCH_TARGET_ACTIVITY:
                 return "MULTI_PRESS_POWER_LAUNCH_TARGET_ACTIVITY";
+            case MULTI_PRESS_POWER_TORCH:
+                return "MULTI_PRESS_POWER_TORCH";
             default:
                 return Integer.toString(behavior);
         }
