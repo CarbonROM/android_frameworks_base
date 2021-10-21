@@ -5624,6 +5624,16 @@ public final class Settings {
          */
 
         /**
+         * Whether the torch launch gesture to double tap or long press the power button when the
+         * screen is off should be enabled. *
+         * 0: disabled
+         * 1: double tap power for torch
+         * 2: long tap power for torch
+         * @hide
+         */
+        public static final String TORCH_POWER_BUTTON_GESTURE = "torch_power_button_gesture";
+
+        /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
          *
@@ -6095,6 +6105,7 @@ public final class Settings {
             DOUBLE_TAP_SLEEP_LOCKSCREEN,
             DOUBLE_TAP_SLEEP_GESTURE,
             HIDE_FROM_RECENTS_LIST,
+            TORCH_POWER_BUTTON_GESTURE,
         };
 
         /**
@@ -6121,6 +6132,7 @@ public final class Settings {
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(DOUBLE_TAP_SLEEP_LOCKSCREEN, 0);
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(DOUBLE_TAP_SLEEP_GESTURE, 0);
             CARBON_SYSTEM_SETTINGS_VALIDATORS.put(HIDE_FROM_RECENTS_LIST, 2);
+            CARBON_SYSTEM_SETTINGS_VALIDATORS.put(TORCH_POWER_BUTTON_GESTURE, 1);
         }
     }
 
