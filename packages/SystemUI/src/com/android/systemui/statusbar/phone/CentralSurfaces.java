@@ -196,6 +196,8 @@ public interface CentralSurfaces extends Dumpable, ActivityStarter, LifecycleOwn
 
     void toggleCameraFlash();
 
+    void toggleFlashlight();
+
     void start();
 
     boolean updateIsKeyguard();
