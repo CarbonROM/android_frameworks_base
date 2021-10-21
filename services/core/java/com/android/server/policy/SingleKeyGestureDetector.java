@@ -127,6 +127,18 @@ public final class SingleKeyGestureDetector {
         }
 
         /**
+         *  Return max Key Timeout for gesture detection
+         */
+        long getMultiPressTimeout() {
+            return MULTI_PRESS_TIMEOUT;
+        }
+
+        /**
+         *  Release a potential powerkey wakelock
+         */
+        void releasePowerWakelock() {}
+
+        /**
          *  Called when short press has been detected.
          */
         abstract void onPress(long downTime);
@@ -250,7 +262,7 @@ public final class SingleKeyGestureDetector {
 
         final long keyDownInterval = event.getDownTime() - mLastDownTime;
         mLastDownTime = event.getDownTime();
-        if (keyDownInterval >= MULTI_PRESS_TIMEOUT) {
+        if (keyDownInterval >= mActiveRule.getMultiPressTimeout()) {
             mKeyPressCounter = 1;
         } else {
             mKeyPressCounter++;
@@ -270,6 +282,11 @@ public final class SingleKeyGestureDetector {
                 msg.setAsynchronous(true);
                 mHandler.sendMessageDelayed(msg, mActiveRule.getVeryLongPressTimeoutMs());
             }
+
+            if (!mActiveRule.supportLongPress() && !mActiveRule.supportVeryLongPress()) {
+                mActiveRule.releasePowerWakelock();
+            }
+
         } else {
             mHandler.removeMessages(MSG_KEY_LONG_PRESS);
             mHandler.removeMessages(MSG_KEY_VERY_LONG_PRESS);
@@ -324,7 +341,7 @@ public final class SingleKeyGestureDetector {
                 Message msg = mHandler.obtainMessage(MSG_KEY_DELAYED_PRESS, mActiveRule.mKeyCode,
                         mKeyPressCounter, mActiveRule);
                 msg.setAsynchronous(true);
-                mHandler.sendMessageDelayed(msg, MULTI_PRESS_TIMEOUT);
+                mHandler.sendMessageDelayed(msg, mActiveRule.getMultiPressTimeout());
             }
             return true;
         }
@@ -351,6 +368,7 @@ public final class SingleKeyGestureDetector {
                 mHandler.removeMessages(MSG_KEY_DELAYED_PRESS);
                 mKeyPressCounter = 0;
             }
+            mActiveRule.releasePowerWakelock();
             mActiveRule = null;
         }
 
@@ -416,6 +434,7 @@ public final class SingleKeyGestureDetector {
                     }
                     break;
             }
+            rule.releasePowerWakelock();
         }
     }
 }

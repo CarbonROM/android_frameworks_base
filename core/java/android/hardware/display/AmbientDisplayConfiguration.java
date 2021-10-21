@@ -81,7 +81,8 @@ public class AmbientDisplayConfiguration {
                 || tapGestureEnabled(user)
                 || doubleTapGestureEnabled(user)
                 || quickPickupSensorEnabled(user)
-                || screenOffUdfpsEnabled(user);
+                || screenOffUdfpsEnabled(user)
+                || isPowerBtnFlashlightEnabled(user);
     }
 
     /** @hide */
@@ -334,5 +335,11 @@ public class AmbientDisplayConfiguration {
 
     private void putDozeSetting(String name, String value, int userId) {
         Settings.Secure.putStringForUser(mContext.getContentResolver(), name, value, userId);
+    }
+
+    /** {@hide} */
+    public boolean isPowerBtnFlashlightEnabled(int user) {
+        return Settings.Secure.getIntForUser(mContext.getContentResolver(),
+                Settings.Secure.TORCH_POWER_BUTTON_GESTURE, 0, user) != 0;
     }
 }
