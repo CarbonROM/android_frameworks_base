@@ -127,6 +127,13 @@ public final class SingleKeyGestureDetector {
         }
 
         /**
+         *  Return max Key Timeout for gesture detection
+         */
+        long getMultiPressTimeout() {
+            return MULTI_PRESS_TIMEOUT;
+        }
+
+        /**
          *  Called when short press has been detected.
          */
         abstract void onPress(long downTime);
@@ -250,7 +257,7 @@ public final class SingleKeyGestureDetector {
 
         final long keyDownInterval = event.getDownTime() - mLastDownTime;
         mLastDownTime = event.getDownTime();
-        if (keyDownInterval >= MULTI_PRESS_TIMEOUT) {
+        if (keyDownInterval >= mActiveRule.getMultiPressTimeout()) {
             mKeyPressCounter = 1;
         } else {
             mKeyPressCounter++;
@@ -324,7 +331,7 @@ public final class SingleKeyGestureDetector {
                 Message msg = mHandler.obtainMessage(MSG_KEY_DELAYED_PRESS, mActiveRule.mKeyCode,
                         mKeyPressCounter, mActiveRule);
                 msg.setAsynchronous(true);
-                mHandler.sendMessageDelayed(msg, MULTI_PRESS_TIMEOUT);
+                mHandler.sendMessageDelayed(msg, mActiveRule.getMultiPressTimeout());
             }
             return true;
         }
