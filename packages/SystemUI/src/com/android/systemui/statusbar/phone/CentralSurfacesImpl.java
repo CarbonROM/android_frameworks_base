@@ -434,6 +434,16 @@ public class CentralSurfacesImpl implements CoreStartable, CentralSurfaces {
     /** */
     @Override
     public void toggleCameraFlash() {
+        if (!isScreenFullyOff() && mDeviceInteractive && !isPulsing() && !mDozing) {
+            Log.e("FLASHLIGHTCHECK", "Screen is on, turning on flashlight");
+            toggleFlashlight();
+            return;
+        }
+        Log.e("FLASHLIGHTCHECK", "Call Proximity Check Flashlight toggle");
+        mDozeServiceHost.toggleFlashlightProximityCheck();
+    }
+
+    public void toggleFlashlight() {
         mCommandQueueCallbacks.toggleCameraFlash();
     }
 
