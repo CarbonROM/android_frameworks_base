@@ -118,10 +118,14 @@ public interface DozeHost {
          * Called when the dozing state may have been updated.
          */
         default void onDozingChanged(boolean isDozing) {}
+
+        default void toggleFlashlightProximityCheck() {}
     }
 
     interface PulseCallback {
         void onPulseStarted();
         void onPulseFinished();
     }
+
+    void performToggleFlashlight();
 }
