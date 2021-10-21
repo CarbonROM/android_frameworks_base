@@ -514,6 +514,7 @@ public class DozeLog implements Dumpable {
             case REASON_SENSOR_TAP: return "tap";
             case REASON_SENSOR_UDFPS_LONG_PRESS: return "udfps";
             case REASON_SENSOR_QUICK_PICKUP: return "quickPickup";
+            case REASON_TOGGLE_FLASHLIGHT: return "flashlight";
             default: throw new IllegalArgumentException("invalid reason: " + pulseReason);
         }
     }
@@ -557,6 +558,7 @@ public class DozeLog implements Dumpable {
     public static final int REASON_SENSOR_TAP = 9;
     public static final int REASON_SENSOR_UDFPS_LONG_PRESS = 10;
     public static final int REASON_SENSOR_QUICK_PICKUP = 11;
+    public static final int REASON_TOGGLE_FLASHLIGHT = 12;
 
-    public static final int TOTAL_REASONS = 12;
+    public static final int TOTAL_REASONS = 13;
 }
