@@ -11187,6 +11187,16 @@ public final class Settings {
         public static final String BERRY_BLACK_THEME = "berry_black_theme";
 
         /**
+         * Whether the torch launch gesture to double tap or long press the power button when the
+         * screen is off should be enabled. *
+         * 0: disabled
+         * 1: double tap power for torch
+         * 2: long tap power for torch
+         * @hide
+         */
+        public static final String TORCH_POWER_BUTTON_GESTURE = "torch_power_button_gesture";
+
+        /**
          * These entries are considered common between the personal and the managed profile,
          * since the managed profile doesn't get to change them.
          */
@@ -11287,7 +11297,8 @@ public final class Settings {
          * @hide
          */
         public static final String[] CARBON_SECURE_SETTINGS = {
-            BERRY_BLACK_THEME
+            BERRY_BLACK_THEME,
+            TORCH_POWER_BUTTON_GESTURE,
         };
 
         /**
@@ -11302,6 +11313,7 @@ public final class Settings {
         public static final Map<String, Integer> CARBON_SECURE_SETTINGS_VALIDATORS = new ArrayMap<>();
         static {
             CARBON_SECURE_SETTINGS_VALIDATORS.put(BERRY_BLACK_THEME, 0);
+            CARBON_SECURE_SETTINGS_VALIDATORS.put(TORCH_POWER_BUTTON_GESTURE, 1);
         }
     }
 
