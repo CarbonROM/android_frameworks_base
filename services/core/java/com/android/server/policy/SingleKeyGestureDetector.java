@@ -256,7 +256,10 @@ public final class SingleKeyGestureDetector {
             mKeyPressCounter++;
         }
 
+        Log.e("FLASHLIGHTCHECK", "Presscount: " + mKeyPressCounter + " Timeout: " + MULTI_PRESS_TIMEOUT);
+
         if (mKeyPressCounter == 1) {
+            Log.e("FLASHLIGHTCHECK", "SKGD Short Press first iteration");
             if (mActiveRule.supportLongPress()) {
                 final Message msg = mHandler.obtainMessage(MSG_KEY_LONG_PRESS, keyCode, 0,
                         mActiveRule);
@@ -271,6 +274,8 @@ public final class SingleKeyGestureDetector {
                 mHandler.sendMessageDelayed(msg, mActiveRule.getVeryLongPressTimeoutMs());
             }
         } else {
+            Log.e("FLASHLIGHTCHECK", "SKGD Multi Press. Max Count: " + mActiveRule.getMaxMultiPressCount()
+                       +" Current: " + mKeyPressCounter);
             mHandler.removeMessages(MSG_KEY_LONG_PRESS);
             mHandler.removeMessages(MSG_KEY_VERY_LONG_PRESS);
             mHandler.removeMessages(MSG_KEY_DELAYED_PRESS);
@@ -278,8 +283,8 @@ public final class SingleKeyGestureDetector {
             // Trigger multi press immediately when reach max count.( > 1)
             if (mActiveRule.getMaxMultiPressCount() > 1
                     && mKeyPressCounter == mActiveRule.getMaxMultiPressCount()) {
-                if (DEBUG) {
-                    Log.i(TAG, "Trigger multi press " + mActiveRule.toString() + " for it"
+                if (true) {
+                    Log.e("FLASHLIGHTCHECK", "Trigger multi press " + mActiveRule.toString() + " for it"
                             + " reached the max count " + mKeyPressCounter);
                 }
                 final Message msg = mHandler.obtainMessage(MSG_KEY_DELAYED_PRESS, keyCode,
