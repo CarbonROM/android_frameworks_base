@@ -3631,7 +3631,7 @@ public class SettingsProvider extends ContentProvider {
         }
 
         private final class UpgradeController {
-            private static final int SETTINGS_VERSION = 210;
+            private static final int SETTINGS_VERSION = 211;
 
             private final int mUserId;
 
@@ -5511,6 +5511,23 @@ public class SettingsProvider extends ContentProvider {
                 if (currentVersion == 209) {
                     // removed now that feature is enabled for everyone
                     currentVersion = 210;
+                }
+
+                if (currentVersion == 210) {
+                    // Version 210: Enable crash reports
+                    final SettingsState globalSettings = getGlobalSettingsLocked();
+                    final Setting enableCrashReport = globalSettings.getSettingLocked(
+                            Global.SEND_ACTION_APP_ERROR);
+                    if (enableCrashReport.isNull()) {
+                        final boolean defEnableCrashReport = getContext().getResources()
+                                .getBoolean(R.bool.def_enable_send_action_app_error);
+                        globalSettings.insertSettingLocked(
+                                Global.SEND_ACTION_APP_ERROR,
+                                defEnableCrashReport ? "1" : "0", null, true,
+                                SettingsState.SYSTEM_PACKAGE_NAME);
+                    }
+
+                    currentVersion = 211;
                 }
 
                 // vXXX: Add new settings above this point.
