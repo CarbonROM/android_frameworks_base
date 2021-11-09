@@ -253,6 +253,9 @@
     <!-- Default for Settings.Global.DEVELOPMENT_ENABLE_NON_RESIZABLE_MULTI_WINDOW -->
     <bool name="def_enable_non_resizable_multi_window">false</bool>
 
+    <!-- Default for Settings.Global.SEND_ACTION_APP_ERROR -->
+    <bool name="def_enable_send_action_app_error">false</bool>
+
     <!-- Default for Settings.Secure.ACCESSIBILITY_BUTTON_MODE -->
     <integer name="def_accessibility_button_mode">1</integer>
 
