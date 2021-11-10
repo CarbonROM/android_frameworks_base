@@ -21,6 +21,11 @@ import android.app.ActivityThread;
 import android.app.ApplicationErrorReport;
 import android.app.IActivityManager;
 import android.compat.annotation.UnsupportedAppUsage;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.type.DefaultMimeMapFactory;
 import android.os.Build;
 import android.os.DeadObjectException;
@@ -28,6 +33,7 @@ import android.os.IBinder;
 import android.os.Process;
 import android.os.SystemProperties;
 import android.os.Trace;
+import android.os.UserHandle;
 import android.util.Log;
 import android.util.Slog;
 
@@ -52,6 +58,7 @@ import java.util.logging.LogManager;
  */
 public class RuntimeInit {
     final static String TAG = "AndroidRuntime";
+
     final static boolean DEBUG = false;
 
     /** true if commonInit() has been called */
@@ -152,9 +159,27 @@ public class RuntimeInit {
                     ActivityThread.currentActivityThread().stopProfiling();
                 }
 
-                // Bring up crash dialog, wait for it to be dismissed
-                ActivityManager.getService().handleApplicationCrash(
-                        mApplicationObject, new ApplicationErrorReport.ParcelableCrashInfo(e));
+                PackageManager pm = ActivityThread.currentActivityThread().getApplication().getPackageManager();
+                PackageInfo crashedPackage = pm.getPackageInfo(ActivityThread.currentPackageName(), PackageManager.MATCH_SYSTEM_ONLY);
+                if (crashedPackage != null) {
+                    // This is a system crash, let's send it before the dialog
+                    Intent result = new Intent(Intent.ACTION_APP_ERROR);
+                    result.setComponent(ApplicationErrorReport.getErrorReportReceiver(
+                        ActivityThread.currentActivityThread().getApplication(),
+                        ActivityThread.currentPackageName(), ApplicationInfo.FLAG_SYSTEM
+                    ));
+                    result.putExtra("system_crash_exception", e);
+                    result.putExtra("system_crash_exception_time", System.currentTimeMillis());
+                    result.putExtra("system_crash_exception_package", ActivityThread.currentPackageName());
+                    result.putExtra("system_crash_exception_process", ActivityThread.currentProcessName());
+                    result.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    ((Context) ActivityThread.currentActivityThread().getSystemContext())
+                        .startActivityAsUser(result, new UserHandle(0));
+                } else {
+                    // Bring up crash dialog, wait for it to be dismissed
+                    ActivityManager.getService().handleApplicationCrash(
+                    mApplicationObject, new ApplicationErrorReport.ParcelableCrashInfo(e));
+                }
             } catch (Throwable t2) {
                 if (t2 instanceof DeadObjectException) {
                     // System process is dead; ignore
