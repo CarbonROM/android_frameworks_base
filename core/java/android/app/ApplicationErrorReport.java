@@ -340,6 +340,12 @@ public class ApplicationErrorReport implements Parcelable {
         public String crashTag;
 
         /**
+         * The actual exception thrown.
+         * @hide
+         */
+        public Throwable exception;
+
+        /**
          * Create an uninitialized instance of CrashInfo.
          */
         public CrashInfo() {
@@ -353,6 +359,7 @@ public class ApplicationErrorReport implements Parcelable {
             PrintWriter pw = new FastPrintWriter(sw, false, 256);
             tr.printStackTrace(pw);
             pw.flush();
+            exception = tr;
             stackTrace = sanitizeString(sw.toString());
             exceptionMessage = tr.getMessage();
 
@@ -424,6 +431,7 @@ public class ApplicationErrorReport implements Parcelable {
             throwLineNumber = in.readInt();
             stackTrace = in.readString();
             crashTag = in.readString();
+            exception = (Throwable) in.readSerializable();
         }
 
         /**
@@ -439,6 +447,7 @@ public class ApplicationErrorReport implements Parcelable {
             dest.writeInt(throwLineNumber);
             dest.writeString(stackTrace);
             dest.writeString(crashTag);
+            dest.writeSerializable(exception);
             int total = dest.dataPosition()-start;
             if (Binder.CHECK_PARCEL_SIZE && total > 20*1024) {
                 Slog.d("Error", "ERR: exClass=" + exceptionClassName);
