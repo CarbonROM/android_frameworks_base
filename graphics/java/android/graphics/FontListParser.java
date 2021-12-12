@@ -26,6 +26,7 @@ import android.os.Build;
 import android.os.LocaleList;
 import android.text.FontConfig;
 import android.util.ArraySet;
+import android.util.Slog;
 import android.util.Xml;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -46,6 +47,9 @@ import java.util.regex.Pattern;
  * @hide
  */
 public class FontListParser {
+
+    private static final String TAG = "FontListParser";
+    private static final boolean DEBUG = Build.IS_DEBUGGABLE;
 
     // XML constants for FontFamily.
     private static final String ATTR_NAME = "name";
@@ -110,20 +114,23 @@ public class FontListParser {
             long lastModifiedDate,
             int configVersion
     ) throws IOException, XmlPullParserException {
+        if (DEBUG) Slog.d(TAG, "[parse] fontsXmlPath=" + fontsXmlPath + " systemFontDir=" + systemFontDir);
         FontCustomizationParser.Result oemCustomization;
         if (oemCustomizationXmlPath != null) {
             try (InputStream is = new FileInputStream(oemCustomizationXmlPath)) {
                 oemCustomization = FontCustomizationParser.parse(is, productFontDir,
                         updatableFontMap);
             } catch (IOException e) {
-                // OEM customization may not exists. Ignoring
+                if (DEBUG) Slog.d(TAG, "[parse] OEM customization may not exist. Ignoring IOException");
                 oemCustomization = new FontCustomizationParser.Result();
             }
         } else {
             oemCustomization = new FontCustomizationParser.Result();
+            if (DEBUG) Slog.d(TAG, "[parse] Default OEM customization provided");
         }
 
         try (InputStream is = new FileInputStream(fontsXmlPath)) {
+            if (DEBUG) Slog.d(TAG, "[parse] Opened font XML for parsing: " + fontsXmlPath);
             XmlPullParser parser = Xml.newPullParser();
             parser.setInput(is, null);
             parser.nextTag();
@@ -164,24 +171,33 @@ public class FontListParser {
                 customization.getAdditionalNamedFamilies();
 
         parser.require(XmlPullParser.START_TAG, null, "familyset");
+        if (DEBUG) Slog.d(TAG, "[readFamilies] Started reading XML");
         while (keepReading(parser)) {
             if (parser.getEventType() != XmlPullParser.START_TAG) continue;
             String tag = parser.getName();
             if (tag.equals("family")) {
+                if (DEBUG) Slog.d(TAG, "[readFamilies] Found family tag in XML");
                 FontConfig.FontFamily family = readFamily(parser, fontDir, updatableFontMap,
                         allowNonExistingFile);
                 if (family == null) {
+                    if (DEBUG) Slog.d(TAG, "[readFamilies] Family tag not parsed correctly, continuing");
                     continue;
                 }
                 String name = family.getName();
+                if (DEBUG) Slog.d(TAG, "[readFamilies] Found font family name " + name);
                 if (name == null || !oemNamedFamilies.containsKey(name)) {
                     // The OEM customization overrides system named family. Skip if OEM
                     // customization XML defines the same named family.
+                    if (DEBUG) Slog.d(TAG, "[readFamilies] Family " + name + " added to list.");
                     families.add(family);
+                } else {
+                    if (DEBUG) Slog.d(TAG, "[readFamilies] Skip family " + name + ", OEM customization XML contains it already.");
                 }
             } else if (tag.equals("alias")) {
+                if (DEBUG) Slog.d(TAG, "[readFamilies] Found alias tag in XML");
                 aliases.add(readAlias(parser));
             } else {
+                if (DEBUG) Slog.d(TAG, "[readFamilies] Found unknown tag in XML");
                 skip(parser);
             }
         }
@@ -225,18 +241,26 @@ public class FontListParser {
     public static @Nullable FontConfig.FontFamily readFamily(XmlPullParser parser, String fontDir,
             @Nullable Map<String, File> updatableFontMap, boolean allowNonExistingFile)
             throws XmlPullParserException, IOException {
+        if (DEBUG) Slog.d(TAG, "[readFamily] Function started");
         final String name = parser.getAttributeValue(null, "name");
+        if (DEBUG) Slog.d(TAG, "[readFamily] attribute name=" + name);
         final String lang = parser.getAttributeValue("", "lang");
+        if (DEBUG) Slog.d(TAG, "[readFamily] attribute lang=" + lang);
         final String variant = parser.getAttributeValue(null, "variant");
+        if (DEBUG) Slog.d(TAG, "[readFamily] attribute variant=" + variant);
         final List<FontConfig.Font> fonts = new ArrayList<>();
         while (keepReading(parser)) {
             if (parser.getEventType() != XmlPullParser.START_TAG) continue;
             final String tag = parser.getName();
+            if (DEBUG) Slog.d(TAG, "[readFamily] parser found font tag");
             if (tag.equals(TAG_FONT)) {
                 FontConfig.Font font = readFont(parser, fontDir, updatableFontMap,
                         allowNonExistingFile);
                 if (font != null) {
+                    if (DEBUG) Slog.d(TAG, "[readFamily] added font");
                     fonts.add(font);
+                } else {
+                    if (DEBUG) Slog.d(TAG, "[readFamily] font parse failed, null");
                 }
             } else {
                 skip(parser);
@@ -267,14 +291,21 @@ public class FontListParser {
             boolean allowNonExistingFile)
             throws XmlPullParserException, IOException {
 
+        if (DEBUG)
+            Slog.d(TAG, "[readFont] Function started fontDir=" + fontDir + " allowNonExistingFile=" + allowNonExistingFile);
         String indexStr = parser.getAttributeValue(null, ATTR_INDEX);
         int index = indexStr == null ? 0 : Integer.parseInt(indexStr);
+        if (DEBUG) Slog.d(TAG, "[readFont] attribute index=" + index);
         List<FontVariationAxis> axes = new ArrayList<>();
         String weightStr = parser.getAttributeValue(null, ATTR_WEIGHT);
         int weight = weightStr == null ? FontStyle.FONT_WEIGHT_NORMAL : Integer.parseInt(weightStr);
+        if (DEBUG) Slog.d(TAG, "[readFont] attribute weight=" + weight);
         boolean isItalic = STYLE_ITALIC.equals(parser.getAttributeValue(null, ATTR_STYLE));
+        if (DEBUG) Slog.d(TAG, "[readFont] attribute isItalic=" + isItalic);
         String fallbackFor = parser.getAttributeValue(null, ATTR_FALLBACK_FOR);
+        if (DEBUG) Slog.d(TAG, "[readFont] attribute fallbackFor=" + fallbackFor);
         String postScriptName = parser.getAttributeValue(null, ATTR_POSTSCRIPT_NAME);
+        if (DEBUG) Slog.d(TAG, "[readFont] attribute postScriptName=" + postScriptName);
         StringBuilder filename = new StringBuilder();
         while (keepReading(parser)) {
             if (parser.getEventType() == XmlPullParser.TEXT) {
@@ -283,20 +314,25 @@ public class FontListParser {
             if (parser.getEventType() != XmlPullParser.START_TAG) continue;
             String tag = parser.getName();
             if (tag.equals(TAG_AXIS)) {
+                if (DEBUG) Slog.d(TAG, "[readFont] found axis tag");
                 axes.add(readAxis(parser));
             } else {
                 skip(parser);
             }
         }
+        if (DEBUG) Slog.d(TAG, "[readFont] parsed contents filename=" + filename.toString());
         String sanitizedName = FILENAME_WHITESPACE_PATTERN.matcher(filename).replaceAll("");
+        if (DEBUG) Slog.d(TAG, "[readFont] parsed contents sanitizedName=" + sanitizedName);
 
         if (postScriptName == null) {
             // If post script name was not provided, assume the file name is same to PostScript
             // name.
             postScriptName = sanitizedName.substring(0, sanitizedName.length() - 4);
+            if (DEBUG) Slog.d(TAG, "[readFont] postScriptName null, make it the filename. New postScriptName=" + postScriptName);
         }
 
         String updatedName = findUpdatedFontFile(postScriptName, updatableFontMap);
+        if (DEBUG) Slog.d(TAG, "[readFont] updatedName=" + updatedName);
         String filePath;
         String originalPath;
         if (updatedName != null) {
@@ -317,7 +353,9 @@ public class FontListParser {
 
         File file = new File(filePath);
 
+        if (DEBUG) Slog.d(TAG, "[readFont] checking file " + file.getAbsolutePath());
         if (!(allowNonExistingFile || file.isFile())) {
+            if (DEBUG) Slog.d(TAG, "[readFont] File does not exist and this not allowed, returning");
             return null;
         }
 
