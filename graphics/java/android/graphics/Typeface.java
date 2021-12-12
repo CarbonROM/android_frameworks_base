@@ -1187,9 +1187,11 @@ public class Typeface {
 
         // getSystemDefaultTypeface can return null, so manually set the native_instance then
         if (fallbackTypeface == null) {
+            Log.e(TAG, "[createFromFamiliesWithDefault] fallbackTypeface=null");
             ni = 0;
         } else {
             ni = fallbackTypeface.native_instance;
+            Log.e(TAG, "[createFromFamiliesWithDefault] fallbackTypeface.native_instance=" + ni);
         }
         return new Typeface(nativeCreateFromArray(
                 ptrArray, ni, weight, italic));
@@ -1210,6 +1212,7 @@ public class Typeface {
 
     private static Typeface getSystemDefaultTypeface(@NonNull String familyName) {
         Typeface tf = sSystemFontMap.get(familyName);
+        Log.e(TAG, "[getSystemDefaultTypeface] returning " + (tf == null ? "Typeface.DEFAULT" : "tf"));
         return tf == null ? Typeface.DEFAULT : tf;
     }
 
@@ -1246,6 +1249,10 @@ public class Typeface {
                 new android.graphics.FontFamily(family.getLanguages(), family.getVariant());
         for (FontConfig.Font font : family.getFonts()) {
             String fullPathName = font.getFile().getAbsolutePath();
+<<<<<<< HEAD
+=======
+            Log.e(TAG, "[makeFamilyFromParsed] fullPathName= " + fullPathName);
+>>>>>>> ddd8721eac81 (DNM: FontListParser: Add verbose logging to debuggable builds)
             ByteBuffer fontBuffer = bufferForPath.get(fullPathName);
             if (fontBuffer == null) {
                 try (FileInputStream file = new FileInputStream(fullPathName)) {
@@ -1352,6 +1359,7 @@ public class Typeface {
             fontDir = SYSTEM_FONT_DIR_LOCATION;
         }
         try {
+            Log.e(TAG, "[Typeface init] fontDir= " + fontDir);
             FontConfig fontConfig = FontListParser.parse(configFile,
                     fontDir);
             FontConfig systemFontConfig = null;
@@ -1401,6 +1409,9 @@ public class Typeface {
                                 RESOLVE_BY_FONT_TABLE, RESOLVE_BY_FONT_TABLE);
                     }
                     systemFonts.put(f.getName(), typeface);
+                    Log.e(TAG, "[Typeface init] f.getName()= " + f.getName());
+                } else {
+                    Log.e(TAG, "[Typeface init] f.getName() is null");
                 }
             }
             for (FontConfig.Alias alias : fontConfig.getAliases()) {
@@ -1411,6 +1422,7 @@ public class Typeface {
                     newFace = new Typeface(nativeCreateWeightAlias(base.native_instance, weight));
                 }
                 systemFonts.put(alias.getName(), newFace);
+                Log.e(TAG, "[Typeface init] alias.getName()= " + alias.getName());
             }
             setSystemFontMap(systemFonts);
         } catch (RuntimeException e) {
