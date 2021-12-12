@@ -398,8 +398,8 @@ public class FontService extends IFontService.Stub {
                     if (fonts != null && fonts.size() > 0) {
                         FontConfig.Font font = fonts.get(0);
                         if (font != null) {
-                            Log.v(TAG, "Font found from parsing fonts.xml! " + font.getPostScriptName());
-                            return font.getPostScriptName();
+                            Log.v(TAG, "Font found from parsing fonts.xml! " + font.getFile().getName());
+                            return font.getFile().getName();
                         }
                     }
                 }
