@@ -184,6 +184,11 @@ public class Typeface {
 
     static final String SANS_SERIF_FAMILY_NAME = "sans-serif";
 
+    static final String SYSTEM_FONT_CONFIG_LOCATION = "/system/etc/";
+    static final String THEME_FONT_CONFIG_LOCATION = "/data/system/theme/fonts/";
+    static final String THEME_FONT_DIR_LOCATION = "/data/system/theme/fonts/";
+    static final String SYSTEM_FONT_DIR_LOCATION = "/system/fonts/";
+
     /**
      * Returns the shared memory that used for creating Typefaces.
      *
@@ -1231,9 +1236,11 @@ public class Typeface {
         android.graphics.FontFamily fontFamily =
                 new android.graphics.FontFamily(family.getLanguages(), family.getVariant());
         for (FontConfig.Font font : family.getFonts()) {
-            String fullPathName = font.getPostScriptName();
+            String fullPathName = font.getFile().getAbsolutePath();
+            Log.e(TAG, "[makeFamilyFromParsed] fullPathName= " + fullPathName);
             ByteBuffer fontBuffer = bufferForPath.get(fullPathName);
             if (fontBuffer == null) {
+                // Fix Fullpath and file extension
                 try (FileInputStream file = new FileInputStream(fullPathName)) {
                     FileChannel fileChannel = file.getChannel();
                     long fontSize = fileChannel.size();
@@ -1325,30 +1332,28 @@ public class Typeface {
     }
     private static void init() {
         // Load font config and initialize Minikin state
-        File systemFontConfigLocation = getSystemFontConfigLocation();
-        File themeFontConfigLocation = getThemeFontConfigLocation();
-        File systemConfigFile = new File(systemFontConfigLocation, FONTS_CONFIG);
-        File themeConfigFile = new File(themeFontConfigLocation, FONTS_CONFIG);
+        File systemConfigFile = new File(SYSTEM_FONT_CONFIG_LOCATION, FONTS_CONFIG);
+        File themeConfigFile = new File(THEME_FONT_CONFIG_LOCATION, FONTS_CONFIG);
         File configFile = null;
-        File fontDir;
+        String fontDir;
         if (themeConfigFile.exists()) {
             // /data/system/theme/fonts/ exists so use it and copy default fonts
             configFile = themeConfigFile;
-            fontDir = getThemeFontDirLocation();
+            fontDir = THEME_FONT_DIR_LOCATION;
         } else {
             configFile = systemConfigFile;
-            fontDir = getSystemFontDirLocation();
+            fontDir = SYSTEM_FONT_DIR_LOCATION;
         }
         try {
+            Log.e(TAG, "[Typeface init] fontDir= " + fontDir);
             FontConfig fontConfig = FontListParser.parse(configFile,
-                    fontDir.getAbsolutePath());
+                    fontDir);
             FontConfig systemFontConfig = null;
             // If the fonts are coming from a theme, we will need to make sure that we include
             // any font families from the system fonts that the theme did not include.
             // NOTE: All the system font families without names ALWAYS get added.
             if (configFile == themeConfigFile) {
-                systemFontConfig = FontListParser.parse(systemConfigFile,
-                        getSystemFontDirLocation().getAbsolutePath());
+                systemFontConfig = FontListParser.parse(systemConfigFile, SYSTEM_FONT_DIR_LOCATION);
                 addFallbackFontsForFamilyName(systemFontConfig, fontConfig, SANS_SERIF_FAMILY_NAME);
                 addMissingFontFamilies(systemFontConfig, fontConfig);
                 addMissingFontAliases(systemFontConfig, fontConfig);
@@ -1378,7 +1383,7 @@ public class Typeface {
                     if (i == 0) {
                         // The first entry is the default typeface; no sense in
                         // duplicating the corresponding FontFamily.
-                        typeface = sDefaultTypeface;
+                        typeface = getDefault();
                     } else {
                         android.graphics.FontFamily fontFamily
                                 = makeFamilyFromParsed(f, bufferForPath);
@@ -1390,6 +1395,9 @@ public class Typeface {
                                 RESOLVE_BY_FONT_TABLE, RESOLVE_BY_FONT_TABLE);
                     }
                     systemFonts.put(f.getName(), typeface);
+                    Log.e(TAG, "f.getName()= " + f.getName());
+                } else {
+                    Log.e(TAG, "f.getName() is null");
                 }
             }
             for (FontConfig.Alias alias : fontConfig.getAliases()) {
@@ -1400,7 +1408,9 @@ public class Typeface {
                     newFace = new Typeface(nativeCreateWeightAlias(base.native_instance, weight));
                 }
                 systemFonts.put(alias.getName(), newFace);
+                Log.e(TAG, "alias.getName()= " + alias.getName());
             }
+            destroySystemFontMap();
             setSystemFontMap(systemFonts);
         } catch (RuntimeException e) {
             Log.w(TAG, "Didn't create default family (most likely, non-Minikin build)", e);
@@ -1416,20 +1426,13 @@ public class Typeface {
     /** @hide */
     public static void recreateDefaults() {
         sDynamicTypefaceCache.evictAll();
-        sSystemFontMap.clear();
         sStyledTypefaceCache.clear();
         init();
-        DEFAULT_BOLD_INTERNAL = create((String) null, Typeface.BOLD);
-        SANS_SERIF_INTERNAL = create("sans-serif", 0);
-        SERIF_INTERNAL = create("serif", 0);
-        MONOSPACE_INTERNAL = create("monospace", 0);
         DEFAULT.native_instance = DEFAULT_INTERNAL.native_instance;
         DEFAULT_BOLD.native_instance = DEFAULT_BOLD_INTERNAL.native_instance;
         SANS_SERIF.native_instance = SANS_SERIF_INTERNAL.native_instance;
         SERIF.native_instance = SERIF_INTERNAL.native_instance;
         MONOSPACE.native_instance = MONOSPACE_INTERNAL.native_instance;
-        sDefaults[2] = create((String) null, Typeface.ITALIC);
-        sDefaults[3] = create((String) null, Typeface.BOLD_ITALIC);
     }
 
     /**
@@ -1672,22 +1675,6 @@ public class Typeface {
         if (!ENABLE_LAZY_TYPEFACE_INITIALIZATION) {
             loadPreinstalledSystemFontMap();
         }
-    }
-
-    private static File getSystemFontConfigLocation() {
-        return new File("/system/etc/");
-    }
-
-    private static File getSystemFontDirLocation() {
-        return new File("/system/fonts/");
-    }
-
-    private static File getThemeFontConfigLocation() {
-        return new File("/data/system/theme/fonts/");
-    }
-
-    private static File getThemeFontDirLocation() {
-        return new File("/data/system/theme/fonts/");
     }
 
     @Override
