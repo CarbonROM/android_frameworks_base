@@ -1390,6 +1390,9 @@ public class Typeface {
                                 RESOLVE_BY_FONT_TABLE, RESOLVE_BY_FONT_TABLE);
                     }
                     systemFonts.put(f.getName(), typeface);
+                    Log.e(TAG, "f.getName()= " + f.getName());
+                } else {
+                    Log.e(TAG, "f.getName() is null");
                 }
             }
             for (FontConfig.Alias alias : fontConfig.getAliases()) {
@@ -1400,6 +1403,7 @@ public class Typeface {
                     newFace = new Typeface(nativeCreateWeightAlias(base.native_instance, weight));
                 }
                 systemFonts.put(alias.getName(), newFace);
+                Log.e(TAG, "alias.getName()= " + alias.getName());
             }
             setSystemFontMap(systemFonts);
         } catch (RuntimeException e) {
