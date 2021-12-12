@@ -330,6 +330,7 @@ public class FontService extends IFontService.Stub {
 
             // extract tff file from zip
             File fontFile = new File(fontFileName);
+            Log.e(TAG, "[processFontPackage] fontFileName=" + fontFileName + " fontFile.getAbsolutePath()=" + fontFile.getAbsolutePath() + " fontFile.getName()=" + fontFile.getName() + " fontZipFile.getAbsolutePath()=" + fontZipFile.getAbsolutePath());
             unzipFile(fontZipFile, fontFile, fontFile.getName());
 
             // clean up workspace
