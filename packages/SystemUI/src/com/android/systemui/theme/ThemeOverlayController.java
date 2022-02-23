@@ -47,8 +47,11 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.Log;
+import android.util.TypedValue;
 
 import androidx.annotation.NonNull;
+
+import com.android.internal.graphics.ColorUtils;
 
 import com.android.systemui.Dumpable;
 import com.android.systemui.SystemUI;
@@ -64,6 +67,8 @@ import com.android.systemui.statusbar.policy.DeviceProvisionedController;
 import com.android.systemui.statusbar.policy.DeviceProvisionedController.DeviceProvisionedListener;
 import com.android.systemui.util.settings.SecureSettings;
 
+import org.carbonrom.colorutils.palettes.CorePalette;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -71,6 +76,8 @@ import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Executor;
@@ -129,6 +136,9 @@ public class ThemeOverlayController extends SystemUI implements Dumpable {
     private boolean mDeferredThemeEvaluation;
     // Determines if we should ignore THEME_CUSTOMIZATION_OVERLAY_PACKAGES setting changes.
     private boolean mSkipSettingChange;
+
+    private final int GOOGLE_BLUE = 0xFF1b6ef3;
+    public static final float MIDDLE_LSTAR = 49.6f;
 
     private final DeviceProvisionedListener mDeviceProvisionedListener =
             new DeviceProvisionedListener() {
@@ -421,7 +431,59 @@ public class ThemeOverlayController extends SystemUI implements Dumpable {
      * Given a color candidate, return an overlay definition.
      */
     protected @Nullable FabricatedOverlay getOverlay(int color, int type) {
-        return null;
+        // Grab the color in ARGB, converting it to CAM16 and taking its hue and chroma
+        int colorArgb = color == Color.TRANSPARENT ? GOOGLE_BLUE:color;
+        CorePalette palette = CorePalette.of(colorArgb);
+
+        // Generate shades as desireable from the color library
+        List<Integer> a1Shades = shadesFrom(palette.a1.getHue(), palette.a1.getChroma());
+        List<Integer> a2Shades = shadesFrom(palette.a2.getHue(), palette.a2.getChroma());
+        List<Integer> a3Shades = shadesFrom(palette.a3.getHue(), palette.a3.getChroma());
+        List<Integer> n1Shades = shadesFrom(palette.n1.getHue(), palette.n1.getChroma());
+        List<Integer> n2Shades = shadesFrom(palette.n2.getHue(), palette.n2.getChroma());
+        List<Integer> allShades = new ArrayList<>();
+        allShades.addAll(a1Shades);
+        allShades.addAll(a2Shades);
+        allShades.addAll(a3Shades);
+        allShades.addAll(n1Shades);
+        allShades.addAll(n2Shades);
+
+        int paletteSize = a1Shades.size();
+
+        String resSuffix = type == ACCENT ? "accent" : "neutral";
+
+        // Now, populate a Fabricated RRO Overlay with these shades defined
+        FabricatedOverlay.Builder overlay = new FabricatedOverlay.Builder("com.android.systemui", resSuffix, "android");
+        for (int i = 0; i < allShades.size(); i++) {
+            int lum = i % paletteSize;
+            int idx = i / paletteSize + 1;
+            String resName;
+            switch (lum) {
+                case 0:
+                    resName = "android:color/system_" + resSuffix + idx + "_10";
+                    break;
+                case 1:
+                    resName = "android:color/system_" + resSuffix + idx + "_50";
+                    break;
+                default:
+                    int l = lum - 1;
+                    resName = "android:color/system_" + resSuffix + idx + "_" + l + "00";
+            }
+            overlay.setResourceValue(resName, TypedValue.TYPE_INT_COLOR_ARGB8, ColorUtils.setAlphaComponent((int) allShades.get(i), 0xFF));
+        }
+
+        return overlay.build();
+    }
+
+    private List<Integer> shadesFrom(float hue, float chroma) {
+        List<Integer> shades = new ArrayList<>(12);
+        shades.add(ColorUtils.CAMToColor(hue, chroma, 99));
+        shades.add(ColorUtils.CAMToColor(hue, chroma, 95));
+        for (int i = 2; i < 12; i++) {
+            float lStar = (i == 6) ? MIDDLE_LSTAR : 100 - 10 * (i - 1);
+            shades.add(ColorUtils.CAMToColor(hue, chroma, lStar));
+        }
+        return shades;
     }
 
     private void updateThemeOverlays() {
