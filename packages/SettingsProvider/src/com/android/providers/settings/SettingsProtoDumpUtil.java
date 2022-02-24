@@ -2519,6 +2519,7 @@ class SettingsProtoDumpUtil {
         dumpSetting(s, p,
                 Settings.Secure.SWIPE_BOTTOM_TO_NOTIFICATION_ENABLED,
                 SecureSettingsProto.SWIPE_BOTTOM_TO_NOTIFICATION_ENABLED);
+
         dumpSetting(s, p,
                 Settings.Secure.SYNC_PARENT_SOUNDS,
                 SecureSettingsProto.SYNC_PARENT_SOUNDS);
@@ -2531,6 +2532,12 @@ class SettingsProtoDumpUtil {
         dumpSetting(s, p,
                 Settings.Secure.TRUST_AGENTS_INITIALIZED,
                 SecureSettingsProto.TRUST_AGENTS_INITIALIZED);
+
+        final long tetheringToken = p.start(SecureSettingsProto.TETHERING);
+        dumpSetting(s, p,
+                Settings.Secure.TETHERING_ALLOW_VPN_UPSTREAMS,
+                SecureSettingsProto.Tethering.ALLOW_VPN_UPSTREAMS);
+        p.end(tetheringToken);
 
         final long ttsToken = p.start(SecureSettingsProto.TTS);
         // Settings.Secure.TTS_USE_DEFAULTS intentionally excluded since it's deprecated.
