@@ -1993,6 +1993,15 @@ class SettingsProtoDumpUtil {
                 SecureSettingsProto.Camera.LIFT_TRIGGER_ENABLED);
         p.end(cameraToken);
 
+        final long carbonToken = p.start(SecureSettingsProto.CARBON);
+        dumpSetting(s, p,
+                Settings.Secure.ADVANCED_REBOOT,
+                SecureSettingsProto.Carbon.ADVANCED_REBOOT);
+        dumpSetting(s, p,
+                Settings.Secure.TETHERING_ALLOW_VPN_UPSTREAMS,
+                SecureSettingsProto.Carbon.TETHERING_ALLOW_VPN_UPSTREAMS);
+        p.end(carbonToken);
+
         dumpSetting(s, p,
                 Settings.Secure.CARRIER_APPS_HANDLED,
                 SecureSettingsProto.CARRIER_APPS_HANDLED);
@@ -2519,7 +2528,6 @@ class SettingsProtoDumpUtil {
         dumpSetting(s, p,
                 Settings.Secure.SWIPE_BOTTOM_TO_NOTIFICATION_ENABLED,
                 SecureSettingsProto.SWIPE_BOTTOM_TO_NOTIFICATION_ENABLED);
-
         dumpSetting(s, p,
                 Settings.Secure.SYNC_PARENT_SOUNDS,
                 SecureSettingsProto.SYNC_PARENT_SOUNDS);
@@ -2532,12 +2540,6 @@ class SettingsProtoDumpUtil {
         dumpSetting(s, p,
                 Settings.Secure.TRUST_AGENTS_INITIALIZED,
                 SecureSettingsProto.TRUST_AGENTS_INITIALIZED);
-
-        final long tetheringToken = p.start(SecureSettingsProto.TETHERING);
-        dumpSetting(s, p,
-                Settings.Secure.TETHERING_ALLOW_VPN_UPSTREAMS,
-                SecureSettingsProto.Tethering.ALLOW_VPN_UPSTREAMS);
-        p.end(tetheringToken);
 
         final long ttsToken = p.start(SecureSettingsProto.TTS);
         // Settings.Secure.TTS_USE_DEFAULTS intentionally excluded since it's deprecated.
@@ -2716,6 +2718,18 @@ class SettingsProtoDumpUtil {
                 Settings.System.BLUETOOTH_DISCOVERABILITY_TIMEOUT,
                 SystemSettingsProto.Bluetooth.DISCOVERABILITY_TIMEOUT_SECS);
         p.end(bluetoothToken);
+
+        final long carbonToken = p.start(SecureSettingsProto.CARBON);
+        dumpSetting(s, p,
+                Settings.System.STATUS_BAR_BATTERY_STYLE,
+                SecureSettingsProto.Carbon.STATUS_BAR_BATTERY_STYLE);
+        dumpSetting(s, p,
+                Settings.System.STATUS_BAR_SHOW_BATTERY_PERCENT,
+                SecureSettingsProto.Carbon.STATUS_BAR_SHOW_BATTERY_PERCENT);
+        dumpSetting(s, p,
+                Settings.System.GLOBAL_ACTIONS_LIST,
+                SecureSettingsProto.Carbon.GLOBAL_ACTIONS_LIST);
+        p.end(carbonToken);
 
         dumpSetting(s, p,
                 Settings.System.DISPLAY_COLOR_MODE,

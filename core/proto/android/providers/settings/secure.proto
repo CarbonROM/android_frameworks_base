@@ -193,6 +193,12 @@ message SecureSettingsProto {
     }
     optional Camera camera = 12;
 
+    message Carbon {
+        optional SettingProto advanced_reboot = 1;
+        optional SettingProto tethering_allow_vpn_upstreams = 2;
+    }
+    optional Carbon carbon = 91;
+
     optional SettingProto carrier_apps_handled = 13 [ (android.privacy).dest = DEST_AUTOMATIC ];
 
     message Clipboard {
@@ -572,11 +578,6 @@ message SecureSettingsProto {
     optional SettingProto system_navigation_keys_enabled = 56 [ (android.privacy).dest = DEST_AUTOMATIC ];
     optional SettingProto theme_customization_overlay_packages = 75 [ (android.privacy).dest = DEST_AUTOMATIC ];
     optional SettingProto trust_agents_initialized = 57 [ (android.privacy).dest = DEST_AUTOMATIC ];
-
-    message Tethering {
-        optional SettingProto allow_vpn_upstreams = 1 [ (android.privacy).dest = DEST_AUTOMATIC ];
-    }
-    optional Tethering tethering = 91;
 
     message Tts {
         option (android.msg_privacy).dest = DEST_EXPLICIT;
