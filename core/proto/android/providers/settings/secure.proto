@@ -193,6 +193,11 @@ message SecureSettingsProto {
     }
     optional Camera camera = 12;
 
+    message Carbon {
+        optional SettingProto advanced_reboot = 1;
+    }
+    optional Carbon carbon = 91;
+
     optional SettingProto carrier_apps_handled = 13 [ (android.privacy).dest = DEST_AUTOMATIC ];
 
     message Clipboard {
@@ -664,5 +669,5 @@ message SecureSettingsProto {
 
     // Please insert fields in alphabetical order and group them into messages
     // if possible (to avoid reaching the method limit).
-    // Next tag = 91;
+    // Next tag = 92;
 }

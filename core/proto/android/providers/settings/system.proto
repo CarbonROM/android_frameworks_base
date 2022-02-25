@@ -52,6 +52,13 @@ message SystemSettingsProto {
     }
     optional Bluetooth bluetooth = 4;
 
+    message Carbon {
+        optional SettingProto status_bar_battery_style = 1;
+        optional SettingProto status_bar_show_battery_percent = 2;
+        optional SettingProto global_actions_list = 3;
+    }
+    optional Carbon carbon = 35;
+
     reserved 5; // date_format is not used
 
     optional SettingProto display_color_mode = 6 [ (android.privacy).dest = DEST_AUTOMATIC ];
@@ -244,5 +251,5 @@ message SystemSettingsProto {
 
     // Please insert fields in alphabetical order and group them into messages
     // if possible (to avoid reaching the method limit).
-    // Next tag = 35;
+    // Next tag = 36;
 }
