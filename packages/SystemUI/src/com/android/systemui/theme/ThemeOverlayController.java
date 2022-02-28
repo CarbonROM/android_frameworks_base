@@ -47,8 +47,11 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.util.Log;
+import android.util.TypedValue;
 
 import androidx.annotation.NonNull;
+
+import com.android.internal.graphics.ColorUtils;
 
 import com.android.systemui.Dumpable;
 import com.android.systemui.SystemUI;
@@ -64,6 +67,8 @@ import com.android.systemui.statusbar.policy.DeviceProvisionedController;
 import com.android.systemui.statusbar.policy.DeviceProvisionedController.DeviceProvisionedListener;
 import com.android.systemui.util.settings.SecureSettings;
 
+import org.carbonrom.colorutils.Monet;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -71,6 +76,7 @@ import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Executor;
@@ -129,6 +135,8 @@ public class ThemeOverlayController extends SystemUI implements Dumpable {
     private boolean mDeferredThemeEvaluation;
     // Determines if we should ignore THEME_CUSTOMIZATION_OVERLAY_PACKAGES setting changes.
     private boolean mSkipSettingChange;
+
+    private Monet mMonet;
 
     private final DeviceProvisionedListener mDeviceProvisionedListener =
             new DeviceProvisionedListener() {
@@ -403,25 +411,44 @@ public class ThemeOverlayController extends SystemUI implements Dumpable {
      * Return the main theme color from a given {@link WallpaperColors} instance.
      */
     protected int getNeutralColor(@NonNull WallpaperColors wallpaperColors) {
-        return wallpaperColors.getPrimaryColor().toArgb();
+        return Monet.getMainColor(wallpaperColors);
     }
 
     protected int getAccentColor(@NonNull WallpaperColors wallpaperColors) {
-        Color accentCandidate = wallpaperColors.getSecondaryColor();
-        if (accentCandidate == null) {
-            accentCandidate = wallpaperColors.getTertiaryColor();
-        }
-        if (accentCandidate == null) {
-            accentCandidate = wallpaperColors.getPrimaryColor();
-        }
-        return accentCandidate.toArgb();
+        return Monet.getMainColor(wallpaperColors);
     }
 
     /**
      * Given a color candidate, return an overlay definition.
      */
     protected @Nullable FabricatedOverlay getOverlay(int color, int type) {
-        return null;
+        mMonet = new Monet(color);
+
+        List<Integer> allShades = type == ACCENT
+            ? mMonet.getAllAccentShades() : mMonet.getAllNeutralShades();
+        String resSuffix = type == ACCENT ? "accent" : "neutral";
+        int paletteSize = mMonet.getAccent1Shades().size();
+
+        FabricatedOverlay.Builder overlay = new FabricatedOverlay.Builder("com.android.systemui", resSuffix, "android");
+        for (int i = 0; i < allShades.size(); i++) {
+            int lum = i % paletteSize;
+            int idx = i / paletteSize + 1;
+            String resName;
+            switch (lum) {
+                case 0:
+                    resName = "android:color/system_" + resSuffix + idx + "_10";
+                    break;
+                case 1:
+                    resName = "android:color/system_" + resSuffix + idx + "_50";
+                    break;
+                default:
+                    int l = lum - 1;
+                    resName = "android:color/system_" + resSuffix + idx + "_" + l + "00";
+            }
+            overlay.setResourceValue(resName, TypedValue.TYPE_INT_COLOR_ARGB8, ColorUtils.setAlphaComponent((int) allShades.get(i), 0xFF));
+        }
+
+        return overlay.build();
     }
 
     private void updateThemeOverlays() {
