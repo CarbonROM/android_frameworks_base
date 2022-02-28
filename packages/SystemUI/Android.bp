@@ -89,6 +89,7 @@ android_library {
         "androidx.exifinterface_exifinterface",
         "kotlinx_coroutines_android",
         "kotlinx_coroutines",
+        "material-color-utilities",
         "iconloader_base",
         "SystemUI-tags",
         "SystemUI-proto",
