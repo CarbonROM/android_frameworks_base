@@ -25,6 +25,7 @@ import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
 import android.net.ConnectivityManager;
+import android.util.DisplayMetrics;
 
 import java.util.Locale;
 
@@ -103,5 +104,24 @@ public class CrUtils {
         ConnectivityManager cm = (ConnectivityManager)context.getSystemService(
                 Context.CONNECTIVITY_SERVICE);
         return (cm.isNetworkSupported(ConnectivityManager.TYPE_MOBILE) == false);
+    }
+
+    // Check if device has a notch
+    public static boolean hasNotch(Context context) {
+        int result = 0;
+        int resid;
+        int resourceId = context.getResources().getIdentifier(
+                "status_bar_height", "dimen", "android");
+        resid = context.getResources().getIdentifier("config_fillMainBuiltInDisplayCutout",
+                "bool", "android");
+        if (resid > 0) {
+            return context.getResources().getBoolean(resid);
+        }
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        DisplayMetrics metrics = Resources.getSystem().getDisplayMetrics();
+        float px = 24 * (metrics.densityDpi / 160f);
+        return result > Math.round(px);
     }
 }
