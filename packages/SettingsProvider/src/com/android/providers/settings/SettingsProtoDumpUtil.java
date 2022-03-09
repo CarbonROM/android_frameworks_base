@@ -2718,12 +2718,6 @@ class SettingsProtoDumpUtil {
 
         final long carbonToken = p.start(SystemSettingsProto.CARBON);
         dumpSetting(s, p,
-                Settings.System.STATUS_BAR_BATTERY_STYLE,
-                SystemSettingsProto.Carbon.STATUS_BAR_BATTERY_STYLE);
-        dumpSetting(s, p,
-                Settings.System.STATUS_BAR_SHOW_BATTERY_PERCENT,
-                SystemSettingsProto.Carbon.STATUS_BAR_SHOW_BATTERY_PERCENT);
-        dumpSetting(s, p,
                 Settings.System.GLOBAL_ACTIONS_LIST,
                 SystemSettingsProto.Carbon.GLOBAL_ACTIONS_LIST);
         p.end(carbonToken);
