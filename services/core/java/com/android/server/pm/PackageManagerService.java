@@ -25362,6 +25362,8 @@ public class PackageManagerService extends IPackageManager.Stub
         }
 
         @Override
+        public int getInstalledSdkVersion(PackageParser.Package pkg) {
+            return PackageManagerService.this.getSettingsVersionForPackage(pkg).sdkVersion;
         public void notifyingOnNextUserRemovalForTest() {
             mBlockDeleteOnUserRemoveForTest.close();
         }
