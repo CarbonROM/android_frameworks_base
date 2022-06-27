@@ -23,4 +23,6 @@
     <!-- Allow devices override audio panel location to the left side -->
     <bool name="config_audioPanelOnLeftSide">false</bool>
 
+    <!-- Doze: does the double tap sensor need a proximity check? -->
+    <bool name="doze_double_tap_proximity_check">false</bool>
 </resources>
