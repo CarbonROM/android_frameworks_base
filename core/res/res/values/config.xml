@@ -6049,4 +6049,7 @@
     <!-- Whether the lock screen is allowed to run its own live wallpaper,
          different from the home screen wallpaper. -->
     <bool name="config_independentLockscreenLiveWallpaper">false</bool>
+
+    <!-- Wether to handle audio direction changes between major call states -->
+    <bool name="config_handleAudioDirectionChangesBetweenCallStateChanges">true</bool>
 </resources>
