@@ -46,6 +46,7 @@ public class DataSwitchTile extends QSTileImpl<BooleanState> {
 
     private final Intent mLongClickIntent;
     private final String mTileLabel;
+    private String mSecondaryLabel;
     private final BroadcastReceiver mSimReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -72,6 +73,7 @@ public class DataSwitchTile extends QSTileImpl<BooleanState> {
                 statusBarStateController, activityStarter, qsLogger);
         mLongClickIntent = new Intent(Settings.ACTION_NETWORK_OPERATOR_SETTINGS);
         mTileLabel = mContext.getString(R.string.qs_data_switch_label);
+        mSecondaryLabel = mContext.getString(R.string.qs_data_sim_1);
         mSubscriptionManager = SubscriptionManager.from(mContext);
         mTelephonyManager = TelephonyManager.from(mContext);
         mPhoneStateListener = new PhoneStateListener() {
@@ -163,6 +165,11 @@ public class DataSwitchTile extends QSTileImpl<BooleanState> {
         return mTileLabel;
     }
 
+    @Nullable
+    private CharSequence getSecondaryLabel(boolean isTransient, @Nullable String statusLabel) {
+        return mSecondaryLabel;
+    }
+
     @Override
     protected void handleUpdateState(BooleanState state, Object arg) {
         boolean activeSIMZero;
@@ -179,8 +186,12 @@ public class DataSwitchTile extends QSTileImpl<BooleanState> {
             state.icon = ResourceIcon.get(activeSIMZero
                     ? R.drawable.ic_qs_data_switch_1
                     : R.drawable.ic_qs_data_switch_2);
+            mSecondaryLabel = mContext.getString(activeSIMZero
+                    ? R.string.qs_data_sim_1
+                    : R.string.qs_data_sim_2);
         } else {
             state.icon = ResourceIcon.get(R.drawable.ic_qs_data_switch_1);
+            mSecondaryLabel = mContext.getString(R.string.qs_data_sim_1);
         }
         if (mSimCount < 2 || !mCanSwitch) {
             state.state = 0;
