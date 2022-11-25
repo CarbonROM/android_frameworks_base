@@ -87,7 +87,7 @@ public class DataSwitchTile extends QSTileImpl<SignalState> {
         mPhoneStateListener = new PhoneStateListener() {
             @Override
             public void onCallStateChanged(int state, String arg1) {
-                mCanSwitch = mTelephonyManager.getCallState() == 0;
+                mCanSwitch = mTelephonyManager.getCallState() == TelephonyManager.CALL_STATE_IDLE;
                 refreshState();
             }
         };
@@ -177,7 +177,7 @@ public class DataSwitchTile extends QSTileImpl<SignalState> {
 
     @Override
     protected void handleUpdateState(SignalState state, Object arg) {
-        int defaultPhoneId = mSubscriptionManager.getDefaultDataPhoneId();
+        final int defaultPhoneId = mSubscriptionManager.getDefaultDataPhoneId();
         if (DEBUG) Log.d(TAG, "default data phone id=" + defaultPhoneId);
         boolean activeSIMZero = defaultPhoneId == 0;
 
@@ -226,27 +226,46 @@ public class DataSwitchTile extends QSTileImpl<SignalState> {
      * subscription
      */
     private void toggleMobileDataEnabled() {
-        // Get opposite slot 2 ^ 3 = 1, 1 ^ 3 = 2
-        int subId = SubscriptionManager.getDefaultDataSubscriptionId() ^ 3;
-        final TelephonyManager telephonyManager =
-                mTelephonyManager.createForSubscriptionId(subId);
-        telephonyManager.setDataEnabled(true);
-        mSubscriptionManager.setDefaultDataSubId(subId);
-        if (DEBUG) Log.d(TAG, "Enabled subID: " + subId);
+        // subIDs aren't necessarily 1 & 2 only !
+        final SubscriptionInfo currentSubInfo = mSubscriptionManager.getDefaultDataSubscriptionInfo();
+        if (currentSubInfo == null) return;
+        final int currentSubID = currentSubInfo.getSubscriptionId();
+        final int currentIndex = currentSubInfo.getSimSlotIndex();
 
         final List<SubscriptionInfo> subInfoList =
                 mSubscriptionManager.getActiveSubscriptionInfoList(true);
+        SubscriptionInfo newSubInfo = null;
         if (subInfoList != null) {
-            // We never disable mobile data for opportunistic subscriptions.
-            subInfoList.stream()
-                .filter(subInfo -> !subInfo.isOpportunistic())
-                .map(subInfo -> subInfo.getSubscriptionId())
-                .filter(id -> id != subId)
-                .forEach(id -> {
-                    mTelephonyManager.createForSubscriptionId(id).setDataEnabled(false);
-                    if (DEBUG) Log.d(TAG, "Disabled subID: " + id);
-                });
+            if (DEBUG) Log.d(TAG, "subInfos:");
+            for (SubscriptionInfo subInfo : subInfoList) {
+                final int id = subInfo.getSubscriptionId();
+                final int index = subInfo.getSimSlotIndex();
+                if (DEBUG) Log.d(TAG, "id: " + id + " index: " + index);
+                if (id != currentSubID && index != currentIndex) {
+                    newSubInfo = subInfo;
+                    break;
+                }
+            }
         }
+
+        if (newSubInfo == null) {
+            if (DEBUG) Log.d(TAG, "Could not find newSubInfo");
+            return;
+        }
+
+        final int newSubID = newSubInfo.getSubscriptionId();
+        mTelephonyManager.createForSubscriptionId(newSubID).setDataEnabled(true);
+        mSubscriptionManager.setDefaultDataSubId(newSubID);
+        if (DEBUG) Log.d(TAG, "Enabled subID: " + newSubID);
+
+        if (currentSubInfo.isOpportunistic()) {
+            // Never disable mobile data for opportunistic subscriptions
+            if (DEBUG) Log.d(TAG, "Refusing to disable opportunistic subID: " + currentSubID);
+            return;
+        }
+
+        mTelephonyManager.createForSubscriptionId(currentSubID).setDataEnabled(false);
+        if (DEBUG) Log.d(TAG, "Disabled subID: " + currentSubID);
     }
 
     private static final class CallbackInfo {
