@@ -68,10 +68,11 @@ public class SmartPixelsTile extends QSTileImpl<BooleanState> implements
             MetricsLogger metricsLogger,
             StatusBarStateController statusBarStateController,
             ActivityStarter activityStarter,
-            QSLogger qsLogger) {
+            QSLogger qsLogger,
+            BatteryController batteryController) {
         super(host, backgroundLooper, mainHandler, falsingManager, metricsLogger,
                 statusBarStateController, activityStarter, qsLogger);
-        mBatteryController = Dependency.get(BatteryController.class);
+        mBatteryController = batteryController;
     }
 
     @Override
