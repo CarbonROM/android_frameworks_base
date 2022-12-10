@@ -77,4 +77,6 @@
         <item name="android:background">?android:attr/textColorSecondaryInverse</item>
     </style>
 
+    <style name="GlifV3Theme.DayNight" parent="GlifV3Theme" />
+
 </resources>

@@ -1196,4 +1196,64 @@
         <item name="android:shadowColor">@color/keyguard_shadow_color</item>
         <item name="android:shadowRadius">?attr/shadowRadius</item>
     </style>
+
+    <style name="GlifV2ThemeAlertDialog" parent="@style/Theme.AppCompat.Dialog.Alert">
+        <!-- Referenced SudThemeGlifV3 style -->
+        <item name="android:textAllCaps">false</item>
+
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <!-- copied from Theme.DeviceDefault.Dialog.Alert -->
+        <item name="colorAccent">@*android:color/accent_device_default_dark</item>
+        <item name="dialogCornerRadius">@*android:dimen/config_dialogCornerRadius</item>
+
+        <item name="android:fontFamily">@*android:string/config_bodyFontFamily</item>
+
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+
+    <style name="GlifV2ThemeAlertDialog.Light" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Referenced SudThemeGlifV3.Light style -->
+        <item name="android:textAllCaps">false</item>
+
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <!-- copied from Theme.DeviceDefault.Light.Dialog.Alert -->
+        <item name="colorAccent">@*android:color/accent_device_default_light</item>
+        <item name="dialogCornerRadius">@*android:dimen/config_dialogCornerRadius</item>
+
+        <item name="android:fontFamily">@*android:string/config_bodyFontFamily</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+
+    <!-- This theme was applied to Settings pages which are running under SUW. -->
+    <style name="SettingsPreferenceTheme.SetupWizard" parent="@style/PreferenceTheme.SettingsLib">
+        <item name="android:clipToPadding">true</item>
+        <item name="android:clipChildren">true</item>
+        <item name="android:textAppearanceListItem">@style/TextAppearance.PreferenceTitle.SettingsLib</item>
+        <item name="preferenceTheme">@style/PreferenceTheme.SettingsLib</item>
+        <item name="android:switchStyle">@style/Switch.SettingsLib</item>
+        <item name="preferenceFragmentCompatStyle">@style/SetupWizardPreferenceFragmentStyle</item>
+    </style>
+
+    <style name="GlifV3Theme" parent="SudThemeGlifV3.DayNight">
+        <item name="alertDialogTheme">@style/GlifV2ThemeAlertDialog</item>
+        <item name="android:windowBackground">?android:attr/colorBackground</item>
+        <item name="*android:preferencePanelStyle">@*android:style/PreferencePanel.Dialog</item>
+        <item name="ic_menu_moreoverflow">@*android:drawable/ic_menu_moreoverflow_material</item>
+        <item name="side_margin">0dip</item>
+        <item name="preferenceBackgroundColor">?android:attr/colorBackground</item>
+        <item name="preferenceTheme">@style/PreferenceTheme.SetupWizard</item>
+    </style>
+
+    <style name="GlifV3Theme.Light" parent="SudThemeGlifV3.Light">
+        <item name="alertDialogTheme">@style/GlifV2ThemeAlertDialog.Light</item>
+        <item name="android:windowBackground">?android:attr/colorBackground</item>
+        <item name="*android:preferencePanelStyle">@*android:style/PreferencePanel.Dialog</item>
+        <item name="ic_menu_moreoverflow">@*android:drawable/ic_menu_moreoverflow_material</item>
+        <item name="side_margin">0dip</item>
+        <item name="preferenceBackgroundColor">?android:attr/colorBackground</item>
+        <item name="preferenceTheme">@style/PreferenceTheme.SetupWizard</item>
+    </style>
+
+    <style name="GlifV3Theme.DayNight" parent="GlifV3Theme.Light" />
+
 </resources>
