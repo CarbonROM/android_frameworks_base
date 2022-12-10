@@ -33,7 +33,7 @@
             android:name=".tuner.StatusBarTuner"
             android:targetActivity=".tuner.TunerActivity"
             android:icon="@drawable/tuner"
-            android:theme="@style/TunerSettings"
+            android:theme="@style/GlifV3Theme.DayNight"
             android:label="@string/status_bar"
             android:process=":tuner"
             android:exported="true">
