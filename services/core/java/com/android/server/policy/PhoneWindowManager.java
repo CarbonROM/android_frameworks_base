@@ -330,6 +330,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     static final int TRIPLE_PRESS_PRIMARY_TOGGLE_ACCESSIBILITY = 1;
 
     static final long TORCH_DOUBLE_TAP_DELAY = 200;
+    static final int TORCH_MODE_DOUBLE_TAP = 1;
+    static final int TORCH_MODE_LONGPRESS = 2;
 
     static public final String SYSTEM_DIALOG_REASON_KEY = "reason";
     static public final String SYSTEM_DIALOG_REASON_GLOBAL_ACTIONS = "globalactions";
@@ -589,7 +591,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
     // Whether to support long press from power button in non-interactive mode
     private boolean mSupportLongPressPowerWhenNonInteractive;
-    private boolean mSupportLongPressPowerWhenNonInteractiveDefault;
 
     // Whether to go to sleep entering theater mode from power button
     private boolean mGoToSleepOnButtonPressTheaterMode;
@@ -628,6 +629,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private volatile int mTopFocusedDisplayId = INVALID_DISPLAY;
 
     private int mPowerButtonSuppressionDelayMillis = POWER_BUTTON_SUPPRESSION_DELAY_DEFAULT_MILLIS;
+
+    private int mTorchActionMode;
 
     private KeyCombinationManager mKeyCombinationManager;
     private SingleKeyGestureDetector mSingleKeyGestureDetector;
@@ -980,7 +983,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
     private void finishPowerKeyPress() {
         mPowerKeyHandled = false;
-        if (mPowerKeyWakeLock.isHeld()) {
+        // Hold Wakelock until the delayed Message in mSingleKeyGestureDetector has been processed
+        if (mPowerKeyWakeLock.isHeld() && (mTorchActionMode != TORCH_MODE_DOUBLE_TAP)) {
             mPowerKeyWakeLock.release();
         }
     }
@@ -1074,6 +1078,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
         if (!mPowerKeyHandled && !mInteractive) {
             wakeUpFromPowerKey(eventTime);
+        }
+
+        // Release postponed Wakelock now that we know the delayedMessage has been handled
+        if (mPowerKeyWakeLock.isHeld() && (mTorchActionMode == TORCH_MODE_DOUBLE_TAP)) {
+            mPowerKeyWakeLock.release();
         }
     }
 
@@ -1357,6 +1366,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return LONG_PRESS_POWER_SHUT_OFF_NO_CONFIRM;
         }
 
+        if ((mTorchActionMode == TORCH_MODE_LONGPRESS) && (!isScreenOn() || isDozeMode())) {
+            return LONG_PRESS_POWER_TORCH;
+        }
+
         // If the config indicates the assistant behavior but the device isn't yet provisioned, show
         // global actions instead.
         if (mLongPressOnPowerBehavior == LONG_PRESS_POWER_ASSISTANT && !isDeviceProvisioned()) {
@@ -1366,11 +1379,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         // If long press to launch assistant is disabled in settings, do nothing.
         if (mLongPressOnPowerBehavior == LONG_PRESS_POWER_GO_TO_VOICE_ASSIST
                 && !isLongPressToAssistantEnabled(mContext)) {
-            return LONG_PRESS_POWER_NOTHING;
-        }
-
-        if (mLongPressOnPowerBehavior == LONG_PRESS_POWER_TORCH
-                && !(!isScreenOn() || isDozeMode())) {
             return LONG_PRESS_POWER_NOTHING;
         }
 
@@ -2101,9 +2109,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         mGoToSleepOnButtonPressTheaterMode = mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_goToSleepOnButtonPressTheaterMode);
 
-        mSupportLongPressPowerWhenNonInteractiveDefault = mContext.getResources().getBoolean(
+        mSupportLongPressPowerWhenNonInteractive = mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_supportLongPressPowerWhenNonInteractive);
-        mSupportLongPressPowerWhenNonInteractive = mSupportLongPressPowerWhenNonInteractiveDefault;
 
         mLongPressOnBackBehavior = mContext.getResources().getInteger(
                 com.android.internal.R.integer.config_longPressOnBackBehavior);
@@ -2419,7 +2426,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         @Override
         void onLongPress(long eventTime) {
             if (mSingleKeyGestureDetector.beganFromNonInteractive()
-                    && !mSupportLongPressPowerWhenNonInteractive) {
+                    && !mSupportLongPressPowerWhenNonInteractive && (mTorchActionMode != TORCH_MODE_LONGPRESS)) {
                 Slog.v(TAG, "Not support long press power when device is not interactive.");
                 return;
             }
@@ -2602,6 +2609,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 updateRotation = true;
             }
 
+
+            mLongPressOnPowerBehavior = Settings.Global.getInt(resolver,
+                    Settings.Global.POWER_BUTTON_LONG_PRESS,
+                    mContext.getResources().getInteger(
+                    com.android.internal.R.integer.config_longPressOnPowerBehavior));
             mLongPressOnPowerAssistantTimeoutMs = Settings.Global.getLong(
                     mContext.getContentResolver(),
                     Settings.Global.POWER_BUTTON_LONG_PRESS_DURATION_MS,
@@ -2615,22 +2627,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     Settings.Global.KEY_CHORD_POWER_VOLUME_UP,
                     mContext.getResources().getInteger(
                             com.android.internal.R.integer.config_keyChordPowerVolumeUp));
-            int torchActionMode = Settings.Secure.getIntForUser(resolver,
+            mTorchActionMode = Settings.Secure.getIntForUser(resolver,
                     Settings.Secure.TORCH_POWER_BUTTON_GESTURE, 0, UserHandle.USER_CURRENT);
-            if (torchActionMode == 1) {
+            if (mTorchActionMode == TORCH_MODE_DOUBLE_TAP) {
                 mDoublePressOnPowerBehavior = MULTI_PRESS_POWER_TORCH;
             } else {
                 mDoublePressOnPowerBehavior = mDoublePressOnPowerBehaviorDefault;
-            }
-            if (torchActionMode == 2) {
-                mLongPressOnPowerBehavior = LONG_PRESS_POWER_TORCH;
-                mSupportLongPressPowerWhenNonInteractive = true;
-            } else {
-                mLongPressOnPowerBehavior = Settings.Global.getInt(resolver,
-                        Settings.Global.POWER_BUTTON_LONG_PRESS,
-                        mContext.getResources().getInteger(
-                                com.android.internal.R.integer.config_longPressOnPowerBehavior));
-                mSupportLongPressPowerWhenNonInteractive = mSupportLongPressPowerWhenNonInteractiveDefault;
             }
         }
         if (updateRotation) {
