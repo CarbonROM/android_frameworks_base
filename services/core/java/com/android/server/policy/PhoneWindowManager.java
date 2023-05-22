@@ -330,6 +330,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     static final int TRIPLE_PRESS_PRIMARY_TOGGLE_ACCESSIBILITY = 1;
 
     static final long TORCH_DOUBLE_TAP_DELAY = 200;
+    static final int TORCH_MODE_DOUBLE_TAP = 1;
+    static final int TORCH_MODE_LONGPRESS = 2;
 
     static public final String SYSTEM_DIALOG_REASON_KEY = "reason";
     static public final String SYSTEM_DIALOG_REASON_GLOBAL_ACTIONS = "globalactions";
@@ -589,7 +591,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
     // Whether to support long press from power button in non-interactive mode
     private boolean mSupportLongPressPowerWhenNonInteractive;
-    private boolean mSupportLongPressPowerWhenNonInteractiveDefault;
 
     // Whether to go to sleep entering theater mode from power button
     private boolean mGoToSleepOnButtonPressTheaterMode;
@@ -628,6 +629,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private volatile int mTopFocusedDisplayId = INVALID_DISPLAY;
 
     private int mPowerButtonSuppressionDelayMillis = POWER_BUTTON_SUPPRESSION_DELAY_DEFAULT_MILLIS;
+
+    private int mTorchActionMode;
 
     private KeyCombinationManager mKeyCombinationManager;
     private SingleKeyGestureDetector mSingleKeyGestureDetector;
@@ -940,6 +943,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         mPowerKeyHandled = mPowerKeyHandled || hungUp
                 || handledByPowerManager || mKeyCombinationManager.isPowerKeyIntercepted();
         mInteractive = interactive;
+        Log.e("FLASHLIGHTCHECK", "interceptPowerKeyDown mPowerKeyHandled = " + mPowerKeyHandled + " mInteractive = " + mInteractive);
         if (mPowerKeyHandled) {
             // handled by another power key policy.
             if (!mSingleKeyGestureDetector.isKeyIntercepted(KEYCODE_POWER)) {
@@ -980,7 +984,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
     private void finishPowerKeyPress() {
         mPowerKeyHandled = false;
-        if (mPowerKeyWakeLock.isHeld()) {
+        if (mPowerKeyWakeLock.isHeld() && (mTorchActionMode != TORCH_MODE_DOUBLE_TAP)) {
+            Log.e("FLASHLIGHTCHECK", "Releasing NonTorch Wakelock");
             mPowerKeyWakeLock.release();
         }
     }
@@ -992,14 +997,14 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mSideFpsEventHandler.notifyPowerPressed();
         }
         if (!isDozeMode() && mDefaultDisplayPolicy.isScreenOnEarly() && !mDefaultDisplayPolicy.isScreenOnFully()) {
-            Slog.i(TAG, "Suppressed redundant power key press while "
+            Log.e("FLASHLIGHTCHECK", "Suppressed redundant power key press while "
                     + "already in the process of turning the screen on.");
             return;
         }
 
         final boolean interactive = Display.isOnState(mDefaultDisplay.getState());
 
-        Slog.d(TAG, "powerPress: eventTime=" + eventTime + " interactive=" + interactive
+        Log.e("FLASHLIGHTCHECK", "powerPress: eventTime=" + eventTime + " interactive=" + interactive
                 + " count=" + count + " beganFromNonInteractive=" + beganFromNonInteractive
                 + " mShortPressOnPowerBehavior=" + mShortPressOnPowerBehavior);
 
@@ -1011,35 +1016,42 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             Slog.d(TAG, "No behavior defined for power press count " + count);
         } else if (count == 1 && interactive) {
             if (beganFromNonInteractive) {
+                Log.e("FLASHLIGHTCHECK", "Dreamstate");
                 // The screen off case, where we might want to start dreaming on power button press.
                 attemptToDreamFromShortPowerButtonPress(false, () -> {});
                 return;
             }
             if (mSideFpsEventHandler.shouldConsumeSinglePress(eventTime)) {
-                Slog.i(TAG, "Suppressing power key because the user is interacting with the "
+                Log.e("FLASHLIGHTCHECK", "Suppressing power key because the user is interacting with the "
                         + "fingerprint sensor");
                 return;
             }
             switch (mShortPressOnPowerBehavior) {
                 case SHORT_PRESS_POWER_NOTHING:
+                    Log.e("FLASHLIGHTCHECK", "mShortPressOnPowerBehavior switch SHORT_PRESS_POWER_NOTHING");
                     break;
                 case SHORT_PRESS_POWER_GO_TO_SLEEP:
+                    Log.e("FLASHLIGHTCHECK", "mShortPressOnPowerBehavior switch SHORT_PRESS_POWER_GO_TO_SLEEP");
                     sleepDefaultDisplayFromPowerButton(eventTime, 0);
                     break;
                 case SHORT_PRESS_POWER_REALLY_GO_TO_SLEEP:
+                    Log.e("FLASHLIGHTCHECK", "mShortPressOnPowerBehavior switch SHORT_PRESS_POWER_REALLY_GO_TO_SLEEP");
                     sleepDefaultDisplayFromPowerButton(eventTime,
                             PowerManager.GO_TO_SLEEP_FLAG_NO_DOZE);
                     break;
                 case SHORT_PRESS_POWER_REALLY_GO_TO_SLEEP_AND_GO_HOME:
+                    Log.e("FLASHLIGHTCHECK", "mShortPressOnPowerBehavior switch SHORT_PRESS_POWER_REALLY_GO_TO_SLEEP_AND_GO_HOME");
                     if (sleepDefaultDisplayFromPowerButton(eventTime,
                             PowerManager.GO_TO_SLEEP_FLAG_NO_DOZE)) {
                         launchHomeFromHotKey(DEFAULT_DISPLAY);
                     }
                     break;
                 case SHORT_PRESS_POWER_GO_HOME:
+                    Log.e("FLASHLIGHTCHECK", "mShortPressOnPowerBehavior switch SHORT_PRESS_POWER_GO_HOME");
                     shortPressPowerGoHome();
                     break;
                 case SHORT_PRESS_POWER_CLOSE_IME_OR_GO_HOME: {
+                    Log.e("FLASHLIGHTCHECK", "mShortPressOnPowerBehavior switch SHORT_PRESS_POWER_CLOSE_IME_OR_GO_HOME");
                     if (mDismissImeOnBackKeyPressed) {
                         if (mInputMethodManagerInternal == null) {
                             mInputMethodManagerInternal =
@@ -1055,6 +1067,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     break;
                 }
                 case SHORT_PRESS_POWER_LOCK_OR_SLEEP: {
+                    Log.e("FLASHLIGHTCHECK", "mShortPressOnPowerBehavior switch SHORT_PRESS_POWER_LOCK_OR_SLEEP");
                     if (mKeyguardDelegate == null || !mKeyguardDelegate.hasKeyguard()
                             || !mKeyguardDelegate.isSecure(mCurrentUserId) || keyguardOn()) {
                         sleepDefaultDisplayFromPowerButton(eventTime, 0);
@@ -1064,6 +1077,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     break;
                 }
                 case SHORT_PRESS_POWER_DREAM_OR_SLEEP: {
+                    Log.e("FLASHLIGHTCHECK", "mShortPressOnPowerBehavior switch SHORT_PRESS_POWER_DREAM_OR_SLEEP");
                     attemptToDreamFromShortPowerButtonPress(
                             true,
                             () -> sleepDefaultDisplayFromPowerButton(eventTime, 0));
@@ -1072,8 +1086,17 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
 
+        Log.e("FLASHLIGHTCHECK", "powerPress mPowerKeyHandled = " + mPowerKeyHandled + " mInteractive = " + mInteractive);
         if (!mPowerKeyHandled && !mInteractive) {
+            Log.e("FLASHLIGHTCHECK", "Waking up");
             wakeUpFromPowerKey(eventTime);
+        } else {
+            Log.e("FLASHLIGHTCHECK", "NOT waking up");
+        }
+
+        if (mPowerKeyWakeLock.isHeld() && (mTorchActionMode == TORCH_MODE_DOUBLE_TAP)) {
+            Log.e("FLASHLIGHTCHECK", "Releasing Torch Wakelock");
+            mPowerKeyWakeLock.release();
         }
     }
 
@@ -1357,6 +1380,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return LONG_PRESS_POWER_SHUT_OFF_NO_CONFIRM;
         }
 
+        if ((mTorchActionMode == TORCH_MODE_LONGPRESS) && (!isScreenOn() || isDozeMode())) {
+            return LONG_PRESS_POWER_TORCH;
+        }
+
         // If the config indicates the assistant behavior but the device isn't yet provisioned, show
         // global actions instead.
         if (mLongPressOnPowerBehavior == LONG_PRESS_POWER_ASSISTANT && !isDeviceProvisioned()) {
@@ -1366,11 +1393,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         // If long press to launch assistant is disabled in settings, do nothing.
         if (mLongPressOnPowerBehavior == LONG_PRESS_POWER_GO_TO_VOICE_ASSIST
                 && !isLongPressToAssistantEnabled(mContext)) {
-            return LONG_PRESS_POWER_NOTHING;
-        }
-
-        if (mLongPressOnPowerBehavior == LONG_PRESS_POWER_TORCH
-                && !(!isScreenOn() || isDozeMode())) {
             return LONG_PRESS_POWER_NOTHING;
         }
 
@@ -2101,9 +2123,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         mGoToSleepOnButtonPressTheaterMode = mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_goToSleepOnButtonPressTheaterMode);
 
-        mSupportLongPressPowerWhenNonInteractiveDefault = mContext.getResources().getBoolean(
+        mSupportLongPressPowerWhenNonInteractive = mContext.getResources().getBoolean(
                 com.android.internal.R.bool.config_supportLongPressPowerWhenNonInteractive);
-        mSupportLongPressPowerWhenNonInteractive = mSupportLongPressPowerWhenNonInteractiveDefault;
 
         mLongPressOnBackBehavior = mContext.getResources().getInteger(
                 com.android.internal.R.integer.config_longPressOnBackBehavior);
@@ -2419,7 +2440,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         @Override
         void onLongPress(long eventTime) {
             if (mSingleKeyGestureDetector.beganFromNonInteractive()
-                    && !mSupportLongPressPowerWhenNonInteractive) {
+                    && !mSupportLongPressPowerWhenNonInteractive && (mTorchActionMode != TORCH_MODE_LONGPRESS)) {
                 Slog.v(TAG, "Not support long press power when device is not interactive.");
                 return;
             }
@@ -2602,6 +2623,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 updateRotation = true;
             }
 
+
+            mLongPressOnPowerBehavior = Settings.Global.getInt(resolver,
+                    Settings.Global.POWER_BUTTON_LONG_PRESS,
+                    mContext.getResources().getInteger(
+                    com.android.internal.R.integer.config_longPressOnPowerBehavior));
             mLongPressOnPowerAssistantTimeoutMs = Settings.Global.getLong(
                     mContext.getContentResolver(),
                     Settings.Global.POWER_BUTTON_LONG_PRESS_DURATION_MS,
@@ -2615,22 +2641,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     Settings.Global.KEY_CHORD_POWER_VOLUME_UP,
                     mContext.getResources().getInteger(
                             com.android.internal.R.integer.config_keyChordPowerVolumeUp));
-            int torchActionMode = Settings.Secure.getIntForUser(resolver,
+            mTorchActionMode = Settings.Secure.getIntForUser(resolver,
                     Settings.Secure.TORCH_POWER_BUTTON_GESTURE, 0, UserHandle.USER_CURRENT);
-            if (torchActionMode == 1) {
+            if (mTorchActionMode == TORCH_MODE_DOUBLE_TAP) {
                 mDoublePressOnPowerBehavior = MULTI_PRESS_POWER_TORCH;
             } else {
                 mDoublePressOnPowerBehavior = mDoublePressOnPowerBehaviorDefault;
-            }
-            if (torchActionMode == 2) {
-                mLongPressOnPowerBehavior = LONG_PRESS_POWER_TORCH;
-                mSupportLongPressPowerWhenNonInteractive = true;
-            } else {
-                mLongPressOnPowerBehavior = Settings.Global.getInt(resolver,
-                        Settings.Global.POWER_BUTTON_LONG_PRESS,
-                        mContext.getResources().getInteger(
-                                com.android.internal.R.integer.config_longPressOnPowerBehavior));
-                mSupportLongPressPowerWhenNonInteractive = mSupportLongPressPowerWhenNonInteractiveDefault;
             }
         }
         if (updateRotation) {
