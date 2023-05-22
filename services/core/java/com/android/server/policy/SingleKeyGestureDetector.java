@@ -199,6 +199,7 @@ public final class SingleKeyGestureDetector {
             // Store the non interactive state when first down.
             if (mDownKeyCode == KeyEvent.KEYCODE_UNKNOWN || mDownKeyCode != event.getKeyCode()) {
                 mBeganFromNonInteractive = !interactive;
+                Log.e("FLASHLIGHTCHECK", "Storing Interactive interceptKey. mBeganFromNonInteractive = " + mBeganFromNonInteractive);
             }
             interceptKeyDown(event);
         } else {
@@ -263,6 +264,7 @@ public final class SingleKeyGestureDetector {
             mKeyPressCounter++;
         }
 
+        Log.e("FLASHLIGHTCHECK","Counting Keys with keyDownInterval = " + keyDownInterval + "timeout = " + mActiveRule.getMultiPressTimeout());
         if (mKeyPressCounter == 1) {
             if (mActiveRule.supportLongPress()) {
                 final Message msg = mHandler.obtainMessage(MSG_KEY_LONG_PRESS, keyCode, 0,
@@ -285,8 +287,8 @@ public final class SingleKeyGestureDetector {
             // Trigger multi press immediately when reach max count.( > 1)
             if (mActiveRule.getMaxMultiPressCount() > 1
                     && mKeyPressCounter == mActiveRule.getMaxMultiPressCount()) {
-                if (DEBUG) {
-                    Log.i(TAG, "Trigger multi press " + mActiveRule.toString() + " for it"
+                if (true) {
+                    Log.e("FLASHLIGHTCHECK", "Trigger multi press " + mActiveRule.toString() + " for it"
                             + " reached the max count " + mKeyPressCounter);
                 }
                 final Message msg = mHandler.obtainMessage(MSG_KEY_DELAYED_PRESS, keyCode,
@@ -321,6 +323,7 @@ public final class SingleKeyGestureDetector {
                 Message msg = mHandler.obtainMessage(MSG_KEY_DELAYED_PRESS, mActiveRule.mKeyCode,
                         1, mActiveRule);
                 msg.setAsynchronous(true);
+                Log.e("FLASHLIGHTCHECK", "Max Multi 1");
                 mHandler.sendMessage(msg);
                 mActiveRule = null;
                 return true;
@@ -331,7 +334,10 @@ public final class SingleKeyGestureDetector {
                 Message msg = mHandler.obtainMessage(MSG_KEY_DELAYED_PRESS, mActiveRule.mKeyCode,
                         mKeyPressCounter, mActiveRule);
                 msg.setAsynchronous(true);
-                mHandler.sendMessageDelayed(msg, mActiveRule.getMultiPressTimeout());
+                Log.e("FLASHLIGHTCHECK", "Max Multi mActiveRule.getMaxMultiPressCount() = " + mActiveRule.getMaxMultiPressCount() + " mKeyPressCounter = " + mKeyPressCounter + " mActiveRule.getMultiPressTimeout() = " + mActiveRule.getMultiPressTimeout());
+                Log.e("FLASHLIGHTCHECK", "Sending message result = " + mHandler.sendMessageDelayed(msg, mActiveRule.getMultiPressTimeout()));
+                mHandler.sendEmptyMessage(5);
+                Log.e("FLASHLIGHTCHECK", "sonding Empty message");
             }
             return true;
         }
@@ -389,31 +395,34 @@ public final class SingleKeyGestureDetector {
         public void handleMessage(Message msg) {
             final SingleKeyRule rule = (SingleKeyRule) msg.obj;
             if (rule == null) {
-                Log.wtf(TAG, "No active rule.");
+                Log.wtf("FLASHLIGHTCHECK", "No active rule.");
                 return;
             }
 
             final int keyCode = msg.arg1;
             final int pressCount = msg.arg2;
+
+            Log.e("FLASHLIGHTCHECK", "HANDLING MESSAGE keycode = " + keyCode + " pressCount = " + pressCount);
+
             switch(msg.what) {
                 case MSG_KEY_LONG_PRESS:
-                    if (DEBUG) {
-                        Log.i(TAG, "Detect long press " + KeyEvent.keyCodeToString(keyCode));
+                    if (true) {
+                        Log.e("FLASHLIGHTCHECK", "Detect long press " + KeyEvent.keyCodeToString(keyCode));
                     }
                     mHandledByLongPress = true;
                     rule.onLongPress(mLastDownTime);
                     break;
                 case MSG_KEY_VERY_LONG_PRESS:
-                    if (DEBUG) {
-                        Log.i(TAG, "Detect very long press "
+                    if (true) {
+                        Log.e("FLASHLIGHTCHECK", "Detect very long press "
                                 + KeyEvent.keyCodeToString(keyCode));
                     }
                     mHandledByLongPress = true;
                     rule.onVeryLongPress(mLastDownTime);
                     break;
                 case MSG_KEY_DELAYED_PRESS:
-                    if (DEBUG) {
-                        Log.i(TAG, "Detect press " + KeyEvent.keyCodeToString(keyCode)
+                    if (true) {
+                        Log.e("FLASHLIGHTCHECK", "Detect press " + KeyEvent.keyCodeToString(keyCode)
                                 + ", count " + pressCount);
                     }
                     if (pressCount == 1) {
