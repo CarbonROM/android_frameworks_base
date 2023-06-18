@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81fcc462_f3c05ea6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4
+      },
+      "writtenOn": "2023-06-18T14:22:39Z",
+      "side": 1,
+      "message": "while this might be annoying its a expected AOSP behaviour. we do not want to break with that.",
+      "revId": "1c82bfa6a00a705f560d73fc8893959501a6ef82",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081"
+    }
+  ]
+}
