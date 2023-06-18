@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9412aa61_18a8fae0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4
+      },
+      "writtenOn": "2023-06-18T14:13:03Z",
+      "side": 1,
+      "message": "this should not be a default behaviour. Users are to expect a stock like experience and that includes full \"ad\" functionality but also full functionality for firebase which could essentially disable valuable debugging features.",
+      "revId": "486be0c0cf54a8e244b7820b1f33d1124d476582",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081"
+    }
+  ]
+}
