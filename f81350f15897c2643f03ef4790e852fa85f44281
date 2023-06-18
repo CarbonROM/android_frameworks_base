@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "619c3779_2a319939",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4
+      },
+      "writtenOn": "2023-06-18T14:10:54Z",
+      "side": 1,
+      "message": "does quarks have a logic to handle this? otherwise we may never get an user request to grant location access",
+      "revId": "f81350f15897c2643f03ef4790e852fa85f44281",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081"
+    }
+  ]
+}
