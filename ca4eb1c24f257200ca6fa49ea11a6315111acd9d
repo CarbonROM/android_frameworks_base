@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae87b18a_cc644887",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4
+      },
+      "writtenOn": "2023-06-18T14:09:13Z",
+      "side": 1,
+      "message": "is this tested against recoveries of that generation etc? wouldnt want to break encryption cause an user set a 17char password",
+      "revId": "ca4eb1c24f257200ca6fa49ea11a6315111acd9d",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081"
+    }
+  ]
+}
