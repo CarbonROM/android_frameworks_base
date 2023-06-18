@@ -34,6 +34,24 @@
       "parentUuid": "619c3779_2a319939",
       "revId": "f81350f15897c2643f03ef4790e852fa85f44281",
       "serverId": "4c0b52a2-b090-4331-a190-b288d812d081"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ad77e73_d6677d4c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 621
+      },
+      "writtenOn": "2023-06-18T16:18:17Z",
+      "side": 1,
+      "message": "Permissions will be requested once needed. Tested using google maps on Jelly.",
+      "parentUuid": "21036315_bdbfbb44",
+      "revId": "f81350f15897c2643f03ef4790e852fa85f44281",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081"
     }
   ]
 }
