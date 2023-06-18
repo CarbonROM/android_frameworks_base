@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "787b6364_f7b15585",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4
+      },
+      "writtenOn": "2023-06-18T14:23:55Z",
+      "side": 1,
+      "message": "i wouldnt say 400MB is \"much\" these days + the fact that its still in the git repo because of history but whatever.",
+      "revId": "61002a1111dc4e46c5c9935e9f70dd60d2b6d791",
+      "serverId": "4c0b52a2-b090-4331-a190-b288d812d081"
+    }
+  ]
+}
