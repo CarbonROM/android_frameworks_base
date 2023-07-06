@@ -105,10 +105,6 @@
         <install-in user-type="FULL" />
         <install-in user-type="PROFILE" />
     </install-in-user-type>
-    <install-in-user-type package="com.android.theme.font.notoserifsource">
-        <install-in user-type="FULL" />
-        <install-in user-type="PROFILE" />
-    </install-in-user-type>
     <install-in-user-type package="com.android.theme.icon_pack.circular.android">
         <install-in user-type="FULL" />
         <install-in user-type="PROFILE" />
