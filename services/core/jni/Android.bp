@@ -52,6 +52,7 @@ cc_library_static {
         "com_android_server_GraphicsStatsService.cpp",
         "com_android_server_am_AppCompactor.cpp",
         "com_android_server_am_LowMemDetector.cpp",
+        "com_android_server_pm_PackageManagerService.cpp",
         "onload.cpp",
         ":lib_networkStatsFactory_native",
     ],
@@ -62,6 +63,12 @@ cc_library_static {
         "frameworks/native/services",
         "system/gatekeeper/include",
     ],
+
+    product_variables: {
+        debuggable: {
+            cflags: ["-DANDROID_DEBUGGABLE"],
+        }
+    },
 }
 
 cc_defaults {
