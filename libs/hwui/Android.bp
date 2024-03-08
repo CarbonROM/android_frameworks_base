@@ -154,15 +154,6 @@ cc_defaults {
     cflags: [
         "-fno-omit-frame-pointer",
     ],
-
-    arch: {
-        arm: {
-            cflags: ["-marm"],
-        },
-        arm64: {
-            cflags: ["-marm"],
-        },
-    },
 }
 
 // Build hwui library with ThinLTO by default.
