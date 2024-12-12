@@ -4512,6 +4512,18 @@ public class PackageManagerService extends IPackageManager.Stub
                     resolveExternalPackageNameLPr(p);
             generateFakeSignature(p).ifPresent(fakeSignature -> {
                 packageInfo.signatures = new Signature[]{fakeSignature};
+                try {
+                    packageInfo.signingInfo = new SigningInfo(
+                            new SigningDetails(
+                                    packageInfo.signatures,
+                                    SigningDetails.SignatureSchemeVersion.SIGNING_BLOCK_V3,
+                                    PackageParser.toSigningKeys(packageInfo.signatures),
+                                    null
+                            )
+                    );
+                } catch (CertificateException e) {
+                    Slog.e(TAG, "Caught an exception when creating signing keys: ", e);
+                }
             });
 
             return packageInfo;
